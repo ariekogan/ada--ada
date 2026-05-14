@@ -8,16 +8,16 @@ Situation-aware personal assistant with proactive intelligence.
 ## Skills
 
 - **auto-orchestrator** — 
-- **daily-intel** — Users need proactive daily briefings that analyze their day intelligently.
-- **home-control** — Smart home control needs a unified interface.
-- **life-manager** — Busy professionals need a personal assistant that understands their schedule, relationships, and daily routines — and remembers their preferences across conversations.
-- **memory-keeper** — Personal assistants forget everything between conversations. Users need persistent memory for preferences, facts, and instructions.
-- **messaging-agent** — Multi-channel messaging with tone adaptation and proactive channel setup.
-- **my-docs** — Users need a single place to connect their cloud document sources, build searchable corpora, and ask anything — from single-fact lookups to complex multi-hop analysis. The skill owns the whole pipeline: source connection, ingestion, retrieval, and reasoning.
-- **mycoach** — Users want a personal coach that genuinely understands them — not a tracking app that lectures. The coach must earn the right to be proactive by first listening and learning who the user is.
-- **notification-triage** — Users are overwhelmed by notifications. They need intelligent triage.
-- **teach-this** — Users need to teach their PA behaviors through natural language.
-- **travel-agent** — Users want to search and compare flights, hotels and home rentals across multiple providers without manually opening each site, and view their existing bookings in one place.
+- **daily-intel** — 
+- **home-control** — 
+- **life-manager** — 
+- **memory-keeper** — 
+- **messaging-agent** — 
+- **my-docs** — 
+- **mycoach** — 
+- **notification-triage** — 
+- **teach-this** — 
+- **travel-agent** — 
 
 ## Repo Structure
 
