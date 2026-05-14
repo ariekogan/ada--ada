@@ -3,75 +3,108 @@
   "version": "1.1.0",
   "phase": "DEPLOYED",
   "problem": {
-    "statement": "Personal assistants forget everything between conversations. Users need persistent memory for preferences, facts, and instructions.",
-    "context": "Persistent memory worker skill.",
-    "goals": [
-      "Store preferences permanently",
-      "Remember facts",
-      "Honor standing instructions",
-      "Recall relevant memories"
-    ]
+    "statement": "",
+    "context": "",
+    "goals": []
   },
   "scenarios": [],
   "role": {
     "name": "Memory Keeper",
     "persona": "You are the user's persistent memory — you never forget. When the user tells you to remember something, you categorize it properly:\n\n- PREFERENCE: Rules, likes, dislikes ('no meetings before 10am', 'I prefer window seats')\n- FACT: Personal information ('wife's name is Sarah', 'allergic to peanuts')\n- INSTRUCTION: Standing orders ('always remind me about medications')\n- PATTERN: Behavioral patterns ('usually leaves work at 5:30')\n\nAlways confirm what you stored. When asked to recall, search intelligently and present findings clearly. If the user wants to update or remove a memory, do it immediately.\n\nTag memories with relevant keywords for better recall later.\n\n**CROSS-SKILL ROUTING**\nIf you receive a request outside your capabilities, do NOT attempt it or ask the user to rephrase. Instead:\n1. Call sys.handoffToSkill({to_skill: 'pa-orchestrator', summary: 'Received request outside my scope: [describe request]'}) to route back to the orchestrator for proper routing.\n2. The orchestrator will find the right skill to handle it.\nNever silently fail or make up answers for requests you can't fulfill.\n\nMOBILE COMMUNICATION STYLE (CRITICAL):\nThis is a mobile consumer app with small chat real estate. Keep responses SHORT and CASUAL.\n- Max 2-3 sentences for most replies\n- No bullet lists unless absolutely necessary (and then max 3 items)\n- No headings, no markdown sections\n- Conversational tone like texting a friend\n- Skip preamble — get to the point immediately\n- For yes/no questions, answer directly\n- For task confirmations: 'Done.' / 'Sent.' / 'Got it.'\n- For errors: explain in 1 sentence, suggest one fix\n- Never explain what you're about to do — just do it\n\nMOBILE CHAT: This is a small mobile chat screen. Keep responses 1-3 sentences max. Casual, conversational tone like texting a friend. No bullet lists, no headers, no markdown sections. Plain text only. If details needed, ask one short question at a time.",
-    "goals": [
-      "Store memories with proper categorization",
-      "Recall memories intelligently",
-      "Update and delete on request",
-      "Always confirm what was stored"
-    ],
-    "limitations": [
-      "Cannot access calendar or contacts directly",
-      "Cannot send messages or create events"
-    ],
-    "communication_style": {
-      "tone": "casual",
-      "verbosity": "brief"
-    }
+    "goals": [],
+    "limitations": []
   },
   "glossary": {},
   "intents": {
     "supported": [
       {
-        "id": "recall_memory",
-        "description": "Search and retrieve specific memories or information the user previously stored.",
+        "id": "daily_overview",
+        "description": "Get a briefing of today's schedule, weather, and important information.",
         "examples": [
-          "What did I tell you about my wife's birthday?",
-          "Do you remember my food allergies?",
-          "What are my meeting preferences again?",
-          "Remind me what I said about my workout schedule"
+          "How's my day looking?",
+          "What's on my schedule today?",
+          "Give me the rundown for today",
+          "What should I know about today?"
         ],
         "examples_generated": [
-          "What did I tell you about my wife's birthday?",
-          "Do you remember my food allergies?",
-          "What are my meeting preferences again?",
-          "Remind me what I said about my workout schedule"
+          "How's my day looking?",
+          "What's on my schedule today?",
+          "Give me the rundown for today",
+          "What should I know about today?"
         ],
-        "candidate_tools": [
-          "memory.recall"
-        ],
+        "candidate_tools": [],
         "maps_to_workflow_resolved": true
       },
       {
-        "id": "browse_memories",
-        "description": "View all stored memories or get an overview of what's been remembered.",
+        "id": "schedule_management",
+        "description": "Create, modify, or check calendar events and appointments.",
         "examples": [
-          "Show me everything you remember about me",
-          "What do you have stored?",
-          "List all my preferences",
-          "What memories do you have?"
+          "Schedule a dentist appointment for next week",
+          "When is my meeting with Sarah?",
+          "Move my 3pm call to tomorrow",
+          "Block out time for lunch on Friday"
         ],
         "examples_generated": [
-          "Show me everything you remember about me",
-          "What do you have stored?",
-          "List all my preferences",
-          "What memories do you have?"
+          "Schedule a dentist appointment for next week",
+          "When is my meeting with Sarah?",
+          "Move my 3pm call to tomorrow",
+          "Block out time for lunch on Friday"
         ],
-        "candidate_tools": [
-          "memory.list"
+        "candidate_tools": [],
+        "maps_to_workflow_resolved": true
+      },
+      {
+        "id": "communication_tasks",
+        "description": "Send messages, make calls, or manage contacts.",
+        "examples": [
+          "Text Mom that I'm running late",
+          "Send a message to the team about the delay",
+          "Call the restaurant to make a reservation",
+          "What's John's phone number?"
         ],
+        "examples_generated": [
+          "Text Mom that I'm running late",
+          "Send a message to the team about the delay",
+          "Call the restaurant to make a reservation",
+          "What's John's phone number?"
+        ],
+        "candidate_tools": [],
+        "maps_to_workflow_resolved": true
+      },
+      {
+        "id": "travel_and_location",
+        "description": "Get directions, check commute times, and location-based information.",
+        "examples": [
+          "How long to get to the airport?",
+          "What's traffic like to downtown?",
+          "Find me a coffee shop nearby",
+          "Best route to avoid construction?"
+        ],
+        "examples_generated": [
+          "How long to get to the airport?",
+          "What's traffic like to downtown?",
+          "Find me a coffee shop nearby",
+          "Best route to avoid construction?"
+        ],
+        "candidate_tools": [],
+        "maps_to_workflow_resolved": true
+      },
+      {
+        "id": "web_research",
+        "description": "Look up information, browse websites, and research topics online.",
+        "examples": [
+          "Look up reviews for that new restaurant",
+          "Check if my flight is on time",
+          "Find articles about the latest iPhone",
+          "What's the weather forecast for this weekend?"
+        ],
+        "examples_generated": [
+          "Look up reviews for that new restaurant",
+          "Check if my flight is on time",
+          "Find articles about the latest iPhone",
+          "What's the weather forecast for this weekend?"
+        ],
+        "candidate_tools": [],
         "maps_to_workflow_resolved": true
       }
     ],
@@ -138,37 +171,68 @@
   "toolbox_imports": [],
   "tools": [
     {
-      "id": "tool-mem-recall",
-      "name": "memory.recall",
-      "description": "Recall memories by search query.",
-      "inputs": [
-        {
-          "name": "query",
-          "type": "string",
-          "required": true,
-          "description": "Search query"
-        },
-        {
-          "name": "type",
-          "type": "string",
-          "required": false,
-          "description": "Filter by type"
-        },
-        {
-          "name": "limit",
-          "type": "number",
-          "required": false,
-          "description": "Max results"
-        }
-      ],
-      "output": {
-        "type": "object",
-        "description": "Matching memories"
-      },
+      "name": "memory.store",
+      "description": "Store a long-term HUMAN/AGENT CONTEXT memory — facts, preferences, taught rules, user profile fields. Content must be concise, durable, and recallable. Types: preference, fact, instruction, pattern, rule, user_model; the engine assigns the CoALA kind automatically (semantic / procedural). DO NOT use for: session cookies, OAuth tokens, API keys, or any credentials (use platform.dataStore). DO NOT use for: raw tool-output dumps, large JSON blobs, or cached API responses (use platform.dataStore). The engine runs quality guards, dedup, normalize, and conflict detection; rejections include a `guidance` field telling you the correct tool/path. Returns { memory, conflicts, processing }.",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "memory-mcp",
-        "mcp_tool": "memory.recall"
+        "mcp_tool": "memory.store"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "rule",
+              "pattern",
+              "instruction",
+              "fact",
+              "preference",
+              "user_model"
+            ],
+            "description": "Memory type"
+          },
+          "content": {
+            "type": "string",
+            "description": "Memory content (natural language or JSON for structured types)"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "context": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "taught",
+              "auto",
+              "system",
+              "user"
+            ],
+            "description": "Provenance (default: taught)"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
       },
       "security": {
         "classification": "internal",
@@ -177,37 +241,794 @@
       }
     },
     {
-      "id": "tool-mem-list",
-      "name": "memory.list",
-      "description": "List all stored memories.",
-      "inputs": [
-        {
-          "name": "type",
-          "type": "string",
-          "required": false,
-          "description": "Filter by type"
-        },
-        {
-          "name": "limit",
-          "type": "number",
-          "required": false,
-          "description": "Max results"
-        },
-        {
-          "name": "offset",
-          "type": "number",
-          "required": false,
-          "description": "Pagination offset"
-        }
-      ],
-      "output": {
-        "type": "object",
-        "description": "List of memories"
+      "name": "memory.recall",
+      "description": "Recall memories by keyword query. Searches content + raw_content + tags. When embeddings come online this transparently becomes semantic.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.recall"
       },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "query": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "rule",
+              "pattern",
+              "instruction",
+              "fact",
+              "preference",
+              "user_model"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "episodic",
+              "semantic",
+              "procedural"
+            ]
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.list",
+      "description": "List stored memories with optional type/kind filter and pagination.",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "memory-mcp",
         "mcp_tool": "memory.list"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "rule",
+              "pattern",
+              "instruction",
+              "fact",
+              "preference",
+              "user_model"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "episodic",
+              "semantic",
+              "procedural"
+            ]
+          },
+          "limit": {
+            "type": "number"
+          },
+          "offset": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.update",
+      "description": "Update an existing memory by ID.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.update"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "content": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "context": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.delete",
+      "description": "Delete a memory by ID.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.delete"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.rules.match",
+      "description": "Match active taught rules against a situation. Returns ranked rules. Used by Core fast_path / detectIntent to decide whether to short-circuit.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.rules.match"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "situation": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "situation"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.rules.count",
+      "description": "Count active vs inactive taught rules for the current actor.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.rules.count"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "context.store",
+      "description": "Store an ephemeral context (situation or plan). Auto-expires via Mongo TTL index.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "context.store"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "situation",
+              "plan"
+            ]
+          },
+          "data": {
+            "type": "string",
+            "description": "JSON string"
+          },
+          "ttl_minutes": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "type",
+          "data"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "context.read",
+      "description": "Read active ephemeral context — current situations and plans.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "context.read"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "situation",
+              "plan"
+            ]
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "context.resolve",
+      "description": "Mark an ephemeral context as resolved or abandoned.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "context.resolve"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "resolved",
+              "abandoned"
+            ]
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "context.clear",
+      "description": "Clear all active ephemeral context for the actor (optionally filtered by type).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "context.clear"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "situation",
+              "plan"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.userProfile",
+      "description": "Get the complete user profile in one call. Returns structured profile, preferences, facts, instructions, and active taught rules. Call at the start of every interaction.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.userProfile"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.userProfile.set",
+      "description": "Set a structured profile field (name, timezone, location, etc). Creates or updates a user_model memory.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.userProfile.set"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "field": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "value"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.semantic.search",
+      "description": "Semantic search over memories. Returns matches with similarity scores. Degrades to keyword recall when embeddings provider is not configured (P1).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.semantic.search"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "query": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "episodic",
+              "semantic",
+              "procedural"
+            ]
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.explain",
+      "description": "Explain why a memory is remembered: returns the memory + its full meta trail.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.explain"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.summarize",
+      "description": "Structured snapshot of what's known about the current actor. P1 returns counts + structured profile. LLM narrative summary will be added in P6.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.summarize"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.compact",
+      "description": "Run a compaction sweep — decay stale auto-learned memories and surface duplicate clusters. Does not auto-merge in P1; returns candidates for review.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.compact"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.confidence",
+      "description": "Read or set the confidence score on a memory.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.confidence"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Omit to read, provide to set"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.supersede",
+      "description": "Mark old memory as superseded by new memory. Old becomes inactive, link recorded.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.supersede"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "old_id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "new_id": {
+            "$ref": "#/properties/old_id"
+          }
+        },
+        "required": [
+          "old_id",
+          "new_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.audit",
+      "description": "Read meta trail for a single memory or recent events for the actor.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.audit"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ],
+            "description": "Memory ID — if omitted, returns recent actor events"
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.embed",
+      "description": "Generate an embedding vector for arbitrary text. Returns null when no embedding provider is configured (P1 default).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.embed"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.extract",
+      "description": "Run end-of-job auto-extraction over a transcript. Cheap regex pass always runs; smart LLM pass runs if smart=true and Core LLM is reachable. Writes extracted memories with source='auto' and lower confidence.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.extract"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "transcript": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "role": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "role",
+                "content"
+              ],
+              "additionalProperties": false
+            },
+            "description": "Conversation turns"
+          },
+          "smart": {
+            "type": "boolean",
+            "description": "Also run LLM pass (default false in P1)"
+          }
+        },
+        "required": [
+          "transcript"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
       },
       "security": {
         "classification": "internal",
@@ -224,11 +1045,7 @@
   "policy": {
     "guardrails": {
       "never": [],
-      "always": [
-        "MOBILE CHAT — confirm in 1 short sentence: 'Got it.', 'Saved.', 'Forgot it.'",
-        "Casual tone.",
-        "No filler, no preamble."
-      ]
+      "always": []
     },
     "approvals": [],
     "workflows": [],
@@ -240,42 +1057,50 @@
   },
   "channels": [],
   "conversation": [],
-  "id": "memory-keeper",
   "name": "Memory Keeper",
-  "grant_mappings": [],
-  "access_policy": {
-    "rules": [
-      {
-        "tools": [
-          "*"
-        ],
-        "requires_grants": [
-          "pa.verified_user"
-        ],
-        "effect": "allow"
-      }
-    ]
-  },
-  "updated_at": "2026-05-14T10:48:30.424Z",
-  "created_at": "2026-03-23T17:09:29.411Z",
+  "solution_id": "ada",
+  "id": "memory-keeper",
+  "created_at": "2026-05-14T12:26:04.468Z",
+  "updated_at": "2026-05-14T12:26:04.738Z",
   "validation": {
-    "valid": false,
+    "valid": true,
     "ready_to_export": false,
-    "errors": [
-      {
-        "code": "INVALID_VERBOSITY",
-        "severity": "error",
-        "path": "role.communication_style.verbosity",
-        "message": "Invalid verbosity: brief. Must be one of: concise, balanced, detailed"
-      }
-    ],
+    "errors": [],
     "warnings": [
       {
         "code": "INTENT_NO_TOOLS",
         "severity": "warning",
+        "path": "intents.supported[0]",
+        "message": "Intent \"daily_overview\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"daily_overview\", or ensure tool names relate to this intent"
+      },
+      {
+        "code": "INTENT_NO_TOOLS",
+        "severity": "warning",
         "path": "intents.supported[1]",
-        "message": "Intent \"browse_memories\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"browse_memories\", or ensure tool names relate to this intent"
+        "message": "Intent \"schedule_management\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"schedule_management\", or ensure tool names relate to this intent"
+      },
+      {
+        "code": "INTENT_NO_TOOLS",
+        "severity": "warning",
+        "path": "intents.supported[2]",
+        "message": "Intent \"communication_tasks\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"communication_tasks\", or ensure tool names relate to this intent"
+      },
+      {
+        "code": "INTENT_NO_TOOLS",
+        "severity": "warning",
+        "path": "intents.supported[3]",
+        "message": "Intent \"travel_and_location\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"travel_and_location\", or ensure tool names relate to this intent"
+      },
+      {
+        "code": "INTENT_NO_TOOLS",
+        "severity": "warning",
+        "path": "intents.supported[4]",
+        "message": "Intent \"web_research\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"web_research\", or ensure tool names relate to this intent"
       }
     ],
     "unresolved": {
@@ -284,22 +1109,21 @@
       "intents": []
     },
     "completeness": {
-      "problem": true,
+      "problem": false,
       "scenarios": false,
       "role": true,
       "intents": true,
-      "tools": true,
-      "policy": true,
+      "tools": false,
+      "policy": false,
       "engine": true,
-      "mocks_tested": true,
+      "mocks_tested": false,
       "identity": false,
       "security": true
     }
   },
-  "solution_id": "ada",
-  "lastExportedAt": "2026-05-14T10:48:30.242Z",
+  "lastExportedAt": "2026-05-14T12:26:04.561Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-14T10:48:30.420Z",
+  "deployedAt": "2026-05-14T12:26:04.736Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/memory-keeper"
 }
