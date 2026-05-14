@@ -3,125 +3,115 @@
   "version": "0.1.0",
   "phase": "DEPLOYED",
   "problem": {
-    "statement": "Users need a single place to connect their cloud document sources, build searchable corpora, and ask anything — from single-fact lookups to complex multi-hop analysis. The skill owns the whole pipeline: source connection, ingestion, retrieval, and reasoning.",
-    "context": "Corpora can be large (contracts, handbooks, specs). Questions range from simple factoids with one citation to chain-of-liability analysis spanning several documents. One skill handles both.",
-    "goals": [
-      "Seamlessly connect the user to their document sources (Dropbox now; Google Drive next)",
-      "Ingest folders into searchable corpora",
-      "Answer factoid questions inline with exact citations",
-      "Do multi-hop reasoning with structured, cited answers",
-      "Flag gaps, conflicts, ambiguities — never guess"
-    ]
+    "statement": "",
+    "context": "",
+    "goals": []
   },
   "scenarios": [],
   "role": {
     "name": "My Docs",
     "persona": "You help the user search and analyze their cloud documents (Dropbox, Google Drive).\n\n## Main tool: docs.answer\nFor ANY question about document content (overview, topics, 'what does X say about Y', summaries, comparisons) use `docs.answer({query, corpus_id?})`. It does the whole RAG pipeline internally — search, context expansion, cited answer. ONE call, done.\n\n## Other tools (when needed)\n- `docs.corpus.list` — see which corpora exist\n- `docs.search({corpus_id?, query, top_k})` — raw semantic search (use only if you need the chunks, not an answer)\n- `docs.neighbor_chunks` — context for a specific chunk\n- `docs.corpus.delete` — delete a corpus (confirm first)\n- `cloud.create_corpus({name, service_id, path})` — create a cloud-backed corpus with auto-sync. Use THIS (not docs.corpus.create) for Dropbox/Drive.\n- `cloud.list_folder` — browse cloud folders\n- `platform.auth.ensureConnected({service_id})` — connect to a cloud service\n\nService ids: `dropbox`, `google_drive`.\n\n## Rules of thumb\n- Content questions → docs.answer (one call).\n- Setup/management → the specific tool.\n- Don't write Python scripts unless the user asks for code.\n- Auto-sync is automatic after cloud.create_corpus — never manually walk/download/ingest.\n\n\n\n## Sampling disclosure (CRITICAL)\nWhen producing a classification, summary, overview, or any 'about all my docs / all my contracts' answer using docs.search (which returns only top_k chunks, not the full corpus), ALWAYS state the sample size relative to the corpus total. Never present a sample as if it covered everything. Phrase it like: 'I looked at N chunks from M files (out of <total> in your corpus).' If the user asked about ALL their docs and you only retrieved a sample, OFFER a full pass before drawing categorical conclusions — do not present partial results as final.",
-    "goals": [
-      "Seamlessly connect Dropbox / Google Drive via platform.auth",
-      "Ingest and manage corpora with clear progress reporting",
-      "Decompose multi-part questions before searching",
-      "Retrieve precisely — use heading_prefix and file_id filters",
-      "Expand key matches with docs.neighbor_chunks before synthesizing",
-      "Produce cited, structured answers with tables for money flows",
-      "Flag gaps and conflicts explicitly"
-    ],
-    "limitations": [
-      "Cannot answer without retrieval if the question is about document content",
-      "Cannot upload, delete, or modify content without explicit user confirmation",
-      "Cannot interpret clauses without supporting material"
-    ],
-    "communication_style": {
-      "tone": "technical",
-      "verbosity": "concise"
-    }
+    "goals": [],
+    "limitations": []
   },
   "glossary": {},
   "intents": {
     "supported": [
       {
-        "id": "connect_source",
-        "description": "Connect a cloud document source (Dropbox, Google Drive) to the platform.",
+        "id": "daily_overview",
+        "description": "Get a briefing of today's schedule, weather, and important information.",
         "examples": [
-          "Connect me to Dropbox",
-          "Link my Google Drive",
-          "Set up cloud storage for my docs",
-          "Is Dropbox connected?"
+          "How's my day looking?",
+          "What's on my schedule today?",
+          "Give me the rundown for today",
+          "What should I know about today?"
         ],
+        "examples_generated": [
+          "How's my day looking?",
+          "What's on my schedule today?",
+          "Give me the rundown for today",
+          "What should I know about today?"
+        ],
+        "candidate_tools": [],
         "maps_to_workflow_resolved": true
       },
       {
-        "id": "ingestion_status",
-        "description": "User asks about the current state of their document indexing / corpora — what's indexed, whether ingestion has happened, file counts, last sync time. Past-tense and present-state questions about the live state of docs-index-mcp.",
+        "id": "schedule_management",
+        "description": "Create, modify, or check calendar events and appointments.",
         "examples": [
-          "Did you perform indexing?",
-          "Have you indexed my docs?",
-          "What have you indexed?",
-          "Are my files indexed yet?",
-          "Is my Dropbox indexed?",
-          "How many docs have you processed?",
-          "Did the indexing finish?",
-          "What do you know about my documents so far?"
+          "Schedule a dentist appointment for next week",
+          "When is my meeting with Sarah?",
+          "Move my 3pm call to tomorrow",
+          "Block out time for lunch on Friday"
         ],
+        "examples_generated": [
+          "Schedule a dentist appointment for next week",
+          "When is my meeting with Sarah?",
+          "Move my 3pm call to tomorrow",
+          "Block out time for lunch on Friday"
+        ],
+        "candidate_tools": [],
         "maps_to_workflow_resolved": true
       },
       {
-        "id": "corpus_manage",
-        "description": "Create, list, delete, or inspect document corpora.",
+        "id": "communication_tasks",
+        "description": "Send messages, make calls, or manage contacts.",
         "examples": [
-          "What corpora do I have?",
-          "Create a corpus called Contracts",
-          "Delete the old handbook corpus",
-          "How many files are in my contracts corpus?"
+          "Text Mom that I'm running late",
+          "Send a message to the team about the delay",
+          "Call the restaurant to make a reservation",
+          "What's John's phone number?"
         ],
+        "examples_generated": [
+          "Text Mom that I'm running late",
+          "Send a message to the team about the delay",
+          "Call the restaurant to make a reservation",
+          "What's John's phone number?"
+        ],
+        "candidate_tools": [],
         "maps_to_workflow_resolved": true
       },
       {
-        "id": "ingest_folder",
-        "description": "Ingest a Dropbox folder (or file) into a corpus for semantic search.",
+        "id": "travel_and_location",
+        "description": "Get directions, check commute times, and location-based information.",
         "examples": [
-          "Index /Contracts/2024 into the contracts corpus",
-          "Ingest the whole /Handbooks folder",
-          "Add this PDF to my legal corpus"
+          "How long to get to the airport?",
+          "What's traffic like to downtown?",
+          "Find me a coffee shop nearby",
+          "Best route to avoid construction?"
         ],
+        "examples_generated": [
+          "How long to get to the airport?",
+          "What's traffic like to downtown?",
+          "Find me a coffee shop nearby",
+          "Best route to avoid construction?"
+        ],
+        "candidate_tools": [],
         "maps_to_workflow_resolved": true
       },
       {
-        "id": "search_docs",
-        "description": "Semantic / factoid search across ingested documents.",
+        "id": "web_research",
+        "description": "Look up information, browse websites, and research topics online.",
         "examples": [
-          "What does my lease say about subletting?",
-          "Find all mentions of indemnification in my contracts",
-          "Search for the refund policy in the handbook"
+          "Look up reviews for that new restaurant",
+          "Check if my flight is on time",
+          "Find articles about the latest iPhone",
+          "What's the weather forecast for this weekend?"
         ],
-        "maps_to_workflow_resolved": true
-      },
-      {
-        "id": "analyze_docs",
-        "description": "Multi-hop analysis — compare clauses, trace references, identify overriding amendments, flag gaps.",
-        "examples": [
-          "Compare the termination clauses in contracts A and B",
-          "Trace the chain of liability in this master agreement",
-          "What amendments override the base confidentiality clause?",
-          "Is there anything in the handbook that conflicts with the contract?"
+        "examples_generated": [
+          "Look up reviews for that new restaurant",
+          "Check if my flight is on time",
+          "Find articles about the latest iPhone",
+          "What's the weather forecast for this weekend?"
         ],
-        "maps_to_workflow_resolved": true
-      },
-      {
-        "id": "browse_files",
-        "description": "List or inspect files and metadata (Dropbox paths or corpus files).",
-        "examples": [
-          "What's in my Dropbox /Contracts folder?",
-          "Show me the TOC of contract-2024.pdf",
-          "List files in my legal corpus"
-        ],
+        "candidate_tools": [],
         "maps_to_workflow_resolved": true
       }
     ],
     "thresholds": {
-      "accept": 0.6,
-      "clarify": 0.4,
-      "reject": 0.3
+      "accept": 0.8,
+      "clarify": 0.5,
+      "reject": 0.5
     },
     "out_of_domain": {
       "action": "redirect",
@@ -183,18 +173,83 @@
   "toolbox_imports": [],
   "tools": [
     {
-      "id": "docs-index-wc",
-      "name": "docs-index-mcp:*",
-      "description": "All docs indexing / retrieval tools: corpus.create/list/delete, ingest.file, list_files, list_sections, search, neighbor_chunks, file.get, stats. Also sync.getCursor/setCursor for delta sync tracking.",
-      "inputs": [],
-      "output": {
-        "type": "object",
-        "description": "Varies by tool"
-      },
+      "name": "docs.corpus.create",
+      "description": "Create a named corpus (a collection of documents). Source type hints how the corpus is fed (dropbox, gdrive, google_drive, gmail, local, manual). Chunk size/overlap override per-corpus settings. Pass sync_hook to wire a fire-and-forget refresh webhook that docs.search calls after returning results.",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "docs-index-mcp",
-        "mcp_tool": "*"
+        "mcp_tool": "docs.corpus.create"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "name": {
+            "type": "string",
+            "description": "Unique corpus name for this actor (e.g. 'engineering-handbook')"
+          },
+          "source_type": {
+            "type": "string",
+            "enum": [
+              "dropbox",
+              "gdrive",
+              "google_drive",
+              "gmail",
+              "local",
+              "manual"
+            ]
+          },
+          "source_config": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "Free-form config per source (e.g. {root_path: '/Engineering'})"
+          },
+          "embedding_model": {
+            "type": "string"
+          },
+          "chunk_size_tokens": {
+            "type": "integer"
+          },
+          "chunk_overlap": {
+            "type": "integer"
+          },
+          "shared": {
+            "type": "boolean",
+            "description": "If true, corpus is tenant-wide — any caller in the tenant can read/write/search it. Default: false (private to actor)."
+          },
+          "sync_hook": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "description": "HTTP MCP endpoint of the sync webhook owner (e.g. http://cloud-docs:7312/mcp)"
+              },
+              "tool": {
+                "type": "string",
+                "description": "Tool name to call on that endpoint (e.g. cloud.sync_corpus)"
+              }
+            },
+            "required": [
+              "url",
+              "tool"
+            ],
+            "additionalProperties": false,
+            "description": "Fire-and-forget refresh webhook. docs.search calls this AFTER returning results (cooldown-gated). Enables auto-sync for cloud-backed corpora."
+          },
+          "sync_cooldown_ms": {
+            "type": "integer",
+            "description": "Min ms between background sync fires. Default 15 min."
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
       },
       "security": {
         "classification": "internal",
@@ -203,18 +258,1169 @@
       }
     },
     {
-      "id": "cloud-docs-wc",
-      "name": "cloud-docs:*",
-      "description": "Unified cloud source API. cloud.list_services, cloud.list_folder, cloud.get_metadata, cloud.download, cloud.list_changes (delta sync), cloud.walk (recursive for initial ingest). Requires platform.auth.ensureConnected(service_id) first.",
-      "inputs": [],
-      "output": {
-        "type": "object",
-        "description": "Varies by tool"
+      "name": "docs.corpus.list",
+      "description": "List all corpora owned by the calling actor.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "docs-index-mcp",
+        "mcp_tool": "docs.corpus.list"
       },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "docs.corpus.get",
+      "description": "Get a single corpus by id.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "docs-index-mcp",
+        "mcp_tool": "docs.corpus.get"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "corpus_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "corpus_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "docs.corpus.delete",
+      "description": "Delete a corpus and all its files and chunks. Destructive.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "docs-index-mcp",
+        "mcp_tool": "docs.corpus.delete"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "corpus_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "corpus_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "docs.stats",
+      "description": "Stats for one corpus (if corpus_id given) or all corpora of the actor.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "docs-index-mcp",
+        "mcp_tool": "docs.stats"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "corpus_id": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "docs.ingest.file",
+      "description": "Ingest a single file: chunk + embed + store. Provide either content_base64 (for binary formats like pdf/docx) or text (for already-extracted plain text). Skips work if (source_id, source_rev) matches an existing indexed file.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "docs-index-mcp",
+        "mcp_tool": "docs.ingest.file"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "corpus_id": {
+            "type": "string"
+          },
+          "source_id": {
+            "type": "string",
+            "description": "Stable identifier from the source (e.g. Dropbox path_lower or file id)"
+          },
+          "source_rev": {
+            "type": "string",
+            "description": "Content hash or rev — used for change detection"
+          },
+          "path": {
+            "type": "string",
+            "description": "Human-readable path (for citations)"
+          },
+          "mime": {
+            "type": "string"
+          },
+          "content_base64": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "corpus_id",
+          "source_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "docs.ingest.batch",
+      "description": "Ingest many files in one call. Each item follows the docs.ingest.file shape (minus actor_id). Returns per-file results.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "docs-index-mcp",
+        "mcp_tool": "docs.ingest.batch"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "corpus_id": {
+            "type": "string"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "source_id": {
+                  "type": "string"
+                },
+                "source_rev": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                },
+                "mime": {
+                  "type": "string"
+                },
+                "content_base64": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "source_id"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "corpus_id",
+          "files"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "docs.ingest.markDeleted",
+      "description": "Remove files (and their chunks) from the corpus by source_id. Use when upstream files are deleted.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "docs-index-mcp",
+        "mcp_tool": "docs.ingest.markDeleted"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "corpus_id": {
+            "type": "string"
+          },
+          "source_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "corpus_id",
+          "source_ids"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "docs.sync.getCursor",
+      "description": "Get the sync cursor for a corpus (opaque to this service — written by the source connector).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "docs-index-mcp",
+        "mcp_tool": "docs.sync.getCursor"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "corpus_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "corpus_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "docs.sync.setCursor",
+      "description": "Persist the sync cursor for a corpus. Source connectors call this after each delta sync.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "docs-index-mcp",
+        "mcp_tool": "docs.sync.setCursor"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "corpus_id": {
+            "type": "string"
+          },
+          "cursor": {
+            "type": "string"
+          },
+          "incremental": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "corpus_id",
+          "cursor"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "docs.search",
+      "description": "Semantic search over indexed chunks. Embeds the query, returns top-k chunks by cosine similarity. Scope narrows via filters: corpus_id (single corpus), file_id (single file or array — lets you 'search within contract X'), and heading_prefix (e.g. 'Liability' or 'Liability / Caps' — matches the chunk's heading_path prefix, case-insensitive). Omit all scope fields to search across every corpus owned by the actor.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "docs-index-mcp",
+        "mcp_tool": "docs.search"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "corpus_id": {
+            "type": "string"
+          },
+          "file_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "description": "Restrict search to specific file(s)"
+          },
+          "heading_prefix": {
+            "type": "string",
+            "description": "Restrict to chunks whose heading_path starts with this prefix (e.g. 'Termination' or 'Liability / Caps')"
+          },
+          "query": {
+            "type": "string"
+          },
+          "top_k": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "docs.answer",
+      "description": "High-level RAG: answer a natural-language question from the user's documents in ONE call. Internally runs docs.search, expands neighbor chunks, and has an LLM compose a grounded answer with [N] citations. Use this for ANY 'what does X say about Y', 'summarize my docs about Z', 'give me an overview' question — it replaces the pattern of docs.search + Python scripting + manual citation. Returns { answer: <markdown with [N] citations>, citations: [{index, path, heading_path, ...}], chunks_used, scanned }. If docs contain nothing relevant, says so honestly — never hallucinates.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "docs-index-mcp",
+        "mcp_tool": "docs.answer"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "query": {
+            "type": "string",
+            "description": "The user's natural-language question"
+          },
+          "corpus_id": {
+            "type": "string",
+            "description": "Scope to one corpus; omit to search across all accessible corpora"
+          },
+          "top_k": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 15,
+            "description": "How many chunks to retrieve before answering. Default 6."
+          },
+          "expand_neighbors": {
+            "type": "boolean",
+            "description": "Expand context around top hits. Default true."
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "docs.file.get",
+      "description": "Get a file's full reconstructed text and its chunk breakdown. Use after docs.search when a single chunk is insufficient.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "docs-index-mcp",
+        "mcp_tool": "docs.file.get"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "file_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "file_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "docs.neighbor_chunks",
+      "description": "Get chunks adjacent to a given chunk in the same file — critical for contract/code reasoning where clauses reference 'subject to §3 above' or 'as defined below'. Returns the target plus `before` chunks preceding and `after` chunks following it, in document order.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "docs-index-mcp",
+        "mcp_tool": "docs.neighbor_chunks"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "chunk_id": {
+            "type": "string",
+            "description": "Chunk to center the window on (from docs.search results)"
+          },
+          "before": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10,
+            "description": "How many chunks before (default 1)"
+          },
+          "after": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10,
+            "description": "How many chunks after (default 1)"
+          }
+        },
+        "required": [
+          "chunk_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "docs.list_sections",
+      "description": "TOC-style section listing for a file. Returns heading_path tree with chunk_ids per section. Use to navigate to a specific section ('§4.2', 'Termination') precisely before searching or expanding.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "docs-index-mcp",
+        "mcp_tool": "docs.list_sections"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "file_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "file_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "docs.list_files",
+      "description": "List files in a corpus — discovery tool. Use when you need to know 'what documents are in this corpus' before targeting a specific one with docs.search(file_id=...).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "docs-index-mcp",
+        "mcp_tool": "docs.list_files"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "corpus_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "indexed",
+              "pending",
+              "failed",
+              "skipped"
+            ],
+            "description": "Filter by indexing status"
+          }
+        },
+        "required": [
+          "corpus_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "docs.overview",
+      "description": "One-call dashboard of the user's documents — corpora (with file/chunk counts + last indexed), recent files across all corpora (most-recently-updated first), and totals. Use this instead of docs.corpus.list + docs.list_files loops for 'what do I have?' / 'what have you indexed?' queries.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "docs-index-mcp",
+        "mcp_tool": "docs.overview"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "recent_limit": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 50,
+            "description": "How many recent files to return. Default 10. 0 = skip recent list."
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "docs.file.summary",
+      "description": "LLM-generated TLDR + key topics + key entities for ONE file. Cached by file-version — repeat calls are free until the file is re-indexed. Use this for 'what is this doc about?' / 'show me a summary of contract-2024.pdf' instead of forcing docs.answer to RAG the whole thing.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "docs-index-mcp",
+        "mcp_tool": "docs.file.summary"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "file_id": {
+            "type": "string"
+          },
+          "force": {
+            "type": "boolean",
+            "description": "Bypass cache and regenerate. Default false."
+          }
+        },
+        "required": [
+          "file_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "docs.analyze",
+      "description": "Multi-doc structured analysis. Pass a query plus EITHER file_ids (specific files) OR corpus_ids (search each corpus and use top hits). Returns { per_doc: [{file_id, path, findings, citations}], comparison, conflicts } — a structured JSON instead of a narrative string. Use for 'compare clauses in contracts A and B', 'what conflicts between the handbook and contract', 'trace liability across these agreements'. One call replaces the answer→neighbor→answer loop.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "docs-index-mcp",
+        "mcp_tool": "docs.analyze"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "query": {
+            "type": "string",
+            "description": "The analysis question, e.g. 'compare termination clauses' or 'find conflicts on indemnification'"
+          },
+          "file_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Specific files to analyze (preferred when known)"
+          },
+          "corpus_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Corpora to search; top hits per corpus feed the analysis"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "auth.listServices",
+      "description": "Internal — returns the auth services this connector handles, for platform.auth self-registration.",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "cloud-docs",
-        "mcp_tool": "*"
+        "mcp_tool": "auth.listServices"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "cloud.status",
+      "description": "Internal — liveness probe for platform.auth.status(probe:true). Do not call directly.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "cloud-docs",
+        "mcp_tool": "cloud.status"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
+          },
+          "service_id": {
+            "type": "string",
+            "description": "e.g. 'dropbox'"
+          }
+        },
+        "required": [
+          "service_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "cloud.list_services",
+      "description": "List the cloud source providers this connector supports (dropbox, google_drive, ...).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "cloud-docs",
+        "mcp_tool": "cloud.list_services"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "cloud.list_folder",
+      "description": "List files and folders at a path in the given cloud source. Pass path='' for the root. Supports pagination via cursor.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "cloud-docs",
+        "mcp_tool": "cloud.list_folder"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
+          },
+          "service_id": {
+            "type": "string",
+            "description": "e.g. 'dropbox'"
+          },
+          "path": {
+            "type": "string",
+            "description": "Folder path (empty string for root)"
+          },
+          "cursor": {
+            "type": "string",
+            "description": "Pagination cursor from a previous call"
+          }
+        },
+        "required": [
+          "service_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "cloud.get_metadata",
+      "description": "Get file metadata (size, modified, type) at a specific path.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "cloud-docs",
+        "mcp_tool": "cloud.get_metadata"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
+          },
+          "service_id": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "service_id",
+          "path"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "cloud.download",
+      "description": "Download a file by path. Returns { content_base64, size, mime, name }. Use this to fetch files for ingestion into docs-index-mcp.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "cloud-docs",
+        "mcp_tool": "cloud.download"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
+          },
+          "service_id": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string",
+            "description": "Full file path (e.g. '/Contracts/lease.pdf')"
+          }
+        },
+        "required": [
+          "service_id",
+          "path"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "cloud.upload",
+      "description": "Upload a file from the platform CAS (artifacts store) to a cloud service at the given path. Pass the artifact_hash of a previously-attached or job-stored file plus the destination path. mode='add' auto-renames on collision (default), mode='overwrite' replaces. Returns { path, name, size, id, rev, content_hash }. Requires write scope on the provider (Dropbox: files.content.write). Single-request limit 150MB.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "cloud-docs",
+        "mcp_tool": "cloud.upload"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
+          },
+          "service_id": {
+            "type": "string",
+            "description": "e.g. 'dropbox', 'google_drive'"
+          },
+          "path": {
+            "type": "string",
+            "description": "Destination path including filename (e.g. '/Uploads/report.pdf')"
+          },
+          "artifact_hash": {
+            "type": "string",
+            "description": "SHA-256 hash of the artifact in Core CAS (from job attachments or listArtifacts)"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "add",
+              "overwrite"
+            ],
+            "description": "'add' auto-renames on collision (default), 'overwrite' replaces"
+          },
+          "autorename": {
+            "type": "boolean",
+            "description": "With mode='add', auto-rename on collision. Default true."
+          }
+        },
+        "required": [
+          "service_id",
+          "path",
+          "artifact_hash"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "cloud.list_changes",
+      "description": "Incremental sync. First call (no cursor) → returns initial cursor (no entries). Subsequent calls with the cursor → returns added/removed files since last call.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "cloud-docs",
+        "mcp_tool": "cloud.list_changes"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
+          },
+          "service_id": {
+            "type": "string"
+          },
+          "cursor": {
+            "type": "string"
+          },
+          "corpus_id": {
+            "type": "string",
+            "description": "If provided, server persists/retrieves the cursor per (actor, service, corpus) automatically."
+          },
+          "root_path": {
+            "type": "string",
+            "description": "Only used on first call to acquire initial cursor."
+          }
+        },
+        "required": [
+          "service_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "cloud.walk",
+      "description": "Recursive walk — returns every file under the given path. Use this for INITIAL ingest. Returns a flat list of file entries (not folders). Dropbox caps page sizes internally; this tool aggregates them.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "cloud-docs",
+        "mcp_tool": "cloud.walk"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
+          },
+          "service_id": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string",
+            "description": "Root path to walk. Empty string = user root."
+          },
+          "max_files": {
+            "type": "integer",
+            "description": "Safety cap. Default 5000."
+          }
+        },
+        "required": [
+          "service_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "cloud.create_corpus",
+      "description": "Create a searchable corpus backed by a cloud source (Dropbox, Google Drive). Automatically wires background sync: future docs.search calls against this corpus will trigger a fresh pull from the cloud (cooldown 15 min). The corpus is per-actor by default. Use this instead of docs.corpus.create for cloud-sourced corpora.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "cloud-docs",
+        "mcp_tool": "cloud.create_corpus"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
+          },
+          "name": {
+            "type": "string",
+            "description": "Unique corpus name for this actor (e.g. 'my-contracts')"
+          },
+          "service_id": {
+            "type": "string",
+            "description": "Cloud source: 'dropbox' or 'google_drive'"
+          },
+          "path": {
+            "type": "string",
+            "description": "Root folder path in the cloud source (empty string for root)"
+          },
+          "chunk_size_tokens": {
+            "type": "integer"
+          },
+          "chunk_overlap": {
+            "type": "integer"
+          },
+          "sync_cooldown_ms": {
+            "type": "integer",
+            "description": "Min ms between background syncs. Default 15 min."
+          }
+        },
+        "required": [
+          "name",
+          "service_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "cloud.sync_corpus",
+      "description": "Internal — webhook target. Called by docs-index-mcp.docs.search to refresh a corpus from its cloud source. Do not call directly.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "cloud-docs",
+        "mcp_tool": "cloud.sync_corpus"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
+          },
+          "corpus_id": {
+            "type": "string"
+          },
+          "source_type": {
+            "type": "string",
+            "description": "e.g. 'dropbox', 'google_drive'"
+          },
+          "source_config": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "Corpus source config (e.g. { path: '/Contracts' })"
+          }
+        },
+        "required": [
+          "corpus_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
       },
       "security": {
         "classification": "internal",
@@ -231,12 +1437,7 @@
   ],
   "policy": {
     "guardrails": {
-      "never": [
-        "Never make up file paths, section numbers, or document content that wasn't in docs.search results",
-        "Never delete a corpus without explicit user confirmation",
-        "Never use web.openLoginWebView or any connector-specific login tool — use platform.auth.ensureConnected",
-        "Never present a sample-based answer (top_k docs.search results, a handful of neighbor chunks, or any partial retrieval) as if it covered the entire corpus. When summarizing, classifying, or characterizing a corpus from partial retrieval, always state the sample size and the corpus total, and offer a full pass before producing a confident summary."
-      ],
+      "never": [],
       "always": []
     },
     "approvals": [],
@@ -249,80 +1450,50 @@
   },
   "channels": [],
   "conversation": [],
-  "id": "my-docs",
   "name": "My Docs",
-  "access_policy": {
-    "rules": [
-      {
-        "tools": [
-          "*"
-        ],
-        "effect": "allow"
-      }
-    ]
-  },
-  "grant_mappings": [],
-  "policy.guardrails.never": [
-    "Never pass shared:true to docs.corpus.create — this is a personal assistant, corpora are always per-actor (private to the user). The default (shared:false) is correct; never override."
-  ],
-  "intents.supported": [
-    {
-      "id": "ingestion_status",
-      "description": "User asks about the current state of their document indexing / corpora — what's indexed, whether ingestion has happened, file counts, last sync time. Past-tense and present-state questions about the live state of docs-index-mcp.",
-      "examples": [
-        "Did you perform indexing?",
-        "Have you indexed my docs?",
-        "What have you indexed?",
-        "Are my files indexed yet?",
-        "Is my Dropbox indexed?",
-        "What's in my corpus?",
-        "How many docs have you processed?",
-        "Did the indexing finish?",
-        "What do you know about my documents so far?"
-      ]
-    }
-  ],
-  "updated_at": "2026-05-14T10:52:03.614Z",
-  "created_at": "2026-04-27T13:47:44.623Z",
+  "solution_id": "ada",
+  "id": "my-docs",
+  "created_at": "2026-05-14T12:30:30.432Z",
+  "updated_at": "2026-05-14T12:30:30.622Z",
   "validation": {
     "valid": true,
-    "ready_to_export": true,
+    "ready_to_export": false,
     "errors": [],
     "warnings": [
       {
         "code": "INTENT_NO_TOOLS",
         "severity": "warning",
         "path": "intents.supported[0]",
-        "message": "Intent \"connect_source\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"connect_source\", or ensure tool names relate to this intent"
+        "message": "Intent \"daily_overview\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"daily_overview\", or ensure tool names relate to this intent"
       },
       {
         "code": "INTENT_NO_TOOLS",
         "severity": "warning",
         "path": "intents.supported[1]",
-        "message": "Intent \"ingestion_status\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"ingestion_status\", or ensure tool names relate to this intent"
+        "message": "Intent \"schedule_management\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"schedule_management\", or ensure tool names relate to this intent"
       },
       {
         "code": "INTENT_NO_TOOLS",
         "severity": "warning",
         "path": "intents.supported[2]",
-        "message": "Intent \"corpus_manage\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"corpus_manage\", or ensure tool names relate to this intent"
+        "message": "Intent \"communication_tasks\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"communication_tasks\", or ensure tool names relate to this intent"
       },
       {
         "code": "INTENT_NO_TOOLS",
         "severity": "warning",
         "path": "intents.supported[3]",
-        "message": "Intent \"ingest_folder\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"ingest_folder\", or ensure tool names relate to this intent"
+        "message": "Intent \"travel_and_location\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"travel_and_location\", or ensure tool names relate to this intent"
       },
       {
         "code": "INTENT_NO_TOOLS",
         "severity": "warning",
-        "path": "intents.supported[6]",
-        "message": "Intent \"browse_files\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"browse_files\", or ensure tool names relate to this intent"
+        "path": "intents.supported[4]",
+        "message": "Intent \"web_research\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"web_research\", or ensure tool names relate to this intent"
       }
     ],
     "unresolved": {
@@ -331,22 +1502,21 @@
       "intents": []
     },
     "completeness": {
-      "problem": true,
+      "problem": false,
       "scenarios": false,
       "role": true,
       "intents": true,
-      "tools": true,
-      "policy": true,
+      "tools": false,
+      "policy": false,
       "engine": true,
-      "mocks_tested": true,
+      "mocks_tested": false,
       "identity": false,
       "security": true
     }
   },
-  "solution_id": "ada",
-  "lastExportedAt": "2026-05-14T10:52:03.498Z",
+  "lastExportedAt": "2026-05-14T12:30:30.506Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-14T10:52:03.613Z",
+  "deployedAt": "2026-05-14T12:30:30.620Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/my-docs"
 }
