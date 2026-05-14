@@ -1476,7 +1476,20 @@
         }
       ],
       "meta_tools": [],
-      "triggers": [],
+      "triggers": [
+        {
+          "id": "proactive-check",
+          "name": "Proactive Situation Check",
+          "type": "schedule",
+          "cron": "0 4,16 * * *",
+          "timezone": "Asia/Jerusalem",
+          "scope": "per_actor",
+          "description": "Twice-daily — silent situational awareness sweep, only surfaces if something needs you",
+          "enabled": true,
+          "prompt": "Run a proactive situation check. Do NOT respond unless something actionable is detected.",
+          "concurrency": 1
+        }
+      ],
       "connectors": [
         "handoff-controller-mcp",
         "memory-mcp"
@@ -1618,12 +1631,332 @@
           "_auto_generated": true
         }
       ],
-      "updated_at": "2026-05-14T07:06:53.347Z",
+      "updated_at": "2026-05-14T13:07:55.184Z",
       "created_at": "2026-05-14T07:06:53.051Z",
       "validation": {
-        "valid": true,
+        "valid": false,
         "ready_to_export": false,
-        "errors": [],
+        "errors": [
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[0].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[0].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[1].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[1].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[2].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[2].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[3].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[3].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[4].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[4].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[5].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[5].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[6].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[6].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[7].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[7].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[8].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[8].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[9].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[9].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[10].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[10].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[11].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[11].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[12].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[12].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[13].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[13].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[14].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[14].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[15].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[15].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[16].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[16].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[17].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[17].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[18].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[18].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[19].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[19].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[20].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[20].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[21].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[21].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[22].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[22].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[23].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[23].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[24].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[24].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[25].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[25].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "MISSING_TRIGGER_EVERY",
+            "severity": "error",
+            "path": "triggers[0].every",
+            "message": "Schedule trigger must have an \"every\" field (ISO8601 duration)",
+            "suggestion": "Use format like \"PT2M\" (2 minutes), \"PT1H\" (1 hour), \"P1D\" (1 day)"
+          }
+        ],
         "warnings": [
           {
             "code": "INTENT_NO_TOOLS",
@@ -1646,15 +1979,15 @@
           "tools": false,
           "policy": true,
           "engine": true,
-          "mocks_tested": false,
+          "mocks_tested": true,
           "identity": false,
           "security": true
         }
       },
       "solution_id": "ada",
-      "lastExportedAt": "2026-05-14T07:06:53.134Z",
+      "lastExportedAt": "2026-05-14T13:07:54.990Z",
       "lastExportType": "mcp-simple",
-      "deployedAt": "2026-05-14T07:06:53.345Z",
+      "deployedAt": "2026-05-14T13:07:55.180Z",
       "deployedTo": "http://adas-backend:4000",
       "mcpUri": "stdio://localhost/auto-orchestrator"
     },
@@ -11863,93 +12196,43 @@
       "intents": {
         "supported": [
           {
-            "id": "daily_overview",
-            "description": "Get a briefing of today's schedule, weather, and important information.",
+            "id": "recall_memory",
+            "description": "Search and retrieve specific memories or information the user previously stored.",
             "examples": [
-              "How's my day looking?",
-              "What's on my schedule today?",
-              "Give me the rundown for today",
-              "What should I know about today?"
+              "What did I tell you about my wife's birthday?",
+              "Do you remember my food allergies?",
+              "What are my meeting preferences again?",
+              "Remind me what I said about my workout schedule"
             ],
             "examples_generated": [
-              "How's my day looking?",
-              "What's on my schedule today?",
-              "Give me the rundown for today",
-              "What should I know about today?"
+              "What did I tell you about my wife's birthday?",
+              "Do you remember my food allergies?",
+              "What are my meeting preferences again?",
+              "Remind me what I said about my workout schedule"
             ],
-            "candidate_tools": [],
+            "candidate_tools": [
+              "memory.recall"
+            ],
             "maps_to_workflow_resolved": true
           },
           {
-            "id": "schedule_management",
-            "description": "Create, modify, or check calendar events and appointments.",
+            "id": "browse_memories",
+            "description": "View all stored memories or get an overview of what's been remembered.",
             "examples": [
-              "Schedule a dentist appointment for next week",
-              "When is my meeting with Sarah?",
-              "Move my 3pm call to tomorrow",
-              "Block out time for lunch on Friday"
+              "Show me everything you remember about me",
+              "What do you have stored?",
+              "List all my preferences",
+              "What memories do you have?"
             ],
             "examples_generated": [
-              "Schedule a dentist appointment for next week",
-              "When is my meeting with Sarah?",
-              "Move my 3pm call to tomorrow",
-              "Block out time for lunch on Friday"
+              "Show me everything you remember about me",
+              "What do you have stored?",
+              "List all my preferences",
+              "What memories do you have?"
             ],
-            "candidate_tools": [],
-            "maps_to_workflow_resolved": true
-          },
-          {
-            "id": "communication_tasks",
-            "description": "Send messages, make calls, or manage contacts.",
-            "examples": [
-              "Text Mom that I'm running late",
-              "Send a message to the team about the delay",
-              "Call the restaurant to make a reservation",
-              "What's John's phone number?"
+            "candidate_tools": [
+              "memory.list"
             ],
-            "examples_generated": [
-              "Text Mom that I'm running late",
-              "Send a message to the team about the delay",
-              "Call the restaurant to make a reservation",
-              "What's John's phone number?"
-            ],
-            "candidate_tools": [],
-            "maps_to_workflow_resolved": true
-          },
-          {
-            "id": "travel_and_location",
-            "description": "Get directions, check commute times, and location-based information.",
-            "examples": [
-              "How long to get to the airport?",
-              "What's traffic like to downtown?",
-              "Find me a coffee shop nearby",
-              "Best route to avoid construction?"
-            ],
-            "examples_generated": [
-              "How long to get to the airport?",
-              "What's traffic like to downtown?",
-              "Find me a coffee shop nearby",
-              "Best route to avoid construction?"
-            ],
-            "candidate_tools": [],
-            "maps_to_workflow_resolved": true
-          },
-          {
-            "id": "web_research",
-            "description": "Look up information, browse websites, and research topics online.",
-            "examples": [
-              "Look up reviews for that new restaurant",
-              "Check if my flight is on time",
-              "Find articles about the latest iPhone",
-              "What's the weather forecast for this weekend?"
-            ],
-            "examples_generated": [
-              "Look up reviews for that new restaurant",
-              "Check if my flight is on time",
-              "Find articles about the latest iPhone",
-              "What's the weather forecast for this weekend?"
-            ],
-            "candidate_tools": [],
             "maps_to_workflow_resolved": true
           }
         ],
@@ -12906,46 +13189,283 @@
       "solution_id": "ada",
       "id": "memory-keeper",
       "created_at": "2026-05-14T12:26:04.468Z",
-      "updated_at": "2026-05-14T12:26:04.738Z",
+      "updated_at": "2026-05-14T12:56:59.677Z",
       "validation": {
-        "valid": true,
+        "valid": false,
         "ready_to_export": false,
-        "errors": [],
+        "errors": [
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[0].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[0].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[1].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[1].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[2].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[2].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[3].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[3].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[4].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[4].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[5].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[5].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[6].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[6].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[7].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[7].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[8].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[8].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[9].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[9].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[10].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[10].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[11].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[11].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[12].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[12].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[13].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[13].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[14].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[14].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[15].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[15].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[16].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[16].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[17].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[17].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[18].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[18].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[19].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[19].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[20].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[20].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[21].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[21].output",
+            "message": "Tool output is required"
+          }
+        ],
         "warnings": [
           {
             "code": "INTENT_NO_TOOLS",
             "severity": "warning",
-            "path": "intents.supported[0]",
-            "message": "Intent \"daily_overview\" has no mapped workflow and no obviously related tools",
-            "suggestion": "Add maps_to_workflow, create a workflow with trigger \"daily_overview\", or ensure tool names relate to this intent"
-          },
-          {
-            "code": "INTENT_NO_TOOLS",
-            "severity": "warning",
             "path": "intents.supported[1]",
-            "message": "Intent \"schedule_management\" has no mapped workflow and no obviously related tools",
-            "suggestion": "Add maps_to_workflow, create a workflow with trigger \"schedule_management\", or ensure tool names relate to this intent"
-          },
-          {
-            "code": "INTENT_NO_TOOLS",
-            "severity": "warning",
-            "path": "intents.supported[2]",
-            "message": "Intent \"communication_tasks\" has no mapped workflow and no obviously related tools",
-            "suggestion": "Add maps_to_workflow, create a workflow with trigger \"communication_tasks\", or ensure tool names relate to this intent"
-          },
-          {
-            "code": "INTENT_NO_TOOLS",
-            "severity": "warning",
-            "path": "intents.supported[3]",
-            "message": "Intent \"travel_and_location\" has no mapped workflow and no obviously related tools",
-            "suggestion": "Add maps_to_workflow, create a workflow with trigger \"travel_and_location\", or ensure tool names relate to this intent"
-          },
-          {
-            "code": "INTENT_NO_TOOLS",
-            "severity": "warning",
-            "path": "intents.supported[4]",
-            "message": "Intent \"web_research\" has no mapped workflow and no obviously related tools",
-            "suggestion": "Add maps_to_workflow, create a workflow with trigger \"web_research\", or ensure tool names relate to this intent"
+            "message": "Intent \"browse_memories\" has no mapped workflow and no obviously related tools",
+            "suggestion": "Add maps_to_workflow, create a workflow with trigger \"browse_memories\", or ensure tool names relate to this intent"
           }
         ],
         "unresolved": {
@@ -12961,14 +13481,14 @@
           "tools": false,
           "policy": false,
           "engine": true,
-          "mocks_tested": false,
+          "mocks_tested": true,
           "identity": false,
           "security": true
         }
       },
-      "lastExportedAt": "2026-05-14T12:26:04.561Z",
+      "lastExportedAt": "2026-05-14T12:56:59.434Z",
       "lastExportType": "mcp-simple",
-      "deployedAt": "2026-05-14T12:26:04.736Z",
+      "deployedAt": "2026-05-14T12:56:59.670Z",
       "deployedTo": "http://adas-backend:4000",
       "mcpUri": "stdio://localhost/memory-keeper"
     },
@@ -18189,104 +18709,240 @@
       "intents": {
         "supported": [
           {
-            "id": "daily_overview",
-            "description": "Get a briefing of today's schedule, weather, and important information.",
+            "id": "first-touch",
+            "description": "User's first interaction OR explicit ask to start coaching. Deterministic path: init state, return the canonical first question.",
             "examples": [
-              "How's my day looking?",
-              "What's on my schedule today?",
-              "Give me the rundown for today",
-              "What should I know about today?"
+              "hi",
+              "hello",
+              "I'm new",
+              "set me up as my coach",
+              "start coaching"
             ],
-            "examples_generated": [
-              "How's my day looking?",
-              "What's on my schedule today?",
-              "Give me the rundown for today",
-              "What should I know about today?"
+            "patterns": [
+              "hi",
+              "hello",
+              "hey",
+              "start",
+              "set me up",
+              "i'm new",
+              "set me up as my coach",
+              "be my coach",
+              "start coaching",
+              "let's begin",
+              "let's start",
+              "walk me through onboarding",
+              "i want a coach"
             ],
-            "candidate_tools": [],
+            "action": "call_tool",
+            "context": "Run coach.state.initOnboarding first, then introduce self and ask the first onboarding question.",
+            "maps_to_workflow_resolved": true,
+            "name": "First touch — init onboarding",
+            "tool_sequence": [
+              {
+                "tool": "coach.state.initOnboarding",
+                "args": {},
+                "description": "Initialize state for this actor"
+              }
+            ],
+            "response_template": "Hey, I'm MyCoach. What brings you here?"
+          },
+          {
+            "id": "onboarding-answer",
+            "description": "User is answering an onboarding question during phase=onboarding.",
+            "examples": [
+              "I want to lose 5kg",
+              "my typical day is...",
+              "I tried keto and it didn't work",
+              "mornings are best"
+            ],
+            "action": "stay",
+            "context": "Call coach.state.captureOnboardingAnswer with the right key based on what was just asked, then ask the next question OR if enough answers gathered, propose goal + advance phase.",
             "maps_to_workflow_resolved": true
           },
           {
-            "id": "schedule_management",
-            "description": "Create, modify, or check calendar events and appointments.",
+            "id": "log-meal",
+            "description": "User logs a meal or food they ate (text or photo).",
             "examples": [
-              "Schedule a dentist appointment for next week",
-              "When is my meeting with Sarah?",
-              "Move my 3pm call to tomorrow",
-              "Block out time for lunch on Friday"
+              "I had a chicken salad",
+              "log my breakfast: 2 eggs and toast",
+              "just ate a slice of pizza",
+              "[photo of food]"
             ],
-            "examples_generated": [
-              "Schedule a dentist appointment for next week",
-              "When is my meeting with Sarah?",
-              "Move my 3pm call to tomorrow",
-              "Block out time for lunch on Friday"
+            "patterns": [
+              "i ate",
+              "i had",
+              "log my",
+              "just ate",
+              "for breakfast",
+              "for lunch",
+              "for dinner"
             ],
-            "candidate_tools": [],
+            "action": "stay",
+            "context": "Lookup via nutrition.lookupMultiple, log via nutrition.logMeal, refresh dashboard. Confirm with calories + protein in 1-2 sentences.",
             "maps_to_workflow_resolved": true
           },
           {
-            "id": "communication_tasks",
-            "description": "Send messages, make calls, or manage contacts.",
+            "id": "log-drink",
+            "description": "User logs water or another drink.",
             "examples": [
-              "Text Mom that I'm running late",
-              "Send a message to the team about the delay",
-              "Call the restaurant to make a reservation",
-              "What's John's phone number?"
+              "I drank a glass of water",
+              "had a coffee",
+              "log 500ml water"
             ],
-            "examples_generated": [
-              "Text Mom that I'm running late",
-              "Send a message to the team about the delay",
-              "Call the restaurant to make a reservation",
-              "What's John's phone number?"
+            "patterns": [
+              "drank",
+              "had a coffee",
+              "had a tea",
+              "log water"
             ],
-            "candidate_tools": [],
+            "action": "stay",
+            "context": "Call nutrition.logDrink, refresh dashboard.",
             "maps_to_workflow_resolved": true
           },
           {
-            "id": "travel_and_location",
-            "description": "Get directions, check commute times, and location-based information.",
+            "id": "check-progress",
+            "description": "User asks how they're doing today or this week.",
             "examples": [
-              "How long to get to the airport?",
-              "What's traffic like to downtown?",
-              "Find me a coffee shop nearby",
-              "Best route to avoid construction?"
+              "how am I doing today",
+              "weekly summary",
+              "how many calories so far",
+              "show me my progress"
             ],
-            "examples_generated": [
-              "How long to get to the airport?",
-              "What's traffic like to downtown?",
-              "Find me a coffee shop nearby",
-              "Best route to avoid construction?"
+            "patterns": [
+              "how am i doing",
+              "how's my day",
+              "weekly",
+              "summary",
+              "progress",
+              "where am i"
             ],
-            "candidate_tools": [],
+            "action": "stay",
+            "context": "Call nutrition.getDailySummary + device.health.today + coach.snapshot.today. Show the dashboard with both daily and weekly data pre-fetched.",
             "maps_to_workflow_resolved": true
           },
           {
-            "id": "web_research",
-            "description": "Look up information, browse websites, and research topics online.",
+            "id": "ask-coach",
+            "description": "Open-ended coaching question: 'what should I eat', 'plan my meals', 'should I work out today', meal/diet advice, fitness advice, general 'help me' questions.",
             "examples": [
-              "Look up reviews for that new restaurant",
-              "Check if my flight is on time",
-              "Find articles about the latest iPhone",
-              "What's the weather forecast for this weekend?"
+              "what should I eat for dinner",
+              "plan my meals tomorrow",
+              "should I work out today",
+              "I feel like junk food",
+              "give me some advice"
             ],
-            "examples_generated": [
-              "Look up reviews for that new restaurant",
-              "Check if my flight is on time",
-              "Find articles about the latest iPhone",
-              "What's the weather forecast for this weekend?"
+            "patterns": [
+              "what should i eat",
+              "what to eat",
+              "what should i have",
+              "plan my meals",
+              "meal plan",
+              "meal ideas",
+              "nutrition coach",
+              "nutrition specialist",
+              "nutrition advisor",
+              "nutritionist",
+              "dietitian",
+              "fitness coach",
+              "personal coach",
+              "my coach",
+              "give me advice",
+              "what do you think"
             ],
-            "candidate_tools": [],
+            "action": "stay",
+            "context": "RESPECT PHASE. Onboarding → redirect gently: 'let me get to know you first, then I'll have real advice'. Observing → answer minimally, no prescriptions. Calibrating/Accompanying → give specific concrete advice grounded in their goal + today's snapshot. ALWAYS check coach.state.phase first.",
+            "maps_to_workflow_resolved": true
+          },
+          {
+            "id": "am-checkin",
+            "description": "User responds to (or initiates) a morning check-in. Often a number + word.",
+            "examples": [
+              "morning",
+              "I'm a 7, tired",
+              "feeling great today",
+              "good morning, 5/10"
+            ],
+            "patterns": [
+              "good morning",
+              "morning check",
+              "/10 ",
+              "feeling"
+            ],
+            "action": "stay",
+            "context": "Call coach.checkin.log(period='am', rating, mood_word, free_text). Acknowledge warmly in 1 sentence.",
+            "maps_to_workflow_resolved": true
+          },
+          {
+            "id": "pm-checkin",
+            "description": "User responds to (or initiates) an evening reflection check-in.",
+            "examples": [
+              "today was rough",
+              "8 out of 10, great day",
+              "evening check-in: tired but happy"
+            ],
+            "patterns": [
+              "evening",
+              "today was",
+              "end of day"
+            ],
+            "action": "stay",
+            "context": "Call coach.checkin.log(period='pm', rating, mood_word, free_text). Acknowledge in 1 sentence. If in observing phase week 1 and pending observations exist + canAdvance.ready, may surface one.",
+            "maps_to_workflow_resolved": true
+          },
+          {
+            "id": "set-goal",
+            "description": "User explicitly sets or changes a goal during conversation.",
+            "examples": [
+              "set my calorie goal to 2000",
+              "I want 150g protein daily",
+              "my new goal is to lose 5kg by July",
+              "let's change my target to..."
+            ],
+            "patterns": [
+              "my goal is",
+              "set my goal",
+              "i want to",
+              "new goal",
+              "change my target"
+            ],
+            "action": "stay",
+            "context": "If structured nutrition goal (calories/protein/water), call nutrition.setGoals. ALWAYS also call coach.goals.add to record the goal in coach state with reason.",
+            "maps_to_workflow_resolved": true
+          },
+          {
+            "id": "respond-to-observation",
+            "description": "User is responding (yes/no/maybe) to an observation the coach just surfaced.",
+            "examples": [
+              "yeah that matches",
+              "not really",
+              "kind of, but mostly tuesdays",
+              "nope, you got it wrong"
+            ],
+            "action": "stay",
+            "context": "If pending observation was just surfaced and user is confirming/denying, call coach.observations.confirm.",
+            "maps_to_workflow_resolved": true
+          },
+          {
+            "id": "respond-to-experiment",
+            "description": "User accepts/declines a proposed weekly micro-experiment.",
+            "examples": [
+              "yes let's try it",
+              "no thanks",
+              "sure I'll do that this week",
+              "not this week"
+            ],
+            "action": "stay",
+            "context": "Call coach.experiment.respond with picked=true/false. If accepted, confirm and set a friday check-in expectation. If declined, accept gracefully without pushing.",
             "maps_to_workflow_resolved": true
           }
         ],
         "thresholds": {
-          "accept": 0.8,
-          "clarify": 0.5,
-          "reject": 0.5
+          "accept": 0.85,
+          "clarify": 0.6,
+          "reject": 0.4
         },
         "out_of_domain": {
           "action": "redirect",
-          "message": ""
+          "message": "I'm your coach — nutrition, activity, habits. For other requests, the orchestrator can route you."
         }
       },
       "engine": {
@@ -18342,6 +18998,1554 @@
       },
       "toolbox_imports": [],
       "tools": [
+        {
+          "name": "coach.state.get",
+          "description": "Get full coach state: phase, joined_at, trust_budget, check_in_window, off_limits, tone, onboarding_answers, days_since_join. ALWAYS call at start of every interaction to know what phase the user is in and adapt behavior accordingly.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.state.get"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            }
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.state.initOnboarding",
+          "description": "Initialize coach state when a NEW user first interacts. Idempotent — if state exists, returns existing state. Call this on the very first turn with that user. Sets phase=onboarding.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.state.initOnboarding"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "check_in_window": {
+                "type": "object",
+                "properties": {
+                  "am": {
+                    "type": "string"
+                  },
+                  "pm": {
+                    "type": "string"
+                  },
+                  "tz": {
+                    "type": "string"
+                  }
+                }
+              },
+              "off_limits": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "tone": {
+                "type": "string",
+                "enum": [
+                  "warm",
+                  "data",
+                  "challenger"
+                ]
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            }
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.state.captureOnboardingAnswer",
+          "description": "Save one onboarding answer (key/value). Keys: goal, typical_day, history_what_worked, history_what_failed, check_in_when, off_limits. Call once per Q&A pair during the onboarding conversation.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.state.captureOnboardingAnswer"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "key",
+              "value"
+            ]
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.state.advancePhase",
+          "description": "Advance to next phase (onboarding→observing→calibrating→accompanying). Check coach.state.canAdvance first. Use ONLY when criteria are met.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.state.advancePhase"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            }
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.state.canAdvance",
+          "description": "Check if user is ready to advance to next phase. Returns { ready, reason, current_phase, next_phase }.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.state.canAdvance"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            }
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.state.update",
+          "description": "Update specific state fields (tone, check_in_window, off_limits). Use when user explicitly tells the coach to change something.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.state.update"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "tone": {
+                "type": "string"
+              },
+              "check_in_window": {
+                "type": "object"
+              },
+              "off_limits": {
+                "type": "array"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            }
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.goals.current",
+          "description": "Get the user's current active goal (with version, type, target, deadline, reason).",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.goals.current"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            }
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.goals.list",
+          "description": "List ALL goal versions (current + historical) — useful to show evolution.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.goals.list"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            }
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.goals.add",
+          "description": "Add a new goal version. Supersedes the previous active goal. ALWAYS include reason (why goal changed).",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.goals.add"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "description": "weight|protein|steps|calories|sleep|habit|other"
+              },
+              "target_value": {
+                "type": "number"
+              },
+              "target_unit": {
+                "type": "string"
+              },
+              "deadline": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "text"
+            ]
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.checkin.log",
+          "description": "Log a daily check-in. period=am|pm. rating=1-10 (optional). mood_word=1-2 words. free_text=optional longer text. Use during scheduled AM/PM check-ins.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.checkin.log"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "period": {
+                "type": "string",
+                "enum": [
+                  "am",
+                  "pm"
+                ]
+              },
+              "rating": {
+                "type": "number"
+              },
+              "mood_word": {
+                "type": "string"
+              },
+              "free_text": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "period"
+            ]
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.checkin.recent",
+          "description": "Get recent check-ins (default 7 days).",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.checkin.recent"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "days": {
+                "type": "number"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            }
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.checkin.todayStatus",
+          "description": "Check if today's AM/PM check-ins have happened. Returns { am: checkin|null, pm: checkin|null }.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.checkin.todayStatus"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            }
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.snapshot.today",
+          "description": "Build today's unified snapshot. Pass in pre-fetched nutrition (from nutrition.getDailySummary) and activity (from device.health.today). Returns { date, phase, goal, nutrition, activity, checkin, gaps[], adherence_score }.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.snapshot.today"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "nutrition": {
+                "type": "object",
+                "description": "Result from nutrition.getDailySummary"
+              },
+              "activity": {
+                "type": "object",
+                "description": "Result from device.health.today"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            }
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.nudge.log",
+          "description": "Log a nudge that the coach is about to send. kind: 'morning'|'evening'|'pre_lunch'|'activity'|'pattern'|'experiment'|'observation'|'other'. Returns nudge with id — use id later when user responds.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.nudge.log"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              },
+              "context": {
+                "type": "object"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind",
+              "text"
+            ]
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.nudge.respond",
+          "description": "Record user's response to a previously-sent nudge. response: 'accepted'|'dismissed'|'acknowledged'|'ignored'. Adjusts trust_budget automatically.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.nudge.respond"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "nudge_id": {
+                "type": "string"
+              },
+              "response": {
+                "type": "string",
+                "enum": [
+                  "accepted",
+                  "dismissed",
+                  "acknowledged",
+                  "ignored"
+                ]
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "nudge_id",
+              "response"
+            ]
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.nudge.engagement",
+          "description": "Get nudge engagement stats over last N days (default 14): accepted/dismissed/acknowledged/ignored counts.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.nudge.engagement"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "days": {
+                "type": "number"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            }
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.observations.add",
+          "description": "Record a pattern the coach has noticed but NOT yet surfaced to the user. confidence 0-1. Example text: 'User mentions tiredness ~11am four times this week.'",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.observations.add"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "evidence": {
+                "type": "object"
+              },
+              "confidence": {
+                "type": "number"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "text"
+            ]
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.observations.pending",
+          "description": "List observations not yet confirmed/disconfirmed by the user. Use to find candidates for the \"first reflection\" moment.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.observations.pending"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            }
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.observations.markSurfaced",
+          "description": "Mark that the coach surfaced this observation to the user (asked them to confirm). Use right after presenting it.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.observations.markSurfaced"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "observation_id": {
+                "type": "string"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "observation_id"
+            ]
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.observations.confirm",
+          "description": "Record user's response to a surfaced observation. confirmed=true if user agreed, false if disagreed.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.observations.confirm"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "observation_id": {
+                "type": "string"
+              },
+              "confirmed": {
+                "type": "boolean"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "observation_id",
+              "confirmed"
+            ]
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.experiment.propose",
+          "description": "Propose a one-week micro-experiment to the user. week_key like 2026-W19 (ISO week). One per week.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.experiment.propose"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "week_key": {
+                "type": "string"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "text"
+            ]
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.experiment.respond",
+          "description": "Record whether user accepted (picked=true) or declined an experiment.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.experiment.respond"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "experiment_id": {
+                "type": "string"
+              },
+              "picked": {
+                "type": "boolean"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "experiment_id",
+              "picked"
+            ]
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.experiment.close",
+          "description": "Close out an experiment at end-of-week with outcome notes.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.experiment.close"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "experiment_id": {
+                "type": "string"
+              },
+              "outcome": {
+                "type": "string"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "experiment_id"
+            ]
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.experiment.list",
+          "description": "List recent experiments (optionally filter by week_key).",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.experiment.list"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "week_key": {
+                "type": "string"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            }
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "coach.miner.run",
+          "description": "Run the pattern miner against the actor's data. Heuristics: low morning mood, frequent tired/stress words, irregular meal logging, protein gap, step gap, nudge-dismissal pattern. Each candidate gets a confidence score and is upserted (deduped by pattern_key). Designed to run silently from a daily cron — emits observations to coach.observations table that the PM-reflection trigger can later surface. Pass in pre-fetched nutrition.getMeals (last 14d, flat array), nutrition daily summaries (last 7d), and device.health.history. Returns { candidates_evaluated, created, skipped_duplicate }.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "coach.miner.run"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "nutrition_meals": {
+                "type": "array",
+                "description": "Flat array of meal records from nutrition.getMeals (last 14 days)"
+              },
+              "nutrition_daily": {
+                "type": "array",
+                "description": "Array of daily summaries (last 7 days), each with totals + goals"
+              },
+              "activity_history": {
+                "type": "array",
+                "description": "Array of daily health metrics from device.health.history (last 7-14 days)"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            }
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "ui.listPlugins",
+          "description": "List available UI plugins served by coach-mcp.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "ui.listPlugins"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "ui.getPlugin",
+          "description": "Get UI plugin manifest by id.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "ui.getPlugin"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "ui.coach_dashboard.open",
+          "description": "Open the MyCoach dashboard. MOBILE CRITICAL: pass pre-fetched data as args so the iframe can render on mobile. Required: { state, goal, snapshot, checkins, observations }. snapshot should come from coach.snapshot.today (with nutrition + activity pre-passed). checkins from coach.checkin.recent(7). observations from coach.observations.pending.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "ui.coach_dashboard.open"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "state": {
+                "type": "object"
+              },
+              "goal": {
+                "type": "object"
+              },
+              "snapshot": {
+                "type": "object"
+              },
+              "checkins": {
+                "type": "array"
+              },
+              "observations": {
+                "type": "array"
+              }
+            }
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "ui.coach_onboarding.open",
+          "description": "Open the guided onboarding wizard. Use when the user prefers a structured form over chat-based onboarding. The wizard captures answers via coach.state.captureOnboardingAnswer, sets the first goal, and advances phase on completion.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "coach-mcp",
+            "mcp_tool": "ui.coach_onboarding.open"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "ui.nutrition_dashboard.open",
+          "description": "Open the Nutrition Dashboard with progress rings and weekly charts. Auto-fetches the latest summary data so the dashboard renders immediately on mobile.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "nutrition-mcp",
+            "mcp_tool": "ui.nutrition_dashboard.open"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "daily": {},
+              "weekly": {},
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "ui.nutrition_camera.open",
+          "description": "Open the meal camera to snap and analyze a meal photo",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "nutrition-mcp",
+            "mcp_tool": "ui.nutrition_camera.open"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "properties": {}
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "nutrition.logMeal",
+          "description": "Log a meal with food items and nutrition data",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "nutrition-mcp",
+            "mcp_tool": "nutrition.logMeal"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "meal_type": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              },
+              "time": {
+                "type": "string"
+              },
+              "items": {
+                "type": "array",
+                "description": "Food items"
+              },
+              "photo_hash": {
+                "type": "string"
+              },
+              "photos": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Multiple photo artifact hashes"
+              },
+              "notes": {
+                "type": "string"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "items"
+            ],
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "nutrition.updateMeal",
+          "description": "Update a logged meal (items, type, notes, photos)",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "nutrition-mcp",
+            "mcp_tool": "nutrition.updateMeal"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "meal_id": {
+                "type": "string"
+              },
+              "items": {
+                "type": "array"
+              },
+              "meal_type": {
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              },
+              "photos": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Replace the full photo list"
+              },
+              "add_photo": {
+                "type": "string",
+                "description": "Append a single photo hash"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "meal_id"
+            ],
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "nutrition.deleteMeal",
+          "description": "Delete a meal by ID",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "nutrition-mcp",
+            "mcp_tool": "nutrition.deleteMeal"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "meal_id": {
+                "type": "string"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "meal_id"
+            ],
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "nutrition.getMeals",
+          "description": "List meals for a date or range",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "nutrition-mcp",
+            "mcp_tool": "nutrition.getMeals"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "string"
+              },
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              },
+              "meal_type": {
+                "type": "string"
+              },
+              "limit": {
+                "type": "number"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "nutrition.lookupFood",
+          "description": "USDA nutrition lookup per 100g",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "nutrition-mcp",
+            "mcp_tool": "nutrition.lookupFood"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "query": {
+                "type": "string"
+              },
+              "limit": {
+                "type": "number"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "query"
+            ],
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "nutrition.lookupMultiple",
+          "description": "USDA lookup for multiple foods",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "nutrition-mcp",
+            "mcp_tool": "nutrition.lookupMultiple"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "foods": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "foods"
+            ],
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "nutrition.logDrink",
+          "description": "Log a drink",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "nutrition-mcp",
+            "mcp_tool": "nutrition.logDrink"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "volume_ml": {
+                "type": "number"
+              },
+              "caffeine_mg": {
+                "type": "number"
+              },
+              "calories": {
+                "type": "number"
+              },
+              "notes": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              },
+              "time": {
+                "type": "string"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "nutrition.getHydration",
+          "description": "Today's hydration summary",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "nutrition-mcp",
+            "mcp_tool": "nutrition.getHydration"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "string"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "nutrition.getDailySummary",
+          "description": "Full daily breakdown vs goals",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "nutrition-mcp",
+            "mcp_tool": "nutrition.getDailySummary"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "string"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "nutrition.getWeeklySummary",
+          "description": "7-day overview",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "nutrition-mcp",
+            "mcp_tool": "nutrition.getWeeklySummary"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "nutrition.setGoals",
+          "description": "Set daily targets",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "nutrition-mcp",
+            "mcp_tool": "nutrition.setGoals"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "daily_calories": {
+                "type": "number"
+              },
+              "daily_protein": {
+                "type": "number"
+              },
+              "daily_carbs": {
+                "type": "number"
+              },
+              "daily_fat": {
+                "type": "number"
+              },
+              "daily_water_ml": {
+                "type": "number"
+              },
+              "dietary_restrictions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "nutrition.getGoals",
+          "description": "Get current goals",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "nutrition-mcp",
+            "mcp_tool": "nutrition.getGoals"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "nutrition.status",
+          "description": "Quick status: calories/water progress",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "nutrition-mcp",
+            "mcp_tool": "nutrition.status"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "admin.deleteActor",
+          "description": "[Internal] Wipe ALL nutrition data for one actor (meals, drinks, goals). Requires _admin_token to match the connector's NUTRITION_ADMIN_TOKEN / ADAS_MCP_TOKEN env. Used by Core's account-deletion orchestrator. Idempotent.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "nutrition-mcp",
+            "mcp_tool": "admin.deleteActor"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "actorId": {
+                "type": "string"
+              },
+              "_admin_token": {
+                "type": "string"
+              },
+              "_adas_actor": {
+                "type": "string"
+              },
+              "_adas_tenant": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "actorId",
+              "_admin_token"
+            ],
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
         {
           "name": "device.calendar.today",
           "description": "Get all calendar events for today. Returns titles, times, locations, attendees, and notes. Response includes _freshness (is_stale=true if data is over 10 minutes old).",
@@ -19989,6 +22193,360 @@
             "_auto_classified": true,
             "_rationale": "no_pattern_matched_default_applied"
           }
+        },
+        {
+          "name": "triggers.list",
+          "description": "List all triggers (static + dynamic) for this tenant",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "personal-assistant-ui-mcp",
+            "mcp_tool": "triggers.list"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "_adas_tenant": {
+                "type": "string",
+                "description": "Injected by platform — do not set manually"
+              },
+              "_adas_actor": {
+                "type": "string",
+                "description": "Injected by platform — do not set manually"
+              }
+            },
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "triggers.toggle",
+          "description": "Pause or resume a specific trigger",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "personal-assistant-ui-mcp",
+            "mcp_tool": "triggers.toggle"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "skillSlug": {
+                "type": "string",
+                "description": "Skill slug that owns the trigger"
+              },
+              "triggerId": {
+                "type": "string",
+                "description": "Trigger ID to toggle"
+              },
+              "_adas_tenant": {
+                "type": "string",
+                "description": "Injected by platform"
+              },
+              "_adas_actor": {
+                "type": "string",
+                "description": "Injected by platform"
+              }
+            },
+            "required": [
+              "skillSlug",
+              "triggerId"
+            ],
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "meeting.commute.prep",
+          "description": "Twice-daily meeting commute prep. Lists upcoming events, classifies which need driving alerts (one LLM call), estimates drive time, and creates one-shot 'leave now' triggers. Idempotent (stable trigger_ids - dedup). Returns { ok, scanned, scheduled, skipped, errors, connections }.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "personal-assistant-ui-mcp",
+            "mcp_tool": "meeting.commute.prep"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "_adas_tenant": {
+                "type": "string",
+                "description": "Injected by platform"
+              },
+              "_adas_actor": {
+                "type": "string",
+                "description": "Injected by platform"
+              }
+            },
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "triggers.deleteDynamic",
+          "description": "Delete a dynamic (user-created) trigger/reminder",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "personal-assistant-ui-mcp",
+            "mcp_tool": "triggers.deleteDynamic"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "triggerId": {
+                "type": "string",
+                "description": "Dynamic trigger ID to delete"
+              },
+              "_adas_tenant": {
+                "type": "string",
+                "description": "Injected by platform"
+              },
+              "_adas_actor": {
+                "type": "string",
+                "description": "Injected by platform"
+              }
+            },
+            "required": [
+              "triggerId"
+            ],
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "connections.list",
+          "description": "List external services + connection state for this actor (Gmail, WhatsApp, Dropbox, etc.).",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "personal-assistant-ui-mcp",
+            "mcp_tool": "connections.list"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "_adas_tenant": {
+                "type": "string",
+                "description": "Injected by platform"
+              },
+              "_adas_actor": {
+                "type": "string",
+                "description": "Injected by platform"
+              }
+            },
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "connections.disconnect",
+          "description": "Revoke an external service connection for this actor.",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "personal-assistant-ui-mcp",
+            "mcp_tool": "connections.disconnect"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "service_id": {
+                "type": "string",
+                "description": "Service id (e.g. 'gmail', 'linkedin'). Use connections.list to see valid ids."
+              },
+              "_adas_tenant": {
+                "type": "string",
+                "description": "Injected by platform"
+              },
+              "_adas_actor": {
+                "type": "string",
+                "description": "Injected by platform"
+              }
+            },
+            "required": [
+              "service_id"
+            ],
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "rooms.list",
+          "description": "List all rooms with their devices and states",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "personal-assistant-ui-mcp",
+            "mcp_tool": "rooms.list"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "properties": {}
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "entity.state",
+          "description": "Get the current state of a device",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "personal-assistant-ui-mcp",
+            "mcp_tool": "entity.state"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "entity_id": {
+                "type": "string",
+                "description": "Entity ID (e.g. light.kitchen)"
+              }
+            },
+            "required": [
+              "entity_id"
+            ],
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "services.call",
+          "description": "Toggle or control a device",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "personal-assistant-ui-mcp",
+            "mcp_tool": "services.call"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "domain": {
+                "type": "string",
+                "description": "Domain (light, switch, etc)"
+              },
+              "service": {
+                "type": "string",
+                "description": "Service (turn_on, turn_off, toggle, lock, unlock)"
+              },
+              "entity_id": {
+                "type": "string",
+                "description": "Entity ID"
+              }
+            },
+            "required": [
+              "domain",
+              "service",
+              "entity_id"
+            ],
+            "additionalProperties": false,
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "hue.status",
+          "description": "Get Philips Hue integration status",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "personal-assistant-ui-mcp",
+            "mcp_tool": "hue.status"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "properties": {}
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "tuya.status",
+          "description": "Get Tuya/Smart Life integration status",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "personal-assistant-ui-mcp",
+            "mcp_tool": "tuya.status"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "properties": {}
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
+        },
+        {
+          "name": "google.status",
+          "description": "Get Google Home/Nest integration status",
+          "source": {
+            "type": "mcp_bridge",
+            "connection_id": "personal-assistant-ui-mcp",
+            "mcp_tool": "google.status"
+          },
+          "_auto_imported": true,
+          "inputSchema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "properties": {}
+          },
+          "security": {
+            "classification": "internal",
+            "_auto_classified": true,
+            "_rationale": "no_pattern_matched_default_applied"
+          }
         }
       ],
       "meta_tools": [],
@@ -20078,17 +22636,661 @@
       ],
       "id": "mycoach",
       "created_at": "2026-05-14T12:29:41.026Z",
-      "updated_at": "2026-05-14T12:29:41.296Z",
+      "updated_at": "2026-05-14T13:05:31.076Z",
       "validation": {
         "valid": false,
         "ready_to_export": false,
         "errors": [
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[0].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[0].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[1].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[1].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[2].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[2].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[3].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[3].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[4].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[4].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[5].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[5].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[6].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[6].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[7].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[7].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[8].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[8].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[9].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[9].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[10].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[10].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[11].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[11].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[12].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[12].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[13].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[13].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[14].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[14].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[15].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[15].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[16].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[16].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[17].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[17].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[18].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[18].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[19].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[19].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[20].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[20].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[21].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[21].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[22].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[22].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[23].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[23].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[24].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[24].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[25].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[25].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[26].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[26].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[27].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[27].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[28].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[28].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[29].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[29].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[30].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[30].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[31].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[31].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[32].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[32].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[33].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[33].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[34].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[34].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[35].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[35].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[36].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[36].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[37].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[37].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[38].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[38].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[39].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[39].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[40].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[40].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[41].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[41].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[42].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[42].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[43].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[43].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[44].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[44].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[45].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[45].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[46].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[46].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[47].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[47].output",
+            "message": "Tool output is required"
+          },
+          {
+            "code": "INVALID_TOOL_INPUTS",
+            "severity": "error",
+            "path": "tools[48].inputs",
+            "message": "Tool inputs must be an array"
+          },
+          {
+            "code": "MISSING_TOOL_OUTPUT",
+            "severity": "error",
+            "path": "tools[48].output",
+            "message": "Tool output is required"
+          },
           {
             "code": "TOO_MANY_BOOTSTRAP_TOOLS",
             "severity": "error",
             "path": "bootstrap_tools",
             "message": "bootstrap_tools allows at most 3 entries, got 8",
             "suggestion": "Choose the 3 most critical tools that the planner needs on almost every request"
+          },
+          {
+            "code": "UNKNOWN_BOOTSTRAP_TOOL",
+            "severity": "error",
+            "path": "bootstrap_tools[0]",
+            "message": "bootstrap_tools entry \"coach.state.captureOnboardingAnswer\" does not match any defined tool name — bootstrap tools MUST reference existing tools",
+            "suggestion": "Available tool names: device.calendar.today, device.calendar.upcoming, device.calendar.create, device.calendar.reschedule, device.calendar.cancel..."
+          },
+          {
+            "code": "UNKNOWN_BOOTSTRAP_TOOL",
+            "severity": "error",
+            "path": "bootstrap_tools[1]",
+            "message": "bootstrap_tools entry \"coach.goals.add\" does not match any defined tool name — bootstrap tools MUST reference existing tools",
+            "suggestion": "Available tool names: device.calendar.today, device.calendar.upcoming, device.calendar.create, device.calendar.reschedule, device.calendar.cancel..."
+          },
+          {
+            "code": "UNKNOWN_BOOTSTRAP_TOOL",
+            "severity": "error",
+            "path": "bootstrap_tools[2]",
+            "message": "bootstrap_tools entry \"coach.state.advancePhase\" does not match any defined tool name — bootstrap tools MUST reference existing tools",
+            "suggestion": "Available tool names: device.calendar.today, device.calendar.upcoming, device.calendar.create, device.calendar.reschedule, device.calendar.cancel..."
+          },
+          {
+            "code": "UNKNOWN_BOOTSTRAP_TOOL",
+            "severity": "error",
+            "path": "bootstrap_tools[3]",
+            "message": "bootstrap_tools entry \"coach.experiment.activeForWeek\" does not match any defined tool name — bootstrap tools MUST reference existing tools",
+            "suggestion": "Available tool names: device.calendar.today, device.calendar.upcoming, device.calendar.create, device.calendar.reschedule, device.calendar.cancel..."
+          },
+          {
+            "code": "UNKNOWN_BOOTSTRAP_TOOL",
+            "severity": "error",
+            "path": "bootstrap_tools[4]",
+            "message": "bootstrap_tools entry \"coach.experiment.propose\" does not match any defined tool name — bootstrap tools MUST reference existing tools",
+            "suggestion": "Available tool names: device.calendar.today, device.calendar.upcoming, device.calendar.create, device.calendar.reschedule, device.calendar.cancel..."
+          },
+          {
+            "code": "UNKNOWN_BOOTSTRAP_TOOL",
+            "severity": "error",
+            "path": "bootstrap_tools[5]",
+            "message": "bootstrap_tools entry \"coach.observations.pending\" does not match any defined tool name — bootstrap tools MUST reference existing tools",
+            "suggestion": "Available tool names: device.calendar.today, device.calendar.upcoming, device.calendar.create, device.calendar.reschedule, device.calendar.cancel..."
+          },
+          {
+            "code": "UNKNOWN_BOOTSTRAP_TOOL",
+            "severity": "error",
+            "path": "bootstrap_tools[6]",
+            "message": "bootstrap_tools entry \"coach.observations.markSurfaced\" does not match any defined tool name — bootstrap tools MUST reference existing tools",
+            "suggestion": "Available tool names: device.calendar.today, device.calendar.upcoming, device.calendar.create, device.calendar.reschedule, device.calendar.cancel..."
+          },
+          {
+            "code": "UNKNOWN_BOOTSTRAP_TOOL",
+            "severity": "error",
+            "path": "bootstrap_tools[7]",
+            "message": "bootstrap_tools entry \"coach.nudge.log\" does not match any defined tool name — bootstrap tools MUST reference existing tools",
+            "suggestion": "Available tool names: device.calendar.today, device.calendar.upcoming, device.calendar.create, device.calendar.reschedule, device.calendar.cancel..."
           },
           {
             "code": "MISSING_TRIGGER_EVERY",
@@ -20124,36 +23326,64 @@
             "code": "INTENT_NO_TOOLS",
             "severity": "warning",
             "path": "intents.supported[0]",
-            "message": "Intent \"daily_overview\" has no mapped workflow and no obviously related tools",
-            "suggestion": "Add maps_to_workflow, create a workflow with trigger \"daily_overview\", or ensure tool names relate to this intent"
+            "message": "Intent \"first-touch\" has no mapped workflow and no obviously related tools",
+            "suggestion": "Add maps_to_workflow, create a workflow with trigger \"first-touch\", or ensure tool names relate to this intent"
           },
           {
             "code": "INTENT_NO_TOOLS",
             "severity": "warning",
             "path": "intents.supported[1]",
-            "message": "Intent \"schedule_management\" has no mapped workflow and no obviously related tools",
-            "suggestion": "Add maps_to_workflow, create a workflow with trigger \"schedule_management\", or ensure tool names relate to this intent"
+            "message": "Intent \"onboarding-answer\" has no mapped workflow and no obviously related tools",
+            "suggestion": "Add maps_to_workflow, create a workflow with trigger \"onboarding-answer\", or ensure tool names relate to this intent"
           },
           {
             "code": "INTENT_NO_TOOLS",
             "severity": "warning",
             "path": "intents.supported[2]",
-            "message": "Intent \"communication_tasks\" has no mapped workflow and no obviously related tools",
-            "suggestion": "Add maps_to_workflow, create a workflow with trigger \"communication_tasks\", or ensure tool names relate to this intent"
+            "message": "Intent \"log-meal\" has no mapped workflow and no obviously related tools",
+            "suggestion": "Add maps_to_workflow, create a workflow with trigger \"log-meal\", or ensure tool names relate to this intent"
           },
           {
             "code": "INTENT_NO_TOOLS",
             "severity": "warning",
             "path": "intents.supported[3]",
-            "message": "Intent \"travel_and_location\" has no mapped workflow and no obviously related tools",
-            "suggestion": "Add maps_to_workflow, create a workflow with trigger \"travel_and_location\", or ensure tool names relate to this intent"
+            "message": "Intent \"log-drink\" has no mapped workflow and no obviously related tools",
+            "suggestion": "Add maps_to_workflow, create a workflow with trigger \"log-drink\", or ensure tool names relate to this intent"
           },
           {
             "code": "INTENT_NO_TOOLS",
             "severity": "warning",
-            "path": "intents.supported[4]",
-            "message": "Intent \"web_research\" has no mapped workflow and no obviously related tools",
-            "suggestion": "Add maps_to_workflow, create a workflow with trigger \"web_research\", or ensure tool names relate to this intent"
+            "path": "intents.supported[5]",
+            "message": "Intent \"ask-coach\" has no mapped workflow and no obviously related tools",
+            "suggestion": "Add maps_to_workflow, create a workflow with trigger \"ask-coach\", or ensure tool names relate to this intent"
+          },
+          {
+            "code": "INTENT_NO_TOOLS",
+            "severity": "warning",
+            "path": "intents.supported[6]",
+            "message": "Intent \"am-checkin\" has no mapped workflow and no obviously related tools",
+            "suggestion": "Add maps_to_workflow, create a workflow with trigger \"am-checkin\", or ensure tool names relate to this intent"
+          },
+          {
+            "code": "INTENT_NO_TOOLS",
+            "severity": "warning",
+            "path": "intents.supported[7]",
+            "message": "Intent \"pm-checkin\" has no mapped workflow and no obviously related tools",
+            "suggestion": "Add maps_to_workflow, create a workflow with trigger \"pm-checkin\", or ensure tool names relate to this intent"
+          },
+          {
+            "code": "INTENT_NO_TOOLS",
+            "severity": "warning",
+            "path": "intents.supported[9]",
+            "message": "Intent \"respond-to-observation\" has no mapped workflow and no obviously related tools",
+            "suggestion": "Add maps_to_workflow, create a workflow with trigger \"respond-to-observation\", or ensure tool names relate to this intent"
+          },
+          {
+            "code": "INTENT_NO_TOOLS",
+            "severity": "warning",
+            "path": "intents.supported[10]",
+            "message": "Intent \"respond-to-experiment\" has no mapped workflow and no obviously related tools",
+            "suggestion": "Add maps_to_workflow, create a workflow with trigger \"respond-to-experiment\", or ensure tool names relate to this intent"
           }
         ],
         "unresolved": {
@@ -20169,16 +23399,17 @@
           "tools": false,
           "policy": false,
           "engine": true,
-          "mocks_tested": false,
+          "mocks_tested": true,
           "identity": false,
           "security": true
         }
       },
-      "lastExportedAt": "2026-05-14T12:29:41.124Z",
+      "lastExportedAt": "2026-05-14T13:05:30.879Z",
       "lastExportType": "mcp-simple",
-      "deployedAt": "2026-05-14T12:29:41.293Z",
+      "deployedAt": "2026-05-14T13:05:31.074Z",
       "deployedTo": "http://adas-backend:4000",
-      "mcpUri": "stdio://localhost/mycoach"
+      "mcpUri": "stdio://localhost/mycoach",
+      "handoff_when": "User wants to log or check meals, drinks, water, calories, macros, weight, hydration; OR asks about steps, activity, workouts, exercise, fitness, walks, runs, training; OR asks for coaching/nutrition/dietitian/trainer advice; OR responds to AM/PM check-ins; OR sets/updates health and habit goals; OR asks how they are doing today/this week (progress, summaries, observations); OR responds to a proposed weekly experiment. ALWAYS prefer mycoach for anything fitness/activity/nutrition/coaching even when the phrasing mentions today (e.g. check my steps today)."
     },
     {
       "description": "",
