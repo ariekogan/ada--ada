@@ -3962,7 +3962,7 @@
   ],
   "id": "mycoach",
   "created_at": "2026-05-14T12:29:41.026Z",
-  "updated_at": "2026-05-14T19:03:30.139Z",
+  "updated_at": "2026-05-14T19:04:12.209Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -4556,6 +4556,690 @@
         "message": "Tool output is required"
       },
       {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[49].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[49].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[50].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[50].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[51].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[51].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[52].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[52].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[53].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[53].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[54].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[54].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[55].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[55].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[56].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[56].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[57].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[57].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[58].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[58].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[59].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[59].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[60].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[60].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[61].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[61].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[62].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[62].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[63].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[63].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[64].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[64].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[65].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[65].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[66].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[66].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[67].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[67].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[68].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[68].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[69].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[69].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[70].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[70].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[71].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[71].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[72].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[72].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[73].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[73].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[74].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[74].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[75].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[75].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[76].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[76].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[77].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[77].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[78].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[78].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[79].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[79].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[80].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[80].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[81].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[81].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[82].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[82].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[83].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[83].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[84].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[84].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[85].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[85].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[86].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[86].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[87].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[87].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[88].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[88].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[89].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[89].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[90].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[90].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[91].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[91].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[92].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[92].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[93].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[93].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[94].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[94].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[95].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[95].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[96].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[96].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[97].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[97].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[98].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[98].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[99].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[99].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[100].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[100].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[101].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[101].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[102].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[102].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[103].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[103].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[104].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[104].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[105].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[105].output",
+        "message": "Tool output is required"
+      },
+      {
         "code": "TOO_MANY_BOOTSTRAP_TOOLS",
         "severity": "error",
         "path": "bootstrap_tools",
@@ -4565,58 +5249,9 @@
       {
         "code": "UNKNOWN_BOOTSTRAP_TOOL",
         "severity": "error",
-        "path": "bootstrap_tools[0]",
-        "message": "bootstrap_tools entry \"coach.state.captureOnboardingAnswer\" does not match any defined tool name — bootstrap tools MUST reference existing tools",
-        "suggestion": "Available tool names: device.calendar.today, device.calendar.upcoming, device.calendar.create, device.calendar.reschedule, device.calendar.cancel..."
-      },
-      {
-        "code": "UNKNOWN_BOOTSTRAP_TOOL",
-        "severity": "error",
-        "path": "bootstrap_tools[1]",
-        "message": "bootstrap_tools entry \"coach.goals.add\" does not match any defined tool name — bootstrap tools MUST reference existing tools",
-        "suggestion": "Available tool names: device.calendar.today, device.calendar.upcoming, device.calendar.create, device.calendar.reschedule, device.calendar.cancel..."
-      },
-      {
-        "code": "UNKNOWN_BOOTSTRAP_TOOL",
-        "severity": "error",
-        "path": "bootstrap_tools[2]",
-        "message": "bootstrap_tools entry \"coach.state.advancePhase\" does not match any defined tool name — bootstrap tools MUST reference existing tools",
-        "suggestion": "Available tool names: device.calendar.today, device.calendar.upcoming, device.calendar.create, device.calendar.reschedule, device.calendar.cancel..."
-      },
-      {
-        "code": "UNKNOWN_BOOTSTRAP_TOOL",
-        "severity": "error",
         "path": "bootstrap_tools[3]",
         "message": "bootstrap_tools entry \"coach.experiment.activeForWeek\" does not match any defined tool name — bootstrap tools MUST reference existing tools",
-        "suggestion": "Available tool names: device.calendar.today, device.calendar.upcoming, device.calendar.create, device.calendar.reschedule, device.calendar.cancel..."
-      },
-      {
-        "code": "UNKNOWN_BOOTSTRAP_TOOL",
-        "severity": "error",
-        "path": "bootstrap_tools[4]",
-        "message": "bootstrap_tools entry \"coach.experiment.propose\" does not match any defined tool name — bootstrap tools MUST reference existing tools",
-        "suggestion": "Available tool names: device.calendar.today, device.calendar.upcoming, device.calendar.create, device.calendar.reschedule, device.calendar.cancel..."
-      },
-      {
-        "code": "UNKNOWN_BOOTSTRAP_TOOL",
-        "severity": "error",
-        "path": "bootstrap_tools[5]",
-        "message": "bootstrap_tools entry \"coach.observations.pending\" does not match any defined tool name — bootstrap tools MUST reference existing tools",
-        "suggestion": "Available tool names: device.calendar.today, device.calendar.upcoming, device.calendar.create, device.calendar.reschedule, device.calendar.cancel..."
-      },
-      {
-        "code": "UNKNOWN_BOOTSTRAP_TOOL",
-        "severity": "error",
-        "path": "bootstrap_tools[6]",
-        "message": "bootstrap_tools entry \"coach.observations.markSurfaced\" does not match any defined tool name — bootstrap tools MUST reference existing tools",
-        "suggestion": "Available tool names: device.calendar.today, device.calendar.upcoming, device.calendar.create, device.calendar.reschedule, device.calendar.cancel..."
-      },
-      {
-        "code": "UNKNOWN_BOOTSTRAP_TOOL",
-        "severity": "error",
-        "path": "bootstrap_tools[7]",
-        "message": "bootstrap_tools entry \"coach.nudge.log\" does not match any defined tool name — bootstrap tools MUST reference existing tools",
-        "suggestion": "Available tool names: device.calendar.today, device.calendar.upcoming, device.calendar.create, device.calendar.reschedule, device.calendar.cancel..."
+        "suggestion": "Available tool names: coach.state.get, coach.state.initOnboarding, coach.state.captureOnboardingAnswer, coach.state.advancePhase, coach.state.canAdvance..."
       },
       {
         "code": "MISSING_TRIGGER_EVERY",
@@ -4654,62 +5289,6 @@
         "path": "intents.supported[0]",
         "message": "Intent \"first-touch\" has no mapped workflow and no obviously related tools",
         "suggestion": "Add maps_to_workflow, create a workflow with trigger \"first-touch\", or ensure tool names relate to this intent"
-      },
-      {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[1]",
-        "message": "Intent \"onboarding-answer\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"onboarding-answer\", or ensure tool names relate to this intent"
-      },
-      {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[2]",
-        "message": "Intent \"log-meal\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"log-meal\", or ensure tool names relate to this intent"
-      },
-      {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[3]",
-        "message": "Intent \"log-drink\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"log-drink\", or ensure tool names relate to this intent"
-      },
-      {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[5]",
-        "message": "Intent \"ask-coach\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"ask-coach\", or ensure tool names relate to this intent"
-      },
-      {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[6]",
-        "message": "Intent \"am-checkin\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"am-checkin\", or ensure tool names relate to this intent"
-      },
-      {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[7]",
-        "message": "Intent \"pm-checkin\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"pm-checkin\", or ensure tool names relate to this intent"
-      },
-      {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[9]",
-        "message": "Intent \"respond-to-observation\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"respond-to-observation\", or ensure tool names relate to this intent"
-      },
-      {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[10]",
-        "message": "Intent \"respond-to-experiment\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"respond-to-experiment\", or ensure tool names relate to this intent"
       }
     ],
     "unresolved": {
@@ -4730,9 +5309,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-05-14T13:05:30.879Z",
+  "lastExportedAt": "2026-05-14T19:04:12.033Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-14T13:05:31.074Z",
+  "deployedAt": "2026-05-14T19:04:12.207Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/mycoach",
   "handoff_when": "User wants to log or check meals, drinks, water, calories, macros, weight, hydration; OR asks about steps, activity, workouts, exercise, fitness, walks, runs, training; OR asks for coaching/nutrition/dietitian/trainer advice; OR responds to AM/PM check-ins; OR sets/updates health and habit goals; OR asks how they are doing today/this week (progress, summaries, observations); OR responds to a proposed weekly experiment. ALWAYS prefer mycoach for anything fitness/activity/nutrition/coaching even when the phrasing mentions today (e.g. check my steps today)."
