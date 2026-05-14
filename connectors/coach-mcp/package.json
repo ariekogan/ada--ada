@@ -1,0 +1,11 @@
+{
+  "name": "coach-mcp",
+  "version": "1.0.0",
+  "description": "MyCoach intelligence layer — state machine, goals, checkins, nudges, observations, plans. Drives the Onboard→Observe→Calibrate→Accompany progression.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {}
+}

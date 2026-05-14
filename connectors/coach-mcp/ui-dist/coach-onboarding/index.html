@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Welcome — MyCoach</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #161616;
+    --border: #2a2a2a;
+    --text: #f0f0f0;
+    --muted: #8a8a8a;
+    --accent: #7c9eff;
+    --success: #5fd576;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    margin: 0; font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--bg); color: var(--text);
+    min-height: 100vh; display: flex; flex-direction: column;
+    padding: 24px 20px; padding-bottom: 40px;
+  }
+  .progress-bar { height: 3px; background: #1a1a1a; border-radius: 999px; overflow: hidden; margin-bottom: 32px; }
+  .progress-fill { height: 100%; background: var(--accent); transition: width 0.4s ease; }
+  .step-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 12px; }
+  h1 { font-size: 24px; line-height: 1.3; margin: 0 0 12px; font-weight: 600; }
+  .helper { font-size: 14px; color: var(--muted); line-height: 1.5; margin-bottom: 24px; }
+  textarea, input[type="text"] {
+    width: 100%; padding: 14px; font-size: 16px; border: 1px solid var(--border);
+    border-radius: 10px; background: var(--surface); color: var(--text); font-family: inherit;
+    resize: vertical; min-height: 80px; outline: none; transition: border-color 0.15s;
+  }
+  textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
+  .time-row { display: flex; gap: 10px; }
+  .time-row input { flex: 1; min-height: 0; }
+  .btn-row { display: flex; gap: 10px; margin-top: 24px; }
+  button {
+    flex: 1; padding: 14px; border-radius: 10px; border: 1px solid var(--border);
+    background: var(--surface); color: var(--text); font-size: 15px; font-weight: 500;
+    cursor: pointer; font-family: inherit;
+  }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  button:active:not(:disabled) { transform: scale(0.98); }
+  .skip-btn { background: transparent; border: none; color: var(--muted); font-size: 13px; cursor: pointer; margin-top: 8px; }
+  .done-icon { font-size: 64px; text-align: center; margin: 24px 0; animation: bounce 0.6s ease-out; }
+  @keyframes bounce { 0% { transform: scale(0); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+  .done-text { font-size: 15px; line-height: 1.6; text-align: center; color: var(--text); }
+  .summary-row { display: flex; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; gap: 12px; }
+  .summary-row:last-child { border-bottom: none; }
+  .summary-key { color: var(--muted); min-width: 100px; }
+  .summary-val { flex: 1; }
+</style>
+</head>
+<body>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <div id="content"></div>
+
+<script>
+  const QUESTIONS = [
+    {
+      key: 'goal',
+      label: 'Step 1 of 5',
+      title: "What brings you here?",
+      helper: "Tell me what you'd want me to help with. In your own words — no need to make it specific.",
+      placeholder: "e.g. lose some weight, feel more energetic, eat better...",
+      type: 'textarea',
+    },
+    {
+      key: 'typical_day',
+      label: 'Step 2 of 5',
+      title: "Walk me through a typical day",
+      helper: "When do you wake up, work hours, when you eat, when you wind down. Rough is fine.",
+      placeholder: "e.g. wake 7am, work 9-6, eat lunch at desk around 1pm, dinner ~8pm, bed at midnight...",
+      type: 'textarea',
+    },
+    {
+      key: 'history_what_worked',
+      label: 'Step 3 of 5',
+      title: "What's worked before?",
+      helper: "Any approach, habit, or experiment that's helped you in the past — even briefly.",
+      placeholder: "e.g. tracking calories for a month, walking 30 min after lunch, meal-prepping Sundays...",
+      type: 'textarea',
+    },
+    {
+      key: 'history_what_failed',
+      label: 'Step 4 of 5',
+      title: "What hasn't worked?",
+      helper: "Anything you've tried that fell flat or you couldn't sustain. No judgment.",
+      placeholder: "e.g. keto, 5am workouts, calorie counting felt too restrictive...",
+      type: 'textarea',
+    },
+    {
+      key: 'check_in_when',
+      label: 'Step 5 of 5',
+      title: "When can I talk to you?",
+      helper: "Morning person or night owl? I'll check in twice a day — light touch.",
+      placeholder: "Morning check-in",
+      type: 'time-pair',
+    },
+  ];
+
+  let step = 0;
+  const answers = {};
+  let actorState = null;
+
+  function setProgress() {
+    document.getElementById('progressFill').style.width = ((step / QUESTIONS.length) * 100) + '%';
+  }
+
+  function renderQuestion() {
+    setProgress();
+    const q = QUESTIONS[step];
+    const c = document.getElementById('content');
+    if (q.type === 'time-pair') {
+      c.innerHTML = `
+        <div class="step-label">${q.label}</div>
+        <h1>${q.title}</h1>
+        <div class="helper">${q.helper}</div>
+        <div class="time-row">
+          <div style="flex:1">
+            <div style="font-size:12px;color:var(--muted);margin-bottom:6px">Morning</div>
+            <input type="text" id="amTime" value="07:30" placeholder="07:30" pattern="[0-9]{2}:[0-9]{2}" />
+          </div>
+          <div style="flex:1">
+            <div style="font-size:12px;color:var(--muted);margin-bottom:6px">Evening</div>
+            <input type="text" id="pmTime" value="21:30" placeholder="21:30" pattern="[0-9]{2}:[0-9]{2}" />
+          </div>
+        </div>
+        <div class="btn-row">
+          ${step > 0 ? '<button onclick="prev()">Back</button>' : ''}
+          <button class="primary" onclick="nextTime()">Next</button>
+        </div>
+      `;
+    } else {
+      c.innerHTML = `
+        <div class="step-label">${q.label}</div>
+        <h1>${q.title}</h1>
+        <div class="helper">${q.helper}</div>
+        <textarea id="answer" placeholder="${q.placeholder}">${answers[q.key] || ''}</textarea>
+        <div class="btn-row">
+          ${step > 0 ? '<button onclick="prev()">Back</button>' : ''}
+          <button class="primary" id="nextBtn" onclick="next()">Next</button>
+        </div>
+        <button class="skip-btn" onclick="skip()">Skip this</button>
+      `;
+      const t = document.getElementById('answer');
+      t.focus();
+      t.addEventListener('input', () => {
+        document.getElementById('nextBtn').disabled = t.value.trim().length === 0;
+      });
+      document.getElementById('nextBtn').disabled = (answers[q.key] || '').trim().length === 0;
+    }
+  }
+
+  function renderSummary() {
+    setProgress();
+    document.getElementById('progressFill').style.width = '100%';
+    const c = document.getElementById('content');
+    const rows = Object.entries(answers).map(([k, v]) => {
+      const label = ({
+        goal: 'Goal', typical_day: 'Typical day', history_what_worked: "What's worked",
+        history_what_failed: "What hasn't", check_in_when: 'Check-in window',
+      })[k] || k;
+      const val = typeof v === 'object' ? `${v.am} / ${v.pm}` : v;
+      return `<div class="summary-row"><span class="summary-key">${label}</span><span class="summary-val">${val}</span></div>`;
+    }).join('');
+    c.innerHTML = `
+      <div class="done-icon">🎯</div>
+      <h1 style="text-align:center">All set!</h1>
+      <div class="helper" style="text-align:center">Here's what I heard. I'll spend the next week just listening — no advice, no nagging.</div>
+      <div style="margin: 20px 0;">${rows}</div>
+      <div class="btn-row">
+        <button onclick="step = 0; renderQuestion()">Edit</button>
+        <button class="primary" onclick="submit()">Looks good</button>
+      </div>
+    `;
+  }
+
+  function renderDone() {
+    document.getElementById('progressFill').style.width = '100%';
+    document.getElementById('content').innerHTML = `
+      <div class="done-icon">✨</div>
+      <h1 style="text-align:center">Welcome aboard</h1>
+      <div class="done-text">
+        I'm in <b>observing</b> mode for the next week.<br>
+        Log meals or activity as you want — I won't push advice.<br><br>
+        At week 1, I'll share <b>one</b> thing I noticed.<br>
+        That's when the real coaching begins.
+      </div>
+      <div class="btn-row" style="margin-top:32px">
+        <button class="primary" onclick="closeWizard()">Got it</button>
+      </div>
+    `;
+  }
+
+  function next() {
+    const v = document.getElementById('answer').value.trim();
+    if (!v) return;
+    answers[QUESTIONS[step].key] = v;
+    captureAnswer(QUESTIONS[step].key, v, () => {
+      step++;
+      if (step >= QUESTIONS.length) renderSummary();
+      else renderQuestion();
+    });
+  }
+
+  function nextTime() {
+    const am = document.getElementById('amTime').value || '07:30';
+    const pm = document.getElementById('pmTime').value || '21:30';
+    answers.check_in_when = { am, pm };
+    captureAnswer('check_in_when', `${am} / ${pm}`, () => {
+      mcpCall('coach.state.update', { check_in_window: { am, pm, tz: 'local' } }, () => {
+        step++;
+        renderSummary();
+      });
+    });
+  }
+
+  function skip() {
+    step++;
+    if (step >= QUESTIONS.length) renderSummary();
+    else renderQuestion();
+  }
+
+  function prev() {
+    if (step > 0) { step--; renderQuestion(); }
+  }
+
+  function submit() {
+    const goalText = answers.goal || 'unstated goal';
+    mcpCall('coach.goals.add', { text: goalText, reason: 'initial goal from onboarding wizard' }, () => {
+      mcpCall('coach.state.advancePhase', {}, () => {
+        renderDone();
+      });
+    });
+  }
+
+  function closeWizard() {
+    window.parent.postMessage({ source: 'adas-plugin', message: { action: 'close' } }, '*');
+  }
+
+  // ── postMessage protocol ──
+  const callbacks = {};
+  function mcpCall(tool, args, cb) {
+    const requestId = 'req_' + Math.random().toString(36).slice(2);
+    if (cb) callbacks[requestId] = cb;
+    window.parent.postMessage({
+      source: 'adas-plugin',
+      message: { action: 'mcp-call', payload: { requestId, toolName: tool, args: args || {} } },
+    }, '*');
+  }
+  function captureAnswer(key, value, cb) {
+    mcpCall('coach.state.captureOnboardingAnswer', { key, value }, cb);
+  }
+  window.addEventListener('message', ev => {
+    const msg = ev.data?.message;
+    if (ev.data?.source !== 'adas-host' || !msg) return;
+    if (msg.type === 'mcp-result') {
+      const { requestId, result } = msg.payload;
+      if (callbacks[requestId]) { callbacks[requestId](null, result); delete callbacks[requestId]; }
+    } else if (msg.type === 'init') {
+      if (msg.payload?.state) actorState = msg.payload.state;
+      if (msg.payload?.state?.onboarding_answers) Object.assign(answers, msg.payload.state.onboarding_answers);
+    }
+  });
+  // On load: ensure state, then start
+  mcpCall('coach.state.initOnboarding', {}, () => {
+    window.parent.postMessage({ source: 'adas-plugin', message: { action: 'ready' } }, '*');
+    renderQuestion();
+  });
+</script>
+</body>
+</html>

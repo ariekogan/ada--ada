@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Me</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #FAF6EE;
+      color: #1a1410;
+      padding: 16px;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .header h1 { font-size: 18px; font-weight: 600; }
+    .header .count { font-size: 13px; color: #9a8870; }
+
+    .profile-card {
+      background: #F2EADC; border: 1px solid rgba(26,20,16,0.08); border-radius: 12px;
+      padding: 16px; margin-bottom: 16px;
+    }
+    .profile-header { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+    .avatar {
+      width: 44px; height: 44px; border-radius: 22px; background: #FF7A28;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 18px; font-weight: 600; flex-shrink: 0;
+    }
+    .profile-name { font-size: 16px; font-weight: 600; }
+    .profile-sub { font-size: 12px; color: #9a8870; }
+    .profile-fields { margin-top: 12px; }
+    .profile-field {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 4px 0;
+    }
+    .profile-field-label { font-size: 12px; color: #9a8870; }
+    .profile-field-value { font-size: 13px; }
+
+    .section-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 0; border-bottom: 1px solid rgba(26,20,16,0.08); cursor: pointer;
+      user-select: none;
+    }
+    .section-header:hover { color: #fff; }
+    .section-title { font-size: 15px; font-weight: 500; }
+    .section-right { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #9a8870; }
+
+    .item-card {
+      border-left: 2px solid rgba(26,20,16,0.08); padding: 10px 0 10px 12px; margin-top: 6px;
+    }
+    .item-content { font-size: 13px; line-height: 1.5; }
+    .item-context { font-size: 12px; color: #9a8870; font-style: italic; margin-top: 4px; line-height: 1.4; }
+    .item-date { font-size: 11px; color: #9a8870; margin-top: 4px; }
+
+    .rules-link { border-top: 1px solid rgba(26,20,16,0.08); padding-top: 14px; margin-top: 8px; font-size: 13px; color: #9a8870; }
+
+    .empty {
+      background: #F2EADC; border: 1px solid rgba(26,20,16,0.08); border-radius: 10px;
+      padding: 24px; text-align: center;
+    }
+    .empty h2 { font-size: 16px; font-weight: 500; color: #9a8870; margin-bottom: 8px; }
+    .empty p { font-size: 13px; color: #9a8870; line-height: 1.7; }
+
+    .confirm-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 100;
+    }
+    .confirm-box {
+      background: #F2EADC; border: 1px solid rgba(26,20,16,0.08); border-radius: 12px;
+      padding: 20px; max-width: 320px; text-align: center;
+    }
+    .confirm-box p { margin-bottom: 16px; font-size: 14px; }
+    .confirm-btns { display: flex; gap: 8px; justify-content: center; }
+    .confirm-btns button { padding: 8px 20px; border-radius: 6px; border: none; cursor: pointer; font-size: 13px; font-weight: 500; }
+    .btn-cancel { background: rgba(26,20,16,0.08); color: #1a1410; }
+    .btn-confirm-delete { background: #C15545; color: white; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    const PROFILE_LABELS = { name:'Name', timezone:'Timezone', location:'Location', language:'Language', email:'Email', phone:'Phone', birthday:'Birthday', occupation:'Occupation' };
+    const GARBAGE = new Set(['asking','unknown','null','undefined','none','n/a','?','']);
+    const GARBAGE_RE = /^(asking|detecting|checking|updating|setting|getting|fetching)/i;
+
+    let profile = {}, preferences = [], facts = [], instructions = [];
+    let totalMemories = 0, rulesCount = 0, isLive = false;
+    let expandedSection = 'preferences';
+    let pendingDeleteId = null;
+
+    render();
+
+    // ── postMessage bridge ──
+    let counter = 0;
+    const pendingCalls = new Map();
+    function unwrapResult(raw) {
+      if (raw?.content?.[0]?.type === 'text') { try { raw = JSON.parse(raw.content[0].text); } catch {} }
+      if (raw?.content?.[0]?.type === 'text') { try { raw = JSON.parse(raw.content[0].text); } catch {} }
+      return raw;
+    }
+    function mcpCall(tool, args) {
+      const requestId = 'req_' + (++counter) + '_' + Date.now();
+      return new Promise((resolve, reject) => {
+        const timeout = setTimeout(() => reject(new Error('timeout')), 15000);
+        pendingCalls.set(requestId, {
+          resolve: r => { clearTimeout(timeout); resolve(unwrapResult(r)); },
+          reject: e => { clearTimeout(timeout); reject(e); },
+        });
+        window.parent.postMessage({
+          source: 'adas-plugin',
+          message: { action: 'mcp-call', payload: { requestId, toolName: 'cp.fe_api', args: { method: 'mcpProxy', params: { connectorId: 'memory-mcp', tool, args } } } },
+        }, '*');
+      });
+    }
+    window.addEventListener('message', ev => {
+      const d = ev.data || {};
+      if (d.source !== 'adas-host') return;
+      if (d.message?.type === 'init') tryLiveData();
+      if (d.message?.type === 'mcp-result') {
+        const { requestId, result, error } = d.message.payload || {};
+        const p = pendingCalls.get(requestId);
+        if (p) { pendingCalls.delete(requestId); error ? p.reject(new Error(error)) : p.resolve(result); }
+      }
+    });
+
+    async function tryLiveData() {
+      try {
+        let data = await mcpCall('memory.userProfile', {});
+        // Unwrap {ok, text} if needed
+        if (data?.ok !== undefined && data?.preferences) { /* already good */ }
+        else if (typeof data === 'string') { try { data = JSON.parse(data); } catch {} }
+
+        const rawProfile = data?.profile || {};
+        profile = {};
+        for (const [k, v] of Object.entries(rawProfile)) {
+          if (typeof v === 'string' && v.length >= 2 && !GARBAGE.has(v.toLowerCase()) && !GARBAGE_RE.test(v)) {
+            profile[k] = v;
+          }
+        }
+        preferences = data?.preferences || [];
+        facts = data?.facts || [];
+        instructions = data?.instructions || [];
+        totalMemories = data?.total_memories || 0;
+        rulesCount = data?.rules?.active || 0;
+        isLive = true;
+        render();
+      } catch (e) { console.warn('[about-me] load failed:', e); }
+    }
+
+    async function deleteMemory(id) {
+      try {
+        await mcpCall('memory.delete', { id });
+        pendingDeleteId = null;
+        await tryLiveData();
+      } catch { pendingDeleteId = null; render(); }
+    }
+
+    setTimeout(() => { if (!isLive) tryLiveData(); }, 2000);
+
+    function parseContent(raw) {
+      if (!raw) return '';
+      const t = raw.trim();
+      if (t.startsWith('{')) {
+        try {
+          const p = JSON.parse(t);
+          if (p.description) return p.description;
+          if (p.field && p.value !== undefined) return (PROFILE_LABELS[p.field] || p.field.replace(/_/g,' ')) + ': ' + p.value;
+          const keys = Object.keys(p);
+          if (keys.length === 1 && (typeof p[keys[0]] === 'string' || typeof p[keys[0]] === 'number')) {
+            return keys[0].replace(/_/g,' ').replace(/\b\w/g, c => c.toUpperCase()) + ': ' + p[keys[0]];
+          }
+        } catch {}
+      }
+      return raw;
+    }
+
+    function formatDate(d) {
+      if (!d) return '';
+      try {
+        const date = new Date(d.replace(' ','T'));
+        const diff = Date.now() - date.getTime();
+        if (diff < 86400000) return 'Today';
+        if (diff < 172800000) return 'Yesterday';
+        return date.toLocaleDateString('en-US', { month:'short', day:'numeric' });
+      } catch { return ''; }
+    }
+
+    function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+    function toggleSection(key) { expandedSection = expandedSection === key ? null : key; render(); }
+
+    function renderSection(title, key, items, icon) {
+      if (!items.length) return '';
+      const isOpen = expandedSection === key;
+      const cards = isOpen ? items.map(item => {
+        const parsed = parseContent(item.content);
+        return `<div class="item-card" ondblclick="pendingDeleteId=${JSON.stringify(item.id)};render()">
+          <div class="item-content">${esc(parsed)}</div>
+          ${item.context ? `<div class="item-context">${esc(item.context)}</div>` : ''}
+          ${item.created_at ? `<div class="item-date">${formatDate(item.created_at)}</div>` : ''}
+        </div>`;
+      }).join('') : '';
+      return `<div style="margin-bottom:4px">
+        <div class="section-header" onclick="toggleSection('${key}')">
+          <span class="section-title">${icon}  ${title}</span>
+          <span class="section-right"><span>${items.length}</span><span>${isOpen ? '\u25BE' : '\u25B8'}</span></span>
+        </div>
+        ${cards}
+      </div>`;
+    }
+
+    function render() {
+      const app = document.getElementById('app');
+      const profileKeys = Object.keys(profile);
+      const hasProfile = profileKeys.length > 0;
+      const isEmpty = !hasProfile && !preferences.length && !facts.length && !instructions.length;
+
+      if (isEmpty && !isLive) {
+        app.innerHTML = `<div class="header"><h1>About Me</h1></div>
+          <div class="empty"><h2>Loading...</h2><p>Connecting to memory...</p></div>`;
+        return;
+      }
+
+      if (isEmpty && isLive) {
+        app.innerHTML = `<div class="header"><h1>About Me</h1><span class="count">${totalMemories} memories</span></div>
+          <div class="empty"><h2>Nothing here yet</h2><p>Your assistant learns about you over time.<br>Try saying things like:<br>"My timezone is Tel Aviv"<br>"I prefer window seats"<br>"Remember that I'm vegetarian"</p></div>`;
+        return;
+      }
+
+      let html = `<div class="header"><h1>About Me</h1><span class="count">${totalMemories} memories</span></div>`;
+
+      if (hasProfile) {
+        const nameKey = profileKeys.find(k => k === 'name');
+        const tzKey = profileKeys.find(k => k === 'timezone');
+        let profileHeader = '';
+        if (nameKey) {
+          profileHeader = `<div class="profile-header">
+            <div class="avatar">${esc(profile.name[0].toUpperCase())}</div>
+            <div><div class="profile-name">${esc(profile.name)}</div>
+            ${tzKey ? `<div class="profile-sub">${esc(profile.timezone)}</div>` : ''}</div>
+          </div>`;
+        }
+        const fields = profileKeys.filter(k => nameKey ? k !== 'name' && k !== 'timezone' : true)
+          .map(k => `<div class="profile-field"><span class="profile-field-label">${esc(PROFILE_LABELS[k] || k.replace(/_/g,' '))}</span><span class="profile-field-value">${esc(profile[k])}</span></div>`).join('');
+        html += `<div class="profile-card">${profileHeader}${fields ? `<div class="profile-fields">${fields}</div>` : ''}</div>`;
+      }
+
+      html += renderSection('Preferences', 'preferences', preferences, '\u2699');
+      html += renderSection('Facts', 'facts', facts, '\uD83D\uDCA1');
+      html += renderSection('Instructions', 'instructions', instructions, '\uD83D\uDCCB');
+
+      if (rulesCount > 0) {
+        html += `<div class="rules-link">${rulesCount} active taught rules \u2192 see Teach tab</div>`;
+      }
+
+      if (pendingDeleteId !== null) {
+        const item = [...preferences, ...facts, ...instructions].find(m => m.id == pendingDeleteId);
+        html += `<div class="confirm-overlay" onclick="pendingDeleteId=null;render()">
+          <div class="confirm-box" onclick="event.stopPropagation()">
+            <p>Delete this memory?<br><strong>${esc(parseContent(item?.content || ''))}</strong></p>
+            <div class="confirm-btns">
+              <button class="btn-cancel" onclick="pendingDeleteId=null;render()">Cancel</button>
+              <button class="btn-confirm-delete" onclick="deleteMemory(${JSON.stringify(pendingDeleteId)})">Delete</button>
+            </div>
+          </div>
+        </div>`;
+      }
+
+      app.innerHTML = html;
+    }
+  </script>
+</body>
+</html>

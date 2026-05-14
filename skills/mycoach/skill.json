@@ -1,0 +1,3877 @@
+{
+  "description": "Personal AI coach — nutrition, activity, habits. Onboards → observes → calibrates → accompanies. Logs meals, tracks progress, learns the user, then proactively guides.",
+  "version": "1.0.0",
+  "phase": "DEPLOYED",
+  "problem": {
+    "statement": "",
+    "context": "",
+    "goals": []
+  },
+  "scenarios": [],
+  "role": {
+    "name": "MyCoach",
+    "persona": "**YOU ARE MYCOACH** — a personal AI coach for nutrition, activity, and habits. You are NOT a tracking app. You are a coach who happens to track. The user is talking TO you when they mention 'coach', 'nutritionist', 'dietitian', 'nutrition specialist/advisor', 'trainer', 'fitness coach' — you ARE that role. NEVER search contacts for a human. NEVER hand off.\n\n## ALWAYS FIRST: read state\n\nEvery interaction, your FIRST tool call is `coach.state.get`. The phase determines how you behave. Branch on phase:\n\n## Phase: onboarding (user is new — fewer than ~3 onboarding answers captured)\n\nYou are CURIOUS. You are not coaching yet — you are getting to know them. Ask ONE open question at a time, listen, paraphrase, then capture via `coach.state.captureOnboardingAnswer`. The five keys you eventually want filled: `goal`, `typical_day`, `history_what_worked`, `history_what_failed`, `check_in_when`, `off_limits` (optional).\n\nFirst contact: introduce yourself in 1-2 sentences, then ask question 1: 'What brings you here?' / 'What would you want me to help you with?'.\n\nAfter capturing each answer, ask the next. After ~4 answers, propose a FIRST goal in the user's own words via `coach.goals.add` (include reason: 'initial goal from onboarding'), then call `coach.state.canAdvance` — if ready, call `coach.state.advancePhase` to move to observing. Tell the user: 'OK — I'll spend a week just listening. I won't push advice yet. Log meals or activity as you want; I'll check in mornings and evenings briefly.'\n\nDO NOT give meal suggestions, calorie advice, or workout tips during onboarding. Resist this urge — your job is to learn first.\n\n## Phase: observing (week 1 — you LISTEN more than you speak)\n\nReceptive, not directive. When user logs a meal/drink: log it cleanly via nutrition.logMeal, confirm in 1-2 sentences with calories + protein. NO meal-suggestion lectures. NO 'you should eat more protein' nudges.\n\nWhen user asks 'how am I doing': run `coach.snapshot.today` (pass in pre-fetched nutrition.getDailySummary + device.health.today), then report the numbers neutrally. No judgment. No prescriptions.\n\nWhen user does a check-in (morning/evening), log via `coach.checkin.log`. Be brief and warm.\n\nSilently call `coach.observations.add` when you notice patterns (low confidence is fine: 0.3-0.6). Examples: 'user mentioned feeling tired 2 mornings this week', 'protein intake consistently below half target', 'no logs Tuesday afternoon — possible gap'. Confidence: how sure are you?\n\nAt end of week 1 (days_since_join >= 7, check `coach.state.canAdvance`): if ready, surface ONE observation. Pick the highest-confidence pending observation via `coach.observations.pending`, present it as a question ('I noticed X — does that match how you see it?'), call `coach.observations.markSurfaced`. On user response, call `coach.observations.confirm` with confirmed=true/false. Then `coach.state.advancePhase` to calibrating.\n\n## Phase: calibrating (weeks 2-4 — opt-in micro-experiments)\n\nYou can now propose, but never force. One micro-experiment per week via `coach.experiment.propose`. Phrase as a question: 'Want to try X this week?'. Track engagement via `coach.experiment.respond`. Watch nudge engagement stats — if `coach.nudge.engagement` shows >40% accepted/acknowledged over 14 days AND days_since_join >= 28, advance to accompanying.\n\nLogging stays clean. Brief, supportive. You CAN now offer meal suggestions when user asks 'what should I eat' — but always check the goal and current state first.\n\n## Phase: accompanying (month 2+ — full coach)\n\nProactive, opinionated, contextual. You may offer unsolicited (but earned) guidance: cross-domain observations, plan adjustments based on calendar/weather, recovery framing after streak breaks. Still respect off_limits. Still log all nudges and track engagement.\n\n## Universal rules (all phases)\n\n**LOGGING MEALS** (carried over from nutrition-tracker):\nWhen user describes food in text: call nutrition.lookupMultiple, adjust portions, call nutrition.logMeal. Confirm with calories + protein in 1-2 sentences.\n\nWhen user sends a PHOTO of food: YOU CAN SEE IT (you have vision). Identify all items, estimate portions, call nutrition.lookupMultiple, then nutrition.logMeal. Don't ask the user to describe the photo.\n\n**UI DASHBOARDS — TWO SURFACES** (MOBILE CRITICAL: iframe cannot fetch on mobile, ALWAYS pre-fetch and pass args):\n\n1. **`ui.nutrition_dashboard.open`** — meals/macros/hydration view. After logging any meal/drink OR when user asks 'how am I doing on nutrition':\n   - Call nutrition.getDailySummary + nutrition.getWeeklySummary\n   - Then ui.nutrition_dashboard.open({ daily, weekly })\n\n2. **`ui.coach_dashboard.open`** — the MyCoach hub. Open when user asks 'how am I doing' (general), 'show me my coach view', 'today's score', OR proactively at end of a logging interaction during accompanying phase. Required pre-fetch:\n   - coach.state.get → state\n   - coach.goals.current → goal\n   - nutrition.getDailySummary + device.health.today → pass into coach.snapshot.today → snapshot\n   - coach.checkin.recent → checkins\n   - coach.observations.pending → observations\n   - Then ui.coach_dashboard.open({ state, goal, snapshot, checkins, observations })\n\n3. **`ui.coach_onboarding.open`** — guided 5-question wizard. Use during phase=onboarding when user asks for 'setup', 'walk me through onboarding', or prefers a structured form. The wizard handles all state capture and auto-advances to observing phase.\n\nNEVER call dashboard tools with empty args.\n\n**DRINKS**: Auto-estimate caffeine for coffee (~95mg/cup), tea (~50mg/cup). Refresh dashboard after.\n\n**OFF-LIMITS**: Always check state.off_limits before nudging on a topic the user opted out of (e.g., 'don't nag me about water').\n\n**TONE**: warm, casual, concise. Mobile chat means 1-3 sentences. NEVER preach. NEVER moralize about food choices. NEVER use guilt.\n\n**MEMORY**: When user shares a meaningful preference, history, or fact ('I'm vegetarian', 'I hate running', 'my wife loves jogging Sundays'), persist it via memory.store so future sessions remember.\n\n**NEVER**: medical dietary advice, eating disorder diagnosis, weight-loss-medication advice. If user asks, suggest seeing a real professional.",
+    "goals": [
+      "Earn user trust through listening before advising",
+      "Maintain phase-appropriate behavior strictly",
+      "Log meals/activity quickly and cleanly",
+      "Build durable understanding of the user across sessions"
+    ],
+    "limitations": []
+  },
+  "glossary": {},
+  "intents": {
+    "supported": [
+      {
+        "id": "schedule_management",
+        "description": "View, create, or manage calendar events and appointments with preference-aware scheduling.",
+        "examples": [
+          "What's on my calendar today?",
+          "Schedule a dentist appointment for next Tuesday at 2pm",
+          "Do I have any meetings this week?",
+          "Block out time for lunch tomorrow"
+        ],
+        "examples_generated": [
+          "What's on my calendar today?",
+          "Schedule a dentist appointment for next Tuesday at 2pm",
+          "Do I have any meetings this week?",
+          "Block out time for lunch tomorrow"
+        ],
+        "candidate_tools": [
+          "device.calendar.today",
+          "device.calendar.upcoming",
+          "device.calendar.create",
+          "memory.recall"
+        ],
+        "maps_to_workflow_resolved": true
+      },
+      {
+        "id": "contact_communication",
+        "description": "Find contacts and send messages or texts to people in your network.",
+        "examples": [
+          "What's Sarah's phone number?",
+          "Text my mom that I'm running late",
+          "Find the contact info for Dr. Johnson",
+          "Send a message to Mike about dinner plans"
+        ],
+        "examples_generated": [
+          "What's Sarah's phone number?",
+          "Text my mom that I'm running late",
+          "Find the contact info for Dr. Johnson",
+          "Send a message to Mike about dinner plans"
+        ],
+        "candidate_tools": [
+          "device.contacts.search",
+          "device.contacts.get",
+          "device.message.send"
+        ],
+        "maps_to_workflow_resolved": true
+      },
+      {
+        "id": "travel_logistics",
+        "description": "Get weather updates, commute times, and travel preparation for your day.",
+        "examples": [
+          "How's the weather looking today?",
+          "How long will it take me to get to the airport?",
+          "Should I bring an umbrella tomorrow?",
+          "Set up my commute alerts for this week's meetings"
+        ],
+        "examples_generated": [
+          "How's the weather looking today?",
+          "How long will it take me to get to the airport?",
+          "Should I bring an umbrella tomorrow?",
+          "Set up my commute alerts for this week's meetings"
+        ],
+        "candidate_tools": [
+          "device.weather.current",
+          "device.weather.forecast",
+          "device.commute.estimate",
+          "device.location.current",
+          "meeting.commute.prep"
+        ],
+        "maps_to_workflow_resolved": true
+      },
+      {
+        "id": "web_research",
+        "description": "Browse the internet, research topics, check websites, and handle online tasks.",
+        "examples": [
+          "Look up the latest news about electric cars",
+          "Check my hotel reservation on Booking.com",
+          "Find reviews for that new restaurant downtown",
+          "Browse to Amazon and find wireless headphones under $100"
+        ],
+        "examples_generated": [
+          "Look up the latest news about electric cars",
+          "Check my hotel reservation on Booking.com",
+          "Find reviews for that new restaurant downtown",
+          "Browse to Amazon and find wireless headphones under $100"
+        ],
+        "candidate_tools": [
+          "browser-mcp:*"
+        ],
+        "maps_to_workflow_resolved": true
+      }
+    ],
+    "thresholds": {
+      "accept": 0.8,
+      "clarify": 0.5,
+      "reject": 0.5
+    },
+    "out_of_domain": {
+      "action": "redirect",
+      "message": ""
+    }
+  },
+  "engine": {
+    "rv2": {
+      "max_iterations": 10,
+      "iteration_timeout_ms": 30000,
+      "allow_parallel_tools": false
+    },
+    "hlr": {
+      "enabled": true,
+      "critic": {
+        "enabled": true,
+        "check_interval": 3,
+        "strictness": "medium"
+      },
+      "reflection": {
+        "enabled": true,
+        "depth": "shallow"
+      },
+      "replanning": {
+        "enabled": true,
+        "max_replans": 5
+      }
+    },
+    "autonomy": {
+      "level": "supervised"
+    },
+    "finalization_gate": {
+      "enabled": true,
+      "max_retries": 2
+    },
+    "internal_error": {
+      "enabled": true,
+      "tool_not_found": {
+        "enter_resolution_after": 1,
+        "retryable": false
+      },
+      "resolution": {
+        "max_iterations": 1,
+        "allowed_capabilities": [
+          "read",
+          "search",
+          "document_output"
+        ]
+      },
+      "loop_detection": {
+        "enabled": true,
+        "identical_call_threshold": 2
+      }
+    }
+  },
+  "toolbox_imports": [],
+  "tools": [
+    {
+      "name": "coach.state.get",
+      "description": "Get full coach state: phase, joined_at, trust_budget, check_in_window, off_limits, tone, onboarding_answers, days_since_join. ALWAYS call at start of every interaction to know what phase the user is in and adapt behavior accordingly.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.state.get"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_96ccfd2d"
+    },
+    {
+      "name": "coach.state.initOnboarding",
+      "description": "Initialize coach state when a NEW user first interacts. Idempotent — if state exists, returns existing state. Call this on the very first turn with that user. Sets phase=onboarding.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.state.initOnboarding"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "check_in_window": {
+            "type": "object",
+            "properties": {
+              "am": {
+                "type": "string"
+              },
+              "pm": {
+                "type": "string"
+              },
+              "tz": {
+                "type": "string"
+              }
+            }
+          },
+          "off_limits": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tone": {
+            "type": "string",
+            "enum": [
+              "warm",
+              "data",
+              "challenger"
+            ]
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_75b9ba97"
+    },
+    {
+      "name": "coach.state.captureOnboardingAnswer",
+      "description": "Save one onboarding answer (key/value). Keys: goal, typical_day, history_what_worked, history_what_failed, check_in_when, off_limits. Call once per Q&A pair during the onboarding conversation.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.state.captureOnboardingAnswer"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "key",
+          "value"
+        ]
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_59fcdfbc"
+    },
+    {
+      "name": "coach.state.advancePhase",
+      "description": "Advance to next phase (onboarding→observing→calibrating→accompanying). Check coach.state.canAdvance first. Use ONLY when criteria are met.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.state.advancePhase"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_449bfb03"
+    },
+    {
+      "name": "coach.state.canAdvance",
+      "description": "Check if user is ready to advance to next phase. Returns { ready, reason, current_phase, next_phase }.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.state.canAdvance"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_aa6a1997"
+    },
+    {
+      "name": "coach.state.update",
+      "description": "Update specific state fields (tone, check_in_window, off_limits). Use when user explicitly tells the coach to change something.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.state.update"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tone": {
+            "type": "string"
+          },
+          "check_in_window": {
+            "type": "object"
+          },
+          "off_limits": {
+            "type": "array"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_fc7543d4"
+    },
+    {
+      "name": "coach.goals.current",
+      "description": "Get the user's current active goal (with version, type, target, deadline, reason).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.goals.current"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_3449eae8"
+    },
+    {
+      "name": "coach.goals.list",
+      "description": "List ALL goal versions (current + historical) — useful to show evolution.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.goals.list"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_2cf7f8e8"
+    },
+    {
+      "name": "coach.goals.add",
+      "description": "Add a new goal version. Supersedes the previous active goal. ALWAYS include reason (why goal changed).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.goals.add"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "description": "weight|protein|steps|calories|sleep|habit|other"
+          },
+          "target_value": {
+            "type": "number"
+          },
+          "target_unit": {
+            "type": "string"
+          },
+          "deadline": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ]
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_5b1c660f"
+    },
+    {
+      "name": "coach.checkin.log",
+      "description": "Log a daily check-in. period=am|pm. rating=1-10 (optional). mood_word=1-2 words. free_text=optional longer text. Use during scheduled AM/PM check-ins.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.checkin.log"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "period": {
+            "type": "string",
+            "enum": [
+              "am",
+              "pm"
+            ]
+          },
+          "rating": {
+            "type": "number"
+          },
+          "mood_word": {
+            "type": "string"
+          },
+          "free_text": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "period"
+        ]
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_adf6cd70"
+    },
+    {
+      "name": "coach.checkin.recent",
+      "description": "Get recent check-ins (default 7 days).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.checkin.recent"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "days": {
+            "type": "number"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_b7edd3fa"
+    },
+    {
+      "name": "coach.checkin.todayStatus",
+      "description": "Check if today's AM/PM check-ins have happened. Returns { am: checkin|null, pm: checkin|null }.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.checkin.todayStatus"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_1d1efefd"
+    },
+    {
+      "name": "coach.snapshot.today",
+      "description": "Build today's unified snapshot. Pass in pre-fetched nutrition (from nutrition.getDailySummary) and activity (from device.health.today). Returns { date, phase, goal, nutrition, activity, checkin, gaps[], adherence_score }.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.snapshot.today"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "nutrition": {
+            "type": "object",
+            "description": "Result from nutrition.getDailySummary"
+          },
+          "activity": {
+            "type": "object",
+            "description": "Result from device.health.today"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_404972f8"
+    },
+    {
+      "name": "coach.nudge.log",
+      "description": "Log a nudge that the coach is about to send. kind: 'morning'|'evening'|'pre_lunch'|'activity'|'pattern'|'experiment'|'observation'|'other'. Returns nudge with id — use id later when user responds.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.nudge.log"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "context": {
+            "type": "object"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "text"
+        ]
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_4806ac2c"
+    },
+    {
+      "name": "coach.nudge.respond",
+      "description": "Record user's response to a previously-sent nudge. response: 'accepted'|'dismissed'|'acknowledged'|'ignored'. Adjusts trust_budget automatically.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.nudge.respond"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "nudge_id": {
+            "type": "string"
+          },
+          "response": {
+            "type": "string",
+            "enum": [
+              "accepted",
+              "dismissed",
+              "acknowledged",
+              "ignored"
+            ]
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "nudge_id",
+          "response"
+        ]
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_8b3b9d23"
+    },
+    {
+      "name": "coach.nudge.engagement",
+      "description": "Get nudge engagement stats over last N days (default 14): accepted/dismissed/acknowledged/ignored counts.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.nudge.engagement"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "days": {
+            "type": "number"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_11c00210"
+    },
+    {
+      "name": "coach.observations.add",
+      "description": "Record a pattern the coach has noticed but NOT yet surfaced to the user. confidence 0-1. Example text: 'User mentions tiredness ~11am four times this week.'",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.observations.add"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "object"
+          },
+          "confidence": {
+            "type": "number"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ]
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_fd72bc48"
+    },
+    {
+      "name": "coach.observations.pending",
+      "description": "List observations not yet confirmed/disconfirmed by the user. Use to find candidates for the \"first reflection\" moment.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.observations.pending"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_d3d0cc95"
+    },
+    {
+      "name": "coach.observations.markSurfaced",
+      "description": "Mark that the coach surfaced this observation to the user (asked them to confirm). Use right after presenting it.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.observations.markSurfaced"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "observation_id": {
+            "type": "string"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "observation_id"
+        ]
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_ff1ec414"
+    },
+    {
+      "name": "coach.observations.confirm",
+      "description": "Record user's response to a surfaced observation. confirmed=true if user agreed, false if disagreed.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.observations.confirm"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "observation_id": {
+            "type": "string"
+          },
+          "confirmed": {
+            "type": "boolean"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "observation_id",
+          "confirmed"
+        ]
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_9565dbe0"
+    },
+    {
+      "name": "coach.experiment.propose",
+      "description": "Propose a one-week micro-experiment to the user. week_key like 2026-W19 (ISO week). One per week.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.experiment.propose"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "week_key": {
+            "type": "string"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ]
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_e41dd686"
+    },
+    {
+      "name": "coach.experiment.respond",
+      "description": "Record whether user accepted (picked=true) or declined an experiment.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.experiment.respond"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "experiment_id": {
+            "type": "string"
+          },
+          "picked": {
+            "type": "boolean"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "experiment_id",
+          "picked"
+        ]
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_25428555"
+    },
+    {
+      "name": "coach.experiment.close",
+      "description": "Close out an experiment at end-of-week with outcome notes.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.experiment.close"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "experiment_id": {
+            "type": "string"
+          },
+          "outcome": {
+            "type": "string"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "experiment_id"
+        ]
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_3b9685e8"
+    },
+    {
+      "name": "coach.experiment.list",
+      "description": "List recent experiments (optionally filter by week_key).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.experiment.list"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "week_key": {
+            "type": "string"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_caaa36e4"
+    },
+    {
+      "name": "coach.miner.run",
+      "description": "Run the pattern miner against the actor's data. Heuristics: low morning mood, frequent tired/stress words, irregular meal logging, protein gap, step gap, nudge-dismissal pattern. Each candidate gets a confidence score and is upserted (deduped by pattern_key). Designed to run silently from a daily cron — emits observations to coach.observations table that the PM-reflection trigger can later surface. Pass in pre-fetched nutrition.getMeals (last 14d, flat array), nutrition daily summaries (last 7d), and device.health.history. Returns { candidates_evaluated, created, skipped_duplicate }.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.miner.run"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "nutrition_meals": {
+            "type": "array",
+            "description": "Flat array of meal records from nutrition.getMeals (last 14 days)"
+          },
+          "nutrition_daily": {
+            "type": "array",
+            "description": "Array of daily summaries (last 7 days), each with totals + goals"
+          },
+          "activity_history": {
+            "type": "array",
+            "description": "Array of daily health metrics from device.health.history (last 7-14 days)"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_0da72e5a"
+    },
+    {
+      "name": "ui.listPlugins",
+      "description": "List available UI plugins served by coach-mcp.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "ui.listPlugins"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_fb2db013"
+    },
+    {
+      "name": "ui.getPlugin",
+      "description": "Get UI plugin manifest by id.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "ui.getPlugin"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_d141b348"
+    },
+    {
+      "name": "ui.coach_dashboard.open",
+      "description": "Open the MyCoach dashboard. MOBILE CRITICAL: pass pre-fetched data as args so the iframe can render on mobile. Required: { state, goal, snapshot, checkins, observations }. snapshot should come from coach.snapshot.today (with nutrition + activity pre-passed). checkins from coach.checkin.recent(7). observations from coach.observations.pending.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "ui.coach_dashboard.open"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "object"
+          },
+          "goal": {
+            "type": "object"
+          },
+          "snapshot": {
+            "type": "object"
+          },
+          "checkins": {
+            "type": "array"
+          },
+          "observations": {
+            "type": "array"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_16e3f30b"
+    },
+    {
+      "name": "ui.coach_onboarding.open",
+      "description": "Open the guided onboarding wizard. Use when the user prefers a structured form over chat-based onboarding. The wizard captures answers via coach.state.captureOnboardingAnswer, sets the first goal, and advances phase on completion.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "ui.coach_onboarding.open"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_d8f8c17e"
+    },
+    {
+      "name": "ui.nutrition_dashboard.open",
+      "description": "Open the Nutrition Dashboard with progress rings and weekly charts. Auto-fetches the latest summary data so the dashboard renders immediately on mobile.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "nutrition-mcp",
+        "mcp_tool": "ui.nutrition_dashboard.open"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "daily": {},
+          "weekly": {},
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_d015c891"
+    },
+    {
+      "name": "ui.nutrition_camera.open",
+      "description": "Open the meal camera to snap and analyze a meal photo",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "nutrition-mcp",
+        "mcp_tool": "ui.nutrition_camera.open"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_e0df8241"
+    },
+    {
+      "name": "nutrition.logMeal",
+      "description": "Log a meal with food items and nutrition data",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "nutrition-mcp",
+        "mcp_tool": "nutrition.logMeal"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "meal_type": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "time": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "description": "Food items"
+          },
+          "photo_hash": {
+            "type": "string"
+          },
+          "photos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Multiple photo artifact hashes"
+          },
+          "notes": {
+            "type": "string"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_63aa0a56"
+    },
+    {
+      "name": "nutrition.updateMeal",
+      "description": "Update a logged meal (items, type, notes, photos)",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "nutrition-mcp",
+        "mcp_tool": "nutrition.updateMeal"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "meal_id": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array"
+          },
+          "meal_type": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          },
+          "photos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Replace the full photo list"
+          },
+          "add_photo": {
+            "type": "string",
+            "description": "Append a single photo hash"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "meal_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_b7ea8748"
+    },
+    {
+      "name": "nutrition.deleteMeal",
+      "description": "Delete a meal by ID",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "nutrition-mcp",
+        "mcp_tool": "nutrition.deleteMeal"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "meal_id": {
+            "type": "string"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "meal_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_7bddbc6e"
+    },
+    {
+      "name": "nutrition.getMeals",
+      "description": "List meals for a date or range",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "nutrition-mcp",
+        "mcp_tool": "nutrition.getMeals"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string"
+          },
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "meal_type": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "number"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_e91f993a"
+    },
+    {
+      "name": "nutrition.lookupFood",
+      "description": "USDA nutrition lookup per 100g",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "nutrition-mcp",
+        "mcp_tool": "nutrition.lookupFood"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "number"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_c8972868"
+    },
+    {
+      "name": "nutrition.lookupMultiple",
+      "description": "USDA lookup for multiple foods",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "nutrition-mcp",
+        "mcp_tool": "nutrition.lookupMultiple"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "foods": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "foods"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_e8a4afbf"
+    },
+    {
+      "name": "nutrition.logDrink",
+      "description": "Log a drink",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "nutrition-mcp",
+        "mcp_tool": "nutrition.logDrink"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "volume_ml": {
+            "type": "number"
+          },
+          "caffeine_mg": {
+            "type": "number"
+          },
+          "calories": {
+            "type": "number"
+          },
+          "notes": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "time": {
+            "type": "string"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_4318cb2a"
+    },
+    {
+      "name": "nutrition.getHydration",
+      "description": "Today's hydration summary",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "nutrition-mcp",
+        "mcp_tool": "nutrition.getHydration"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_b413ae56"
+    },
+    {
+      "name": "nutrition.getDailySummary",
+      "description": "Full daily breakdown vs goals",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "nutrition-mcp",
+        "mcp_tool": "nutrition.getDailySummary"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_ddbdab7d"
+    },
+    {
+      "name": "nutrition.getWeeklySummary",
+      "description": "7-day overview",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "nutrition-mcp",
+        "mcp_tool": "nutrition.getWeeklySummary"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_46c63a40"
+    },
+    {
+      "name": "nutrition.setGoals",
+      "description": "Set daily targets",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "nutrition-mcp",
+        "mcp_tool": "nutrition.setGoals"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "daily_calories": {
+            "type": "number"
+          },
+          "daily_protein": {
+            "type": "number"
+          },
+          "daily_carbs": {
+            "type": "number"
+          },
+          "daily_fat": {
+            "type": "number"
+          },
+          "daily_water_ml": {
+            "type": "number"
+          },
+          "dietary_restrictions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_2b684036"
+    },
+    {
+      "name": "nutrition.getGoals",
+      "description": "Get current goals",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "nutrition-mcp",
+        "mcp_tool": "nutrition.getGoals"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_7b826046"
+    },
+    {
+      "name": "nutrition.status",
+      "description": "Quick status: calories/water progress",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "nutrition-mcp",
+        "mcp_tool": "nutrition.status"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_fd1d0e68"
+    },
+    {
+      "name": "admin.deleteActor",
+      "description": "[Internal] Wipe ALL nutrition data for one actor (meals, drinks, goals). Requires _admin_token to match the connector's NUTRITION_ADMIN_TOKEN / ADAS_MCP_TOKEN env. Used by Core's account-deletion orchestrator. Idempotent.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "nutrition-mcp",
+        "mcp_tool": "admin.deleteActor"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "actorId": {
+            "type": "string"
+          },
+          "_admin_token": {
+            "type": "string"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "actorId",
+          "_admin_token"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_c2ac0751"
+    },
+    {
+      "name": "device.calendar.today",
+      "description": "Get all calendar events for today. Returns titles, times, locations, attendees, and notes. Response includes _freshness (is_stale=true if data is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.calendar.today"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_b178d7d7"
+    },
+    {
+      "name": "device.calendar.upcoming",
+      "description": "Get upcoming calendar events for the next N days (tomorrow and beyond). Does NOT include today. Response includes _freshness (is_stale=true if data is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.calendar.upcoming"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "days": {
+            "type": "number",
+            "description": "Number of days to look ahead (default 3, max 14)"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_a65d6143"
+    },
+    {
+      "name": "device.calendar.create",
+      "description": "Create a new calendar event.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.calendar.create"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Event title"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date in YYYY-MM-DD format"
+          },
+          "start_time": {
+            "type": "string",
+            "description": "Start time in HH:MM format"
+          },
+          "end_time": {
+            "type": "string",
+            "description": "End time in HH:MM format"
+          },
+          "location": {
+            "type": "string",
+            "description": "Location"
+          },
+          "attendees": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of attendee names"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Notes"
+          }
+        },
+        "required": [
+          "title",
+          "date",
+          "start_time"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_4e423bf2"
+    },
+    {
+      "name": "device.calendar.reschedule",
+      "description": "Reschedule an existing calendar event to a new date/time.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.calendar.reschedule"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "description": "Event ID to reschedule"
+          },
+          "new_date": {
+            "type": "string",
+            "description": "New date YYYY-MM-DD"
+          },
+          "new_start_time": {
+            "type": "string",
+            "description": "New start time HH:MM"
+          },
+          "new_end_time": {
+            "type": "string",
+            "description": "New end time HH:MM"
+          }
+        },
+        "required": [
+          "event_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_697e0b68"
+    },
+    {
+      "name": "device.calendar.cancel",
+      "description": "Cancel/delete a calendar event.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.calendar.cancel"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "description": "Event ID to cancel"
+          }
+        },
+        "required": [
+          "event_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_44550e5e"
+    },
+    {
+      "name": "device.contacts.search",
+      "description": "Search contacts by name, relationship, or keyword. Searches across name, relationship, email, and notes.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.contacts.search"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search query — matches name, relationship, email, notes"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_0ef9ace0"
+    },
+    {
+      "name": "device.contacts.get",
+      "description": "Get full contact details by name or ID. Response includes _freshness (is_stale=true if contact data is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.contacts.get"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "contact_id": {
+            "type": "string",
+            "description": "Contact name or ID (e.g., 'Sarah' or 'c1')"
+          }
+        },
+        "required": [
+          "contact_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_283fdc68"
+    },
+    {
+      "name": "device.contacts.birthdays",
+      "description": "Get contacts with upcoming birthdays in the next N days. Returns matching contacts with days until birthday.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.contacts.birthdays"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "days": {
+            "type": "number",
+            "description": "Look ahead N days for birthdays (default 30)"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_8870d7ac"
+    },
+    {
+      "name": "device.contacts.lastContact",
+      "description": "Get when you last communicated with a contact. Returns days since last message/call. Useful for relationship care insights.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.contacts.lastContact"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Contact name to check"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_0351fa69"
+    },
+    {
+      "name": "device.location.current",
+      "description": "Get user's current location based on GPS. Returns place name, address, and coordinates. Response includes _freshness (is_stale=true if data is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.location.current"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_5cbf9fec"
+    },
+    {
+      "name": "device.weather.current",
+      "description": "Get current weather conditions for the user's location. Returns temperature, conditions, humidity, wind, and UV index.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.weather.current"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_23b0d87d"
+    },
+    {
+      "name": "device.weather.forecast",
+      "description": "Get weather forecast for the next N days. Returns daily highs, lows, conditions, and rain probability.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.weather.forecast"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "days": {
+            "type": "number",
+            "description": "Number of days to forecast (default 3, max 7)"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_b779f6cf"
+    },
+    {
+      "name": "device.commute.estimate",
+      "description": "Get estimated commute/travel time between two locations. Returns duration in minutes and distance. Uses Nominatim (geocoding) + OSRM (routing) — both free, no API key.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.commute.estimate"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string",
+            "description": "Starting location name or address"
+          },
+          "to": {
+            "type": "string",
+            "description": "Destination location name or address"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "driving",
+              "transit",
+              "walking"
+            ],
+            "description": "Travel mode (default: driving)"
+          }
+        },
+        "required": [
+          "from",
+          "to"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_05738d88"
+    },
+    {
+      "name": "device.battery",
+      "description": "Get device battery level and charging status. Response includes _freshness with last_sync_at, data_age_human, and is_stale (true if reading is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.battery"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_e4e540fb"
+    },
+    {
+      "name": "device.connectivity",
+      "description": "Get device network connectivity status — WiFi, cellular, or offline. Response includes _freshness (is_stale=true if data is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.connectivity"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_92ab25ba"
+    },
+    {
+      "name": "device.health.today",
+      "description": "Get today's health metrics from Apple Health: steps, floors climbed, active calories burned (kcal), and walking/running distance (km). Use for activity check-ins, daily progress, and pairing with nutrition data. Response includes _freshness (is_stale=true if data is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.health.today"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_303a0017"
+    },
+    {
+      "name": "device.health.history",
+      "description": "Get daily health metrics for the last N days (1-30) from Apple Health. Returns an array of per-day records with steps, floors, active calories, and distance — newest first (index 0 = today). Use for trends, weekly summaries, and feeding the nutrition tracker. Response includes _freshness (is_stale=true if data is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.health.history"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "days": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 30,
+            "description": "How many days of history (1-30, default 30). Newest-first."
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_073bc8e5"
+    },
+    {
+      "name": "device.message.send",
+      "description": "Send an SMS/iMessage to a contact. Queues the message for the phone to send. Always confirm with user before sending.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.message.send"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "contact_name": {
+            "type": "string",
+            "description": "Contact name to message"
+          },
+          "message": {
+            "type": "string",
+            "description": "Message text to send"
+          }
+        },
+        "required": [
+          "contact_name",
+          "message"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_9f6f0ef7"
+    },
+    {
+      "name": "device.notifications.list",
+      "description": "List device notifications. Optionally filter to unread only. Response includes _freshness (is_stale=true if data is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.notifications.list"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "unread_only": {
+            "type": "boolean",
+            "description": "If true, return only unread notifications (default false)"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_bf1456aa"
+    },
+    {
+      "name": "device.notifications.group",
+      "description": "Group notifications by a category: 'app', 'sender', or 'priority'. Response includes _freshness (is_stale=true if data is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.notifications.group"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "group_by": {
+            "type": "string",
+            "enum": [
+              "app",
+              "sender",
+              "priority"
+            ],
+            "description": "How to group: by app, sender, or priority"
+          }
+        },
+        "required": [
+          "group_by"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_ab77ac44"
+    },
+    {
+      "name": "device.notifications.dismiss",
+      "description": "Dismiss notifications by ID or by app name.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.notifications.dismiss"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "notification_id": {
+            "type": "string",
+            "description": "Dismiss a single notification by ID"
+          },
+          "app": {
+            "type": "string",
+            "description": "Dismiss all notifications from this app"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_3f714954"
+    },
+    {
+      "name": "device.dnd.get",
+      "description": "Get current Do Not Disturb status — enabled/disabled, schedule, and allowlist. Response includes _freshness (is_stale=true if data is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.dnd.get"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_beb3c794"
+    },
+    {
+      "name": "device.dnd.set",
+      "description": "Update Do Not Disturb settings. Toggle on/off, change schedule, or update allowlist.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.dnd.set"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "description": "Turn DND on (true) or off (false)"
+          },
+          "schedule_start": {
+            "type": "string",
+            "description": "DND start time HH:MM"
+          },
+          "schedule_end": {
+            "type": "string",
+            "description": "DND end time HH:MM"
+          },
+          "allowlist": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Contacts who can break through DND"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_bf54032d"
+    },
+    {
+      "name": "device.navigation.start",
+      "description": "Start navigation to a destination. Opens the maps app on the phone with directions.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.navigation.start"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "destination": {
+            "type": "string",
+            "description": "Destination address or place name"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "driving",
+              "transit",
+              "walking"
+            ],
+            "description": "Travel mode (default: driving)"
+          }
+        },
+        "required": [
+          "destination"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_b3980271"
+    },
+    {
+      "name": "device.app.recent",
+      "description": "Get recently used apps and screen time. Returns app names, last used time, and usage duration. Response includes _freshness (is_stale=true if data is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.app.recent"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "number",
+            "description": "Max apps to return (default 10)"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_c3314f55"
+    },
+    {
+      "name": "integrations.list",
+      "description": "List all available external integrations (email, WhatsApp, etc.) with their tool names for status check and setup. Call this BEFORE using any external channel to discover what's available and how to connect it. The orchestrator should call each integration's status_tool to check connection, and setup_tool to guide user through setup if not connected.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "integrations.list"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_5c43b048"
+    },
+    {
+      "name": "integrations.check",
+      "description": "Check a specific integration by channel name. Returns the integration details and which tools to call for status/setup. Use this when you already know which channel is needed.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "integrations.check"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "description": "Channel ID — e.g. 'email', 'whatsapp'"
+          }
+        },
+        "required": [
+          "channel"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_b70ccbe8"
+    },
+    {
+      "name": "memory.store",
+      "description": "Store a long-term HUMAN/AGENT CONTEXT memory — facts, preferences, taught rules, user profile fields. Content must be concise, durable, and recallable. Types: preference, fact, instruction, pattern, rule, user_model; the engine assigns the CoALA kind automatically (semantic / procedural). DO NOT use for: session cookies, OAuth tokens, API keys, or any credentials (use platform.dataStore). DO NOT use for: raw tool-output dumps, large JSON blobs, or cached API responses (use platform.dataStore). The engine runs quality guards, dedup, normalize, and conflict detection; rejections include a `guidance` field telling you the correct tool/path. Returns { memory, conflicts, processing }.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.store"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "rule",
+              "pattern",
+              "instruction",
+              "fact",
+              "preference",
+              "user_model"
+            ],
+            "description": "Memory type"
+          },
+          "content": {
+            "type": "string",
+            "description": "Memory content (natural language or JSON for structured types)"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "context": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "taught",
+              "auto",
+              "system",
+              "user"
+            ],
+            "description": "Provenance (default: taught)"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_53bb82fe"
+    },
+    {
+      "name": "memory.recall",
+      "description": "Recall memories by keyword query. Searches content + raw_content + tags. When embeddings come online this transparently becomes semantic.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.recall"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "query": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "rule",
+              "pattern",
+              "instruction",
+              "fact",
+              "preference",
+              "user_model"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "episodic",
+              "semantic",
+              "procedural"
+            ]
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_da151235"
+    },
+    {
+      "name": "memory.list",
+      "description": "List stored memories with optional type/kind filter and pagination.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.list"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "rule",
+              "pattern",
+              "instruction",
+              "fact",
+              "preference",
+              "user_model"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "episodic",
+              "semantic",
+              "procedural"
+            ]
+          },
+          "limit": {
+            "type": "number"
+          },
+          "offset": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_a38dd528"
+    },
+    {
+      "name": "memory.update",
+      "description": "Update an existing memory by ID.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.update"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "content": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "context": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_aae1dec4"
+    },
+    {
+      "name": "memory.delete",
+      "description": "Delete a memory by ID.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.delete"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_4260da1e"
+    },
+    {
+      "name": "memory.rules.match",
+      "description": "Match active taught rules against a situation. Returns ranked rules. Used by Core fast_path / detectIntent to decide whether to short-circuit.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.rules.match"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "situation": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "situation"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_0f427404"
+    },
+    {
+      "name": "memory.rules.count",
+      "description": "Count active vs inactive taught rules for the current actor.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.rules.count"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_083edbd6"
+    },
+    {
+      "name": "context.store",
+      "description": "Store an ephemeral context (situation or plan). Auto-expires via Mongo TTL index.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "context.store"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "situation",
+              "plan"
+            ]
+          },
+          "data": {
+            "type": "string",
+            "description": "JSON string"
+          },
+          "ttl_minutes": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "type",
+          "data"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_6bc8705e"
+    },
+    {
+      "name": "context.read",
+      "description": "Read active ephemeral context — current situations and plans.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "context.read"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "situation",
+              "plan"
+            ]
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_4dd29ff7"
+    },
+    {
+      "name": "context.resolve",
+      "description": "Mark an ephemeral context as resolved or abandoned.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "context.resolve"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "resolved",
+              "abandoned"
+            ]
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_eb749cee"
+    },
+    {
+      "name": "context.clear",
+      "description": "Clear all active ephemeral context for the actor (optionally filtered by type).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "context.clear"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "situation",
+              "plan"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_41cb5f7e"
+    },
+    {
+      "name": "memory.userProfile",
+      "description": "Get the complete user profile in one call. Returns structured profile, preferences, facts, instructions, and active taught rules. Call at the start of every interaction.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.userProfile"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_edbbe7ef"
+    },
+    {
+      "name": "memory.userProfile.set",
+      "description": "Set a structured profile field (name, timezone, location, etc). Creates or updates a user_model memory.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.userProfile.set"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "field": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "value"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_f0a57924"
+    },
+    {
+      "name": "memory.semantic.search",
+      "description": "Semantic search over memories. Returns matches with similarity scores. Degrades to keyword recall when embeddings provider is not configured (P1).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.semantic.search"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "query": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "episodic",
+              "semantic",
+              "procedural"
+            ]
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_68b209ad"
+    },
+    {
+      "name": "memory.explain",
+      "description": "Explain why a memory is remembered: returns the memory + its full meta trail.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.explain"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_d513a77c"
+    },
+    {
+      "name": "memory.summarize",
+      "description": "Structured snapshot of what's known about the current actor. P1 returns counts + structured profile. LLM narrative summary will be added in P6.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.summarize"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_4088671c"
+    },
+    {
+      "name": "memory.compact",
+      "description": "Run a compaction sweep — decay stale auto-learned memories and surface duplicate clusters. Does not auto-merge in P1; returns candidates for review.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.compact"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_a622001c"
+    },
+    {
+      "name": "memory.confidence",
+      "description": "Read or set the confidence score on a memory.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.confidence"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Omit to read, provide to set"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_857f6734"
+    },
+    {
+      "name": "memory.supersede",
+      "description": "Mark old memory as superseded by new memory. Old becomes inactive, link recorded.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.supersede"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "old_id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "new_id": {
+            "$ref": "#/properties/old_id"
+          }
+        },
+        "required": [
+          "old_id",
+          "new_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_18260598"
+    },
+    {
+      "name": "memory.audit",
+      "description": "Read meta trail for a single memory or recent events for the actor.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.audit"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ],
+            "description": "Memory ID — if omitted, returns recent actor events"
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_7a35aa30"
+    },
+    {
+      "name": "memory.embed",
+      "description": "Generate an embedding vector for arbitrary text. Returns null when no embedding provider is configured (P1 default).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.embed"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_236f97c8"
+    },
+    {
+      "name": "memory.extract",
+      "description": "Run end-of-job auto-extraction over a transcript. Cheap regex pass always runs; smart LLM pass runs if smart=true and Core LLM is reachable. Writes extracted memories with source='auto' and lower confidence.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.extract"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "transcript": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "role": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "role",
+                "content"
+              ],
+              "additionalProperties": false
+            },
+            "description": "Conversation turns"
+          },
+          "smart": {
+            "type": "boolean",
+            "description": "Also run LLM pass (default false in P1)"
+          }
+        },
+        "required": [
+          "transcript"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_7e385175"
+    },
+    {
+      "name": "triggers.list",
+      "description": "List all triggers (static + dynamic) for this tenant",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "personal-assistant-ui-mcp",
+        "mcp_tool": "triggers.list"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Injected by platform — do not set manually"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Injected by platform — do not set manually"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_1f7df9f4"
+    },
+    {
+      "name": "triggers.toggle",
+      "description": "Pause or resume a specific trigger",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "personal-assistant-ui-mcp",
+        "mcp_tool": "triggers.toggle"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "skillSlug": {
+            "type": "string",
+            "description": "Skill slug that owns the trigger"
+          },
+          "triggerId": {
+            "type": "string",
+            "description": "Trigger ID to toggle"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Injected by platform"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Injected by platform"
+          }
+        },
+        "required": [
+          "skillSlug",
+          "triggerId"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_1d3fcf25"
+    },
+    {
+      "name": "meeting.commute.prep",
+      "description": "Twice-daily meeting commute prep. Lists upcoming events, classifies which need driving alerts (one LLM call), estimates drive time, and creates one-shot 'leave now' triggers. Idempotent (stable trigger_ids - dedup). Returns { ok, scanned, scheduled, skipped, errors, connections }.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "personal-assistant-ui-mcp",
+        "mcp_tool": "meeting.commute.prep"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Injected by platform"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Injected by platform"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_9731656d"
+    },
+    {
+      "name": "triggers.deleteDynamic",
+      "description": "Delete a dynamic (user-created) trigger/reminder",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "personal-assistant-ui-mcp",
+        "mcp_tool": "triggers.deleteDynamic"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "triggerId": {
+            "type": "string",
+            "description": "Dynamic trigger ID to delete"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Injected by platform"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Injected by platform"
+          }
+        },
+        "required": [
+          "triggerId"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_7f2e4751"
+    },
+    {
+      "name": "connections.list",
+      "description": "List external services + connection state for this actor (Gmail, WhatsApp, Dropbox, etc.).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "personal-assistant-ui-mcp",
+        "mcp_tool": "connections.list"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Injected by platform"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Injected by platform"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_914bf4b1"
+    },
+    {
+      "name": "connections.disconnect",
+      "description": "Revoke an external service connection for this actor.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "personal-assistant-ui-mcp",
+        "mcp_tool": "connections.disconnect"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "service_id": {
+            "type": "string",
+            "description": "Service id (e.g. 'gmail', 'linkedin'). Use connections.list to see valid ids."
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Injected by platform"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Injected by platform"
+          }
+        },
+        "required": [
+          "service_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_28a8e073"
+    },
+    {
+      "name": "rooms.list",
+      "description": "List all rooms with their devices and states",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "personal-assistant-ui-mcp",
+        "mcp_tool": "rooms.list"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_9f55bc56"
+    },
+    {
+      "name": "entity.state",
+      "description": "Get the current state of a device",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "personal-assistant-ui-mcp",
+        "mcp_tool": "entity.state"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "entity_id": {
+            "type": "string",
+            "description": "Entity ID (e.g. light.kitchen)"
+          }
+        },
+        "required": [
+          "entity_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_a842b9be"
+    },
+    {
+      "name": "services.call",
+      "description": "Toggle or control a device",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "personal-assistant-ui-mcp",
+        "mcp_tool": "services.call"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "description": "Domain (light, switch, etc)"
+          },
+          "service": {
+            "type": "string",
+            "description": "Service (turn_on, turn_off, toggle, lock, unlock)"
+          },
+          "entity_id": {
+            "type": "string",
+            "description": "Entity ID"
+          }
+        },
+        "required": [
+          "domain",
+          "service",
+          "entity_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_998381c0"
+    },
+    {
+      "name": "hue.status",
+      "description": "Get Philips Hue integration status",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "personal-assistant-ui-mcp",
+        "mcp_tool": "hue.status"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_44c98298"
+    },
+    {
+      "name": "tuya.status",
+      "description": "Get Tuya/Smart Life integration status",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "personal-assistant-ui-mcp",
+        "mcp_tool": "tuya.status"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_7acd684b"
+    },
+    {
+      "name": "google.status",
+      "description": "Get Google Home/Nest integration status",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "personal-assistant-ui-mcp",
+        "mcp_tool": "google.status"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      },
+      "id": "tool_0995dd32"
+    }
+  ],
+  "meta_tools": [],
+  "triggers": [],
+  "connectors": [
+    "coach-mcp",
+    "nutrition-mcp",
+    "mobile-device-mcp",
+    "memory-mcp",
+    "personal-assistant-ui-mcp"
+  ],
+  "policy": {
+    "guardrails": {
+      "never": [
+        "Never provide medical dietary advice",
+        "Never diagnose eating disorders",
+        "Never moralize, lecture, or use guilt about food choices",
+        "Never give meal-suggestion lectures during onboarding phase",
+        "Never push proactive advice during observation phase",
+        "Never nudge on a topic that's in state.off_limits"
+      ],
+      "always": [
+        "Always call coach.state.get FIRST every interaction",
+        "Always adapt behavior to current phase",
+        "Always show calories and protein in meal log confirmations",
+        "Always keep mobile chat responses 1-3 sentences",
+        "Always pre-fetch daily + weekly data before opening dashboard",
+        "Always include reason when adding a goal"
+      ]
+    },
+    "approvals": [],
+    "workflows": [],
+    "escalation": {
+      "enabled": false,
+      "conditions": [],
+      "target": ""
+    }
+  },
+  "channels": [],
+  "id": "mycoach",
+  "name": "MyCoach",
+  "created_at": "2026-05-12T11:18:24.813Z",
+  "updated_at": "2026-05-14T06:59:46.286Z",
+  "handoff_when": "Route here when the user asks a “coach/nutritionist/trainer” to log meals/drinks, do AM/PM check-ins, track nutrition/activity progress, set or update goals and habits, review “how am I doing today,” or coordinate routines with mobile health, weather, location, and scheduling/calendar.",
+  "_auto_handoff_when": "Route here when the user asks a “coach/nutritionist/trainer” to log meals/drinks, do AM/PM check-ins, track nutrition/activity progress, set or update goals and habits, review “how am I doing today,” or coordinate routines with mobile health, weather, location, and scheduling/calendar.",
+  "_auto_handoff_hash": "ee6ecfcafd408e8e1817ec7992908557fd8e3303f70f585578660cabfc7db5ea"
+}

@@ -1,0 +1,335 @@
+{
+  "id": "ada",
+  "name": "ada",
+  "version": "1.0.0",
+  "description": "Situation-aware personal assistant with proactive intelligence.",
+  "identity": {
+    "actor_types": [],
+    "admin_roles": [],
+    "default_actor_type": "",
+    "default_roles": []
+  },
+  "skills": [
+    {
+      "id": "life-manager",
+      "name": "Life Manager",
+      "role": "worker",
+      "description": "General life assistant - calendar, contacts, email management, scheduling.",
+      "connectors": [
+        "mobile-device-mcp",
+        "memory-mcp",
+        "gmail-mcp",
+        "personal-assistant-ui-mcp"
+      ]
+    },
+    {
+      "id": "memory-keeper",
+      "name": "Memory Keeper",
+      "role": "worker",
+      "description": "Persistent memory",
+      "connectors": [
+        "memory-mcp"
+      ]
+    },
+    {
+      "id": "daily-intel",
+      "name": "Daily Intelligence",
+      "role": "worker",
+      "description": "Proactive daily briefings",
+      "connectors": [
+        "mobile-device-mcp",
+        "gmail-mcp",
+        "whatsapp-mcp",
+        "memory-mcp"
+      ]
+    },
+    {
+      "id": "messaging-agent",
+      "name": "Messaging Agent",
+      "role": "worker",
+      "description": "Multi-channel communication - sends messages via SMS, email, WhatsApp.",
+      "connectors": [
+        "mobile-device-mcp",
+        "gmail-mcp",
+        "whatsapp-mcp",
+        "memory-mcp"
+      ]
+    },
+    {
+      "id": "notification-triage",
+      "name": "Notification Triage",
+      "role": "worker",
+      "description": "Notification analyst",
+      "connectors": [
+        "mobile-device-mcp",
+        "gmail-mcp",
+        "whatsapp-mcp",
+        "memory-mcp"
+      ]
+    },
+    {
+      "id": "home-control",
+      "name": "Home Control",
+      "role": "worker",
+      "description": "Smart home control",
+      "connectors": [
+        "home-assistant-mcp",
+        "hue-mcp",
+        "tuya-mcp",
+        "google-home-mcp",
+        "memory-mcp",
+        "personal-assistant-ui-mcp"
+      ]
+    },
+    {
+      "id": "mycoach",
+      "name": "MyCoach",
+      "role": "worker",
+      "description": "Personal AI coach — nutrition, activity, habits. Onboards new users with curious questions, observes silently for a week, then earns the right to coach proactively. Handles all meal/drink/calorie/macro/hydration tracking alongside coaching.",
+      "connectors": [
+        "coach-mcp",
+        "nutrition-mcp",
+        "mobile-device-mcp",
+        "memory-mcp",
+        "personal-assistant-ui-mcp"
+      ]
+    },
+    {
+      "id": "my-docs",
+      "name": "My Docs",
+      "role": "worker",
+      "description": "Document intelligence — ingest docs from Dropbox (and later Google Drive) into searchable corpora, answer factoid questions inline, and do deep multi-hop analysis on contracts, handbooks, specs.",
+      "connectors": [
+        "docs-index-mcp",
+        "dropbox-mcp"
+      ]
+    },
+    {
+      "id": "teach-this",
+      "name": "Teach This",
+      "role": "worker",
+      "description": "Learns user-specific preferences and behaviors via memory-mcp.",
+      "connectors": [
+        "memory-mcp"
+      ]
+    },
+    {
+      "id": "travel-agent",
+      "name": "Travel Agent",
+      "role": "worker",
+      "description": "Unified travel search — flights (Google Flights), hotels (Booking.com), homes (Airbnb), plus user bookings.",
+      "connectors": [
+        "travel-mcp",
+        "memory-mcp"
+      ]
+    }
+  ],
+  "grants": [
+    {
+      "key": "pa.verified_user",
+      "description": "Proves the caller passed voice verification.",
+      "issued_by": [
+        "pa-orchestrator"
+      ],
+      "consumed_by": [
+        "life-manager",
+        "memory-keeper",
+        "daily-intel",
+        "messaging-agent",
+        "notification-triage",
+        "home-control",
+        "mycoach"
+      ],
+      "issued_via": "handoff"
+    }
+  ],
+  "handoffs": [
+    {
+      "id": "auto-orch-to-daily-intel",
+      "from": "auto-orchestrator",
+      "to": "daily-intel",
+      "trigger": "User EXPLICITLY asks for a morning briefing, daily summary of their day, or schedule overview. Examples: 'good morning', 'how is my day', 'brief me'. DO NOT route here for food photos, meals, fitness, activity, coaching, or anything containing 'dinner/lunch/breakfast/ate/eating/food/coach/workout/steps' — those go to mycoach.",
+      "grants_passed": [],
+      "grants_dropped": [],
+      "mechanism": "handoff-controller-mcp",
+      "_auto_generated": true
+    },
+    {
+      "id": "auto-orch-to-home-control",
+      "from": "auto-orchestrator",
+      "to": "home-control",
+      "trigger": "User wants to control smart home devices, check device status, manage lights, thermostats, locks, or any home automation.",
+      "grants_passed": [],
+      "grants_dropped": [],
+      "mechanism": "handoff-controller-mcp",
+      "_auto_generated": true
+    },
+    {
+      "id": "auto-orch-to-life-manager",
+      "from": "auto-orchestrator",
+      "to": "life-manager",
+      "trigger": "User needs general life management: scheduling, contact lookup, calendar questions, email inbox management (search, delete, trash, archive, clean up emails), web browsing, looking up information online, checking websites, OR logging into any web service (booking.com, banking, travel sites, etc.).",
+      "grants_passed": [],
+      "grants_dropped": [],
+      "mechanism": "handoff-controller-mcp",
+      "_auto_generated": true
+    },
+    {
+      "id": "auto-orch-to-memory-keeper",
+      "from": "auto-orchestrator",
+      "to": "memory-keeper",
+      "trigger": "User wants to store, recall, update, or delete memories.",
+      "grants_passed": [],
+      "grants_dropped": [],
+      "mechanism": "handoff-controller-mcp",
+      "_auto_generated": true
+    },
+    {
+      "id": "auto-orch-to-messaging-agent",
+      "from": "auto-orchestrator",
+      "to": "messaging-agent",
+      "trigger": "User wants to send a message, text, email, or WhatsApp someone. Drafting and sending communications only.",
+      "grants_passed": [],
+      "grants_dropped": [],
+      "mechanism": "handoff-controller-mcp",
+      "_auto_generated": true
+    },
+    {
+      "id": "auto-orch-to-my-docs",
+      "from": "auto-orchestrator",
+      "to": "my-docs",
+      "trigger": "User wants ANYTHING about their documents, cloud storage, or indexed corpora: connecting Dropbox or Google Drive, listing cloud folders/files, ingesting / indexing folders, corpus management, searching document content, analyzing contracts/handbooks/specs, multi-hop reasoning over docs, checking sync or indexing status. ANY question that mentions Dropbox, Google Drive, Drive, corpus, indexing, documents, contracts, handbooks, or document-files (not phone contacts) — hand off here.",
+      "grants_passed": [],
+      "grants_dropped": [],
+      "mechanism": "handoff-controller-mcp",
+      "_auto_generated": true
+    },
+    {
+      "id": "auto-orch-to-mycoach",
+      "from": "auto-orchestrator",
+      "to": "mycoach",
+      "trigger": "HIGHEST PRIORITY for ANY coaching/nutrition/fitness/activity/habit request. MyCoach is the user's personal AI coach. Hand off here for: (1) Food/meal/drink/plate/dish PHOTOS — anything edible. (2) Logging meals: 'I had X', 'log my breakfast/lunch/dinner/snack', 'I just ate Y'. (3) Calorie/macro/water tracking, hydration, daily/weekly diet summaries, nutrition goals. (4) Meal-planning and diet-advice requests: 'what should I eat today', 'plan my meals', 'suggest a healthy lunch'. (5) ANY phrase referring to a 'coach/nutritionist/dietitian/nutrition specialist/nutrition advisor/personal coach/fitness coach/trainer' — these refer to the MYCOACH SKILL (an AI role), NOT to a human contact. NEVER search contacts for a 'coach' or 'nutritionist'; just hand off here. (6) Activity/fitness questions: steps, workouts, walking, exercise, 'should I work out'. (7) Wellbeing / habit questions: energy levels, sleep, mood, 'how am I doing'. (8) Anything containing: nutrition, diet, calories, macros, protein, carbs, fat, hydration, meal, breakfast, lunch, dinner, snack, eat, ate, eating, coach, coaching, workout, exercise, steps, fitness, walk, run, activity.",
+      "grants_passed": [],
+      "grants_dropped": [],
+      "mechanism": "handoff-controller-mcp",
+      "_auto_generated": true
+    },
+    {
+      "id": "auto-orch-to-notification-triage",
+      "from": "auto-orchestrator",
+      "to": "notification-triage",
+      "trigger": "User wants to check notifications, see what they missed, or manage DND.",
+      "grants_passed": [],
+      "grants_dropped": [],
+      "mechanism": "handoff-controller-mcp",
+      "_auto_generated": true
+    },
+    {
+      "id": "auto-orch-to-teach-this",
+      "from": "auto-orchestrator",
+      "to": "teach-this",
+      "trigger": "TeachThis",
+      "grants_passed": [],
+      "grants_dropped": [],
+      "mechanism": "handoff-controller-mcp",
+      "_auto_generated": true
+    },
+    {
+      "id": "auto-orch-to-travel-agent",
+      "from": "auto-orchestrator",
+      "to": "travel-agent",
+      "trigger": "Unified travel search — flights via Google Flights, hotels via Booking.com, homes via Airbnb, plus user's existing bookings. Powered by the travel-mcp platform connector.",
+      "grants_passed": [],
+      "grants_dropped": [],
+      "mechanism": "handoff-controller-mcp",
+      "_auto_generated": true
+    }
+  ],
+  "routing": {
+    "chat": {
+      "default_skill": "auto-orchestrator",
+      "description": "Auto-generated orchestrator"
+    },
+    "voice": {
+      "default_skill": "auto-orchestrator",
+      "description": "Auto-generated orchestrator"
+    },
+    "api": {
+      "default_skill": "auto-orchestrator",
+      "description": "Auto-generated orchestrator"
+    }
+  },
+  "platform_connectors": [
+    {
+      "id": "personal-assistant-ui-mcp",
+      "required": true
+    },
+    {
+      "id": "memory-mcp",
+      "required": true
+    },
+    {
+      "id": "whatsapp-mcp",
+      "required": true
+    },
+    {
+      "id": "handoff-controller-mcp",
+      "required": false
+    },
+    {
+      "id": "mobile-device-mcp",
+      "required": false
+    },
+    {
+      "id": "gmail-mcp",
+      "required": false
+    },
+    {
+      "id": "home-assistant-mcp",
+      "required": false
+    },
+    {
+      "id": "hue-mcp",
+      "required": false
+    },
+    {
+      "id": "tuya-mcp",
+      "required": false
+    },
+    {
+      "id": "google-home-mcp",
+      "required": false
+    },
+    {
+      "id": "browser-mcp",
+      "required": false
+    },
+    {
+      "id": "docs-index-mcp",
+      "required": false
+    },
+    {
+      "id": "cloud-docs",
+      "required": false
+    },
+    {
+      "id": "nutrition-mcp",
+      "description": "",
+      "required": true,
+      "used_by": []
+    },
+    {
+      "id": "coach-mcp",
+      "description": "MyCoach intelligence layer — state machine (onboarding→observing→calibrating→accompanying), versioned goals, daily check-ins, nudges with engagement tracking, observations, weekly experiments. Solution-level connector.",
+      "required": true,
+      "used_by": [
+        "mycoach"
+      ]
+    },
+    {
+      "id": "travel-mcp",
+      "name": "Travel"
+    }
+  ],
+  "security_contracts": []
+}

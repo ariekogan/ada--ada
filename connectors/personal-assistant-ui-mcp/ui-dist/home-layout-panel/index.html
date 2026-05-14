@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Home</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #FAF6EE;
+      color: #1a1410;
+      padding: 16px;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .status-bar { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 8px; }
+    .chip { display: flex; align-items: center; gap: 4px; padding: 6px 14px; border-radius: 20px; background: #F2EADC; font-size: 13px; white-space: nowrap; flex-shrink: 0; }
+    .chip b { font-weight: 700; }
+    .section { margin-bottom: 8px; }
+    .section-title { font-size: 13px; font-weight: 600; color: #9a8870; letter-spacing: 0.5px; padding: 12px 0; }
+    .controls-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    .tile { width: calc(50% - 5px); border-radius: 14px; padding: 14px; border: 1px solid rgba(26,20,16,0.08); background: #F2EADC; min-height: 80px; cursor: pointer; transition: border-color 0.2s; }
+    .tile:hover { border-color: #FF7A28; }
+    .tile.on { background: #1c2a1f; border-color: #5A8A5C40; }
+    .tile-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .tile-icon { font-size: 22px; }
+    .toggle { width: 36px; height: 20px; border-radius: 10px; background: #3f3f46; display: flex; align-items: center; padding: 0 2px; transition: background 0.2s; }
+    .toggle.on { background: #5A8A5C; }
+    .toggle-knob { width: 16px; height: 16px; border-radius: 8px; background: #fff; transition: margin-left 0.2s; }
+    .toggle.on .toggle-knob { margin-left: auto; }
+    .tile-name { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .tile-state { font-size: 11px; color: #9a8870; margin-top: 2px; }
+    .room-card { border-radius: 14px; border: 1px solid rgba(26,20,16,0.08); background: #F2EADC; margin-bottom: 10px; overflow: hidden; }
+    .room-header { display: flex; align-items: center; padding: 14px; cursor: pointer; }
+    .room-name { flex: 1; font-size: 15px; font-weight: 600; }
+    .room-badge { font-size: 11px; padding: 2px 8px; border-radius: 8px; margin-right: 8px; }
+    .room-badge.active { background: #5A8A5C20; color: #5A8A5C; }
+    .room-badge.inactive { background: rgba(26,20,16,0.08); color: #9a8870; }
+    .chevron { font-size: 12px; color: #9a8870; transition: transform 0.2s; }
+    .chevron.expanded { transform: rotate(90deg); }
+    .device-row { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-top: 1px solid rgba(26,20,16,0.08); min-height: 44px; cursor: pointer; }
+    .device-row:hover { background: #0d1219; }
+    .dot { width: 8px; height: 8px; border-radius: 4px; flex-shrink: 0; }
+    .dot.on { background: #5A8A5C; }
+    .dot.off { background: #9a8870; }
+    .device-name { flex: 1; font-size: 13px; }
+    .device-state { font-size: 12px; color: #9a8870; }
+    .climate-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    .climate-card { width: calc(50% - 5px); border-radius: 14px; padding: 14px; border: 1px solid rgba(26,20,16,0.08); background: #F2EADC; }
+    .climate-label { font-size: 11px; color: #9a8870; margin-bottom: 4px; }
+    .climate-value { font-size: 22px; font-weight: 700; }
+    .climate-unit { font-size: 13px; font-weight: 400; }
+    .climate-sub { font-size: 11px; color: #9a8870; margin-top: 4px; }
+    .security-row { display: flex; align-items: center; gap: 10px; border-radius: 14px; padding: 14px; border: 1px solid rgba(26,20,16,0.08); background: #F2EADC; margin-bottom: 10px; }
+    .security-icon { font-size: 20px; }
+    .security-name { font-size: 14px; font-weight: 500; }
+    .security-state { font-size: 12px; }
+    .security-state.safe { color: #5A8A5C; }
+    .security-state.warn { color: #D49A4E; }
+    .provider-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .provider-chip { display: flex; align-items: center; gap: 6px; border-radius: 10px; padding: 8px 12px; border: 1px solid rgba(26,20,16,0.08); background: #F2EADC; font-size: 12px; }
+    .provider-dot { width: 6px; height: 6px; border-radius: 3px; }
+    .provider-dot.on { background: #5A8A5C; }
+    .provider-dot.off { background: #9a8870; }
+    .center { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 300px; gap: 12px; }
+    .retry-btn { margin-top: 16px; padding: 8px 20px; border-radius: 8px; border: 1px solid #FF7A28; background: transparent; color: #FF7A28; cursor: pointer; }
+    .empty { text-align: center; padding: 48px 16px; color: #9a8870; }
+    .empty h2 { font-size: 16px; margin-bottom: 8px; color: #9a8870; }
+    .empty p { font-size: 13px; line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    let rooms=[], states={}, providers={HA:true}, expandedRooms=new Set([0,1]), isLive=false, error=null;
+    const DOMAIN_ICONS={light:'\u{1F4A1}',switch:'\u{1F50C}',climate:'\u{1F321}\uFE0F',lock:'\u{1F512}',cover:'\u{1F6AA}',media_player:'\u{1F4FA}',sensor:'\u{1F4CA}',fan:'\u{1F32C}\uFE0F',vacuum:'\u{1F9F9}',camera:'\u{1F4F7}'};
+    function getDomain(e){return e.split('.')[0]}
+    function getIcon(e){return DOMAIN_ICONS[getDomain(e)]||'\u2B55'}
+    function isOn(e,s){const d=getDomain(e);if(d==='lock')return s==='locked';if(d==='cover')return s==='open';if(d==='sensor'||d==='binary_sensor')return s!=='unavailable';return s!=='off'&&s!=='unknown'&&s!=='unavailable'}
+    function stateLabel(e,s){const d=getDomain(e);if(d==='lock')return s==='locked'?'Locked':'Unlocked';if(d==='cover')return s==='closed'?'Closed':'Open';if(d==='sensor')return s||'--';if(s==='on')return'On';if(s==='off')return'Off';return s?s.charAt(0).toUpperCase()+s.slice(1):'Unknown'}
+    function isQuickControl(e){return['light','switch','media_player','fan','climate'].includes(getDomain(e))}
+    function isClimate(e){return getDomain(e)==='sensor'&&(e.includes('temperature')||e.includes('humidity'))}
+    function isSecurity(e){const d=getDomain(e);return d==='lock'||d==='cover'}
+    render();
+
+    let counter=0;const pendingCalls=new Map();let hostConnectorId="personal-assistant-ui-mcp";
+    function unwrapResult(r){if(r?.content?.[0]?.type==="text"){try{r=JSON.parse(r.content[0].text)}catch{}}if(r?.content?.[0]?.type==="text"){try{r=JSON.parse(r.content[0].text)}catch{}}return r}
+    function mcpCall(tool,args,cid){cid=cid||hostConnectorId;const rid="req_"+(++counter)+"_"+Date.now();return new Promise((res,rej)=>{const t=setTimeout(()=>rej(new Error("timeout")),15000);pendingCalls.set(rid,{resolve:r=>{clearTimeout(t);res(unwrapResult(r))},reject:e=>{clearTimeout(t);rej(e)}});window.parent.postMessage({source:"adas-plugin",message:{action:"mcp-call",payload:{requestId:rid,toolName:"cp.fe_api",args:{method:"mcpProxy",params:{connectorId:cid,tool,args}}}}},"*")})}
+    window.addEventListener("message",ev=>{const d=ev.data||{};if(d.source!=="adas-host")return;const m=d.message;if(m?.type==="init"){hostConnectorId=m.payload?.connectorId||"personal-assistant-ui-mcp";tryLiveData()}if(m?.type==="mcp-result"){const{requestId:rid,result,error:err}=m.payload||{};const p=pendingCalls.get(rid);if(p){pendingCalls.delete(rid);if(err)p.reject(new Error(err));else p.resolve(result)}}});
+
+    async function tryLiveData(){try{const rd=await mcpCall("rooms.list",{});rooms=rd?.rooms||[];const eids=rooms.flatMap(r=>(r.devices||[]).map(d=>d.entity_id));const res=await Promise.all(eids.map(e=>mcpCall("entity.state",{entity_id:e}).then(s=>[e,{state:s.state||'unknown',attrs:s.attributes||{}}]).catch(()=>[e,{state:'unknown',attrs:{}}])));states={};for(const[e,s]of res)states[e]=s;providers={HA:true};try{const h=await mcpCall("hue.status",{});providers.Hue=h?.connected===true}catch{providers.Hue=false}try{const t=await mcpCall("tuya.status",{});providers.Tuya=t?.connected===true}catch{providers.Tuya=false}try{const g=await mcpCall("google.status",{});providers.Nest=g?.connected===true}catch{providers.Nest=false}error=null;isLive=true;render()}catch(e){error=e.message||'Failed to load'}}
+    setTimeout(()=>{if(!isLive)tryLiveData()},2000);
+
+    async function toggleDevice(eid){const domain=getDomain(eid);if(!['light','switch','fan','media_player','climate'].includes(domain))return;const cur=states[eid]?.state;const turnOn=!isOn(eid,cur);const ns=turnOn?'on':'off';states[eid]={...states[eid],state:ns};render();try{await mcpCall("services.call",{domain,service:turnOn?'turn_on':'turn_off',entity_id:eid});try{const f=await mcpCall("entity.state",{entity_id:eid});states[eid]={state:f.state||ns,attrs:f.attributes||{}};render()}catch{}}catch{states[eid]={...states[eid],state:cur||'unknown'};render()}}
+    function toggleRoom(i){if(expandedRooms.has(i))expandedRooms.delete(i);else expandedRooms.add(i);render()}
+
+    function render(){const app=document.getElementById("app");
+      if(!isLive&&!error){app.innerHTML='<div class="empty"><h2>Smart Home</h2><p>Your rooms, devices, and controls<br>will appear here when connected.</p></div>';return}
+      if(error&&rooms.length===0){app.innerHTML='<div class="center"><div style="color:#C15545;font-size:16px;">\u26A0 '+escHtml(error)+'</div><button class="retry-btn" onclick="tryLiveData()">Retry</button></div>';return}
+      const qd=rooms.flatMap(r=>(r.devices||[]).filter(d=>isQuickControl(d.entity_id)).map(d=>({...d,room:r.name}))).slice(0,8);
+      const cd=rooms.flatMap(r=>(r.devices||[]).filter(d=>isClimate(d.entity_id)).map(d=>({...d,room:r.name})));
+      const sd=rooms.flatMap(r=>(r.devices||[]).filter(d=>isSecurity(d.entity_id)).map(d=>({...d,room:r.name})));
+      const onC=Object.entries(states).filter(([e,s])=>isOn(e,s.state)&&!e.startsWith('sensor.')).length;
+      let h='<div class="status-bar"><div class="chip">\u{1F4A1} <b>'+onC+'</b> <span style="color:#8b95a5">on</span></div>';
+      const td=cd.find(d=>d.entity_id.includes('temperature'));
+      if(td)h+='<div class="chip">\u{1F321}\uFE0F <b>'+escHtml(states[td.entity_id]?.state||'--')+'\u00B0</b></div>';
+      const lk=sd.filter(d=>d.entity_id.startsWith('lock.'));
+      if(lk.length>0){const al=lk.every(d=>states[d.entity_id]?.state==='locked');h+='<div class="chip">'+(al?'\u{1F512} Locked':'\u{1F513} Unlocked')+'</div>'}
+      h+='</div>';
+      if(qd.length>0){h+='<div class="section"><div class="section-title">QUICK CONTROLS</div><div class="controls-grid">';qd.forEach(d=>{const st=states[d.entity_id]?.state||d.state||'unknown';const on=isOn(d.entity_id,st);h+='<div class="tile '+(on?'on':'')+'" onclick="toggleDevice(\''+escAttr(d.entity_id)+'\')"><div class="tile-top"><span class="tile-icon">'+getIcon(d.entity_id)+'</span><div class="toggle '+(on?'on':'')+'"><div class="toggle-knob"></div></div></div><div class="tile-name">'+escHtml(d.name||d.entity_id)+'</div><div class="tile-state">'+escHtml(stateLabel(d.entity_id,st))+'</div></div>'});h+='</div></div>'}
+      if(rooms.length>0){h+='<div class="section"><div class="section-title">ROOMS</div>';rooms.forEach((r,i)=>{const ds=r.devices||[];const rc=ds.filter(d=>isOn(d.entity_id,states[d.entity_id]?.state)).length;const ex=expandedRooms.has(i);h+='<div class="room-card"><div class="room-header" onclick="toggleRoom('+i+')"><div class="room-name">'+escHtml(r.name)+'</div>'+(rc>0?'<span class="room-badge active">'+rc+' on</span>':'<span class="room-badge inactive">'+ds.length+' devices</span>')+'<span class="chevron '+(ex?'expanded':'')+'">&#9654;</span></div>';if(ex)ds.forEach(d=>{const st=states[d.entity_id]?.state||'unknown';const on=isOn(d.entity_id,st);h+='<div class="device-row" onclick="toggleDevice(\''+escAttr(d.entity_id)+'\')"><div class="dot '+(on?'on':'off')+'"></div><div class="device-name">'+escHtml(d.name||d.entity_id)+'</div><div class="device-state">'+escHtml(stateLabel(d.entity_id,st))+'</div></div>'});h+='</div>'});h+='</div>'}
+      if(cd.length>0){h+='<div class="section"><div class="section-title">CLIMATE</div><div class="climate-grid">';cd.forEach(d=>{const v=states[d.entity_id]?.state||d.state||'--';const it=d.entity_id.includes('temperature');h+='<div class="climate-card"><div class="climate-label">'+escHtml(d.room)+'</div><div class="climate-value">'+escHtml(v)+'<span class="climate-unit">'+(it?'\u00B0C':'%')+'</span></div><div class="climate-sub">'+escHtml(d.name)+'</div></div>'});h+='</div></div>'}
+      if(sd.length>0){h+='<div class="section"><div class="section-title">SECURITY</div>';sd.forEach(d=>{const st=states[d.entity_id]?.state||'unknown';const il=d.entity_id.startsWith('lock.');const sf=(il&&st==='locked')||(!il&&st==='closed');h+='<div class="security-row"><span class="security-icon">'+(il?'\u{1F512}':'\u{1F6AA}')+'</span><div style="flex:1"><div class="security-name">'+escHtml(d.name||d.entity_id)+'</div><div class="security-state '+(sf?'safe':'warn')+'">'+escHtml(stateLabel(d.entity_id,st))+'</div></div></div>'});h+='</div>'}
+      h+='<div class="section" style="padding-bottom:32px"><div class="section-title">PROVIDERS</div><div class="provider-row">';Object.entries(providers).forEach(([n,c])=>{h+='<div class="provider-chip"><div class="provider-dot '+(c?'on':'off')+'"></div>'+escHtml(n)+'</div>'});h+='</div></div>';
+      app.innerHTML=h}
+    function escHtml(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML}
+    function escAttr(s){return(s||'').replace(/'/g,"\\'").replace(/"/g,'&quot;')}
+  </script>
+</body>
+</html>

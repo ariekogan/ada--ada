@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reminders & Triggers</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0e14;
+      color: #e8ecf1;
+      padding: 16px;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .header h1 { font-size: 18px; font-weight: 600; }
+    .live-badge {
+      display: none;
+      font-size: 10px;
+      color: #22c55e;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .stats {
+      display: flex;
+      gap: 12px;
+      font-size: 13px;
+      color: #8b95a5;
+    }
+    .stats .active { color: #22c55e; }
+    .stats .paused { color: #f59e0b; }
+
+    /* Trigger Card */
+    .trigger-card {
+      background: #111820;
+      border: 1px solid #1e2a3a;
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 10px;
+      transition: border-color 0.2s;
+    }
+    .trigger-card:hover { border-color: #2563eb; }
+    .trigger-card.disabled { opacity: 0.5; }
+
+    .trigger-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 6px;
+    }
+    .trigger-desc {
+      font-size: 14px;
+      font-weight: 500;
+      flex: 1;
+      margin-right: 12px;
+    }
+    .trigger-actions {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    /* Toggle Switch */
+    .toggle {
+      position: relative;
+      width: 36px;
+      height: 20px;
+      cursor: pointer;
+    }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle .slider {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #374151;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+    .toggle .slider::before {
+      content: "";
+      position: absolute;
+      height: 14px;
+      width: 14px;
+      left: 3px;
+      bottom: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: 0.3s;
+    }
+    .toggle input:checked + .slider { background: #22c55e; }
+    .toggle input:checked + .slider::before { transform: translateX(16px); }
+
+    /* Delete Button */
+    .btn-delete {
+      background: none;
+      border: 1px solid #374151;
+      color: #8b95a5;
+      width: 28px;
+      height: 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .btn-delete:hover { border-color: #ef4444; color: #ef4444; }
+
+    /* Meta tags */
+    .trigger-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: #1a2332;
+      color: #6b7a8d;
+    }
+    .tag.schedule { background: #1a1f2e; color: #818cf8; }
+    .tag.skill { background: #1a2e1f; color: #4ade80; }
+    .tag.scope { background: #2e2a1a; color: #fbbf24; }
+    .tag.once { background: #2e1a1a; color: #f87171; }
+
+    /* Prompt preview */
+    .trigger-prompt {
+      font-size: 12px;
+      color: #6b7a8d;
+      margin-top: 6px;
+      line-height: 1.4;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    /* Empty State */
+    .empty {
+      text-align: center;
+      padding: 48px 16px;
+      color: #6b7a8d;
+    }
+    .empty h2 { font-size: 16px; margin-bottom: 8px; color: #8b95a5; }
+    .empty p { font-size: 13px; line-height: 1.5; }
+
+    /* Confirm Dialog */
+    .confirm-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+    .confirm-box {
+      background: #111820;
+      border: 1px solid #1e2a3a;
+      border-radius: 12px;
+      padding: 20px;
+      max-width: 320px;
+      text-align: center;
+    }
+    .confirm-box p { margin-bottom: 16px; font-size: 14px; }
+    .confirm-btns { display: flex; gap: 8px; justify-content: center; }
+    .confirm-btns button {
+      padding: 8px 20px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .btn-cancel { background: #1e2a3a; color: #e8ecf1; }
+    .btn-confirm-delete { background: #ef4444; color: white; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script>
+    // ── 1. STATE ──
+    let triggers = [];
+    let isLive = false;
+    let pendingDeleteId = null;
+
+    render();
+
+    // ── 2. DIRECT API (same-origin fetch to backend /api/triggers/) ──
+    // The iframe is served from the same origin as the API, so fetch works directly.
+    // Auth token is extracted from parent window's sessionStorage via postMessage.
+    let authToken = "";
+    let tenant = "";
+
+    window.addEventListener("message", (ev) => {
+      const d = ev.data || {};
+      if (d.source !== "adas-host") return;
+      const msg = d.message;
+      if (msg?.type === "init") {
+        tenant = msg.payload?.tenant || "";
+        authToken = msg.payload?.token || "";
+        console.log("[triggers-panel] init received, tenant:", tenant, "hasToken:", !!authToken);
+        tryLiveData();
+      }
+    });
+
+    async function apiFetch(path, options = {}) {
+      const headers = { "Content-Type": "application/json" };
+      if (authToken) headers["Authorization"] = "Bearer " + authToken;
+      if (tenant) headers["X-ADAS-TENANT"] = tenant;
+      const res = await fetch(path, { ...options, headers });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    }
+
+    // ── 3. LOAD DATA ──
+    async function tryLiveData() {
+      try {
+        // Call trigger-runner via backend proxy
+        const result = await apiFetch("/api/triggers");
+        if (result?.ok) {
+          triggers = (result.triggers || []).map(t => {
+            // Handle both trigger-runner format and dynamic trigger format
+            const schedType = t.scheduleType || t.type || (t.every ? "every" : "unknown");
+            const schedValue = t.scheduleValue || t.every || t.cron || "";
+            return {
+              id: t._id || t.trigger_id || t.triggerId || t.id,
+              description: t.description || t.name || t.prompt?.substring(0, 60) || "Unnamed trigger",
+              schedule: formatSchedule(schedType, schedValue),
+              scheduleType: schedType,
+              scheduleValue: schedValue,
+              timezone: t.timezone || "UTC",
+              prompt: t.prompt || "",
+              skillSlug: t.skillSlug || t.skill || "",
+              scope: t.scope || "system",
+              enabled: t.enabled !== false && !t.paused,
+              autoDelete: t.autoDelete || false,
+              isDynamic: !!t.isDynamic || !!t._id,
+              createdAt: t.createdAt,
+            };
+          });
+          isLive = true;
+          render();
+        }
+      } catch (e) {
+        console.error("[triggers-panel] tryLiveData failed:", e);
+        isLive = true;
+        render(); // Show empty state instead of Loading...
+      }
+    }
+
+    function formatSchedule(type, value) {
+      if (!type || !value) return "—";
+      if (type === "once") {
+        try {
+          const d = new Date(value);
+          return d.toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
+        } catch { return value; }
+      }
+      if (type === "every") {
+        const match = value.match(/PT(\d+)([HM])/i);
+        if (match) {
+          const n = parseInt(match[1]);
+          const unit = match[2].toUpperCase() === "H" ? "hour" : "min";
+          return `Every ${n} ${unit}${n > 1 ? "s" : ""}`;
+        }
+        return value;
+      }
+      if (type === "cron") {
+        return `Cron: ${value}`;
+      }
+      return value;
+    }
+
+    // ── 4. ACTIONS ──
+    async function toggleTrigger(id) {
+      const t = triggers.find(x => x.id === id);
+      if (!t) return;
+      try {
+        await mcpCall("triggers.toggle", { skillSlug: t.skillSlug, triggerId: id });
+        await tryLiveData();
+      } catch (e) {
+        console.error("Toggle failed:", e);
+      }
+    }
+
+    function confirmDelete(id) {
+      pendingDeleteId = id;
+      render();
+    }
+
+    function cancelDelete() {
+      pendingDeleteId = null;
+      render();
+    }
+
+    async function doDelete() {
+      if (!pendingDeleteId) return;
+      try {
+        await mcpCall("triggers.delete", { triggerId: pendingDeleteId });
+        triggers = triggers.filter(t => t.id !== pendingDeleteId);
+        pendingDeleteId = null;
+        render();
+      } catch (e) {
+        console.error("Delete failed:", e);
+        pendingDeleteId = null;
+        render();
+      }
+    }
+
+    // ── 5. RENDER ──
+    function render() {
+      const active = triggers.filter(t => t.enabled).length;
+      const total = triggers.length;
+      const app = document.getElementById("app");
+
+      let html = `
+        <div class="header">
+          <div>
+            <h1>Reminders & Triggers${isLive ? '<span class="live-badge" style="display:inline">● LIVE</span>' : ''}</h1>
+          </div>
+          <div class="stats">
+            <span class="active">${active} active</span>
+            ${total - active > 0 ? `<span class="paused">${total - active} paused</span>` : ''}
+          </div>
+        </div>
+      `;
+
+      if (triggers.length === 0) {
+        html += `
+          <div class="empty">
+            <h2>${isLive ? 'No reminders yet' : 'Reminders & Triggers'}</h2>
+            <p>${isLive
+              ? 'Ask your assistant to set reminders like:<br>"Remind me to call the dentist in 1 hour"<br>"Every weekday at 9am, give me a briefing"'
+              : 'Loading...'
+            }</p>
+          </div>
+        `;
+      } else {
+        triggers.forEach(t => {
+          html += `
+            <div class="trigger-card${t.enabled ? '' : ' disabled'}">
+              <div class="trigger-top">
+                <div class="trigger-desc">${escHtml(t.description)}</div>
+                <div class="trigger-actions">
+                  <button class="btn-delete" onclick="confirmDelete('${t.id}')" title="Delete">✕</button>
+                </div>
+              </div>
+              ${t.prompt ? `<div class="trigger-prompt">${escHtml(t.prompt)}</div>` : ''}
+              <div class="trigger-meta">
+                <span class="tag schedule">⏱ ${escHtml(t.schedule)}</span>
+                <span class="tag skill">${escHtml(t.skillSlug)}</span>
+                ${t.scheduleType === 'once' ? '<span class="tag once">one-shot</span>' : ''}
+                ${t.scope === 'per_actor' ? '<span class="tag scope">per user</span>' : ''}
+                ${t.timezone !== 'UTC' ? `<span class="tag">${escHtml(t.timezone)}</span>` : ''}
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      // Confirm dialog
+      if (pendingDeleteId) {
+        const t = triggers.find(x => x.id === pendingDeleteId);
+        html += `
+          <div class="confirm-overlay" onclick="cancelDelete()">
+            <div class="confirm-box" onclick="event.stopPropagation()">
+              <p>Delete "${escHtml(t?.description || pendingDeleteId)}"?</p>
+              <div class="confirm-btns">
+                <button class="btn-cancel" onclick="cancelDelete()">Cancel</button>
+                <button class="btn-confirm-delete" onclick="doDelete()">Delete</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      app.innerHTML = html;
+    }
+
+    function escHtml(s) {
+      if (!s) return "";
+      return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+    }
+
+    // Auto-refresh every 30s
+    setInterval(() => { if (isLive) tryLiveData(); }, 30000);
+
+    // Try loading on startup (in case init message was already sent)
+    setTimeout(tryLiveData, 500);
+  </script>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taught Rules</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #FAF6EE;
+      color: #1a1410;
+      padding: 16px;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .header h1 { font-size: 18px; font-weight: 600; }
+    .live-badge { font-size: 10px; color: #5A8A5C; margin-left: 8px; display: none; }
+    .stats { display: flex; gap: 12px; font-size: 13px; }
+    .stat-active { color: #5A8A5C; }
+    .stat-inactive { color: #D49A4E; }
+
+    .rule-card {
+      background: #F2EADC; border: 1px solid rgba(26,20,16,0.08); border-radius: 10px;
+      padding: 14px; margin-bottom: 10px; transition: border-color 0.2s;
+    }
+    .rule-card:hover { border-color: #FF7A28; }
+    .rule-card:hover .btn-delete { opacity: 1; }
+    .rule-card.disabled { opacity: 0.5; }
+    .btn-delete {
+      opacity: 0; background: none; border: 1px solid #374151; color: #9a8870;
+      width: 24px; height: 24px; border-radius: 4px; cursor: pointer; font-size: 12px;
+      display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+    }
+    .btn-delete:hover { border-color: #C15545; color: #C15545; }
+
+    .rule-top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .rule-desc { font-size: 13px; flex: 1; margin-right: 12px; line-height: 1.5; }
+
+    .toggle-wrap { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .toggle {
+      position: relative; width: 36px; height: 20px; cursor: pointer;
+    }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle .slider {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: #374151; border-radius: 10px; transition: 0.3s;
+    }
+    .toggle .slider::before {
+      content: ""; position: absolute; height: 14px; width: 14px;
+      left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.3s;
+    }
+    .toggle input:checked + .slider { background: #5A8A5C; }
+    .toggle input:checked + .slider::before { transform: translateX(16px); }
+    .toggle-label { font-size: 10px; margin-top: 2px; }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .tag { font-size: 11px; padding: 1px 6px; border-radius: 4px; color: #9a8870; }
+
+    .empty {
+      background: #F2EADC; border: 1px solid rgba(26,20,16,0.08); border-radius: 10px;
+      padding: 24px; text-align: center;
+    }
+    .empty h2 { font-size: 16px; font-weight: 500; color: #9a8870; margin-bottom: 8px; }
+    .empty p { font-size: 13px; color: #9a8870; line-height: 1.7; }
+
+    .confirm-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 100;
+    }
+    .confirm-box {
+      background: #F2EADC; border: 1px solid rgba(26,20,16,0.08); border-radius: 12px;
+      padding: 20px; max-width: 320px; text-align: center;
+    }
+    .confirm-box p { margin-bottom: 16px; font-size: 14px; }
+    .confirm-btns { display: flex; gap: 8px; justify-content: center; }
+    .confirm-btns button { padding: 8px 20px; border-radius: 6px; border: none; cursor: pointer; font-size: 13px; font-weight: 500; }
+    .btn-cancel { background: rgba(26,20,16,0.08); color: #1a1410; }
+    .btn-confirm-delete { background: #C15545; color: white; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    const NOISE_TAGS = new Set(['taught','rule','rules','memory','preference','behavior']);
+
+    let rules = [];
+    let counts = { total: 0, active: 0, inactive: 0 };
+    let isLive = false;
+    let pendingDeleteId = null;
+
+    render();
+
+    // ── postMessage bridge ──
+    let counter = 0;
+    const pendingCalls = new Map();
+    function unwrapResult(raw) {
+      if (raw?.content?.[0]?.type === 'text') { try { raw = JSON.parse(raw.content[0].text); } catch {} }
+      if (raw?.content?.[0]?.type === 'text') { try { raw = JSON.parse(raw.content[0].text); } catch {} }
+      return raw;
+    }
+    function mcpCall(tool, args) {
+      const requestId = 'req_' + (++counter) + '_' + Date.now();
+      return new Promise((resolve, reject) => {
+        const timeout = setTimeout(() => reject(new Error('timeout')), 15000);
+        pendingCalls.set(requestId, {
+          resolve: r => { clearTimeout(timeout); resolve(unwrapResult(r)); },
+          reject: e => { clearTimeout(timeout); reject(e); },
+        });
+        window.parent.postMessage({
+          source: 'adas-plugin',
+          message: { action: 'mcp-call', payload: { requestId, toolName: 'cp.fe_api', args: { method: 'mcpProxy', params: { connectorId: 'memory-mcp', tool, args } } } },
+        }, '*');
+      });
+    }
+    window.addEventListener('message', ev => {
+      const d = ev.data || {};
+      if (d.source !== 'adas-host') return;
+      if (d.message?.type === 'init') tryLiveData();
+      if (d.message?.type === 'mcp-result') {
+        const { requestId, result, error } = d.message.payload || {};
+        const p = pendingCalls.get(requestId);
+        if (p) { pendingCalls.delete(requestId); error ? p.reject(new Error(error)) : p.resolve(result); }
+      }
+    });
+
+    async function tryLiveData() {
+      try {
+        const listResult = await mcpCall('memory.list', { limit: 200 });
+        const allMemories = listResult?.memories || [];
+        const ruleMemories = allMemories.filter(m => m.type === 'rule');
+
+        rules = ruleMemories.map(m => {
+          let parsed = {};
+          if (typeof m.content === 'string' && m.content.trim().startsWith('{')) {
+            try { parsed = JSON.parse(m.content); } catch {}
+          }
+          const description = parsed.description || parsed.rule_name || parsed.name ||
+            (typeof m.content === 'string' ? m.content : '') || m.context || '';
+          const rawTags = Array.isArray(m.tags) ? m.tags : (m.tags ? String(m.tags).split(',') : []);
+          const cleanTags = rawTags.map(t => t.trim().toLowerCase()).filter(t => t && !NOISE_TAGS.has(t));
+          return {
+            id: m.id,
+            description,
+            active: m.active !== false,
+            tags: cleanTags,
+          };
+        });
+
+        const activeCount = rules.filter(r => r.active).length;
+        counts = { total: rules.length, active: activeCount, inactive: rules.length - activeCount };
+        isLive = true;
+        render();
+      } catch {}
+    }
+
+    setTimeout(() => { if (!isLive) tryLiveData(); }, 2000);
+
+    async function toggleRule(id) {
+      const rule = rules.find(r => r.id === id);
+      if (!rule) return;
+      // Optimistic update
+      rule.active = !rule.active;
+      counts.active += rule.active ? 1 : -1;
+      counts.inactive += rule.active ? -1 : 1;
+      render();
+      try {
+        await mcpCall('memory.update', { id, active: rule.active });
+      } catch {
+        rule.active = !rule.active;
+        counts.active += rule.active ? 1 : -1;
+        counts.inactive += rule.active ? -1 : 1;
+        render();
+      }
+    }
+
+    async function doDelete() {
+      if (!pendingDeleteId) return;
+      const id = pendingDeleteId;
+      pendingDeleteId = null;
+      try {
+        await mcpCall('memory.delete', { id });
+        await tryLiveData();
+      } catch { render(); }
+    }
+
+    function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+    function render() {
+      const app = document.getElementById('app');
+
+      if (rules.length === 0) {
+        app.innerHTML = `
+          <div class="header">
+            <h1>Taught Rules${isLive ? ' <span class="live-badge" style="display:inline">\u25CF LIVE</span>' : ''}</h1>
+            <div class="stats"><span class="stat-active">0 active</span></div>
+          </div>
+          <div class="empty">
+            <h2>No rules yet</h2>
+            <p>Teach your assistant by saying things like:<br>
+            "When my boss calls during a meeting, always ring through"<br>
+            "Never schedule meetings before 10am"</p>
+          </div>`;
+        return;
+      }
+
+      const cards = rules.map(r => `
+        <div class="rule-card ${r.active ? '' : 'disabled'}">
+          <div class="rule-top">
+            <div class="rule-desc">${esc(r.description)}</div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <div class="toggle-wrap">
+                <label class="toggle">
+                  <input type="checkbox" ${r.active ? 'checked' : ''} onchange="toggleRule(${JSON.stringify(r.id)})">
+                  <span class="slider"></span>
+                </label>
+                <span class="toggle-label" style="color:${r.active ? '#5A8A5C' : '#D49A4E'}">${r.active ? 'active' : 'disabled'}</span>
+              </div>
+              <button class="btn-delete" onclick="pendingDeleteId=${JSON.stringify(r.id)};render()" title="Delete rule">&#x1F5D1;</button>
+            </div>
+          </div>
+          ${r.tags.length > 0 ? `<div class="tag-row">${r.tags.slice(0,3).map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>` : ''}
+        </div>
+      `).join('');
+
+      let html = `
+        <div class="header">
+          <h1>Taught Rules <span class="live-badge" style="display:inline">\u25CF LIVE</span></h1>
+          <div class="stats">
+            <span class="stat-active">${counts.active} active</span>
+            ${counts.inactive > 0 ? `<span class="stat-inactive">${counts.inactive} disabled</span>` : ''}
+          </div>
+        </div>
+        ${cards}`;
+
+      if (pendingDeleteId !== null) {
+        const rule = rules.find(r => r.id == pendingDeleteId);
+        html += `
+          <div class="confirm-overlay" onclick="pendingDeleteId=null;render()">
+            <div class="confirm-box" onclick="event.stopPropagation()">
+              <p>Delete this rule?<br><strong>${esc(rule?.description || '')}</strong></p>
+              <div class="confirm-btns">
+                <button class="btn-cancel" onclick="pendingDeleteId=null;render()">Cancel</button>
+                <button class="btn-confirm-delete" onclick="doDelete()">Delete</button>
+              </div>
+            </div>
+          </div>`;
+      }
+
+      app.innerHTML = html;
+    }
+  </script>
+</body>
+</html>

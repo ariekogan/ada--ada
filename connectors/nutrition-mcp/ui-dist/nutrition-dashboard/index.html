@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Nutrition Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#FAF6EE;--white:#FFFDF8;--text:#1a1410;--muted:#9a8870;--border:rgba(26,20,16,0.08);--cal:#FF7A28;--protein:#6B7B8E;--carbs:#A8784A;--fat:#D49A4E;--water:#5C7BA2;--fiber:#7A8866;--green:#5A8A5C;--red:#C15545;--yellow:#D49A4E;--shadow:0 2px 12px rgba(26,20,16,0.04);}
+body{font-family:'SF Pro Rounded',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);padding:12px;min-height:100vh;-webkit-text-size-adjust:100%;letter-spacing:-0.1px;}
+
+.header{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+.header-icon{font-size:28px;}
+.header h2{font-size:17px;font-weight:700;flex:1;}
+.header .date{font-size:11px;color:var(--muted);font-weight:500;}
+
+/* Cards */
+.card{background:var(--white);border-radius:16px;padding:14px;margin-bottom:10px;box-shadow:var(--shadow);}
+.card-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+
+/* Progress Rings */
+.rings{display:flex;justify-content:space-around;padding:8px 0;}
+.ring-wrap{text-align:center;position:relative;}
+.ring-emoji{font-size:20px;position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);}
+.ring-value{font-size:11px;font-weight:700;margin-top:4px;}
+.ring-label{font-size:9px;color:var(--muted);margin-top:1px;font-weight:600;}
+svg.ring{width:68px;height:68px;transform:rotate(-90deg);}
+svg.ring circle{fill:none;stroke-width:6;stroke-linecap:round;}
+svg.ring .bg{stroke:#f0f1f4;}
+svg.ring .fg{transition:stroke-dashoffset 0.8s cubic-bezier(0.4,0,0.2,1);}
+
+/* Macros */
+.macro-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.macro-card{background:var(--bg);border-radius:12px;padding:10px;text-align:center;position:relative;overflow:hidden;}
+.macro-card .bar{position:absolute;bottom:0;left:0;right:0;height:3px;border-radius:0 0 12px 12px;transition:width 0.6s ease;}
+.macro-card .icon{font-size:20px;margin-bottom:2px;}
+.macro-card .val{font-size:18px;font-weight:800;}
+.macro-card .lbl{font-size:9px;color:var(--muted);font-weight:600;margin-top:1px;}
+
+/* Hydration */
+.hydration{display:flex;align-items:center;gap:12px;}
+.water-bottle{font-size:32px;}
+.water-info{flex:1;}
+.water-bar{height:12px;background:#e8f4f8;border-radius:6px;overflow:hidden;margin-top:4px;}
+.water-fill{height:100%;background:linear-gradient(90deg,#00b4d8,#0096c7);border-radius:6px;transition:width 0.6s ease;}
+.water-text{font-size:13px;font-weight:700;color:var(--water);}
+.water-sub{font-size:10px;color:var(--muted);}
+
+/* Meals */
+.meal{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);}
+.meal:last-child{border-bottom:none;}
+.meal-emoji{font-size:24px;width:36px;height:36px;background:var(--bg);border-radius:10px;display:flex;align-items:center;justify-content:center;}
+.meal-info{flex:1;}
+.meal-type{font-size:12px;font-weight:700;text-transform:capitalize;}
+.meal-items{font-size:10px;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px;}
+.meal-cal{font-size:14px;font-weight:800;color:var(--cal);}
+.meal-macro{font-size:9px;color:var(--muted);}
+
+/* Weekly */
+.chart{display:flex;align-items:flex-end;gap:5px;height:90px;margin-top:6px;}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;}
+.bar{width:100%;border-radius:6px 6px 0 0;min-height:3px;transition:height 0.5s ease;}
+.bar-label{font-size:8px;color:var(--muted);margin-top:3px;font-weight:600;}
+.bar-value{font-size:8px;font-weight:700;margin-top:2px;}
+
+/* Empty & Loading */
+.empty-state{text-align:center;padding:20px 10px;}
+.empty-icon{font-size:40px;margin-bottom:8px;}
+.empty-text{font-size:13px;color:var(--muted);line-height:1.4;}
+.loading{text-align:center;padding:40px;}
+.spinner{width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--cal);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 10px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* Meal row click affordance */
+.meal{cursor:pointer;border-radius:8px;padding:8px;margin:0 -4px;}
+.meal:hover{background:var(--bg);}
+.meal-chevron{font-size:16px;color:var(--muted);margin-left:4px;}
+
+/* Modal */
+.modal-backdrop{position:fixed;inset:0;background:rgba(20,24,34,0.55);backdrop-filter:blur(4px);display:none;align-items:flex-end;justify-content:center;z-index:1000;}
+.modal-backdrop.open{display:flex;}
+.modal{background:var(--white);width:100%;max-width:560px;max-height:92vh;border-radius:18px 18px 0 0;display:flex;flex-direction:column;overflow:hidden;animation:slideUp 0.25s cubic-bezier(0.2,0.8,0.3,1);}
+@keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+.modal-head{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.modal-head h3{flex:1;font-size:16px;font-weight:700;}
+.modal-close{background:none;border:none;font-size:22px;color:var(--muted);cursor:pointer;padding:4px 8px;line-height:1;}
+.modal-body{flex:1;overflow-y:auto;padding:12px 14px;}
+.modal-foot{padding:12px 14px;border-top:1px solid var(--border);display:flex;gap:8px;background:var(--bg);}
+.modal-foot button{flex:1;padding:11px 12px;border-radius:10px;border:none;font-size:13px;font-weight:700;cursor:pointer;}
+.btn-save{background:var(--cal);color:#fff;}
+.btn-save:active{opacity:0.85;}
+.btn-del{background:#fff;color:var(--red);border:1px solid var(--red)!important;flex:0 0 auto!important;padding:11px 14px!important;}
+.btn-cancel{background:#fff;color:var(--muted);border:1px solid var(--border)!important;}
+
+.meta-row{display:flex;gap:8px;margin-bottom:12px;}
+.meta-row label{flex:1;font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;}
+.meta-row select,.meta-row input{width:100%;margin-top:3px;padding:9px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px;background:#fff;font-family:inherit;}
+.meta-row select:focus,.meta-row input:focus,.item-row input:focus,.notes-input:focus{outline:none;border-color:var(--cal);}
+
+/* Food table */
+.ftable-wrap{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:10px;background:#fff;}
+.ftable{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed;}
+.ftable thead th{font-size:9px;color:var(--muted);text-transform:uppercase;font-weight:700;letter-spacing:0.5px;text-align:left;padding:8px 8px;background:var(--bg);border-bottom:1px solid var(--border);}
+.ftable thead th.n{text-align:right;}
+.ftable tbody td{padding:0;border-bottom:1px solid var(--border);vertical-align:middle;}
+.ftable tbody tr:last-child td{border-bottom:none;}
+.ftable tbody tr:hover{background:#fcfcfd;}
+.ftable input{width:100%;padding:8px 8px;border:none;background:transparent;font-size:12px;font-family:inherit;color:var(--text);box-sizing:border-box;line-height:1.2;}
+.ftable input:focus{outline:none;background:#fff4ec;}
+.ftable input[type="number"]{-moz-appearance:textfield;}
+.ftable input[type="number"]::-webkit-outer-spin-button,
+.ftable input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+.ftable .f-num{text-align:right;font-variant-numeric:tabular-nums;}
+.ftable .f-name{font-weight:600;}
+.ftable .f-portion{text-align:right;color:var(--muted);font-weight:600;padding-right:6px;}
+.ftable td.act{text-align:center;padding:0 2px;}
+.ftable .del-item{background:transparent;border:none;color:var(--muted);font-size:16px;cursor:pointer;padding:6px 4px;line-height:1;border-radius:4px;}
+.ftable .del-item:hover{color:var(--red);background:#ffecec;}
+.ftable tfoot td{padding:10px 8px;background:var(--bg);font-weight:800;color:var(--text);font-size:12px;border-top:2px solid var(--cal);white-space:nowrap;font-variant-numeric:tabular-nums;line-height:1.2;}
+.ftable tfoot td.n{text-align:right;}
+.ftable tfoot td .tot-cal{color:var(--cal);}
+.ftable tfoot td .tot-p{color:var(--protein);}
+.ftable tfoot td .tot-c{color:var(--carbs);}
+.ftable tfoot td .tot-f{color:var(--fat);}
+.ftable tfoot td.lbl{color:var(--muted);text-transform:uppercase;font-size:10px;letter-spacing:0.5px;white-space:nowrap;}
+.ftable tfoot td .unit{font-size:10px;color:var(--muted);font-weight:600;margin-left:1px;}
+.ftable col.c-food{width:auto;}
+.ftable col.c-qty{width:56px;}
+.ftable col.c-num{width:50px;}
+.ftable col.c-act{width:26px;}
+
+.add-item-btn{width:100%;padding:10px;margin:4px 0 10px;background:#fff;border:1.5px dashed var(--border);border-radius:10px;color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;}
+.add-item-btn:hover{border-color:var(--cal);color:var(--cal);background:#fff8f3;}
+
+.notes-input{width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:8px;font-size:12px;background:#fff;font-family:inherit;min-height:50px;resize:vertical;margin-top:4px;box-sizing:border-box;}
+
+/* Meal photo */
+.meal-photo-wrap{position:relative;margin-bottom:12px;border-radius:12px;overflow:hidden;background:var(--bg);display:none;}
+.meal-photo-wrap.show{display:block;}
+.meal-photo{width:100%;max-height:240px;object-fit:cover;display:block;cursor:pointer;background:#1a1a1a;}
+.meal-photo-badge{position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.6);color:#fff;font-size:10px;font-weight:700;padding:4px 8px;border-radius:12px;letter-spacing:0.3px;pointer-events:none;}
+
+/* Photo thumbnail strip (gallery) */
+.photo-strip{display:flex;gap:4px;padding:6px;background:#0f0f0f;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.photo-strip::-webkit-scrollbar{height:3px;}
+.photo-strip::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.3);border-radius:2px;}
+.photo-thumb-g{width:52px;height:52px;object-fit:cover;border-radius:6px;cursor:pointer;flex-shrink:0;opacity:0.55;border:2px solid transparent;transition:opacity 0.15s,border-color 0.15s;}
+.photo-thumb-g.active{opacity:1;border-color:var(--cal);}
+.photo-thumb-g:hover{opacity:0.85;}
+.photo-add-btn{width:52px;height:52px;border-radius:6px;border:2px dashed rgba(255,255,255,0.3);background:transparent;color:rgba(255,255,255,0.6);font-size:22px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:0;line-height:1;}
+.photo-add-btn:hover{border-color:var(--cal);color:var(--cal);}
+.photo-add-btn:active{background:rgba(255,255,255,0.05);}
+
+.add-photo-inline-btn{width:100%;padding:10px;margin-bottom:10px;background:#fff;border:1.5px dashed var(--border);border-radius:10px;color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;}
+.add-photo-inline-btn:hover{border-color:var(--cal);color:var(--cal);background:#fff8f3;}
+.add-photo-inline-btn:active{background:#ffefe4;}
+
+/* Add-meal pill in the "Today's Meals" card header */
+.add-meal-btn{margin-left:auto;background:var(--cal);color:#fff;border:none;padding:5px 11px;border-radius:14px;font-size:10px;font-weight:800;cursor:pointer;letter-spacing:0.4px;display:inline-flex;align-items:center;gap:3px;}
+.add-meal-btn:hover{background:#e85a26;}
+.add-meal-btn:active{transform:scale(0.96);}
+
+/* Photo zoom lightbox */
+.photo-zoom{position:fixed;inset:0;background:rgba(0,0,0,0.95);display:none;align-items:center;justify-content:center;z-index:2000;padding:16px;cursor:zoom-out;}
+.photo-zoom.open{display:flex;}
+.photo-zoom img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;}
+.zoom-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.12);border:none;color:#fff;font-size:28px;width:44px;height:44px;border-radius:50%;cursor:pointer;display:none;align-items:center;justify-content:center;}
+.zoom-nav.show{display:flex;}
+.zoom-nav:hover{background:rgba(255,255,255,0.22);}
+.zoom-nav.prev{left:16px;}
+.zoom-nav.next{right:16px;}
+.zoom-counter{position:absolute;top:16px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.6);color:#fff;padding:6px 12px;border-radius:14px;font-size:12px;font-weight:700;display:none;}
+.zoom-counter.show{display:block;}
+
+/* Thumbnail on meal row */
+.meal-thumb{width:36px;height:36px;border-radius:10px;object-fit:cover;flex-shrink:0;position:relative;}
+.meal-thumb-wrap{position:relative;flex-shrink:0;}
+.meal-thumb-count{position:absolute;top:-4px;right:-4px;background:var(--cal);color:#fff;font-size:9px;font-weight:800;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 4px;border:2px solid var(--white);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="date" id="dateLabel" style="margin-left:auto;"></div>
+</div>
+
+<div id="content">
+  <!-- Rings -->
+  <div class="card">
+    <div class="rings" id="rings">
+      <div class="ring-wrap">
+        <svg class="ring" viewBox="0 0 68 68"><circle class="bg" cx="34" cy="34" r="28"/><circle class="fg" cx="34" cy="34" r="28" stroke="var(--cal)" stroke-dasharray="176" stroke-dashoffset="176"/></svg>
+        <div class="ring-emoji">&#127371;</div>
+        <div class="ring-value" style="color:var(--cal)">0</div>
+        <div class="ring-label">Calories</div>
+      </div>
+      <div class="ring-wrap">
+        <svg class="ring" viewBox="0 0 68 68"><circle class="bg" cx="34" cy="34" r="28"/><circle class="fg" cx="34" cy="34" r="28" stroke="var(--protein)" stroke-dasharray="176" stroke-dashoffset="176"/></svg>
+        <div class="ring-emoji">&#129385;</div>
+        <div class="ring-value" style="color:var(--protein)">0g</div>
+        <div class="ring-label">Protein</div>
+      </div>
+      <div class="ring-wrap">
+        <svg class="ring" viewBox="0 0 68 68"><circle class="bg" cx="34" cy="34" r="28"/><circle class="fg" cx="34" cy="34" r="28" stroke="var(--water)" stroke-dasharray="176" stroke-dashoffset="176"/></svg>
+        <div class="ring-emoji">&#128167;</div>
+        <div class="ring-value" style="color:var(--water)">0ml</div>
+        <div class="ring-label">Water</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Macros -->
+  <div class="card">
+    <div class="card-title">&#127860; Today's Macros</div>
+    <div class="macro-grid" id="macros">
+      <div class="macro-card"><div class="icon">&#127371;</div><div class="val" style="color:var(--cal)">0</div><div class="lbl">Cal / 2000</div><div class="bar" style="width:0%;background:var(--cal)"></div></div>
+      <div class="macro-card"><div class="icon">&#129385;</div><div class="val" style="color:var(--protein)">0</div><div class="lbl">Protein / 150g</div><div class="bar" style="width:0%;background:var(--protein)"></div></div>
+      <div class="macro-card"><div class="icon">&#127834;</div><div class="val" style="color:var(--carbs)">0</div><div class="lbl">Carbs / 250g</div><div class="bar" style="width:0%;background:var(--carbs)"></div></div>
+      <div class="macro-card"><div class="icon">&#129361;</div><div class="val" style="color:var(--fat)">0</div><div class="lbl">Fat / 65g</div><div class="bar" style="width:0%;background:var(--fat)"></div></div>
+    </div>
+  </div>
+
+  <!-- Hydration -->
+  <div class="card">
+    <div class="card-title">&#128167; Hydration</div>
+    <div class="hydration" id="hydration">
+      <div class="water-bottle">&#129380;</div>
+      <div class="water-info">
+        <div class="water-text">0 / 2500 ml</div>
+        <div class="water-bar"><div class="water-fill" style="width:0%"></div></div>
+        <div class="water-sub">Keep sipping!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Meals -->
+  <div class="card">
+    <div class="card-title">&#129382; Today's Meals
+      <button class="add-meal-btn" onclick="openNewMealModal()">+ Add meal</button>
+    </div>
+    <div id="meals">
+      <div class="empty-state">
+        <div class="empty-icon">&#127858;</div>
+        <div class="empty-text">No meals logged yet today.<br>Send a meal photo or tell me what you ate!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Weekly -->
+  <div class="card">
+    <div class="card-title">&#128200; This Week</div>
+    <div class="chart" id="weeklyChart"></div>
+  </div>
+</div>
+
+<!-- Meal edit modal -->
+<div class="modal-backdrop" id="mealModal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="modalTitle">Edit Meal</h3>
+      <button class="modal-close" onclick="closeMealModal()" aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="meal-photo-wrap" id="photoWrap">
+        <img class="meal-photo" id="modalPhoto" alt="Meal photo" onclick="openPhotoZoom()">
+        <div class="meal-photo-badge" id="photoBadge">&#128247; Tap to zoom</div>
+        <div class="photo-strip" id="photoStrip"></div>
+      </div>
+      <button type="button" class="add-photo-inline-btn" id="addPhotoInlineBtn" onclick="triggerPhotoPicker()">&#128247; Add photo</button>
+      <input type="file" id="photoFileInput" accept="image/*" capture="environment" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" onchange="onPhotoFile(event)">
+      <div class="meta-row">
+        <label>Meal Type
+          <select id="modalMealType">
+            <option value="breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+            <option value="dinner">Dinner</option>
+            <option value="snack">Snack</option>
+          </select>
+        </label>
+        <label>Time
+          <input type="text" id="modalTime" readonly style="background:var(--bg);color:var(--muted);">
+        </label>
+      </div>
+      <div class="ftable-wrap">
+        <table class="ftable">
+          <colgroup>
+            <col class="c-food"><col class="c-qty">
+            <col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num">
+            <col class="c-act">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Food</th>
+              <th class="n">Portion</th>
+              <th class="n">Cal</th>
+              <th class="n">P</th>
+              <th class="n">C</th>
+              <th class="n">F</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="itemList"></tbody>
+          <tfoot>
+            <tr>
+              <td class="lbl">Total</td>
+              <td></td>
+              <td class="n"><span class="tot-cal" id="tCal">0</span></td>
+              <td class="n"><span class="tot-p" id="tP">0g</span></td>
+              <td class="n"><span class="tot-c" id="tC">0g</span></td>
+              <td class="n"><span class="tot-f" id="tF">0g</span></td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <button class="add-item-btn" onclick="addItem()">+ Add food item</button>
+      <label style="font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Notes
+        <textarea id="modalNotes" class="notes-input" placeholder="Optional notes"></textarea>
+      </label>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-del" onclick="deleteMeal()" aria-label="Delete meal">&#128465;</button>
+      <button class="btn-cancel" onclick="closeMealModal()">Cancel</button>
+      <button class="btn-save" onclick="saveMeal()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Photo lightbox -->
+<div class="photo-zoom" id="photoZoom" onclick="closePhotoZoom()">
+  <img id="zoomImg" alt="Meal photo fullscreen">
+  <div class="zoom-counter" id="zoomCounter">1 / 1</div>
+  <button class="zoom-nav prev" id="zoomPrevBtn" onclick="event.stopPropagation();zoomPrev()" aria-label="Previous">&lsaquo;</button>
+  <button class="zoom-nav next" id="zoomNextBtn" onclick="event.stopPropagation();zoomNext()" aria-label="Next">&rsaquo;</button>
+</div>
+
+<script>
+var CID='nutrition-mcp';
+var lastDaily=null;
+var editingMeal=null;
+document.getElementById('dateLabel').textContent=new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+
+function mcpCall(tool,args){args=args||{};return new Promise(function(res,rej){var rid='m-'+Date.now()+'-'+Math.random().toString(36).slice(2);function h(e){var d=e.data||{};if(d.source!=='adas-host')return;var m=d.message||{};if(m.type!=='mcp-result'||!m.payload||m.payload.requestId!==rid)return;window.removeEventListener('message',h);if(m.payload.error)rej(new Error(m.payload.error));else res(m.payload.result);}window.addEventListener('message',h);window.parent.postMessage({source:'adas-plugin',message:{action:'mcp-call',payload:{requestId:rid,connectorId:CID,tool:tool,args:args}}},'*');setTimeout(function(){window.removeEventListener('message',h);rej(new Error('timeout'));},15000);});}
+
+var mealEmojis={breakfast:'&#127749;',lunch:'&#9728;&#65039;',dinner:'&#127769;',snack:'&#127852;'};
+function pct(v,g){return Math.min(Math.round((v/g)*100),100);}
+function r1(v){var n=Number(v)||0;return Math.round(n*10)/10;}
+function waterMsg(p){if(p>=100)return'Great job! Target reached! &#127881;';if(p>=60)return'Almost there, keep going! &#128170;';if(p>=30)return'Good start, keep sipping! &#128167;';return'Time to hydrate! &#128161;';}
+
+function renderRings(t,g,a,h){
+  var circ=2*Math.PI*28;
+  var data=[
+    {pct:a.calories_pct||0,color:'var(--cal)',emoji:'&#127371;',val:r1(t.calories),label:'Calories'},
+    {pct:a.protein_pct||0,color:'var(--protein)',emoji:'&#129385;',val:r1(t.protein)+'g',label:'Protein'},
+    {pct:h.water_pct||0,color:'var(--water)',emoji:'&#128167;',val:(h.water_ml||0)+'ml',label:'Water'},
+  ];
+  document.getElementById('rings').innerHTML=data.map(function(d){
+    var off=circ-(Math.min(d.pct,100)/100)*circ;
+    return'<div class="ring-wrap"><svg class="ring" viewBox="0 0 68 68"><circle class="bg" cx="34" cy="34" r="28"/><circle class="fg" cx="34" cy="34" r="28" stroke="'+d.color+'" stroke-dasharray="'+circ+'" stroke-dashoffset="'+off+'"/></svg><div class="ring-emoji">'+d.emoji+'</div><div class="ring-value" style="color:'+d.color+'">'+d.val+'</div><div class="ring-label">'+d.label+'</div></div>';
+  }).join('');
+}
+
+function renderMacros(t,g){
+  var items=[
+    {icon:'&#127371;',val:r1(t.calories),goal:g.calories||2000,lbl:'Cal',color:'var(--cal)'},
+    {icon:'&#129385;',val:r1(t.protein),goal:g.protein||150,lbl:'Protein',color:'var(--protein)',unit:'g'},
+    {icon:'&#127834;',val:r1(t.carbs),goal:g.carbs||250,lbl:'Carbs',color:'var(--carbs)',unit:'g'},
+    {icon:'&#129361;',val:r1(t.fat),goal:g.fat||65,lbl:'Fat',color:'var(--fat)',unit:'g'},
+  ];
+  document.getElementById('macros').innerHTML=items.map(function(m){
+    var p=pct(m.val,m.goal);
+    return'<div class="macro-card"><div class="icon">'+m.icon+'</div><div class="val" style="color:'+m.color+'">'+m.val+(m.unit||'')+'</div><div class="lbl">'+m.lbl+' / '+m.goal+(m.unit||'')+'</div><div class="bar" style="width:'+p+'%;background:'+m.color+'"></div></div>';
+  }).join('');
+}
+
+function renderHydration(h){
+  var p=Math.min(h.water_pct||0,100);
+  document.getElementById('hydration').innerHTML='<div class="water-bottle">&#129380;</div><div class="water-info"><div class="water-text">'+(h.water_ml||0)+' / '+(h.water_goal||2500)+' ml</div><div class="water-bar"><div class="water-fill" style="width:'+p+'%"></div></div><div class="water-sub">'+waterMsg(p)+'</div></div>';
+}
+
+function renderMeals(meals){
+  if(!meals||!meals.length){
+    document.getElementById('meals').innerHTML='<div class="empty-state"><div class="empty-icon">&#127858;</div><div class="empty-text">No meals logged yet today.<br>Send a meal photo or tell me what you ate!</div></div>';
+    return;
+  }
+  document.getElementById('meals').innerHTML=meals.map(function(m,i){
+    var emoji=mealEmojis[m.meal_type]||'&#127869;';
+    var photos=(Array.isArray(m.photos)&&m.photos.length?m.photos:(m.photo_hash?[m.photo_hash]:[]));
+    var count=photos.length;
+    var leading;
+    if(count){
+      leading='<div class="meal-thumb-wrap"><img class="meal-thumb" data-phash="'+photos[0]+'" alt="">'
+        +(count>1?'<div class="meal-thumb-count">'+count+'</div>':'')
+        +'</div>';
+    }else{
+      leading='<div class="meal-emoji">'+emoji+'</div>';
+    }
+    return'<div class="meal" data-meal-idx="'+i+'" onclick="openMealModal('+i+')">'+leading+'<div class="meal-info"><div class="meal-type">'+m.meal_type+' &middot; '+(m.time||'')+'</div><div class="meal-items">'+(m.items||[]).map(function(x){return x.name;}).join(', ')+'</div></div><div style="text-align:right"><div class="meal-cal">'+r1(m.total_calories)+'</div><div class="meal-macro">P:'+r1(m.total_protein)+'g C:'+r1(m.total_carbs)+'g F:'+r1(m.total_fat)+'g</div></div><div class="meal-chevron">&rsaquo;</div></div>';
+  }).join('');
+  // Fetch blob URLs for all list thumbnails (iOS webview workaround)
+  document.querySelectorAll('#meals img[data-phash]').forEach(function(t){loadImageFromHash(t,t.getAttribute('data-phash'));});
+}
+
+/* ===== Meal Edit Modal ===== */
+function photoUrl(hash){return hash?('/api/artifacts/'+encodeURIComponent(hash)):'';}
+var photoBlobCache={};
+function loadImageFromHash(imgEl,hash){
+  if(!imgEl||!hash)return;
+  if(photoBlobCache[hash]){imgEl.src=photoBlobCache[hash];return;}
+  // Placeholder + async fetch (iOS webview sometimes refuses <img src> on same-origin)
+  imgEl.src='';
+  fetch(photoUrl(hash),{credentials:'same-origin'})
+    .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.blob();})
+    .then(function(b){var u=URL.createObjectURL(b);photoBlobCache[hash]=u;imgEl.src=u;})
+    .catch(function(e){console.warn('[nutrition] photo fetch failed',hash,e.message);imgEl.alt='[photo unavailable]';});
+}
+var modalPhotos=[];
+var modalPhotoIdx=0;
+var zoomIdx=0;
+function setModalMode(isNew){
+  var delBtn=document.querySelector('.btn-del');
+  var timeEl=document.getElementById('modalTime');
+  if(isNew){
+    if(delBtn)delBtn.style.display='none';
+    timeEl.removeAttribute('readonly');
+    timeEl.style.background='#fff';
+    timeEl.style.color='';
+  }else{
+    if(delBtn)delBtn.style.display='';
+    timeEl.setAttribute('readonly','');
+    timeEl.style.background='var(--bg)';
+    timeEl.style.color='var(--muted)';
+  }
+}
+function guessMealType(){
+  var h=new Date().getHours();
+  if(h<10)return'breakfast';
+  if(h<14)return'lunch';
+  if(h<17)return'snack';
+  if(h<22)return'dinner';
+  return'snack';
+}
+function openNewMealModal(){
+  var now=new Date();
+  var hh=String(now.getHours()).padStart(2,'0');
+  var mm=String(now.getMinutes()).padStart(2,'0');
+  var mt=guessMealType();
+  editingMeal={id:null,date:now.toISOString().slice(0,10),time:hh+':'+mm,meal_type:mt,items:[{name:'',quantity:100,unit:'g',calories:0,protein:0,carbs:0,fat:0}],notes:'',photos:[]};
+  document.getElementById('modalTitle').textContent='New meal';
+  document.getElementById('modalMealType').value=mt;
+  document.getElementById('modalTime').value=editingMeal.time;
+  document.getElementById('modalNotes').value='';
+  modalPhotos=[];modalPhotoIdx=0;
+  renderPhotos();
+  setModalMode(true);
+  renderItems();
+  document.getElementById('mealModal').classList.add('open');
+  setTimeout(function(){
+    var f=document.querySelector('#itemList tr[data-i] .f-name');
+    if(f)f.focus();
+  },120);
+}
+function openMealModal(idx){
+  if(!lastDaily||!lastDaily.meals||!lastDaily.meals[idx])return;
+  editingMeal=JSON.parse(JSON.stringify(lastDaily.meals[idx]));
+  editingMeal.items=editingMeal.items||[];
+  document.getElementById('modalTitle').textContent='Edit '+(editingMeal.meal_type||'meal');
+  document.getElementById('modalMealType').value=editingMeal.meal_type||'snack';
+  document.getElementById('modalTime').value=editingMeal.time||'';
+  document.getElementById('modalNotes').value=editingMeal.notes||'';
+  setModalMode(false);
+  // Collect photo list: prefer `photos` array, fall back to legacy `photo_hash`
+  modalPhotos=[];
+  if(Array.isArray(editingMeal.photos))modalPhotos=editingMeal.photos.filter(Boolean).slice();
+  if(editingMeal.photo_hash&&modalPhotos.indexOf(editingMeal.photo_hash)<0)modalPhotos.unshift(editingMeal.photo_hash);
+  modalPhotoIdx=0;
+  renderPhotos();
+  renderItems();
+  document.getElementById('mealModal').classList.add('open');
+}
+function renderPhotos(){
+  var wrap=document.getElementById('photoWrap');
+  var img=document.getElementById('modalPhoto');
+  var badge=document.getElementById('photoBadge');
+  var strip=document.getElementById('photoStrip');
+  var inlineBtn=document.getElementById('addPhotoInlineBtn');
+  if(!modalPhotos.length){
+    img.src='';wrap.classList.remove('show');
+    strip.innerHTML='';strip.style.display='none';
+    // Show the prominent inline button when no photos
+    if(inlineBtn)inlineBtn.style.display='flex';
+    return;
+  }
+  wrap.classList.add('show');
+  if(modalPhotoIdx>=modalPhotos.length)modalPhotoIdx=modalPhotos.length-1;
+  loadImageFromHash(img,modalPhotos[modalPhotoIdx]);
+  badge.innerHTML=modalPhotos.length>1
+    ?'&#128247; '+(modalPhotoIdx+1)+' / '+modalPhotos.length
+    :'&#128247; Tap to zoom';
+  // Thumbnail strip + embedded add button
+  var thumbsHtml=modalPhotos.map(function(h,i){
+    return'<img class="photo-thumb-g'+(i===modalPhotoIdx?' active':'')+'" data-phash="'+h+'" onclick="selectPhoto('+i+')" alt="">';
+  }).join('');
+  strip.innerHTML=thumbsHtml+'<button type="button" class="photo-add-btn" id="stripAddBtn" aria-label="Add photo">+</button>';
+  strip.style.display='flex';
+  // Load each thumb via fetch→blob (iOS webview workaround)
+  strip.querySelectorAll('img[data-phash]').forEach(function(t){loadImageFromHash(t,t.getAttribute('data-phash'));});
+  // Wire the strip "+" via addEventListener (more reliable than inline onclick)
+  var sb=document.getElementById('stripAddBtn');
+  if(sb)sb.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();triggerPhotoPicker();});
+  if(inlineBtn)inlineBtn.style.display='none';
+}
+function triggerPhotoPicker(){
+  var inp=document.getElementById('photoFileInput');
+  if(!inp)return;
+  try{inp.value='';}catch{}
+  inp.click();
+}
+function selectPhoto(i){
+  modalPhotoIdx=i;
+  renderPhotos();
+}
+async function onPhotoFile(ev){
+  var file=ev.target.files&&ev.target.files[0];
+  if(!file||!editingMeal||!editingMeal.id)return;
+  try{
+    // Read file as base64
+    var b64=await new Promise(function(res,rej){
+      var r=new FileReader();
+      r.onload=function(){res(String(r.result||'').split(',')[1]||'');};
+      r.onerror=function(){rej(new Error('Read failed'));};
+      r.readAsDataURL(file);
+    });
+    if(!b64){alert('Could not read image');return;}
+    // Upload to artifact store
+    var tok=null;try{tok=parent&&parent.localStorage&&parent.localStorage.getItem('adas.jwt');}catch{}
+    var headers={'Content-Type':'application/json'};if(tok)headers['Authorization']='Bearer '+tok;
+    var res=await fetch('/api/artifacts',{method:'POST',headers:headers,body:JSON.stringify({data:b64,mimeType:file.type||'image/jpeg',name:file.name||'meal.jpg'})});
+    var data=await res.json();
+    if(!data.ok||!data.hash){alert('Upload failed: '+(data.error||'unknown'));return;}
+    // Append to meal
+    var upd=await mcpCall('nutrition.updateMeal',{meal_id:editingMeal.id,add_photo:data.hash});
+    var uw=unwrap(upd);
+    if(uw&&uw.ok===false){alert('Update failed');return;}
+    // Locally append + show the new photo
+    if(modalPhotos.indexOf(data.hash)<0)modalPhotos.push(data.hash);
+    modalPhotoIdx=modalPhotos.length-1;
+    renderPhotos();
+    // Refresh dashboard data in background
+    load();
+  }catch(e){alert('Add photo failed: '+e.message);}
+  finally{ev.target.value='';}
+}
+function openPhotoZoom(){
+  if(!modalPhotos.length)return;
+  zoomIdx=modalPhotoIdx;
+  applyZoom();
+  document.getElementById('photoZoom').classList.add('open');
+}
+function applyZoom(){
+  if(!modalPhotos.length)return;
+  loadImageFromHash(document.getElementById('zoomImg'),modalPhotos[zoomIdx]);
+  var multi=modalPhotos.length>1;
+  document.getElementById('zoomPrevBtn').classList.toggle('show',multi);
+  document.getElementById('zoomNextBtn').classList.toggle('show',multi);
+  var ctr=document.getElementById('zoomCounter');
+  ctr.classList.toggle('show',multi);
+  ctr.textContent=(zoomIdx+1)+' / '+modalPhotos.length;
+}
+function zoomPrev(){if(!modalPhotos.length)return;zoomIdx=(zoomIdx-1+modalPhotos.length)%modalPhotos.length;applyZoom();}
+function zoomNext(){if(!modalPhotos.length)return;zoomIdx=(zoomIdx+1)%modalPhotos.length;applyZoom();}
+function closePhotoZoom(){
+  document.getElementById('photoZoom').classList.remove('open');
+  document.getElementById('zoomImg').src='';
+}
+// Keyboard nav in lightbox
+document.addEventListener('keydown',function(e){
+  var zoom=document.getElementById('photoZoom');
+  if(!zoom.classList.contains('open'))return;
+  if(e.key==='Escape')closePhotoZoom();
+  else if(e.key==='ArrowLeft')zoomPrev();
+  else if(e.key==='ArrowRight')zoomNext();
+});
+function closeMealModal(){
+  document.getElementById('mealModal').classList.remove('open');
+  editingMeal=null;
+}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
+function num(v){var n=Number(v);return isFinite(n)?n:0;}
+function fmtNum(v){var n=Number(v)||0;return(Math.round(n*10)/10).toString();}
+function formatPortion(it){
+  var q=it.quantity!=null?Number(it.quantity):1;
+  var u=(it.unit||'g').trim();
+  return fmtNum(q)+' '+u;
+}
+function parsePortion(s){
+  s=String(s||'').trim();
+  var m=s.match(/^(-?\d*\.?\d+)\s*(.*)$/);
+  if(!m)return{quantity:1,unit:'g'};
+  var unit=(m[2]||'').trim()||'g';
+  return{quantity:Number(m[1])||0,unit:unit};
+}
+function renderItems(){
+  var html=(editingMeal.items||[]).map(function(it,i){
+    return'<tr data-i="'+i+'">'
+      +'<td><input class="f-name" data-field="name" value="'+esc(it.name||'')+'" placeholder="Food name"></td>'
+      +'<td><input class="f-portion" data-field="portion" value="'+esc(formatPortion(it))+'" placeholder="80 g"></td>'
+      +'<td class="n"><input class="f-num" data-field="calories" type="number" step="0.1" inputmode="decimal" value="'+fmtNum(it.calories)+'"></td>'
+      +'<td class="n"><input class="f-num" data-field="protein" type="number" step="0.1" inputmode="decimal" value="'+fmtNum(it.protein)+'"></td>'
+      +'<td class="n"><input class="f-num" data-field="carbs" type="number" step="0.1" inputmode="decimal" value="'+fmtNum(it.carbs)+'"></td>'
+      +'<td class="n"><input class="f-num" data-field="fat" type="number" step="0.1" inputmode="decimal" value="'+fmtNum(it.fat)+'"></td>'
+      +'<td class="act"><button class="del-item" onclick="delItem('+i+')" aria-label="Delete">&times;</button></td>'
+    +'</tr>';
+  }).join('');
+  if(!html)html='<tr><td colspan="7" style="padding:16px;text-align:center;color:var(--muted);font-size:11px;">No items — tap "Add food item" below.</td></tr>';
+  document.getElementById('itemList').innerHTML=html;
+  var list=document.getElementById('itemList');
+  list.oninput=function(){recalcFromInputs();};
+  recalcFromInputs();
+}
+function collectItems(){
+  var rows=document.getElementById('itemList').querySelectorAll('tr[data-i]');
+  var out=[];
+  rows.forEach(function(row){
+    var inputs=row.querySelectorAll('[data-field]');
+    var it={};
+    inputs.forEach(function(inp){
+      var f=inp.getAttribute('data-field');
+      if(f==='name')it.name=inp.value;
+      else if(f==='portion'){var p=parsePortion(inp.value);it.quantity=p.quantity;it.unit=p.unit;}
+      else it[f]=Number(inp.value)||0;
+    });
+    if((it.name||'').trim())out.push(it);
+  });
+  return out;
+}
+function recalcFromInputs(){
+  var items=collectItems();
+  var t={calories:0,protein:0,carbs:0,fat:0};
+  items.forEach(function(i){t.calories+=+i.calories||0;t.protein+=+i.protein||0;t.carbs+=+i.carbs||0;t.fat+=+i.fat||0;});
+  document.getElementById('tCal').innerHTML=r1(t.calories);
+  document.getElementById('tP').innerHTML=r1(t.protein)+'<span class="unit">g</span>';
+  document.getElementById('tC').innerHTML=r1(t.carbs)+'<span class="unit">g</span>';
+  document.getElementById('tF').innerHTML=r1(t.fat)+'<span class="unit">g</span>';
+}
+function addItem(){
+  if(!editingMeal)return;
+  editingMeal.items=collectItems();
+  editingMeal.items.push({name:'',quantity:100,unit:'g',calories:0,protein:0,carbs:0,fat:0});
+  renderItems();
+  var rows=document.getElementById('itemList').querySelectorAll('tr[data-i] .f-name');
+  if(rows.length)rows[rows.length-1].focus();
+}
+function delItem(i){
+  if(!editingMeal)return;
+  editingMeal.items=collectItems();
+  editingMeal.items.splice(i,1);
+  renderItems();
+}
+async function saveMeal(){
+  if(!editingMeal)return;
+  var items=collectItems();
+  if(!items.length){alert('Add at least one food item.');return;}
+  var meal_type=document.getElementById('modalMealType').value;
+  var notes=document.getElementById('modalNotes').value;
+  var time=document.getElementById('modalTime').value;
+  try{
+    var r;
+    if(editingMeal.id){
+      r=await mcpCall('nutrition.updateMeal',{meal_id:editingMeal.id,items:items,meal_type:meal_type,notes:notes});
+    }else{
+      r=await mcpCall('nutrition.logMeal',{items:items,meal_type:meal_type,time:time||undefined,notes:notes||undefined});
+    }
+    var res=unwrap(r);
+    if(res&&res.ok===false){alert('Save failed: '+(res.error||'unknown'));return;}
+    closeMealModal();
+    await load();
+  }catch(e){alert('Save failed: '+e.message);}
+}
+async function deleteMeal(){
+  if(!editingMeal||!editingMeal.id)return;
+  if(!confirm('Delete this meal?'))return;
+  try{
+    var r=await mcpCall('nutrition.deleteMeal',{meal_id:editingMeal.id});
+    var res=unwrap(r);
+    if(res&&res.ok===false){alert('Delete failed');return;}
+    closeMealModal();
+    await load();
+  }catch(e){alert('Delete failed: '+e.message);}
+}
+// Click outside modal to close
+document.getElementById('mealModal').addEventListener('click',function(e){
+  if(e.target.id==='mealModal')closeMealModal();
+});
+
+function renderWeekly(w){
+  var days=w.days||[];if(!days.length)return;
+  var mx=Math.max.apply(null,days.map(function(d){return d.calories||0;}).concat([1]));
+  var gl=w.goals?.daily_calories||2000;
+  var dn=['S','M','T','W','T','F','S'];
+  document.getElementById('weeklyChart').innerHTML=days.map(function(d){
+    var p=((d.calories||0)/Math.max(mx,gl))*100;
+    var dy=dn[new Date(d.date+'T12:00:00').getDay()];
+    var isToday=d.date===new Date().toISOString().slice(0,10);
+    var col=d.calories===0?'#e8ecf2':Math.abs(d.calories-gl)<gl*0.15?'var(--green)':d.calories>gl?'var(--red)':'var(--yellow)';
+    return'<div class="bar-wrap"><div class="bar-value">'+(d.calories||'-')+'</div><div class="bar" style="height:'+Math.max(p,4)+'%;background:'+col+';'+(isToday?'border:2px solid var(--cal);':'')+'"></div><div class="bar-label" style="'+(isToday?'color:var(--cal);font-weight:800;':'')+'">'+dy+'</div></div>';
+  }).join('');
+}
+
+function renderAll(daily,weekly){
+  if(daily){
+    lastDaily=daily;
+    renderRings(daily.totals||{},daily.goals||{},daily.adherence||{},daily.hydration||{});
+    renderMacros(daily.totals||{},daily.goals||{});
+    renderHydration(daily.hydration||{});
+    renderMeals(daily.meals);
+  }
+  if(weekly)renderWeekly(weekly);
+}
+
+function unwrap(r){
+  if(!r)return null;
+  if(typeof r==='string'){try{return JSON.parse(r);}catch{return null;}}
+  // MCP wrapper: { content: [{ type: 'text', text: '...' }] }
+  if(r.content&&Array.isArray(r.content)&&r.content[0]&&typeof r.content[0].text==='string'){
+    try{return JSON.parse(r.content[0].text);}catch{return null;}
+  }
+  return r;
+}
+async function load(){
+  try{
+    var[dr,wr]=await Promise.all([mcpCall('nutrition.getDailySummary'),mcpCall('nutrition.getWeeklySummary')]);
+    var d=unwrap(dr);
+    var w=unwrap(wr);
+    renderAll(d,w);
+  }catch(e){
+    console.log('[nutrition-dashboard] MCP failed, keeping defaults:',e.message);
+  }
+}
+
+// Listen for plugin.command — may carry pre-fetched data (mobile fallback)
+window.addEventListener('message',function(e){
+  var d=e.data||{};if(d.source!=='adas-host')return;
+  var m=d.message||{};
+  if(m.type!=='plugin.command')return;
+  var args=(m.payload&&m.payload.args)||{};
+  // If planner passed data, render from args (mobile-safe path)
+  if(args.daily||args.weekly){
+    console.log('[nutrition-dashboard] Rendering from command args');
+    renderAll(args.daily,args.weekly);
+    return;
+  }
+  // Otherwise try live MCP (desktop/web path)
+  load();
+});
+setTimeout(load,500);
+</script>
+</body>
+</html>

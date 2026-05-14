@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>MyCoach</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #161616;
+    --surface-2: #1f1f1f;
+    --border: #2a2a2a;
+    --text: #f0f0f0;
+    --muted: #8a8a8a;
+    --accent: #7c9eff;
+    --success: #5fd576;
+    --warn: #ffb84d;
+    --danger: #ff6b6b;
+    --phase-onboarding: #7c9eff;
+    --phase-observing: #b48ce6;
+    --phase-calibrating: #5fd576;
+    --phase-accompanying: #ffb84d;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    margin: 0; font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--bg); color: var(--text); font-size: 14px;
+    padding: 16px; padding-bottom: 32px;
+  }
+  h1 { font-size: 22px; margin: 0 0 4px; font-weight: 600; }
+  h2 { font-size: 13px; margin: 24px 0 8px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+  .header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+  .phase-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px; border-radius: 999px; font-size: 11px;
+    font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+    background: rgba(124,158,255,0.15); color: var(--phase-onboarding);
+    border: 1px solid rgba(124,158,255,0.3);
+  }
+  .phase-badge.observing { background: rgba(180,140,230,0.15); color: var(--phase-observing); border-color: rgba(180,140,230,0.3); }
+  .phase-badge.calibrating { background: rgba(95,213,118,0.15); color: var(--phase-calibrating); border-color: rgba(95,213,118,0.3); }
+  .phase-badge.accompanying { background: rgba(255,184,77,0.15); color: var(--phase-accompanying); border-color: rgba(255,184,77,0.3); }
+  .phase-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+  .meta { font-size: 12px; color: var(--muted); }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 10px; }
+  .goal-text { font-size: 15px; line-height: 1.4; font-weight: 500; }
+  .goal-meta { display: flex; gap: 12px; font-size: 11px; color: var(--muted); margin-top: 6px; }
+  .rings { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+  .ring-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 10px; text-align: center; }
+  .ring-svg { width: 64px; height: 64px; margin: 0 auto 6px; display: block; }
+  .ring-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+  .ring-value { font-size: 18px; font-weight: 600; margin-top: 2px; }
+  .ring-target { font-size: 10px; color: var(--muted); margin-top: 1px; }
+  .gap-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .gap-row:last-child { border-bottom: none; }
+  .gap-metric { font-weight: 500; text-transform: capitalize; }
+  .gap-delta { color: var(--warn); font-weight: 500; font-size: 13px; }
+  .gap-empty { color: var(--success); text-align: center; padding: 16px; font-size: 13px; }
+  .checkin-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; }
+  .checkin-date { color: var(--muted); font-size: 12px; }
+  .checkin-rating { font-weight: 600; }
+  .empty { color: var(--muted); text-align: center; padding: 12px 0; font-size: 13px; }
+  .trust-track { height: 6px; background: var(--surface-2); border-radius: 999px; overflow: hidden; margin-top: 6px; }
+  .trust-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--success)); transition: width 0.4s; }
+  .observation-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-top: 8px; }
+  .observation-text { font-size: 14px; line-height: 1.4; margin-bottom: 10px; }
+  .btn-row { display: flex; gap: 8px; }
+  button { flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); font-size: 13px; font-weight: 500; cursor: pointer; }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  button:active { transform: scale(0.98); }
+  .adherence { font-size: 26px; font-weight: 700; }
+  .adherence-label { font-size: 12px; color: var(--muted); }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div>
+      <h1 id="title">MyCoach</h1>
+      <div class="meta" id="subtitle">Loading…</div>
+    </div>
+    <span class="phase-badge" id="phaseBadge"><span class="phase-dot"></span><span id="phaseText">—</span></span>
+  </div>
+
+  <div class="card" id="trustCard" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <span style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;font-weight:600">Trust budget</span>
+      <span id="trustValue" style="font-size:13px;font-weight:600">—</span>
+    </div>
+    <div class="trust-track"><div class="trust-fill" id="trustFill" style="width:50%"></div></div>
+  </div>
+
+  <h2>Goal</h2>
+  <div class="card" id="goalCard">
+    <div class="goal-text" id="goalText">No goal set yet.</div>
+    <div class="goal-meta" id="goalMeta"></div>
+  </div>
+
+  <h2>Today</h2>
+  <div class="rings">
+    <div class="ring-card">
+      <svg class="ring-svg" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.9" fill="none" stroke="#2a2a2a" stroke-width="3"/><circle id="caloriesRing" cx="18" cy="18" r="15.9" fill="none" stroke="var(--accent)" stroke-width="3" stroke-dasharray="0,100" stroke-linecap="round" transform="rotate(-90 18 18)"/></svg>
+      <div class="ring-label">Calories</div>
+      <div class="ring-value" id="caloriesValue">—</div>
+      <div class="ring-target" id="caloriesTarget"></div>
+    </div>
+    <div class="ring-card">
+      <svg class="ring-svg" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.9" fill="none" stroke="#2a2a2a" stroke-width="3"/><circle id="proteinRing" cx="18" cy="18" r="15.9" fill="none" stroke="var(--success)" stroke-width="3" stroke-dasharray="0,100" stroke-linecap="round" transform="rotate(-90 18 18)"/></svg>
+      <div class="ring-label">Protein</div>
+      <div class="ring-value" id="proteinValue">—</div>
+      <div class="ring-target" id="proteinTarget"></div>
+    </div>
+    <div class="ring-card">
+      <svg class="ring-svg" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.9" fill="none" stroke="#2a2a2a" stroke-width="3"/><circle id="stepsRing" cx="18" cy="18" r="15.9" fill="none" stroke="var(--warn)" stroke-width="3" stroke-dasharray="0,100" stroke-linecap="round" transform="rotate(-90 18 18)"/></svg>
+      <div class="ring-label">Steps</div>
+      <div class="ring-value" id="stepsValue">—</div>
+      <div class="ring-target" id="stepsTarget"></div>
+    </div>
+  </div>
+
+  <div class="card" id="adherenceCard" style="display:none;text-align:center">
+    <div class="adherence" id="adherenceValue">—</div>
+    <div class="adherence-label">Today's adherence</div>
+  </div>
+
+  <h2>Gaps</h2>
+  <div class="card" id="gapsCard">
+    <div class="gap-empty" id="gapsEmpty">No gaps today 🎯</div>
+    <div id="gapsList"></div>
+  </div>
+
+  <h2>Recent check-ins</h2>
+  <div class="card" id="checkinsCard">
+    <div class="empty" id="checkinsEmpty">No check-ins yet</div>
+    <div id="checkinsList"></div>
+  </div>
+
+  <h2 id="obsHeader" style="display:none">Something I noticed</h2>
+  <div id="obsContainer"></div>
+
+<script>
+  // Default data — used as fallback when host doesn't pre-fetch
+  let data = { state: null, goal: null, snapshot: null, checkins: [], observations: [] };
+
+  function fmt(n, d = 0) { return n == null ? '—' : Number(n).toFixed(d).toLocaleString(); }
+  function pct(cur, tgt) { if (!tgt || tgt <= 0) return 0; return Math.min(100, Math.round((cur / tgt) * 100)); }
+  function setRing(id, cur, tgt) {
+    const p = pct(cur, tgt);
+    document.getElementById(id).setAttribute('stroke-dasharray', `${p},100`);
+  }
+
+  function render() {
+    const s = data.state;
+    if (s) {
+      const phaseText = s.phase || 'onboarding';
+      document.getElementById('phaseText').textContent = phaseText;
+      document.getElementById('phaseBadge').className = 'phase-badge ' + phaseText;
+      document.getElementById('subtitle').textContent = `Day ${s.days_since_join ?? 0} · joined ${new Date(s.joined_at).toLocaleDateString()}`;
+      if (typeof s.trust_budget === 'number') {
+        document.getElementById('trustCard').style.display = 'block';
+        document.getElementById('trustValue').textContent = s.trust_budget + '/100';
+        document.getElementById('trustFill').style.width = s.trust_budget + '%';
+      }
+    }
+
+    const g = data.goal;
+    if (g) {
+      document.getElementById('goalText').textContent = g.text;
+      const meta = [`v${g.version}`];
+      if (g.deadline) meta.push(`by ${g.deadline}`);
+      if (g.reason) meta.push(g.reason);
+      document.getElementById('goalMeta').textContent = meta.join(' · ');
+    }
+
+    const snap = data.snapshot;
+    if (snap?.nutrition?.totals) {
+      const t = snap.nutrition.totals;
+      const goals = snap.nutrition.goals || {};
+      document.getElementById('caloriesValue').textContent = fmt(t.calories);
+      document.getElementById('caloriesTarget').textContent = goals.calories ? `/ ${fmt(goals.calories)}` : '';
+      setRing('caloriesRing', t.calories, goals.calories);
+      document.getElementById('proteinValue').textContent = fmt(t.protein) + 'g';
+      document.getElementById('proteinTarget').textContent = goals.protein ? `/ ${fmt(goals.protein)}g` : '';
+      setRing('proteinRing', t.protein, goals.protein);
+    }
+    if (snap?.activity) {
+      const a = snap.activity;
+      const stepGoal = 8000;
+      document.getElementById('stepsValue').textContent = fmt(a.steps);
+      document.getElementById('stepsTarget').textContent = `/ ${fmt(stepGoal)}`;
+      setRing('stepsRing', a.steps, stepGoal);
+    }
+    if (typeof snap?.adherence_score === 'number') {
+      document.getElementById('adherenceCard').style.display = 'block';
+      document.getElementById('adherenceValue').textContent = snap.adherence_score;
+    }
+
+    const gaps = snap?.gaps || [];
+    const gapsList = document.getElementById('gapsList');
+    gapsList.innerHTML = '';
+    if (gaps.length === 0) {
+      document.getElementById('gapsEmpty').style.display = 'block';
+    } else {
+      document.getElementById('gapsEmpty').style.display = 'none';
+      for (const g of gaps) {
+        const row = document.createElement('div');
+        row.className = 'gap-row';
+        row.innerHTML = `<span class="gap-metric">${g.metric.replace('_', ' ')}</span><span class="gap-delta">${fmt(g.delta)} ${g.unit} short</span>`;
+        gapsList.appendChild(row);
+      }
+    }
+
+    const checkins = (data.checkins || []).slice(0, 5);
+    const checkinsList = document.getElementById('checkinsList');
+    checkinsList.innerHTML = '';
+    if (checkins.length === 0) {
+      document.getElementById('checkinsEmpty').style.display = 'block';
+    } else {
+      document.getElementById('checkinsEmpty').style.display = 'none';
+      for (const c of checkins) {
+        const row = document.createElement('div');
+        row.className = 'checkin-row';
+        const r = c.rating != null ? c.rating + '/10' : '—';
+        const m = c.mood_word ? ` · ${c.mood_word}` : '';
+        row.innerHTML = `<span class="checkin-date">${c.date} ${c.period.toUpperCase()}</span><span class="checkin-rating">${r}${m}</span>`;
+        checkinsList.appendChild(row);
+      }
+    }
+
+    const obs = (data.observations || []).filter(o => o.status === 'pending' || o.status === 'surfaced').slice(0, 1);
+    const obsContainer = document.getElementById('obsContainer');
+    obsContainer.innerHTML = '';
+    if (obs.length > 0) {
+      document.getElementById('obsHeader').style.display = 'block';
+      const o = obs[0];
+      const card = document.createElement('div');
+      card.className = 'observation-card';
+      card.innerHTML = `
+        <div class="observation-text">${o.text}</div>
+        <div class="btn-row">
+          <button class="primary" onclick="confirmObs('${o.id}', true)">Yes, matches</button>
+          <button onclick="confirmObs('${o.id}', false)">Not really</button>
+        </div>
+      `;
+      obsContainer.appendChild(card);
+    } else {
+      document.getElementById('obsHeader').style.display = 'none';
+    }
+  }
+
+  // ── postMessage protocol (adas-plugin ↔ adas-host) ──
+  const callbacks = {};
+  function mcpCall(tool, args, cb) {
+    const requestId = 'req_' + Math.random().toString(36).slice(2);
+    if (cb) callbacks[requestId] = cb;
+    window.parent.postMessage({
+      source: 'adas-plugin',
+      message: { action: 'mcp-call', payload: { requestId, toolName: tool, args: args || {} } },
+    }, '*');
+  }
+  window.addEventListener('message', ev => {
+    const msg = ev.data?.message;
+    if (ev.data?.source !== 'adas-host' || !msg) return;
+    if (msg.type === 'mcp-result') {
+      const { requestId, result } = msg.payload;
+      if (callbacks[requestId]) { callbacks[requestId](null, result); delete callbacks[requestId]; }
+    } else if (msg.type === 'init' || msg.type === 'data') {
+      // Host pushed pre-fetched data
+      if (msg.payload) {
+        if (msg.payload.state) data.state = msg.payload.state;
+        if (msg.payload.goal) data.goal = msg.payload.goal;
+        if (msg.payload.snapshot) data.snapshot = msg.payload.snapshot;
+        if (msg.payload.checkins) data.checkins = msg.payload.checkins;
+        if (msg.payload.observations) data.observations = msg.payload.observations;
+        render();
+      }
+    }
+  });
+  function confirmObs(id, confirmed) {
+    mcpCall('coach.observations.confirm', { observation_id: id, confirmed }, () => {
+      data.observations = data.observations.filter(o => o.id !== id);
+      render();
+    });
+  }
+  // Tell host we're ready
+  window.parent.postMessage({ source: 'adas-plugin', message: { action: 'ready' } }, '*');
+  render();
+</script>
+</body>
+</html>
