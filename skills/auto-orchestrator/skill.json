@@ -1,0 +1,1323 @@
+{
+  "description": "Auto-generated orchestrator. Routes user requests to worker skills based on their descriptions and handoff_when triggers.",
+  "version": "1.0.0",
+  "phase": "DEPLOYED",
+  "problem": {
+    "statement": "",
+    "context": "",
+    "goals": []
+  },
+  "scenarios": [],
+  "role": {
+    "name": "Orchestrator",
+    "persona": "You are the orchestrator for \"Situation-aware personal assistant with proactive intelligence.\". Your job is to route every user request to the right worker skill. You never answer from your own knowledge — you consult a worker first.\n\nAvailable worker skills:\n\n- **life-manager** (Life Manager): Route here when the user asks to check or manage scheduling/calendar (today/upcoming, create/reschedule/cancel meetings), do email management in Gmail (search/read/reply/send, archive/trash/mark read, clean up inbox), look up contacts, control devices, or browse/navigate websites and log into services.\n- **memory-keeper** (Memory Keeper): Route here when the user says “remember/store/save” a preference, fact, instruction, or pattern, or asks to “recall/search/list/summarize” memories or user profile, or wants to “update/edit/supersede/delete/clear” stored memories or active context.\n- **daily-intel** (Daily Intelligence): Route here when the user asks for a daily briefing or “analyze my day” using today/upcoming calendar events, current weather/location, unread Gmail/WhatsApp summaries, and relevant memories, or wants quick email management (search/read/reply/send/archive/trash/mark as read) plus scheduling.\n- **messaging-agent** (Messaging Agent): Route here when the user wants to draft or send SMS/texts, Gmail email management (search/read/reply/send/archive/trash/move/mark as read), or WhatsApp messaging (send/search/unread/recent), including setting up disconnected Gmail/WhatsApp and confirming before sending.\n- **notification-triage** (Notification Triage): Route here when the user says “check my notifications” or wants triage of unread Gmail emails and WhatsApp messages, plus quick email management (search/read/reply/send/archive/trash/mark read), DND status, contact lookup, and calendar alerts/upcoming events.\n- **home-control** (Home Control): Route here when the user wants smart home control or setup: discover/list rooms/devices, check device state, turn lights/plugs on/off, set brightness/color/temperature/thermostat modes, run Home Connect appliances/oven programs, control LG TV apps/inputs, manage Hue/Tuya/Google Home/Home Assistant pairing and integrations.\n- **mycoach** (MyCoach): Route here when the user asks a “coach/nutritionist/trainer” to log meals/drinks, do AM/PM check-ins, track nutrition/activity progress, set or update goals and habits, review “how am I doing today,” or coordinate routines with mobile health, weather, location, and scheduling/calendar.\n- **my-docs** (My Docs): Route here when the user wants to connect Dropbox/Google Drive, create or manage a searchable document corpus, browse cloud folders, ingest/sync files, or ask questions to search, summarize, compare, or analyze contracts/handbooks/specs with cited answers from their documents.\n- **teach-this** (TeachThis): Route here when the user tries to teach or correct behavior—saying “remember this,” “when X do Y,” “from now on,” “prefer,” “don’t do that,” or “teach that pattern”—and needs rules/preferences stored, recalled, matched for conflicts, updated, or deleted in memory.\n- **travel-agent** (Travel Agent): Route here when the user wants to search, compare, or plan travel—find flights (Google Flights), hotels (Booking.com), or home rentals (Airbnb) by origin/destination and dates, or view their Booking.com bookings, and optionally save/recall travel preferences in memory.\n\nYou have two routing tools — pick by intent:\n\n  sys.handoffToSkill = \"Not my job. YOU own it now.\"\n    The worker takes over the conversation and replies to the user directly.\n    You go silent. The user's next message also goes to this worker.\n    Use this when the request belongs entirely to one worker's domain\n    (e.g., \"turn off the lights\" → home-control owns it).\n\n  sys.askAnySkill = \"I'M doing this. Just help me out.\"\n    The worker returns a result to YOU. The user does NOT see the worker.\n    You then write the final reply yourself via sys.finalizePlan.\n    Use this when you need answers from multiple workers, or when you\n    need to filter / combine / wrap the worker's answer before replying.\n\nRouting rules:\n  1. Read the user's message carefully and pick the best worker.\n  2. If one worker fully owns the request → sys.handoffToSkill.\n  3. If you need to combine multiple workers' answers, or post-process →\n     sys.askAnySkill, then sys.finalizePlan with the synthesized reply.\n  4. If sys.handoffToSkill(X) fails (e.g., no channel context), retry\n     with sys.askAnySkill(X) on the EXACT SAME target skill X — do not\n     re-route, do not re-evaluate, do not pick a different worker.\n     The routing decision was already made; the fallback only changes\n     the mechanism (function-call instead of channel-handoff).\n  5. NEVER invent skill IDs — only use the ones listed above.\n  6. NEVER answer from your own knowledge before consulting a worker.",
+    "goals": [],
+    "limitations": []
+  },
+  "glossary": {},
+  "intents": {
+    "supported": [
+      {
+        "id": "route_request",
+        "description": "Route a user request to the best worker skill.",
+        "examples": [
+          "help me with X",
+          "I need to Y",
+          "can you Z"
+        ],
+        "candidate_tools": [
+          "sys.findCapability",
+          "sys.handoffToSkill"
+        ],
+        "_auto_generated": true,
+        "maps_to_workflow_resolved": true
+      }
+    ],
+    "thresholds": {
+      "accept": 0.5,
+      "clarify": 0.3,
+      "reject": 0.2
+    },
+    "out_of_domain": {
+      "action": "redirect",
+      "message": ""
+    }
+  },
+  "engine": "standard",
+  "toolbox_imports": [],
+  "tools": [
+    {
+      "name": "handoff.transfer",
+      "description": "Transfer a conversation to another skill with verified grants. Creates a handoff session so subsequent messages from the same channel+id are routed to the target skill with pre-seeded grants.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "handoff-controller-mcp",
+        "mcp_tool": "handoff.transfer"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "channel_type": {
+            "type": "string",
+            "enum": [
+              "telegram",
+              "email",
+              "slack",
+              "api",
+              "web",
+              "web_chat",
+              "voice",
+              "mobile"
+            ],
+            "description": "Channel type"
+          },
+          "channel_id": {
+            "type": "string",
+            "description": "Channel-specific user identifier"
+          },
+          "from_skill": {
+            "type": "string",
+            "description": "Source skill slug"
+          },
+          "to_skill": {
+            "type": "string",
+            "description": "Target skill slug to hand off to"
+          },
+          "grants": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "Verified grants to propagate"
+          },
+          "summary": {
+            "type": "string",
+            "description": "Summary of what happened before handoff"
+          },
+          "original_goal": {
+            "type": "string",
+            "description": "The user's original request"
+          },
+          "ttl_seconds": {
+            "type": "number",
+            "description": "Session TTL in seconds (default: 3600)"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "description": "Unique key to prevent duplicate sessions"
+          }
+        },
+        "required": [
+          "channel_type",
+          "channel_id",
+          "from_skill",
+          "to_skill"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "handoff.session.get",
+      "description": "Check if an active handoff session exists for a channel+id. Returns the target skill and grants if found.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "handoff-controller-mcp",
+        "mcp_tool": "handoff.session.get"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "channel_type": {
+            "type": "string",
+            "enum": [
+              "telegram",
+              "email",
+              "slack",
+              "api",
+              "web",
+              "web_chat",
+              "voice",
+              "mobile"
+            ],
+            "description": "Channel type"
+          },
+          "channel_id": {
+            "type": "string",
+            "description": "Channel-specific user identifier"
+          }
+        },
+        "required": [
+          "channel_type",
+          "channel_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "handoff.session.end",
+      "description": "End an active handoff session. Can be called by session ID or by channel+id.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "handoff-controller-mcp",
+        "mcp_tool": "handoff.session.end"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Handoff session ID"
+          },
+          "channel_type": {
+            "type": "string",
+            "enum": [
+              "telegram",
+              "email",
+              "slack",
+              "api",
+              "web",
+              "web_chat",
+              "voice",
+              "mobile"
+            ],
+            "description": "Channel type (alternative to id)"
+          },
+          "channel_id": {
+            "type": "string",
+            "description": "Channel identifier (alternative to id)"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "handoff.session.list",
+      "description": "List handoff sessions with optional filters.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "handoff-controller-mcp",
+        "mcp_tool": "handoff.session.list"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "channel_type": {
+            "type": "string",
+            "enum": [
+              "telegram",
+              "email",
+              "slack",
+              "api",
+              "web",
+              "web_chat",
+              "voice",
+              "mobile"
+            ],
+            "description": "Filter by channel type"
+          },
+          "channel_id": {
+            "type": "string",
+            "description": "Filter by channel identifier"
+          },
+          "from_skill": {
+            "type": "string",
+            "description": "Filter by source skill"
+          },
+          "to_skill": {
+            "type": "string",
+            "description": "Filter by target skill"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "expired",
+              "ended",
+              "superseded"
+            ],
+            "description": "Filter by status"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Max results (default: 50)"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.store",
+      "description": "Store a long-term HUMAN/AGENT CONTEXT memory — facts, preferences, taught rules, user profile fields. Content must be concise, durable, and recallable. Types: preference, fact, instruction, pattern, rule, user_model; the engine assigns the CoALA kind automatically (semantic / procedural). DO NOT use for: session cookies, OAuth tokens, API keys, or any credentials (use platform.dataStore). DO NOT use for: raw tool-output dumps, large JSON blobs, or cached API responses (use platform.dataStore). The engine runs quality guards, dedup, normalize, and conflict detection; rejections include a `guidance` field telling you the correct tool/path. Returns { memory, conflicts, processing }.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.store"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "rule",
+              "pattern",
+              "instruction",
+              "fact",
+              "preference",
+              "user_model"
+            ],
+            "description": "Memory type"
+          },
+          "content": {
+            "type": "string",
+            "description": "Memory content (natural language or JSON for structured types)"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "context": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "taught",
+              "auto",
+              "system",
+              "user"
+            ],
+            "description": "Provenance (default: taught)"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.recall",
+      "description": "Recall memories by keyword query. Searches content + raw_content + tags. When embeddings come online this transparently becomes semantic.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.recall"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "query": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "rule",
+              "pattern",
+              "instruction",
+              "fact",
+              "preference",
+              "user_model"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "episodic",
+              "semantic",
+              "procedural"
+            ]
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.list",
+      "description": "List stored memories with optional type/kind filter and pagination.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.list"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "rule",
+              "pattern",
+              "instruction",
+              "fact",
+              "preference",
+              "user_model"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "episodic",
+              "semantic",
+              "procedural"
+            ]
+          },
+          "limit": {
+            "type": "number"
+          },
+          "offset": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.update",
+      "description": "Update an existing memory by ID.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.update"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "content": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "context": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.delete",
+      "description": "Delete a memory by ID.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.delete"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.rules.match",
+      "description": "Match active taught rules against a situation. Returns ranked rules. Used by Core fast_path / detectIntent to decide whether to short-circuit.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.rules.match"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "situation": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "situation"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.rules.count",
+      "description": "Count active vs inactive taught rules for the current actor.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.rules.count"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "context.store",
+      "description": "Store an ephemeral context (situation or plan). Auto-expires via Mongo TTL index.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "context.store"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "situation",
+              "plan"
+            ]
+          },
+          "data": {
+            "type": "string",
+            "description": "JSON string"
+          },
+          "ttl_minutes": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "type",
+          "data"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "context.read",
+      "description": "Read active ephemeral context — current situations and plans.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "context.read"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "situation",
+              "plan"
+            ]
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "context.resolve",
+      "description": "Mark an ephemeral context as resolved or abandoned.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "context.resolve"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "resolved",
+              "abandoned"
+            ]
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "context.clear",
+      "description": "Clear all active ephemeral context for the actor (optionally filtered by type).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "context.clear"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "situation",
+              "plan"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.userProfile",
+      "description": "Get the complete user profile in one call. Returns structured profile, preferences, facts, instructions, and active taught rules. Call at the start of every interaction.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.userProfile"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.userProfile.set",
+      "description": "Set a structured profile field (name, timezone, location, etc). Creates or updates a user_model memory.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.userProfile.set"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "field": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "value"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.semantic.search",
+      "description": "Semantic search over memories. Returns matches with similarity scores. Degrades to keyword recall when embeddings provider is not configured (P1).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.semantic.search"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "query": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "episodic",
+              "semantic",
+              "procedural"
+            ]
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.explain",
+      "description": "Explain why a memory is remembered: returns the memory + its full meta trail.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.explain"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.summarize",
+      "description": "Structured snapshot of what's known about the current actor. P1 returns counts + structured profile. LLM narrative summary will be added in P6.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.summarize"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.compact",
+      "description": "Run a compaction sweep — decay stale auto-learned memories and surface duplicate clusters. Does not auto-merge in P1; returns candidates for review.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.compact"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.confidence",
+      "description": "Read or set the confidence score on a memory.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.confidence"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Omit to read, provide to set"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.supersede",
+      "description": "Mark old memory as superseded by new memory. Old becomes inactive, link recorded.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.supersede"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "old_id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "new_id": {
+            "$ref": "#/properties/old_id"
+          }
+        },
+        "required": [
+          "old_id",
+          "new_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.audit",
+      "description": "Read meta trail for a single memory or recent events for the actor.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.audit"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ],
+            "description": "Memory ID — if omitted, returns recent actor events"
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.embed",
+      "description": "Generate an embedding vector for arbitrary text. Returns null when no embedding provider is configured (P1 default).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.embed"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.extract",
+      "description": "Run end-of-job auto-extraction over a transcript. Cheap regex pass always runs; smart LLM pass runs if smart=true and Core LLM is reachable. Writes extracted memories with source='auto' and lower confidence.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.extract"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "transcript": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "role": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "role",
+                "content"
+              ],
+              "additionalProperties": false
+            },
+            "description": "Conversation turns"
+          },
+          "smart": {
+            "type": "boolean",
+            "description": "Also run LLM pass (default false in P1)"
+          }
+        },
+        "required": [
+          "transcript"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    }
+  ],
+  "meta_tools": [],
+  "triggers": [],
+  "connectors": [
+    "handoff-controller-mcp",
+    "memory-mcp"
+  ],
+  "policy": {
+    "guardrails": {
+      "never": [
+        "Never answer from your own knowledge — always consult a worker first (sys.handoffToSkill or sys.askAnySkill)"
+      ],
+      "always": [
+        "Always route to a worker. Use sys.handoffToSkill when the worker should take over the conversation. Use sys.askAnySkill when you need an answer back to synthesize. After sys.askAnySkill returns, finalize the worker's answer for the user.",
+        "If sys.handoffToSkill(X) fails, the next sys.askAnySkill MUST target the SAME skill X. Do not re-route or pick a different worker on the fallback path."
+      ]
+    },
+    "approvals": [],
+    "workflows": [],
+    "escalation": {
+      "enabled": false,
+      "conditions": [],
+      "target": ""
+    }
+  },
+  "channels": [],
+  "conversation": [],
+  "id": "auto-orchestrator",
+  "name": "Orchestrator (auto-generated)",
+  "role_type": "orchestrator",
+  "access_policy": {
+    "rules": [
+      {
+        "tools": [
+          "*"
+        ],
+        "requires_grants": [],
+        "effect": "allow"
+      }
+    ]
+  },
+  "_auto_generated": true,
+  "_generated_handoffs": [
+    {
+      "id": "auto-orch-to-life-manager",
+      "from": "auto-orchestrator",
+      "to": "life-manager",
+      "trigger": "Route here when the user asks to check or manage scheduling/calendar (today/upcoming, create/reschedule/cancel meetings), do email management in Gmail (search/read/reply/send, archive/trash/mark read, clean up inbox), look up contacts, control devices, or browse/navigate websites and log into services.",
+      "grants_passed": [],
+      "grants_dropped": [],
+      "mechanism": "handoff-controller-mcp",
+      "_auto_generated": true
+    },
+    {
+      "id": "auto-orch-to-memory-keeper",
+      "from": "auto-orchestrator",
+      "to": "memory-keeper",
+      "trigger": "Route here when the user says “remember/store/save” a preference, fact, instruction, or pattern, or asks to “recall/search/list/summarize” memories or user profile, or wants to “update/edit/supersede/delete/clear” stored memories or active context.",
+      "grants_passed": [],
+      "grants_dropped": [],
+      "mechanism": "handoff-controller-mcp",
+      "_auto_generated": true
+    },
+    {
+      "id": "auto-orch-to-daily-intel",
+      "from": "auto-orchestrator",
+      "to": "daily-intel",
+      "trigger": "Route here when the user asks for a daily briefing or “analyze my day” using today/upcoming calendar events, current weather/location, unread Gmail/WhatsApp summaries, and relevant memories, or wants quick email management (search/read/reply/send/archive/trash/mark as read) plus scheduling.",
+      "grants_passed": [],
+      "grants_dropped": [],
+      "mechanism": "handoff-controller-mcp",
+      "_auto_generated": true
+    },
+    {
+      "id": "auto-orch-to-messaging-agent",
+      "from": "auto-orchestrator",
+      "to": "messaging-agent",
+      "trigger": "Route here when the user wants to draft or send SMS/texts, Gmail email management (search/read/reply/send/archive/trash/move/mark as read), or WhatsApp messaging (send/search/unread/recent), including setting up disconnected Gmail/WhatsApp and confirming before sending.",
+      "grants_passed": [],
+      "grants_dropped": [],
+      "mechanism": "handoff-controller-mcp",
+      "_auto_generated": true
+    },
+    {
+      "id": "auto-orch-to-notification-triage",
+      "from": "auto-orchestrator",
+      "to": "notification-triage",
+      "trigger": "Route here when the user says “check my notifications” or wants triage of unread Gmail emails and WhatsApp messages, plus quick email management (search/read/reply/send/archive/trash/mark read), DND status, contact lookup, and calendar alerts/upcoming events.",
+      "grants_passed": [],
+      "grants_dropped": [],
+      "mechanism": "handoff-controller-mcp",
+      "_auto_generated": true
+    },
+    {
+      "id": "auto-orch-to-home-control",
+      "from": "auto-orchestrator",
+      "to": "home-control",
+      "trigger": "Route here when the user wants smart home control or setup: discover/list rooms/devices, check device state, turn lights/plugs on/off, set brightness/color/temperature/thermostat modes, run Home Connect appliances/oven programs, control LG TV apps/inputs, manage Hue/Tuya/Google Home/Home Assistant pairing and integrations.",
+      "grants_passed": [],
+      "grants_dropped": [],
+      "mechanism": "handoff-controller-mcp",
+      "_auto_generated": true
+    },
+    {
+      "id": "auto-orch-to-mycoach",
+      "from": "auto-orchestrator",
+      "to": "mycoach",
+      "trigger": "Route here when the user asks a “coach/nutritionist/trainer” to log meals/drinks, do AM/PM check-ins, track nutrition/activity progress, set or update goals and habits, review “how am I doing today,” or coordinate routines with mobile health, weather, location, and scheduling/calendar.",
+      "grants_passed": [],
+      "grants_dropped": [],
+      "mechanism": "handoff-controller-mcp",
+      "_auto_generated": true
+    },
+    {
+      "id": "auto-orch-to-my-docs",
+      "from": "auto-orchestrator",
+      "to": "my-docs",
+      "trigger": "Route here when the user wants to connect Dropbox/Google Drive, create or manage a searchable document corpus, browse cloud folders, ingest/sync files, or ask questions to search, summarize, compare, or analyze contracts/handbooks/specs with cited answers from their documents.",
+      "grants_passed": [],
+      "grants_dropped": [],
+      "mechanism": "handoff-controller-mcp",
+      "_auto_generated": true
+    },
+    {
+      "id": "auto-orch-to-teach-this",
+      "from": "auto-orchestrator",
+      "to": "teach-this",
+      "trigger": "Route here when the user tries to teach or correct behavior—saying “remember this,” “when X do Y,” “from now on,” “prefer,” “don’t do that,” or “teach that pattern”—and needs rules/preferences stored, recalled, matched for conflicts, updated, or deleted in memory.",
+      "grants_passed": [],
+      "grants_dropped": [],
+      "mechanism": "handoff-controller-mcp",
+      "_auto_generated": true
+    },
+    {
+      "id": "auto-orch-to-travel-agent",
+      "from": "auto-orchestrator",
+      "to": "travel-agent",
+      "trigger": "Route here when the user wants to search, compare, or plan travel—find flights (Google Flights), hotels (Booking.com), or home rentals (Airbnb) by origin/destination and dates, or view their Booking.com bookings, and optionally save/recall travel preferences in memory.",
+      "grants_passed": [],
+      "grants_dropped": [],
+      "mechanism": "handoff-controller-mcp",
+      "_auto_generated": true
+    }
+  ],
+  "updated_at": "2026-05-14T07:06:53.347Z",
+  "created_at": "2026-05-14T07:06:53.051Z",
+  "validation": {
+    "valid": true,
+    "ready_to_export": false,
+    "errors": [],
+    "warnings": [
+      {
+        "code": "INTENT_NO_TOOLS",
+        "severity": "warning",
+        "path": "intents.supported[0]",
+        "message": "Intent \"route_request\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"route_request\", or ensure tool names relate to this intent"
+      }
+    ],
+    "unresolved": {
+      "tools": [],
+      "workflows": [],
+      "intents": []
+    },
+    "completeness": {
+      "problem": false,
+      "scenarios": false,
+      "role": true,
+      "intents": true,
+      "tools": false,
+      "policy": true,
+      "engine": true,
+      "mocks_tested": false,
+      "identity": false,
+      "security": true
+    }
+  },
+  "solution_id": "ada",
+  "lastExportedAt": "2026-05-14T07:06:53.134Z",
+  "lastExportType": "mcp-simple",
+  "deployedAt": "2026-05-14T07:06:53.345Z",
+  "deployedTo": "http://adas-backend:4000",
+  "mcpUri": "stdio://localhost/auto-orchestrator"
+}
