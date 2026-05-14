@@ -18,93 +18,43 @@
   "intents": {
     "supported": [
       {
-        "id": "daily_overview",
-        "description": "Get a briefing of today's schedule, weather, and important information.",
+        "id": "recall_memory",
+        "description": "Search and retrieve specific memories or information the user previously stored.",
         "examples": [
-          "How's my day looking?",
-          "What's on my schedule today?",
-          "Give me the rundown for today",
-          "What should I know about today?"
+          "What did I tell you about my wife's birthday?",
+          "Do you remember my food allergies?",
+          "What are my meeting preferences again?",
+          "Remind me what I said about my workout schedule"
         ],
         "examples_generated": [
-          "How's my day looking?",
-          "What's on my schedule today?",
-          "Give me the rundown for today",
-          "What should I know about today?"
+          "What did I tell you about my wife's birthday?",
+          "Do you remember my food allergies?",
+          "What are my meeting preferences again?",
+          "Remind me what I said about my workout schedule"
         ],
-        "candidate_tools": [],
+        "candidate_tools": [
+          "memory.recall"
+        ],
         "maps_to_workflow_resolved": true
       },
       {
-        "id": "schedule_management",
-        "description": "Create, modify, or check calendar events and appointments.",
+        "id": "browse_memories",
+        "description": "View all stored memories or get an overview of what's been remembered.",
         "examples": [
-          "Schedule a dentist appointment for next week",
-          "When is my meeting with Sarah?",
-          "Move my 3pm call to tomorrow",
-          "Block out time for lunch on Friday"
+          "Show me everything you remember about me",
+          "What do you have stored?",
+          "List all my preferences",
+          "What memories do you have?"
         ],
         "examples_generated": [
-          "Schedule a dentist appointment for next week",
-          "When is my meeting with Sarah?",
-          "Move my 3pm call to tomorrow",
-          "Block out time for lunch on Friday"
+          "Show me everything you remember about me",
+          "What do you have stored?",
+          "List all my preferences",
+          "What memories do you have?"
         ],
-        "candidate_tools": [],
-        "maps_to_workflow_resolved": true
-      },
-      {
-        "id": "communication_tasks",
-        "description": "Send messages, make calls, or manage contacts.",
-        "examples": [
-          "Text Mom that I'm running late",
-          "Send a message to the team about the delay",
-          "Call the restaurant to make a reservation",
-          "What's John's phone number?"
+        "candidate_tools": [
+          "memory.list"
         ],
-        "examples_generated": [
-          "Text Mom that I'm running late",
-          "Send a message to the team about the delay",
-          "Call the restaurant to make a reservation",
-          "What's John's phone number?"
-        ],
-        "candidate_tools": [],
-        "maps_to_workflow_resolved": true
-      },
-      {
-        "id": "travel_and_location",
-        "description": "Get directions, check commute times, and location-based information.",
-        "examples": [
-          "How long to get to the airport?",
-          "What's traffic like to downtown?",
-          "Find me a coffee shop nearby",
-          "Best route to avoid construction?"
-        ],
-        "examples_generated": [
-          "How long to get to the airport?",
-          "What's traffic like to downtown?",
-          "Find me a coffee shop nearby",
-          "Best route to avoid construction?"
-        ],
-        "candidate_tools": [],
-        "maps_to_workflow_resolved": true
-      },
-      {
-        "id": "web_research",
-        "description": "Look up information, browse websites, and research topics online.",
-        "examples": [
-          "Look up reviews for that new restaurant",
-          "Check if my flight is on time",
-          "Find articles about the latest iPhone",
-          "What's the weather forecast for this weekend?"
-        ],
-        "examples_generated": [
-          "Look up reviews for that new restaurant",
-          "Check if my flight is on time",
-          "Find articles about the latest iPhone",
-          "What's the weather forecast for this weekend?"
-        ],
-        "candidate_tools": [],
         "maps_to_workflow_resolved": true
       }
     ],
@@ -1061,46 +1011,283 @@
   "solution_id": "ada",
   "id": "memory-keeper",
   "created_at": "2026-05-14T12:26:04.468Z",
-  "updated_at": "2026-05-14T12:26:04.738Z",
+  "updated_at": "2026-05-14T12:56:59.677Z",
   "validation": {
-    "valid": true,
+    "valid": false,
     "ready_to_export": false,
-    "errors": [],
+    "errors": [
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[0].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[0].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[1].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[1].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[2].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[2].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[3].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[3].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[4].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[4].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[5].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[5].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[6].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[6].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[7].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[7].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[8].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[8].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[9].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[9].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[10].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[10].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[11].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[11].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[12].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[12].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[13].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[13].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[14].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[14].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[15].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[15].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[16].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[16].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[17].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[17].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[18].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[18].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[19].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[19].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[20].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[20].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[21].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[21].output",
+        "message": "Tool output is required"
+      }
+    ],
     "warnings": [
       {
         "code": "INTENT_NO_TOOLS",
         "severity": "warning",
-        "path": "intents.supported[0]",
-        "message": "Intent \"daily_overview\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"daily_overview\", or ensure tool names relate to this intent"
-      },
-      {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
         "path": "intents.supported[1]",
-        "message": "Intent \"schedule_management\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"schedule_management\", or ensure tool names relate to this intent"
-      },
-      {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[2]",
-        "message": "Intent \"communication_tasks\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"communication_tasks\", or ensure tool names relate to this intent"
-      },
-      {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[3]",
-        "message": "Intent \"travel_and_location\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"travel_and_location\", or ensure tool names relate to this intent"
-      },
-      {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[4]",
-        "message": "Intent \"web_research\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"web_research\", or ensure tool names relate to this intent"
+        "message": "Intent \"browse_memories\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"browse_memories\", or ensure tool names relate to this intent"
       }
     ],
     "unresolved": {
@@ -1116,14 +1303,14 @@
       "tools": false,
       "policy": false,
       "engine": true,
-      "mocks_tested": false,
+      "mocks_tested": true,
       "identity": false,
       "security": true
     }
   },
-  "lastExportedAt": "2026-05-14T12:26:04.561Z",
+  "lastExportedAt": "2026-05-14T12:56:59.434Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-14T12:26:04.736Z",
+  "deployedAt": "2026-05-14T12:56:59.670Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/memory-keeper"
 }
