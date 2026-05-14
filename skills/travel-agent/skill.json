@@ -3,132 +3,115 @@
   "version": "0.2.0",
   "phase": "DEPLOYED",
   "problem": {
-    "statement": "Users want to search and compare flights, hotels and home rentals across multiple providers without manually opening each site, and view their existing bookings in one place.",
-    "context": "All scraping logic lives in the travel-mcp platform connector (Node.js, shared across tenants). The skill just routes user intent to the right travel.* tool via mcp_bridge — no LLM-baked Python, no per-call scripts.",
-    "goals": [
-      "Search flights between two airports/cities for given dates",
-      "Search hotels in a location for given check-in/check-out",
-      "Search home/apartment rentals on Airbnb",
-      "View user's existing bookings on Booking.com",
-      "Keep results concise — top 3-5 with price, name/airline, key detail"
-    ]
+    "statement": "",
+    "context": "",
+    "goals": []
   },
-  "scenarios": [
-    {
-      "id": "search-flights",
-      "title": "Search Flights",
-      "description": "User asks for flights between two places on given dates.",
-      "steps": [
-        "Parse from/to/dates from user request (convert relative dates to YYYY-MM-DD)",
-        "Call travel.searchFlights with parsed args",
-        "Return top 3 options with price, airline, duration"
-      ],
-      "expected_outcome": "User sees 3 concrete flight options."
-    },
-    {
-      "id": "search-hotels",
-      "title": "Search Hotels",
-      "description": "User asks for hotels in a location for given dates.",
-      "steps": [
-        "Parse location/check-in/check-out",
-        "Call travel.searchHotels",
-        "Return top 5 hotels with price, name, rating"
-      ],
-      "expected_outcome": "User sees 5 hotel options."
-    },
-    {
-      "id": "my-bookings",
-      "title": "Show user's bookings",
-      "description": "User asks about their upcoming trips.",
-      "steps": [
-        "Call platform.auth.status({service_id:'booking'})",
-        "If not connected, call platform.auth.ensureConnected",
-        "Call travel.myBookings",
-        "Return list of upcoming trips"
-      ],
-      "expected_outcome": "User sees their upcoming travel."
-    }
-  ],
+  "scenarios": [],
   "role": {
     "name": "Travel Agent",
     "persona": "You are a travel assistant. You help find and compare flights, hotels and home rentals.\n\nTools:\n- travel.searchFlights(origin, destination, depart_date, return_date?) — Google Flights, no auth.\n- travel.searchHotels(location, checkin_date, checkout_date, guests?) — Booking.com, no auth.\n- travel.searchHomes(location, checkin_date, checkout_date, guests?) — Airbnb, no auth.\n- travel.myBookings() — user's bookings on Booking.com. REQUIRES auth.\n- travel.planTrip(origin, destination, depart_date, return_date, ...) — one-shot trip planner; runs flights+hotels in parallel and returns combined view with cheapest total. Use when user wants to PLAN a trip vs. just search flights/hotels.\n\nAuth (only for myBookings):\n- platform.auth.status({service_id:'booking'}) — silent check.\n- platform.auth.ensureConnected({service_id:'booking'}) — opens native sign-in webview.\n\nRules:\n- Public searches need NO auth — call the tool directly.\n- For travel.myBookings, FIRST call platform.auth.status. If connected=false, call ensureConnected, then travel.myBookings.\n- Convert relative dates (\"next week\", \"in june\") to absolute YYYY-MM-DD using today's date.\n- Mobile chat — replies 1-2 sentences. Plain text. Format prices with currency ($, €, etc).\n- Never book anything. Search only.\n- If request isn't travel-related, sys.handoffToSkill({to_skill:'pa-orchestrator'}).\n\nGood reply: \"3 flights TLV→JFK on Jun 15: $850 United 1-stop, $920 Delta direct, $780 El Al direct.\"\nBad reply: \"Here are flights I found:\\n- Option 1\\n- Option 2\"\n\n--- IMPORTANT DATE HANDLING ---\n- If user doesn't give a date, ASK \"When are you traveling?\" — never assume.\n- If they give a relative date (\"next week\", \"in june\"), compute from TODAY (the current calendar date). NEVER use a date in the past.\n- If unsure of today's date, call device.calendar.today (via pa-orchestrator) or use a clearly-future date like one month out.\n\n--- NEVER FABRICATE ---\n- ONLY report flights/hotels that travel.search* actually returned.\n- If the tool returns count=0 or empty, say \"No results found for those dates\" and ASK the user for different dates. DO NOT invent route info, airline names, connection cities, or commentary about \"typical\" routes.\n- Every airline, price, connection city, duration MUST come from the tool result.\n\n--- CONTEXT RETENTION ---\n- On follow-up messages (\"check for non direct\", \"cheaper\", \"earlier\"), REUSE the prior query's origin/destination/dates from the conversation. Don't re-ask details you already have.",
-    "goals": [
-      "Find flights, hotels, homes quickly",
-      "Compare prices across providers",
-      "Show user's existing bookings on request"
-    ],
-    "limitations": [
-      "Cannot complete bookings — search and recommendations only",
-      "Cannot access user-specific data without login on auth-required sites"
-    ],
-    "communication_style": {
-      "tone": "casual",
-      "verbosity": "concise"
-    }
+    "goals": [],
+    "limitations": []
   },
   "glossary": {},
   "intents": {
     "supported": [
       {
-        "id": "search-flights",
-        "description": "Search for flights between two cities or airports",
+        "id": "daily_overview",
+        "description": "Get a briefing of today's schedule, weather, and important information.",
         "examples": [
-          "find flights from tel aviv to new york next week",
-          "what flights to paris in june",
-          "TLV to JFK on May 15",
-          "cheapest flight to london"
+          "How's my day looking?",
+          "What's on my schedule today?",
+          "Give me the rundown for today",
+          "What should I know about today?"
         ],
-        "candidate_tools": [
-          "travel.searchFlights"
+        "examples_generated": [
+          "How's my day looking?",
+          "What's on my schedule today?",
+          "Give me the rundown for today",
+          "What should I know about today?"
         ],
+        "candidate_tools": [],
         "maps_to_workflow_resolved": true
       },
       {
-        "id": "search-hotels",
-        "description": "Search for hotels in a location for given dates",
+        "id": "schedule_management",
+        "description": "Create, modify, or check calendar events and appointments.",
         "examples": [
-          "hotels in paris next weekend",
-          "hotel near eiffel tower for 3 nights",
-          "find me a hotel in NYC May 15-18"
+          "Schedule a dentist appointment for next week",
+          "When is my meeting with Sarah?",
+          "Move my 3pm call to tomorrow",
+          "Block out time for lunch on Friday"
         ],
-        "candidate_tools": [
-          "travel.searchHotels"
+        "examples_generated": [
+          "Schedule a dentist appointment for next week",
+          "When is my meeting with Sarah?",
+          "Move my 3pm call to tomorrow",
+          "Block out time for lunch on Friday"
         ],
+        "candidate_tools": [],
         "maps_to_workflow_resolved": true
       },
       {
-        "id": "search-homes",
-        "description": "Search for home/apartment rentals on Airbnb",
+        "id": "communication_tasks",
+        "description": "Send messages, make calls, or manage contacts.",
         "examples": [
-          "find an airbnb in tokyo for 5 nights",
-          "apartment in barcelona for a week",
-          "airbnb near times square"
+          "Text Mom that I'm running late",
+          "Send a message to the team about the delay",
+          "Call the restaurant to make a reservation",
+          "What's John's phone number?"
         ],
-        "candidate_tools": [
-          "travel.searchHomes"
+        "examples_generated": [
+          "Text Mom that I'm running late",
+          "Send a message to the team about the delay",
+          "Call the restaurant to make a reservation",
+          "What's John's phone number?"
         ],
+        "candidate_tools": [],
         "maps_to_workflow_resolved": true
       },
       {
-        "id": "my-bookings",
-        "description": "Show user's existing bookings or upcoming trips",
+        "id": "travel_and_location",
+        "description": "Get directions, check commute times, and location-based information.",
         "examples": [
-          "show my bookings",
-          "what trips do I have coming up",
-          "my upcoming travel"
+          "How long to get to the airport?",
+          "What's traffic like to downtown?",
+          "Find me a coffee shop nearby",
+          "Best route to avoid construction?"
         ],
-        "candidate_tools": [
-          "travel.myBookings",
-          "platform.auth.status",
-          "platform.auth.ensureConnected"
+        "examples_generated": [
+          "How long to get to the airport?",
+          "What's traffic like to downtown?",
+          "Find me a coffee shop nearby",
+          "Best route to avoid construction?"
         ],
+        "candidate_tools": [],
+        "maps_to_workflow_resolved": true
+      },
+      {
+        "id": "web_research",
+        "description": "Look up information, browse websites, and research topics online.",
+        "examples": [
+          "Look up reviews for that new restaurant",
+          "Check if my flight is on time",
+          "Find articles about the latest iPhone",
+          "What's the weather forecast for this weekend?"
+        ],
+        "examples_generated": [
+          "Look up reviews for that new restaurant",
+          "Check if my flight is on time",
+          "Find articles about the latest iPhone",
+          "What's the weather forecast for this weekend?"
+        ],
+        "candidate_tools": [],
         "maps_to_workflow_resolved": true
       }
     ],
     "thresholds": {
-      "accept": 0.75,
+      "accept": 0.8,
       "clarify": 0.5,
-      "reject": 0.4
+      "reject": 0.5
     },
     "out_of_domain": {
       "action": "redirect",
@@ -188,85 +171,1373 @@
   "toolbox_imports": [],
   "tools": [
     {
-      "id": "tool-travel-wildcard",
-      "name": "travel.*",
-      "description": "All tools from the travel-mcp platform connector (travel.searchFlights, travel.searchHotels, travel.searchHomes, travel.myBookings, travel.planTrip). Wildcard binding — Core auto-exposes every tool the connector declares, so new tools become available without changing this skill.",
-      "inputs": [],
-      "output": {
-        "type": "object",
-        "description": "Varies per tool"
-      },
+      "name": "travel.searchFlights",
+      "description": "Search Google Flights for flights between two airports/cities on given dates. Returns matching flights with summary, parsed stops, price, and duration_minutes. Server-side filters: max_stops (0=direct), min_stops (1=connecting), max_price, max_duration_hours, airlines, cabin. Server-side sort: price | duration | departure.",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "travel-mcp",
-        "mcp_tool": "*"
+        "mcp_tool": "travel.searchFlights"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "origin": {
+            "type": "string",
+            "description": "Origin airport code (e.g. 'TLV') or city name"
+          },
+          "destination": {
+            "type": "string",
+            "description": "Destination airport code or city name"
+          },
+          "depart_date": {
+            "type": "string",
+            "description": "Departure date YYYY-MM-DD"
+          },
+          "return_date": {
+            "type": "string",
+            "description": "Return date YYYY-MM-DD. Omit for one-way."
+          },
+          "adults": {
+            "type": "number",
+            "description": "Number of adult passengers. Default 1."
+          },
+          "cabin": {
+            "type": "string",
+            "enum": [
+              "economy",
+              "premium_economy",
+              "business",
+              "first"
+            ],
+            "description": "Cabin class. Default economy."
+          },
+          "max_stops": {
+            "type": "number",
+            "description": "Max stops allowed. 0 = direct only."
+          },
+          "min_stops": {
+            "type": "number",
+            "description": "Min stops required. 1 = exclude direct flights."
+          },
+          "max_price": {
+            "type": "number",
+            "description": "Max total price (integer, in displayed currency)."
+          },
+          "max_duration_hours": {
+            "type": "number",
+            "description": "Max total trip duration in hours."
+          },
+          "airlines": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Limit to flights matching any of these airline names (substring, case-insensitive)."
+          },
+          "sort_by": {
+            "type": "string",
+            "enum": [
+              "price",
+              "duration",
+              "departure"
+            ],
+            "description": "Sort key applied AFTER filtering."
+          },
+          "max_results": {
+            "type": "number",
+            "description": "Max results after filtering+sort. Default 5, max 20."
+          },
+          "currency": {
+            "type": "string",
+            "description": "ISO 4217 currency code (e.g. 'EUR', 'USD', 'GBP', 'ILS'). Inferred from route when omitted."
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
+          }
+        },
+        "required": [
+          "origin",
+          "destination",
+          "depart_date"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
       },
       "security": {
-        "classification": "public"
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
       }
     },
     {
-      "id": "tool-platform-auth-status",
-      "name": "platform.auth.status",
-      "description": "Check if the current actor is connected to a service. Silent — never shows UI. Call BEFORE travel.myBookings.",
-      "inputs": [
-        {
-          "name": "service_id",
-          "type": "string",
-          "required": true,
-          "description": "Service identifier (use 'booking' or 'airbnb')"
-        },
-        {
-          "name": "probe",
-          "type": "boolean",
-          "required": false,
-          "description": "Live-probe the service API (slower). Default false."
-        }
-      ],
-      "output": {
-        "type": "object",
-        "description": "{ ok, connected, mode, fresh, expires_at, account, service_id }"
-      },
+      "name": "travel.searchHotels",
+      "description": "Search Booking.com for hotels. Returns hotels with parsed price_per_night and rating_num (0-10). Server-side filters: max_price_per_night, min_rating. Sort by 'price' or 'rating'. No auth required for search.",
       "source": {
-        "type": "core"
+        "type": "mcp_bridge",
+        "connection_id": "travel-mcp",
+        "mcp_tool": "travel.searchHotels"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "description": "City, area, or hotel name"
+          },
+          "checkin_date": {
+            "type": "string",
+            "description": "Check-in date YYYY-MM-DD"
+          },
+          "checkout_date": {
+            "type": "string",
+            "description": "Check-out date YYYY-MM-DD"
+          },
+          "guests": {
+            "type": "number",
+            "description": "Number of adult guests. Default 2."
+          },
+          "max_price_per_night": {
+            "type": "number",
+            "description": "Max nightly price (integer, displayed currency)."
+          },
+          "min_rating": {
+            "type": "number",
+            "description": "Min review score on 0-10 scale (e.g. 8.0 for 'very good' or higher)."
+          },
+          "sort_by": {
+            "type": "string",
+            "enum": [
+              "price",
+              "rating"
+            ],
+            "description": "Sort key applied AFTER filtering."
+          },
+          "max_results": {
+            "type": "number",
+            "description": "Max results after filtering+sort. Default 5, max 25."
+          },
+          "currency": {
+            "type": "string",
+            "description": "ISO 4217 currency code (e.g. 'EUR', 'USD', 'GBP', 'ILS'). Inferred from location when omitted."
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
+          }
+        },
+        "required": [
+          "location",
+          "checkin_date",
+          "checkout_date"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
       },
       "security": {
-        "classification": "internal"
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
       }
     },
     {
-      "id": "tool-platform-auth-ensure",
-      "name": "platform.auth.ensureConnected",
-      "description": "Ensure the current actor is connected to a service. If not connected, opens the native sign-in webview. Blocks up to timeout_ms.",
-      "inputs": [
-        {
-          "name": "service_id",
-          "type": "string",
-          "required": true,
-          "description": "Service identifier (use 'booking' or 'airbnb')"
-        },
-        {
-          "name": "timeout_ms",
-          "type": "number",
-          "required": false,
-          "description": "Max wait for sign-in. Default 300000."
-        },
-        {
-          "name": "force",
-          "type": "boolean",
-          "required": false,
-          "description": "Re-auth even if already connected."
-        }
-      ],
-      "output": {
-        "type": "object",
-        "description": "{ ok, connected, mode, fresh, account, strategy_used }"
-      },
+      "name": "travel.searchHomes",
+      "description": "Search Airbnb for home/apartment rentals. Returns listings with parsed price_per_night and rating_num (0-10). Server-side filters: max_price_per_night, min_rating. Sort by 'price' or 'rating'. No auth required.",
       "source": {
-        "type": "core"
+        "type": "mcp_bridge",
+        "connection_id": "travel-mcp",
+        "mcp_tool": "travel.searchHomes"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "description": "City, neighborhood, or landmark"
+          },
+          "checkin_date": {
+            "type": "string",
+            "description": "Check-in date YYYY-MM-DD"
+          },
+          "checkout_date": {
+            "type": "string",
+            "description": "Check-out date YYYY-MM-DD"
+          },
+          "guests": {
+            "type": "number",
+            "description": "Number of guests. Default 2."
+          },
+          "max_price_per_night": {
+            "type": "number",
+            "description": "Max nightly price (integer, displayed currency)."
+          },
+          "min_rating": {
+            "type": "number",
+            "description": "Min review score on 0-10 scale (Airbnb 5-scale is normalized)."
+          },
+          "sort_by": {
+            "type": "string",
+            "enum": [
+              "price",
+              "rating"
+            ],
+            "description": "Sort key applied AFTER filtering."
+          },
+          "max_results": {
+            "type": "number",
+            "description": "Max results after filtering+sort. Default 5, max 25."
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
+          }
+        },
+        "required": [
+          "location",
+          "checkin_date",
+          "checkout_date"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
       },
       "security": {
-        "classification": "pii_write"
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "travel.searchCars",
+      "description": "Search Kayak for rental cars at a pickup location for given pickup/return dates. Returns cars with parsed price_per_day, price_total, and car_type when detectable. Server-side filters: max_price_per_day, max_price (total), car_type (Economy/SUV/Premium/etc., substring match), suppliers (rental company name list). Sort by 'price' (per-day) or 'total'. No auth required.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "travel-mcp",
+        "mcp_tool": "travel.searchCars"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pickup_location": {
+            "type": "string",
+            "description": "Pickup city, airport code, or area (e.g. 'Rome', 'LAX', 'Paris')"
+          },
+          "dropoff_location": {
+            "type": "string",
+            "description": "Dropoff location. Defaults to pickup_location."
+          },
+          "pickup_date": {
+            "type": "string",
+            "description": "Pickup date YYYY-MM-DD"
+          },
+          "return_date": {
+            "type": "string",
+            "description": "Return date YYYY-MM-DD"
+          },
+          "driver_age": {
+            "type": "number",
+            "description": "Driver age (Kayak adjusts pricing for under 25)."
+          },
+          "max_price_per_day": {
+            "type": "number",
+            "description": "Max nightly/daily price (integer)."
+          },
+          "max_price": {
+            "type": "number",
+            "description": "Max total trip price (integer)."
+          },
+          "car_type": {
+            "type": "string",
+            "description": "Substring match against detected car_type (Economy, Compact, SUV, Premium, Luxury, Van, etc.)"
+          },
+          "suppliers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Filter to specific rental companies (substring match, case-insensitive). Examples: ['Hertz','Avis','Sixt']."
+          },
+          "sort_by": {
+            "type": "string",
+            "enum": [
+              "price",
+              "total"
+            ],
+            "description": "Sort by per-day price or total price."
+          },
+          "max_results": {
+            "type": "number",
+            "description": "Max results after filtering+sort. Default 5, max 25."
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
+          }
+        },
+        "required": [
+          "pickup_location",
+          "pickup_date",
+          "return_date"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "travel.planTrip",
+      "description": "One-shot trip planner — searches Google Flights AND Booking.com hotels in parallel for the same dates and returns a combined view with a cheapest-option price estimate. Requires return_date (for the hotel checkout). All filter params from searchFlights and searchHotels are accepted as passthrough. No auth required.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "travel-mcp",
+        "mcp_tool": "travel.planTrip"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "origin": {
+            "type": "string",
+            "description": "Origin airport code or city name"
+          },
+          "destination": {
+            "type": "string",
+            "description": "Destination — used as the city for hotels too"
+          },
+          "depart_date": {
+            "type": "string",
+            "description": "Depart / hotel check-in YYYY-MM-DD"
+          },
+          "return_date": {
+            "type": "string",
+            "description": "Return / hotel check-out YYYY-MM-DD"
+          },
+          "adults": {
+            "type": "number",
+            "description": "Number of adults (flights). Default 1."
+          },
+          "guests": {
+            "type": "number",
+            "description": "Number of hotel guests. Default = adults."
+          },
+          "cabin": {
+            "type": "string",
+            "enum": [
+              "economy",
+              "premium_economy",
+              "business",
+              "first"
+            ]
+          },
+          "max_stops": {
+            "type": "number",
+            "description": "Flight: max stops. 0 = direct only."
+          },
+          "max_price": {
+            "type": "number",
+            "description": "Flight: max total price."
+          },
+          "max_duration_hours": {
+            "type": "number",
+            "description": "Flight: max duration in hours."
+          },
+          "airlines": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Flight: airline name filter."
+          },
+          "flight_sort_by": {
+            "type": "string",
+            "enum": [
+              "price",
+              "duration",
+              "departure"
+            ],
+            "description": "Flight sort. Default 'price'."
+          },
+          "max_price_per_night": {
+            "type": "number",
+            "description": "Hotel: max nightly price."
+          },
+          "min_rating": {
+            "type": "number",
+            "description": "Hotel: min review score 0-10."
+          },
+          "hotel_sort_by": {
+            "type": "string",
+            "enum": [
+              "price",
+              "rating"
+            ],
+            "description": "Hotel sort. Default 'price'."
+          },
+          "max_results": {
+            "type": "number",
+            "description": "Max items per category (flights, hotels). Default 3, max 10."
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
+          }
+        },
+        "required": [
+          "origin",
+          "destination",
+          "depart_date",
+          "return_date"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "travel.myBookings",
+      "description": "Fetch the current user's bookings from Booking.com. Requires the actor to be connected — caller must call platform.auth.ensureConnected({service_id:'booking'}) first if needed.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "travel-mcp",
+        "mcp_tool": "travel.myBookings"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "auth.listServices",
+      "description": "Internal — returns the auth services this connector handles, for platform.auth self-registration.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "travel-mcp",
+        "mcp_tool": "auth.listServices"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.store",
+      "description": "Store a long-term HUMAN/AGENT CONTEXT memory — facts, preferences, taught rules, user profile fields. Content must be concise, durable, and recallable. Types: preference, fact, instruction, pattern, rule, user_model; the engine assigns the CoALA kind automatically (semantic / procedural). DO NOT use for: session cookies, OAuth tokens, API keys, or any credentials (use platform.dataStore). DO NOT use for: raw tool-output dumps, large JSON blobs, or cached API responses (use platform.dataStore). The engine runs quality guards, dedup, normalize, and conflict detection; rejections include a `guidance` field telling you the correct tool/path. Returns { memory, conflicts, processing }.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.store"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "rule",
+              "pattern",
+              "instruction",
+              "fact",
+              "preference",
+              "user_model"
+            ],
+            "description": "Memory type"
+          },
+          "content": {
+            "type": "string",
+            "description": "Memory content (natural language or JSON for structured types)"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "context": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "taught",
+              "auto",
+              "system",
+              "user"
+            ],
+            "description": "Provenance (default: taught)"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.recall",
+      "description": "Recall memories by keyword query. Searches content + raw_content + tags. When embeddings come online this transparently becomes semantic.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.recall"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "query": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "rule",
+              "pattern",
+              "instruction",
+              "fact",
+              "preference",
+              "user_model"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "episodic",
+              "semantic",
+              "procedural"
+            ]
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.list",
+      "description": "List stored memories with optional type/kind filter and pagination.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.list"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "rule",
+              "pattern",
+              "instruction",
+              "fact",
+              "preference",
+              "user_model"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "episodic",
+              "semantic",
+              "procedural"
+            ]
+          },
+          "limit": {
+            "type": "number"
+          },
+          "offset": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.update",
+      "description": "Update an existing memory by ID.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.update"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "content": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "context": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.delete",
+      "description": "Delete a memory by ID.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.delete"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.rules.match",
+      "description": "Match active taught rules against a situation. Returns ranked rules. Used by Core fast_path / detectIntent to decide whether to short-circuit.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.rules.match"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "situation": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "situation"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.rules.count",
+      "description": "Count active vs inactive taught rules for the current actor.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.rules.count"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "context.store",
+      "description": "Store an ephemeral context (situation or plan). Auto-expires via Mongo TTL index.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "context.store"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "situation",
+              "plan"
+            ]
+          },
+          "data": {
+            "type": "string",
+            "description": "JSON string"
+          },
+          "ttl_minutes": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "type",
+          "data"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "context.read",
+      "description": "Read active ephemeral context — current situations and plans.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "context.read"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "situation",
+              "plan"
+            ]
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "context.resolve",
+      "description": "Mark an ephemeral context as resolved or abandoned.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "context.resolve"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "resolved",
+              "abandoned"
+            ]
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "context.clear",
+      "description": "Clear all active ephemeral context for the actor (optionally filtered by type).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "context.clear"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "situation",
+              "plan"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.userProfile",
+      "description": "Get the complete user profile in one call. Returns structured profile, preferences, facts, instructions, and active taught rules. Call at the start of every interaction.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.userProfile"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.userProfile.set",
+      "description": "Set a structured profile field (name, timezone, location, etc). Creates or updates a user_model memory.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.userProfile.set"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "field": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "value"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.semantic.search",
+      "description": "Semantic search over memories. Returns matches with similarity scores. Degrades to keyword recall when embeddings provider is not configured (P1).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.semantic.search"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "query": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "episodic",
+              "semantic",
+              "procedural"
+            ]
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.explain",
+      "description": "Explain why a memory is remembered: returns the memory + its full meta trail.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.explain"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.summarize",
+      "description": "Structured snapshot of what's known about the current actor. P1 returns counts + structured profile. LLM narrative summary will be added in P6.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.summarize"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.compact",
+      "description": "Run a compaction sweep — decay stale auto-learned memories and surface duplicate clusters. Does not auto-merge in P1; returns candidates for review.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.compact"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.confidence",
+      "description": "Read or set the confidence score on a memory.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.confidence"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Omit to read, provide to set"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.supersede",
+      "description": "Mark old memory as superseded by new memory. Old becomes inactive, link recorded.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.supersede"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "old_id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "new_id": {
+            "$ref": "#/properties/old_id"
+          }
+        },
+        "required": [
+          "old_id",
+          "new_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.audit",
+      "description": "Read meta trail for a single memory or recent events for the actor.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.audit"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ],
+            "description": "Memory ID — if omitted, returns recent actor events"
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.embed",
+      "description": "Generate an embedding vector for arbitrary text. Returns null when no embedding provider is configured (P1 default).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.embed"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.extract",
+      "description": "Run end-of-job auto-extraction over a transcript. Cheap regex pass always runs; smart LLM pass runs if smart=true and Core LLM is reachable. Writes extracted memories with source='auto' and lower confidence.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.extract"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "transcript": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "role": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "role",
+                "content"
+              ],
+              "additionalProperties": false
+            },
+            "description": "Conversation turns"
+          },
+          "smart": {
+            "type": "boolean",
+            "description": "Also run LLM pass (default false in P1)"
+          }
+        },
+        "required": [
+          "transcript"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
       }
     }
   ],
@@ -278,16 +1549,8 @@
   ],
   "policy": {
     "guardrails": {
-      "never": [
-        "Complete an actual checkout/booking — this skill is search-only",
-        "Show prices without their currency symbol"
-      ],
-      "always": [
-        "Call platform.auth.status before travel.myBookings; if connected=false call platform.auth.ensureConnected({service_id:'booking'})",
-        "Convert relative dates to absolute YYYY-MM-DD",
-        "Mobile chat — 1-2 sentences, no bullet lists",
-        "Format prices with currency"
-      ]
+      "never": [],
+      "always": []
     },
     "approvals": [],
     "workflows": [],
@@ -299,59 +1562,50 @@
   },
   "channels": [],
   "conversation": [],
-  "id": "travel-agent",
   "name": "Travel Agent",
   "solution_id": "ada",
-  "access_policy": {
-    "rules": [
-      {
-        "tools": [
-          "*"
-        ],
-        "effect": "allow"
-      }
-    ]
-  },
-  "grant_mappings": [],
-  "exclude_bootstrap_tools": [
-    "readFile",
-    "getCurrentProjectPath",
-    "getChatTranscript"
-  ],
-  "updated_at": "2026-05-14T10:53:19.837Z",
-  "created_at": "2026-05-11T07:01:12.039Z",
+  "id": "travel-agent",
+  "created_at": "2026-05-14T12:32:04.820Z",
+  "updated_at": "2026-05-14T12:32:05.010Z",
   "validation": {
     "valid": true,
-    "ready_to_export": true,
+    "ready_to_export": false,
     "errors": [],
     "warnings": [
       {
         "code": "INTENT_NO_TOOLS",
         "severity": "warning",
         "path": "intents.supported[0]",
-        "message": "Intent \"search-flights\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"search-flights\", or ensure tool names relate to this intent"
+        "message": "Intent \"daily_overview\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"daily_overview\", or ensure tool names relate to this intent"
       },
       {
         "code": "INTENT_NO_TOOLS",
         "severity": "warning",
         "path": "intents.supported[1]",
-        "message": "Intent \"search-hotels\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"search-hotels\", or ensure tool names relate to this intent"
+        "message": "Intent \"schedule_management\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"schedule_management\", or ensure tool names relate to this intent"
       },
       {
         "code": "INTENT_NO_TOOLS",
         "severity": "warning",
         "path": "intents.supported[2]",
-        "message": "Intent \"search-homes\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"search-homes\", or ensure tool names relate to this intent"
+        "message": "Intent \"communication_tasks\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"communication_tasks\", or ensure tool names relate to this intent"
       },
       {
         "code": "INTENT_NO_TOOLS",
         "severity": "warning",
         "path": "intents.supported[3]",
-        "message": "Intent \"my-bookings\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"my-bookings\", or ensure tool names relate to this intent"
+        "message": "Intent \"travel_and_location\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"travel_and_location\", or ensure tool names relate to this intent"
+      },
+      {
+        "code": "INTENT_NO_TOOLS",
+        "severity": "warning",
+        "path": "intents.supported[4]",
+        "message": "Intent \"web_research\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"web_research\", or ensure tool names relate to this intent"
       }
     ],
     "unresolved": {
@@ -360,21 +1614,21 @@
       "intents": []
     },
     "completeness": {
-      "problem": true,
-      "scenarios": true,
+      "problem": false,
+      "scenarios": false,
       "role": true,
       "intents": true,
-      "tools": true,
-      "policy": true,
+      "tools": false,
+      "policy": false,
       "engine": true,
-      "mocks_tested": true,
+      "mocks_tested": false,
       "identity": false,
       "security": true
     }
   },
-  "lastExportedAt": "2026-05-14T10:53:19.709Z",
+  "lastExportedAt": "2026-05-14T12:32:04.882Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-14T10:53:19.835Z",
+  "deployedAt": "2026-05-14T12:32:05.008Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/travel-agent"
 }
