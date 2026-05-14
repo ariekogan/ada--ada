@@ -3,682 +3,119 @@
   "version": "2.0.0",
   "phase": "DEPLOYED",
   "problem": {
-    "statement": "Multi-channel messaging with tone adaptation and proactive channel setup.",
-    "context": "Multi-channel messaging with tone adaptation and proactive channel setup.",
-    "goals": [
-      "Enable search contacts",
-      "Enable get contact details",
-      "Enable send sms/imessage",
-      "Enable get today's events for context"
-    ]
+    "statement": "",
+    "context": "",
+    "goals": []
   },
-  "scenarios": [
-    {
-      "id": "search_contact",
-      "title": "Search contacts.",
-      "description": "User triggers \"Search contacts.\" (e.g. \"Search contacts.\") and the agent handles it end-to-end.",
-      "steps": [
-        "User says: \"Search contacts.\"",
-        "Agent calls device.contacts.search — search contacts.",
-        "Agent presents results to the user"
-      ],
-      "expected_outcome": "The agent successfully handles the \"Search contacts.\" request and presents the result."
-    },
-    {
-      "id": "get_contact",
-      "title": "Get contact details.",
-      "description": "User triggers \"Get contact details.\" (e.g. \"Get contact details.\") and the agent handles it end-to-end.",
-      "steps": [
-        "User says: \"Get contact details.\"",
-        "Agent calls device.contacts.get — get contact details.",
-        "Agent presents results to the user"
-      ],
-      "expected_outcome": "The agent successfully handles the \"Get contact details.\" request and presents the result."
-    },
-    {
-      "id": "send_message",
-      "title": "Send SMS/iMessage.",
-      "description": "User triggers \"Send SMS/iMessage.\" (e.g. \"Send SMS/iMessage.\") and the agent handles it end-to-end.",
-      "steps": [
-        "User says: \"Send SMS/iMessage.\"",
-        "Agent calls device.message.send — send sms/imessage.",
-        "Agent presents results to the user"
-      ],
-      "expected_outcome": "The agent successfully handles the \"Send SMS/iMessage.\" request and presents the result."
-    },
-    {
-      "id": "today_calendar",
-      "title": "Get today's events for context.",
-      "description": "User triggers \"Get today's events for context.\" (e.g. \"Get today's events for context.\") and the agent handles it end-to-end.",
-      "steps": [
-        "User says: \"Get today's events for context.\"",
-        "Agent calls device.calendar.today — get today's events for context.",
-        "Agent presents results to the user"
-      ],
-      "expected_outcome": "The agent successfully handles the \"Get today's events for context.\" request and presents the result."
-    },
-    {
-      "id": "current_location",
-      "title": "Get current location.",
-      "description": "User triggers \"Get current location.\" (e.g. \"Get current location.\") and the agent handles it end-to-end.",
-      "steps": [
-        "User says: \"Get current location.\"",
-        "Agent calls device.location.current — get current location.",
-        "Agent presents results to the user"
-      ],
-      "expected_outcome": "The agent successfully handles the \"Get current location.\" request and presents the result."
-    },
-    {
-      "id": "current_weather",
-      "title": "Get current weather.",
-      "description": "User triggers \"Get current weather.\" (e.g. \"Get current weather.\") and the agent handles it end-to-end.",
-      "steps": [
-        "User says: \"Get current weather.\"",
-        "Agent calls device.weather.current — get current weather.",
-        "Agent presents results to the user"
-      ],
-      "expected_outcome": "The agent successfully handles the \"Get current weather.\" request and presents the result."
-    },
-    {
-      "id": "recall",
-      "title": "Check messaging preferences.",
-      "description": "User triggers \"Check messaging preferences.\" (e.g. \"Check messaging preferences.\") and the agent handles it end-to-end.",
-      "steps": [
-        "User says: \"Check messaging preferences.\"",
-        "Agent calls memory.recall — check messaging preferences.",
-        "Agent presents results to the user"
-      ],
-      "expected_outcome": "The agent successfully handles the \"Check messaging preferences.\" request and presents the result."
-    },
-    {
-      "id": "read",
-      "title": "Read active situations.",
-      "description": "User triggers \"Read active situations.\" (e.g. \"Read active situations.\") and the agent handles it end-to-end.",
-      "steps": [
-        "User says: \"Read active situations.\"",
-        "Agent calls context.read — read active situations.",
-        "Agent presents results to the user"
-      ],
-      "expected_outcome": "The agent successfully handles the \"Read active situations.\" request and presents the result."
-    },
-    {
-      "id": "check",
-      "title": "Check if channel is connected.",
-      "description": "User triggers \"Check if channel is connected.\" (e.g. \"Check if channel is connected.\") and the agent handles it end-to-end.",
-      "steps": [
-        "User says: \"Check if channel is connected.\"",
-        "Agent calls integrations.check — check if channel is connected.",
-        "Agent presents results to the user"
-      ],
-      "expected_outcome": "The agent successfully handles the \"Check if channel is connected.\" request and presents the result."
-    },
-    {
-      "id": "status",
-      "title": "Check Gmail connection.",
-      "description": "User triggers \"Check Gmail connection.\" (e.g. \"Check Gmail connection.\") and the agent handles it end-to-end.",
-      "steps": [
-        "User says: \"Check Gmail connection.\"",
-        "Agent calls gmail.status — check gmail connection.",
-        "Agent presents results to the user"
-      ],
-      "expected_outcome": "The agent successfully handles the \"Check Gmail connection.\" request and presents the result."
-    },
-    {
-      "id": "setup",
-      "title": "Get Gmail sign-in link.",
-      "description": "User triggers \"Get Gmail sign-in link.\" (e.g. \"Get Gmail sign-in link.\") and the agent handles it end-to-end.",
-      "steps": [
-        "User says: \"Get Gmail sign-in link.\"",
-        "Agent calls gmail.setup — get gmail sign-in link.",
-        "Agent presents results to the user"
-      ],
-      "expected_outcome": "The agent successfully handles the \"Get Gmail sign-in link.\" request and presents the result."
-    },
-    {
-      "id": "send",
-      "title": "Send email via Gmail.",
-      "description": "User triggers \"Send email via Gmail.\" (e.g. \"Send email via Gmail.\") and the agent handles it end-to-end.",
-      "steps": [
-        "User says: \"Send email via Gmail.\"",
-        "Agent calls gmail.send — send email via gmail.",
-        "Agent presents results to the user"
-      ],
-      "expected_outcome": "The agent successfully handles the \"Send email via Gmail.\" request and presents the result."
-    },
-    {
-      "id": "reply",
-      "title": "Reply to email thread.",
-      "description": "User triggers \"Reply to email thread.\" (e.g. \"Reply to email thread.\") and the agent handles it end-to-end.",
-      "steps": [
-        "User says: \"Reply to email thread.\"",
-        "Agent calls gmail.reply — reply to email thread.",
-        "Agent presents results to the user"
-      ],
-      "expected_outcome": "The agent successfully handles the \"Reply to email thread.\" request and presents the result."
-    },
-    {
-      "id": "fetch",
-      "title": "Fetch/search emails.",
-      "description": "User triggers \"Fetch/search emails.\" (e.g. \"Fetch/search emails.\") and the agent handles it end-to-end.",
-      "steps": [
-        "User says: \"Fetch/search emails.\"",
-        "Agent calls gmail.fetch — fetch/search emails.",
-        "Agent presents results to the user"
-      ],
-      "expected_outcome": "The agent successfully handles the \"Fetch/search emails.\" request and presents the result."
-    },
-    {
-      "id": "read_email",
-      "title": "Read full email by ID.",
-      "description": "User triggers \"Read full email by ID.\" (e.g. \"Read full email by ID.\") and the agent handles it end-to-end.",
-      "steps": [
-        "User says: \"Read full email by ID.\"",
-        "Agent calls context.read — read active situations.",
-        "Agent presents results to the user"
-      ],
-      "expected_outcome": "The agent successfully handles the \"Read full email by ID.\" request and presents the result."
-    },
-    {
-      "id": "status_whatsapp",
-      "title": "Check WhatsApp connection.",
-      "description": "User triggers \"Check WhatsApp connection.\" (e.g. \"Check WhatsApp connection.\") and the agent handles it end-to-end.",
-      "steps": [
-        "User says: \"Check WhatsApp connection.\"",
-        "Agent calls gmail.status — check gmail connection.",
-        "Agent presents results to the user"
-      ],
-      "expected_outcome": "The agent successfully handles the \"Check WhatsApp connection.\" request and presents the result."
-    },
-    {
-      "id": "send_whatsapp",
-      "title": "Send WhatsApp message.",
-      "description": "User triggers \"Send WhatsApp message.\" (e.g. \"Send WhatsApp message.\") and the agent handles it end-to-end.",
-      "steps": [
-        "User says: \"Send WhatsApp message.\"",
-        "Agent calls gmail.send — send email via gmail.",
-        "Agent presents results to the user"
-      ],
-      "expected_outcome": "The agent successfully handles the \"Send WhatsApp message.\" request and presents the result."
-    },
-    {
-      "id": "unread",
-      "title": "Get unread WhatsApp.",
-      "description": "User triggers \"Get unread WhatsApp.\" (e.g. \"Get unread WhatsApp.\") and the agent handles it end-to-end.",
-      "steps": [
-        "User says: \"Get unread WhatsApp.\"",
-        "Agent calls whatsapp.unread — get unread whatsapp.",
-        "Agent presents results to the user"
-      ],
-      "expected_outcome": "The agent successfully handles the \"Get unread WhatsApp.\" request and presents the result."
-    }
-  ],
+  "scenarios": [],
   "role": {
     "name": "Communication Specialist",
     "persona": "You handle SMS, email, and WhatsApp. Before using email, call gmail.status. If not connected, call gmail.setup and guide the user. For SMS use device.message.send. Draft messages with relationship-aware tone. Always confirm before sending.\\n\\nCRITICAL: NEVER tell the user you cannot do something. If the request is outside your capabilities, use sys.handoffToSkill({skill_id: 'pa-orchestrator', summary: '[user request]'}) to route back to the orchestrator. It will find the right skill.\n\nUI TOOLS PREFERENCE:\nWhen a ui.* tool is available AND the conversation is from a visual channel (chat, api, mobile app), prefer calling it over explaining steps in text.\nWhen whatsapp.status returns disconnected, call ui.whatsapp_setup.connect() to open the setup screen.\nEXCEPTION: In voice conversations (no screen), do NOT call ui.* tools. Instead, guide the user conversationally — explain steps verbally, ask for phone number, call whatsapp.setup directly.\n\nMOBILE COMMUNICATION STYLE (CRITICAL):\nThis is a mobile consumer app with small chat real estate. Keep responses SHORT and CASUAL.\n- Max 2-3 sentences for most replies\n- No bullet lists unless absolutely necessary (and then max 3 items)\n- No headings, no markdown sections\n- Conversational tone like texting a friend\n- Skip preamble — get to the point immediately\n- For yes/no questions, answer directly\n- For task confirmations: 'Done.' / 'Sent.' / 'Got it.'\n- For errors: explain in 1 sentence, suggest one fix\n- Never explain what you're about to do — just do it\n\nMOBILE CHAT: This is a small mobile chat screen. Keep responses 1-3 sentences max. Casual, conversational tone like texting a friend. No bullet lists, no headers, no markdown sections. Plain text only. If details needed, ask one short question at a time.",
     "goals": [],
-    "limitations": [],
-    "communication_style": {
-      "tone": "casual",
-      "verbosity": "brief"
-    }
+    "limitations": []
   },
   "glossary": {},
   "intents": {
     "supported": [
       {
-        "id": "search_contact",
-        "description": "Search contacts.",
+        "id": "daily_overview",
+        "description": "Get a briefing of today's schedule, weather, and important information.",
         "examples": [
-          "Find Sarah's number",
-          "Look up contacts for Dr. Martinez",
-          "Do I have anyone named Johnson in my phone?",
-          "Search for my dentist's contact info"
-        ],
-        "maps_to_workflow": "search_contact_flow",
-        "entities": [
-          {
-            "name": "query",
-            "type": "string",
-            "required": false,
-            "extract_from": "message"
-          }
-        ],
-        "maps_to_workflow_resolved": true,
-        "examples_generated": [
-          "Find Sarah's number",
-          "Look up contacts for Dr. Martinez",
-          "Do I have anyone named Johnson in my phone?",
-          "Search for my dentist's contact info"
-        ]
-      },
-      {
-        "id": "get_contact",
-        "description": "Get contact details.",
-        "examples": [
-          "Show me John's contact info",
-          "What's Sarah's phone number?",
-          "Pull up the details for Mike",
-          "Can you find Lisa's information?"
-        ],
-        "maps_to_workflow": "get_contact_flow",
-        "entities": [
-          {
-            "name": "contact_id",
-            "type": "string",
-            "required": false,
-            "extract_from": "message"
-          }
-        ],
-        "maps_to_workflow_resolved": true,
-        "examples_generated": [
-          "Show me John's contact info",
-          "What's Sarah's phone number?",
-          "Pull up the details for Mike",
-          "Can you find Lisa's information?"
-        ]
-      },
-      {
-        "id": "send_message",
-        "description": "Send SMS/iMessage.",
-        "examples": [
-          "Text Sarah that I'm running late",
-          "Can you shoot a message to Mike saying the meeting is cancelled?",
-          "Send John a quick note about dinner plans",
-          "Fire off an SMS to Mom telling her I landed safely"
-        ],
-        "maps_to_workflow": "send_message_flow",
-        "entities": [
-          {
-            "name": "contact_name",
-            "type": "string",
-            "required": false,
-            "extract_from": "message"
-          },
-          {
-            "name": "message",
-            "type": "string",
-            "required": false,
-            "extract_from": "message"
-          }
-        ],
-        "maps_to_workflow_resolved": true,
-        "examples_generated": [
-          "Text Sarah that I'm running late",
-          "Can you shoot a message to Mike saying the meeting is cancelled?",
-          "Send John a quick note about dinner plans",
-          "Fire off an SMS to Mom telling her I landed safely"
-        ]
-      },
-      {
-        "id": "today_calendar",
-        "description": "Get today's events for context.",
-        "examples": [
+          "How's my day looking?",
           "What's on my schedule today?",
-          "Show me today's appointments",
-          "Any meetings or events happening today?",
-          "What do I have coming up on my agenda?"
+          "Give me the rundown for today",
+          "What should I know about today?"
         ],
-        "maps_to_workflow": "today_calendar_flow",
-        "maps_to_workflow_resolved": true,
         "examples_generated": [
+          "How's my day looking?",
           "What's on my schedule today?",
-          "Show me today's appointments",
-          "Any meetings or events happening today?",
-          "What do I have coming up on my agenda?"
-        ]
+          "Give me the rundown for today",
+          "What should I know about today?"
+        ],
+        "candidate_tools": [],
+        "maps_to_workflow_resolved": true
       },
       {
-        "id": "current_location",
-        "description": "Get current location.",
+        "id": "schedule_management",
+        "description": "Create, modify, or check calendar events and appointments.",
         "examples": [
-          "Where am I right now?",
-          "What's my current position?",
-          "Can you tell me where I'm located?",
-          "Show me my present coordinates"
+          "Schedule a dentist appointment for next week",
+          "When is my meeting with Sarah?",
+          "Move my 3pm call to tomorrow",
+          "Block out time for lunch on Friday"
         ],
-        "maps_to_workflow": "current_location_flow",
-        "maps_to_workflow_resolved": true,
         "examples_generated": [
-          "Where am I right now?",
-          "What's my current position?",
-          "Can you tell me where I'm located?",
-          "Show me my present coordinates"
-        ]
+          "Schedule a dentist appointment for next week",
+          "When is my meeting with Sarah?",
+          "Move my 3pm call to tomorrow",
+          "Block out time for lunch on Friday"
+        ],
+        "candidate_tools": [],
+        "maps_to_workflow_resolved": true
       },
       {
-        "id": "current_weather",
-        "description": "Get current weather.",
+        "id": "communication_tasks",
+        "description": "Send messages, make calls, or manage contacts.",
         "examples": [
-          "What's the weather like right now?",
-          "How's it looking outside today?",
-          "Can you check the current conditions?",
-          "What are the present atmospheric conditions?"
+          "Text Mom that I'm running late",
+          "Send a message to the team about the delay",
+          "Call the restaurant to make a reservation",
+          "What's John's phone number?"
         ],
-        "maps_to_workflow": "current_weather_flow",
-        "maps_to_workflow_resolved": true,
         "examples_generated": [
-          "What's the weather like right now?",
-          "How's it looking outside today?",
-          "Can you check the current conditions?",
-          "What are the present atmospheric conditions?"
-        ]
+          "Text Mom that I'm running late",
+          "Send a message to the team about the delay",
+          "Call the restaurant to make a reservation",
+          "What's John's phone number?"
+        ],
+        "candidate_tools": [],
+        "maps_to_workflow_resolved": true
       },
       {
-        "id": "recall",
-        "description": "Check messaging preferences.",
+        "id": "travel_and_location",
+        "description": "Get directions, check commute times, and location-based information.",
         "examples": [
-          "What are my current messaging settings?",
-          "Can you check how I have my notifications configured?",
-          "Show me my communication preferences",
-          "What's my setup for receiving messages?"
+          "How long to get to the airport?",
+          "What's traffic like to downtown?",
+          "Find me a coffee shop nearby",
+          "Best route to avoid construction?"
         ],
-        "maps_to_workflow": "recall_flow",
-        "entities": [
-          {
-            "name": "query",
-            "type": "string",
-            "required": false,
-            "extract_from": "message"
-          }
-        ],
-        "maps_to_workflow_resolved": true,
         "examples_generated": [
-          "What are my current messaging settings?",
-          "Can you check how I have my notifications configured?",
-          "Show me my communication preferences",
-          "What's my setup for receiving messages?"
-        ]
+          "How long to get to the airport?",
+          "What's traffic like to downtown?",
+          "Find me a coffee shop nearby",
+          "Best route to avoid construction?"
+        ],
+        "candidate_tools": [],
+        "maps_to_workflow_resolved": true
       },
       {
-        "id": "read",
-        "description": "Read active situations.",
+        "id": "web_research",
+        "description": "Look up information, browse websites, and research topics online.",
         "examples": [
-          "What's happening with my current situations?",
-          "Show me the active cases I'm handling",
-          "Can you pull up the ongoing matters?",
-          "I need to check the status of my open issues"
+          "Look up reviews for that new restaurant",
+          "Check if my flight is on time",
+          "Find articles about the latest iPhone",
+          "What's the weather forecast for this weekend?"
         ],
-        "maps_to_workflow": "read_flow",
-        "maps_to_workflow_resolved": true,
         "examples_generated": [
-          "What's happening with my current situations?",
-          "Show me the active cases I'm handling",
-          "Can you pull up the ongoing matters?",
-          "I need to check the status of my open issues"
-        ]
-      },
-      {
-        "id": "check",
-        "description": "Check if channel is connected.",
-        "examples": [
-          "Is the marketing channel still connected?",
-          "Can you verify if our Slack integration is working?",
-          "Check the status of the sales channel connection",
-          "Are we still linked to the customer support feed?"
+          "Look up reviews for that new restaurant",
+          "Check if my flight is on time",
+          "Find articles about the latest iPhone",
+          "What's the weather forecast for this weekend?"
         ],
-        "maps_to_workflow": "check_flow",
-        "entities": [
-          {
-            "name": "channel",
-            "type": "string",
-            "required": false,
-            "extract_from": "message"
-          }
-        ],
-        "maps_to_workflow_resolved": true,
-        "examples_generated": [
-          "Is the marketing channel still connected?",
-          "Can you verify if our Slack integration is working?",
-          "Check the status of the sales channel connection",
-          "Are we still linked to the customer support feed?"
-        ]
-      },
-      {
-        "id": "status_gmail",
-        "description": "Check Gmail connection.",
-        "examples": [
-          "Is my Gmail working?",
-          "Check if I'm connected to my email",
-          "Gmail status please",
-          "Can you verify my Google mail is linked properly?"
-        ],
-        "maps_to_workflow": "status_flow",
-        "maps_to_workflow_resolved": true,
-        "examples_generated": [
-          "Is my Gmail working?",
-          "Check if I'm connected to my email",
-          "Gmail status please",
-          "Can you verify my Google mail is linked properly?"
-        ]
-      },
-      {
-        "id": "setup",
-        "description": "Get Gmail sign-in link.",
-        "examples": [
-          "How do I get into my Gmail account?",
-          "Can you give me the Gmail login page?",
-          "I need the link to sign into my email",
-          "Where's the Gmail access portal?"
-        ],
-        "maps_to_workflow": "setup_flow",
-        "maps_to_workflow_resolved": true,
-        "examples_generated": [
-          "How do I get into my Gmail account?",
-          "Can you give me the Gmail login page?",
-          "I need the link to sign into my email",
-          "Where's the Gmail access portal?"
-        ]
-      },
-      {
-        "id": "send_email",
-        "description": "Send email via Gmail.",
-        "examples": [
-          "Can you shoot an email through Gmail for me?",
-          "I want to compose and send a message using my Gmail account",
-          "Fire off an email via Gmail",
-          "Help me draft and deliver an email through Google's mail service"
-        ],
-        "maps_to_workflow": "send_flow",
-        "entities": [
-          {
-            "name": "to",
-            "type": "string",
-            "required": false,
-            "extract_from": "message"
-          },
-          {
-            "name": "subject",
-            "type": "string",
-            "required": false,
-            "extract_from": "message"
-          },
-          {
-            "name": "body",
-            "type": "string",
-            "required": false,
-            "extract_from": "message"
-          }
-        ],
-        "maps_to_workflow_resolved": true,
-        "examples_generated": [
-          "Can you shoot an email through Gmail for me?",
-          "I want to compose and send a message using my Gmail account",
-          "Fire off an email via Gmail",
-          "Help me draft and deliver an email through Google's mail service"
-        ]
-      },
-      {
-        "id": "reply",
-        "description": "Reply to email thread.",
-        "examples": [
-          "Send a response to that email from Sarah about the project timeline",
-          "Can you write back to the message thread about the budget approval?",
-          "I want to answer the email chain with the marketing team",
-          "Compose a follow-up to that conversation in my inbox"
-        ],
-        "maps_to_workflow": "reply_flow",
-        "entities": [
-          {
-            "name": "messageId",
-            "type": "string",
-            "required": false,
-            "extract_from": "message"
-          },
-          {
-            "name": "body",
-            "type": "string",
-            "required": false,
-            "extract_from": "message"
-          }
-        ],
-        "maps_to_workflow_resolved": true,
-        "examples_generated": [
-          "Send a response to that email from Sarah about the project timeline",
-          "Can you write back to the message thread about the budget approval?",
-          "I want to answer the email chain with the marketing team",
-          "Compose a follow-up to that conversation in my inbox"
-        ]
-      },
-      {
-        "id": "fetch",
-        "description": "Fetch/search emails.",
-        "examples": [
-          "Show me my recent emails",
-          "Can you pull up unread messages from last week?",
-          "I need to find emails containing 'project update'",
-          "Get the latest 10 messages in my inbox"
-        ],
-        "maps_to_workflow": "fetch_flow",
-        "maps_to_workflow_resolved": true,
-        "examples_generated": [
-          "Show me my recent emails",
-          "Can you pull up unread messages from last week?",
-          "I need to find emails containing 'project update'",
-          "Get the latest 10 messages in my inbox"
-        ]
-      },
-      {
-        "id": "read_email",
-        "description": "Read full email by ID.",
-        "examples": [
-          "Show me email 12345",
-          "Can you pull up the full content of that message with ID abc789?",
-          "I need to see the complete text of email def456",
-          "Open the entire message ghi321"
-        ],
-        "maps_to_workflow": "read_flow",
-        "entities": [
-          {
-            "name": "id",
-            "type": "string",
-            "required": false,
-            "extract_from": "message"
-          }
-        ],
-        "maps_to_workflow_resolved": true,
-        "examples_generated": [
-          "Show me email 12345",
-          "Can you pull up the full content of that message with ID abc789?",
-          "I need to see the complete text of email def456",
-          "Open the entire message ghi321"
-        ]
-      },
-      {
-        "id": "status_whatsapp",
-        "description": "Check WhatsApp connection.",
-        "examples": [
-          "Is my WhatsApp working?",
-          "Check if I'm connected to WhatsApp",
-          "Can you see if my messaging app is online?",
-          "WhatsApp status check please"
-        ],
-        "maps_to_workflow": "status_flow",
-        "maps_to_workflow_resolved": true,
-        "examples_generated": [
-          "Is my WhatsApp working?",
-          "Check if I'm connected to WhatsApp",
-          "Can you see if my messaging app is online?",
-          "WhatsApp status check please"
-        ]
-      },
-      {
-        "id": "send_whatsapp",
-        "description": "Send WhatsApp message.",
-        "examples": [
-          "Can you shoot a WhatsApp to Sarah about dinner tonight?",
-          "Send a message on WhatsApp to the group chat",
-          "I want to text mom through WhatsApp",
-          "Fire off a quick WhatsApp to Jake"
-        ],
-        "maps_to_workflow": "send_flow",
-        "entities": [
-          {
-            "name": "to",
-            "type": "string",
-            "required": false,
-            "extract_from": "message"
-          },
-          {
-            "name": "message",
-            "type": "string",
-            "required": false,
-            "extract_from": "message"
-          }
-        ],
-        "maps_to_workflow_resolved": true,
-        "examples_generated": [
-          "Can you shoot a WhatsApp to Sarah about dinner tonight?",
-          "Send a message on WhatsApp to the group chat",
-          "I want to text mom through WhatsApp",
-          "Fire off a quick WhatsApp to Jake"
-        ]
-      },
-      {
-        "id": "unread",
-        "description": "Get unread WhatsApp.",
-        "examples": [
-          "Show me my unread WhatsApp messages",
-          "Any new WhatsApp notifications I haven't seen?",
-          "Check what WhatsApp messages I missed",
-          "Pull up recent WhatsApp texts I haven't read yet"
-        ],
-        "maps_to_workflow": "unread_flow",
-        "maps_to_workflow_resolved": true,
-        "examples_generated": [
-          "Show me my unread WhatsApp messages",
-          "Any new WhatsApp notifications I haven't seen?",
-          "Check what WhatsApp messages I missed",
-          "Pull up recent WhatsApp texts I haven't read yet"
-        ]
-      },
-      {
-        "id": "connect-whatsapp",
-        "description": "User wants to connect, setup, or pair WhatsApp",
-        "examples": [
-          "connect my whatsapp",
-          "setup whatsapp",
-          "pair whatsapp",
-          "link my whatsapp",
-          "I want to connect whatsapp"
-        ],
-        "action": "call_tool",
-        "tool": "ui.whatsapp_setup.connect",
-        "tools": [
-          "ui.whatsapp_setup.connect",
-          "whatsapp.status"
-        ],
+        "candidate_tools": [],
         "maps_to_workflow_resolved": true
       }
     ],
     "thresholds": {
-      "accept": 0.85,
-      "clarify": 0.6,
-      "reject": 0.4
+      "accept": 0.8,
+      "clarify": 0.5,
+      "reject": 0.5
     },
     "out_of_domain": {
       "action": "redirect",
-      "message": "This request is outside my capabilities.",
-      "suggest_domains": []
+      "message": ""
     }
   },
   "engine": {
@@ -741,771 +178,3003 @@
   "toolbox_imports": [],
   "tools": [
     {
-      "id": "tool-msg-contacts-search",
-      "id_status": "permanent",
-      "name": "device.contacts.search",
-      "description": "Search contacts.",
-      "inputs": [
-        {
-          "name": "query",
-          "type": "string",
-          "required": true,
-          "description": ""
-        }
-      ],
-      "output": {
-        "type": "object"
-      },
-      "source": {
-        "type": "mcp_bridge",
-        "connection_id": "mobile-device-mcp",
-        "mcp_tool": "device.contacts.search"
-      },
-      "policy": {
-        "allowed": "always"
-      },
-      "mock": {
-        "enabled": true,
-        "mode": "examples",
-        "examples": [
-          {
-            "id": "tool-contacts-search-auto",
-            "input": {
-              "query": "search term"
-            },
-            "output": {
-              "results": [
-                {
-                  "id": 1,
-                  "name": "Example item"
-                }
-              ],
-              "total_count": 1
-            },
-            "description": "Auto-generated example for device.contacts.search"
-          }
-        ]
-      },
-      "security": {
-        "classification": "public"
-      }
-    },
-    {
-      "id": "tool-msg-contacts-get",
-      "id_status": "permanent",
-      "name": "device.contacts.get",
-      "description": "Get contact details.",
-      "inputs": [
-        {
-          "name": "contact_id",
-          "type": "string",
-          "required": true,
-          "description": ""
-        }
-      ],
-      "output": {
-        "type": "object"
-      },
-      "source": {
-        "type": "mcp_bridge",
-        "connection_id": "mobile-device-mcp",
-        "mcp_tool": "device.contacts.get"
-      },
-      "policy": {
-        "allowed": "always"
-      },
-      "mock": {
-        "enabled": true,
-        "mode": "examples",
-        "examples": [
-          {
-            "id": "tool-contacts-get-auto",
-            "input": {
-              "contact_id": "id-001"
-            },
-            "output": {
-              "success": true,
-              "data": {}
-            },
-            "description": "Auto-generated example for device.contacts.get"
-          }
-        ]
-      },
-      "security": {
-        "classification": "public"
-      }
-    },
-    {
-      "id": "tool-msg-send",
-      "id_status": "permanent",
-      "name": "device.message.send",
-      "description": "Send SMS/iMessage.",
-      "inputs": [
-        {
-          "name": "contact_name",
-          "type": "string",
-          "required": true,
-          "description": ""
-        },
-        {
-          "name": "message",
-          "type": "string",
-          "required": true,
-          "description": ""
-        }
-      ],
-      "output": {
-        "type": "object"
-      },
-      "source": {
-        "type": "mcp_bridge",
-        "connection_id": "mobile-device-mcp",
-        "mcp_tool": "device.message.send"
-      },
-      "policy": {
-        "allowed": "always"
-      },
-      "mock": {
-        "enabled": true,
-        "mode": "examples",
-        "examples": [
-          {
-            "id": "tool-message-send-auto",
-            "input": {
-              "contact_name": "Example Name",
-              "message": "example"
-            },
-            "output": {
-              "success": true,
-              "data": {}
-            },
-            "description": "Auto-generated example for device.message.send"
-          }
-        ]
-      },
-      "security": {
-        "classification": "public"
-      }
-    },
-    {
-      "id": "tool-msg-cal-today",
-      "id_status": "permanent",
       "name": "device.calendar.today",
-      "description": "Get today's events for context.",
-      "inputs": [],
-      "output": {
-        "type": "object"
-      },
+      "description": "Get all calendar events for today. Returns titles, times, locations, attendees, and notes. Response includes _freshness (is_stale=true if data is over 10 minutes old).",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "mobile-device-mcp",
         "mcp_tool": "device.calendar.today"
       },
-      "policy": {
-        "allowed": "always"
-      },
-      "mock": {
-        "enabled": true,
-        "mode": "examples",
-        "examples": [
-          {
-            "id": "tool-calendar-today-auto",
-            "input": {},
-            "output": {
-              "success": true,
-              "data": {}
-            },
-            "description": "Auto-generated example for device.calendar.today"
-          }
-        ]
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
       },
       "security": {
-        "classification": "public"
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
       }
     },
     {
-      "id": "tool-msg-location",
-      "id_status": "permanent",
-      "name": "device.location.current",
-      "description": "Get current location.",
-      "inputs": [],
-      "output": {
-        "type": "object"
+      "name": "device.calendar.upcoming",
+      "description": "Get upcoming calendar events for the next N days (tomorrow and beyond). Does NOT include today. Response includes _freshness (is_stale=true if data is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.calendar.upcoming"
       },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "days": {
+            "type": "number",
+            "description": "Number of days to look ahead (default 3, max 14)"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "device.calendar.create",
+      "description": "Create a new calendar event.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.calendar.create"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Event title"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date in YYYY-MM-DD format"
+          },
+          "start_time": {
+            "type": "string",
+            "description": "Start time in HH:MM format"
+          },
+          "end_time": {
+            "type": "string",
+            "description": "End time in HH:MM format"
+          },
+          "location": {
+            "type": "string",
+            "description": "Location"
+          },
+          "attendees": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of attendee names"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Notes"
+          }
+        },
+        "required": [
+          "title",
+          "date",
+          "start_time"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "device.calendar.reschedule",
+      "description": "Reschedule an existing calendar event to a new date/time.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.calendar.reschedule"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "description": "Event ID to reschedule"
+          },
+          "new_date": {
+            "type": "string",
+            "description": "New date YYYY-MM-DD"
+          },
+          "new_start_time": {
+            "type": "string",
+            "description": "New start time HH:MM"
+          },
+          "new_end_time": {
+            "type": "string",
+            "description": "New end time HH:MM"
+          }
+        },
+        "required": [
+          "event_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "device.calendar.cancel",
+      "description": "Cancel/delete a calendar event.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.calendar.cancel"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "description": "Event ID to cancel"
+          }
+        },
+        "required": [
+          "event_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "device.contacts.search",
+      "description": "Search contacts by name, relationship, or keyword. Searches across name, relationship, email, and notes.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.contacts.search"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search query — matches name, relationship, email, notes"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "device.contacts.get",
+      "description": "Get full contact details by name or ID. Response includes _freshness (is_stale=true if contact data is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.contacts.get"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "contact_id": {
+            "type": "string",
+            "description": "Contact name or ID (e.g., 'Sarah' or 'c1')"
+          }
+        },
+        "required": [
+          "contact_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "device.contacts.birthdays",
+      "description": "Get contacts with upcoming birthdays in the next N days. Returns matching contacts with days until birthday.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.contacts.birthdays"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "days": {
+            "type": "number",
+            "description": "Look ahead N days for birthdays (default 30)"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "device.contacts.lastContact",
+      "description": "Get when you last communicated with a contact. Returns days since last message/call. Useful for relationship care insights.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.contacts.lastContact"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Contact name to check"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "device.location.current",
+      "description": "Get user's current location based on GPS. Returns place name, address, and coordinates. Response includes _freshness (is_stale=true if data is over 10 minutes old).",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "mobile-device-mcp",
         "mcp_tool": "device.location.current"
       },
-      "policy": {
-        "allowed": "always"
-      },
-      "mock": {
-        "enabled": true,
-        "mode": "examples",
-        "examples": [
-          {
-            "id": "tool-location-current-auto",
-            "input": {},
-            "output": {
-              "success": true,
-              "data": {}
-            },
-            "description": "Auto-generated example for device.location.current"
-          }
-        ]
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
       },
       "security": {
-        "classification": "public"
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
       }
     },
     {
-      "id": "tool-msg-weather",
-      "id_status": "permanent",
       "name": "device.weather.current",
-      "description": "Get current weather.",
-      "inputs": [],
-      "output": {
-        "type": "object"
-      },
+      "description": "Get current weather conditions for the user's location. Returns temperature, conditions, humidity, wind, and UV index.",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "mobile-device-mcp",
         "mcp_tool": "device.weather.current"
       },
-      "policy": {
-        "allowed": "always"
-      },
-      "mock": {
-        "enabled": true,
-        "mode": "examples",
-        "examples": [
-          {
-            "id": "tool-weather-current-auto",
-            "input": {},
-            "output": {
-              "success": true,
-              "data": {}
-            },
-            "description": "Auto-generated example for device.weather.current"
-          }
-        ]
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
       },
       "security": {
-        "classification": "public"
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
       }
     },
     {
-      "id": "tool-msg-recall",
-      "id_status": "permanent",
-      "name": "memory.recall",
-      "description": "Check messaging preferences.",
-      "inputs": [
-        {
-          "name": "query",
-          "type": "string",
-          "required": true,
-          "description": ""
-        },
-        {
-          "name": "type",
-          "type": "string",
-          "required": false,
-          "description": ""
-        },
-        {
-          "name": "limit",
-          "type": "number",
-          "required": false,
-          "description": ""
-        }
-      ],
-      "output": {
-        "type": "object"
-      },
+      "name": "device.weather.forecast",
+      "description": "Get weather forecast for the next N days. Returns daily highs, lows, conditions, and rain probability.",
       "source": {
         "type": "mcp_bridge",
-        "connection_id": "memory-mcp",
-        "mcp_tool": "memory.recall"
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.weather.forecast"
       },
-      "policy": {
-        "allowed": "always"
-      },
-      "mock": {
-        "enabled": true,
-        "mode": "examples",
-        "examples": [
-          {
-            "id": "tool-memory-recall-auto",
-            "input": {
-              "query": "search term"
-            },
-            "output": {
-              "success": true,
-              "data": {}
-            },
-            "description": "Auto-generated example for memory.recall"
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "days": {
+            "type": "number",
+            "description": "Number of days to forecast (default 3, max 7)"
           }
-        ]
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
       },
       "security": {
-        "classification": "public"
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
       }
     },
     {
-      "id": "tool-msg-ctx-read",
-      "id_status": "permanent",
-      "name": "context.read",
-      "description": "Read active situations.",
-      "inputs": [
-        {
-          "name": "type",
-          "type": "string",
-          "required": false,
-          "description": ""
-        },
-        {
-          "name": "limit",
-          "type": "number",
-          "required": false,
-          "description": ""
-        }
-      ],
-      "output": {
-        "type": "object"
-      },
+      "name": "device.commute.estimate",
+      "description": "Get estimated commute/travel time between two locations. Returns duration in minutes and distance. Uses Nominatim (geocoding) + OSRM (routing) — both free, no API key.",
       "source": {
         "type": "mcp_bridge",
-        "connection_id": "memory-mcp",
-        "mcp_tool": "context.read"
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.commute.estimate"
       },
-      "policy": {
-        "allowed": "always"
-      },
-      "mock": {
-        "enabled": true,
-        "mode": "examples",
-        "examples": [
-          {
-            "id": "tool-context-read-auto",
-            "input": {},
-            "output": {
-              "success": true,
-              "data": {}
-            },
-            "description": "Auto-generated example for context.read"
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string",
+            "description": "Starting location name or address"
+          },
+          "to": {
+            "type": "string",
+            "description": "Destination location name or address"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "driving",
+              "transit",
+              "walking"
+            ],
+            "description": "Travel mode (default: driving)"
           }
-        ]
+        },
+        "required": [
+          "from",
+          "to"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
       },
       "security": {
-        "classification": "public"
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
       }
     },
     {
-      "id": "tool-msg-integrations-check",
-      "id_status": "permanent",
+      "name": "device.battery",
+      "description": "Get device battery level and charging status. Response includes _freshness with last_sync_at, data_age_human, and is_stale (true if reading is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.battery"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "device.connectivity",
+      "description": "Get device network connectivity status — WiFi, cellular, or offline. Response includes _freshness (is_stale=true if data is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.connectivity"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "device.health.today",
+      "description": "Get today's health metrics from Apple Health: steps, floors climbed, active calories burned (kcal), and walking/running distance (km). Use for activity check-ins, daily progress, and pairing with nutrition data. Response includes _freshness (is_stale=true if data is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.health.today"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "device.health.history",
+      "description": "Get daily health metrics for the last N days (1-30) from Apple Health. Returns an array of per-day records with steps, floors, active calories, and distance — newest first (index 0 = today). Use for trends, weekly summaries, and feeding the nutrition tracker. Response includes _freshness (is_stale=true if data is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.health.history"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "days": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 30,
+            "description": "How many days of history (1-30, default 30). Newest-first."
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "device.message.send",
+      "description": "Send an SMS/iMessage to a contact. Queues the message for the phone to send. Always confirm with user before sending.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.message.send"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "contact_name": {
+            "type": "string",
+            "description": "Contact name to message"
+          },
+          "message": {
+            "type": "string",
+            "description": "Message text to send"
+          }
+        },
+        "required": [
+          "contact_name",
+          "message"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "device.notifications.list",
+      "description": "List device notifications. Optionally filter to unread only. Response includes _freshness (is_stale=true if data is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.notifications.list"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "unread_only": {
+            "type": "boolean",
+            "description": "If true, return only unread notifications (default false)"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "device.notifications.group",
+      "description": "Group notifications by a category: 'app', 'sender', or 'priority'. Response includes _freshness (is_stale=true if data is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.notifications.group"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "group_by": {
+            "type": "string",
+            "enum": [
+              "app",
+              "sender",
+              "priority"
+            ],
+            "description": "How to group: by app, sender, or priority"
+          }
+        },
+        "required": [
+          "group_by"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "device.notifications.dismiss",
+      "description": "Dismiss notifications by ID or by app name.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.notifications.dismiss"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "notification_id": {
+            "type": "string",
+            "description": "Dismiss a single notification by ID"
+          },
+          "app": {
+            "type": "string",
+            "description": "Dismiss all notifications from this app"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "device.dnd.get",
+      "description": "Get current Do Not Disturb status — enabled/disabled, schedule, and allowlist. Response includes _freshness (is_stale=true if data is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.dnd.get"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "device.dnd.set",
+      "description": "Update Do Not Disturb settings. Toggle on/off, change schedule, or update allowlist.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.dnd.set"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "description": "Turn DND on (true) or off (false)"
+          },
+          "schedule_start": {
+            "type": "string",
+            "description": "DND start time HH:MM"
+          },
+          "schedule_end": {
+            "type": "string",
+            "description": "DND end time HH:MM"
+          },
+          "allowlist": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Contacts who can break through DND"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "device.navigation.start",
+      "description": "Start navigation to a destination. Opens the maps app on the phone with directions.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.navigation.start"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "destination": {
+            "type": "string",
+            "description": "Destination address or place name"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "driving",
+              "transit",
+              "walking"
+            ],
+            "description": "Travel mode (default: driving)"
+          }
+        },
+        "required": [
+          "destination"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "device.app.recent",
+      "description": "Get recently used apps and screen time. Returns app names, last used time, and usage duration. Response includes _freshness (is_stale=true if data is over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.app.recent"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "number",
+            "description": "Max apps to return (default 10)"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "integrations.list",
+      "description": "List all available external integrations (email, WhatsApp, etc.) with their tool names for status check and setup. Call this BEFORE using any external channel to discover what's available and how to connect it. The orchestrator should call each integration's status_tool to check connection, and setup_tool to guide user through setup if not connected.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "integrations.list"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
       "name": "integrations.check",
-      "description": "Check if channel is connected.",
-      "inputs": [
-        {
-          "name": "channel",
-          "type": "string",
-          "required": true,
-          "description": ""
-        }
-      ],
-      "output": {
-        "type": "object"
-      },
+      "description": "Check a specific integration by channel name. Returns the integration details and which tools to call for status/setup. Use this when you already know which channel is needed.",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "mobile-device-mcp",
         "mcp_tool": "integrations.check"
       },
-      "policy": {
-        "allowed": "always"
-      },
-      "mock": {
-        "enabled": true,
-        "mode": "examples",
-        "examples": [
-          {
-            "id": "tool-integrations-check-auto",
-            "input": {
-              "channel": "example"
-            },
-            "output": {
-              "success": true,
-              "data": {}
-            },
-            "description": "Auto-generated example for integrations.check"
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "description": "Channel ID — e.g. 'email', 'whatsapp'"
           }
-        ]
+        },
+        "required": [
+          "channel"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
       },
       "security": {
-        "classification": "public"
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
       }
     },
     {
-      "id": "tool-msg-gmail-send",
-      "id_status": "permanent",
-      "name": "gmail.send",
-      "description": "Send email via Gmail.",
-      "inputs": [
-        {
-          "name": "to",
-          "type": "string",
-          "required": true,
-          "description": ""
-        },
-        {
-          "name": "subject",
-          "type": "string",
-          "required": true,
-          "description": ""
-        },
-        {
-          "name": "body",
-          "type": "string",
-          "required": true,
-          "description": ""
-        }
-      ],
-      "output": {
-        "type": "object"
-      },
+      "name": "auth.listServices",
+      "description": "Internal — returns the auth services this connector handles, for platform.auth self-registration.",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "gmail-mcp",
-        "mcp_tool": "gmail.send"
+        "mcp_tool": "auth.listServices"
       },
-      "policy": {
-        "allowed": "always"
-      },
-      "mock": {
-        "enabled": true,
-        "mode": "examples",
-        "examples": [
-          {
-            "id": "tool-gmail-send-auto",
-            "input": {
-              "to": "example",
-              "subject": "example",
-              "body": "example"
-            },
-            "output": {
-              "success": true,
-              "data": {}
-            },
-            "description": "Auto-generated example for gmail.send"
-          }
-        ]
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {}
       },
       "security": {
-        "classification": "public"
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
       }
     },
     {
-      "id": "tool-msg-gmail-reply",
-      "id_status": "permanent",
-      "name": "gmail.reply",
-      "description": "Reply to email thread.",
-      "inputs": [
-        {
-          "name": "messageId",
-          "type": "string",
-          "required": true,
-          "description": ""
-        },
-        {
-          "name": "body",
-          "type": "string",
-          "required": true,
-          "description": ""
-        }
-      ],
-      "output": {
-        "type": "object"
-      },
+      "name": "gmail.status",
+      "description": "Internal — liveness probe for platform.auth. Do not call directly; use platform.auth.status(service_id:\"gmail\", probe:true).",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "gmail-mcp",
-        "mcp_tool": "gmail.reply"
+        "mcp_tool": "gmail.status"
       },
-      "policy": {
-        "allowed": "always"
-      },
-      "mock": {
-        "enabled": true,
-        "mode": "examples",
-        "examples": [
-          {
-            "id": "tool-gmail-reply-auto",
-            "input": {
-              "messageId": "id-001",
-              "body": "example"
-            },
-            "output": {
-              "success": true,
-              "data": {}
-            },
-            "description": "Auto-generated example for gmail.reply"
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
           }
-        ]
+        }
       },
       "security": {
-        "classification": "public"
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
       }
     },
     {
-      "id": "tool-msg-gmail-fetch",
-      "id_status": "permanent",
+      "name": "gcal.status",
+      "description": "Internal — liveness probe for google-calendar. Do not call directly; use platform.auth.status(service_id:\"google-calendar\", probe:true).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "gcal.status"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
       "name": "gmail.fetch",
-      "description": "Fetch/search emails.",
-      "inputs": [
-        {
-          "name": "filter",
-          "type": "string",
-          "required": false,
-          "description": ""
-        },
-        {
-          "name": "unreadOnly",
-          "type": "boolean",
-          "required": false,
-          "description": ""
-        },
-        {
-          "name": "limit",
-          "type": "number",
-          "required": false,
-          "description": ""
-        }
-      ],
-      "output": {
-        "type": "object"
-      },
+      "description": "Fetch recent Gmail messages with optional search filter, unread-only toggle, and limit. Supports full Gmail search syntax.",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "gmail-mcp",
         "mcp_tool": "gmail.fetch"
       },
-      "policy": {
-        "allowed": "always"
-      },
-      "mock": {
-        "enabled": true,
-        "mode": "examples",
-        "examples": [
-          {
-            "id": "tool-gmail-fetch-auto",
-            "input": {},
-            "output": {
-              "results": [
-                {
-                  "id": 1,
-                  "name": "Example item"
-                }
-              ],
-              "total_count": 1
-            },
-            "description": "Auto-generated example for gmail.fetch"
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "filter": {
+            "type": "string",
+            "description": "Gmail search query (e.g., \"from:foo subject:bar newer_than:7d\")"
+          },
+          "unreadOnly": {
+            "type": "boolean",
+            "description": "If true, adds is:unread to the query"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 200,
+            "description": "Max messages to return (default 10). For bulk cleanup use gmail.cleanup instead."
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
           }
-        ]
+        }
       },
       "security": {
-        "classification": "public"
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
       }
     },
     {
-      "id": "tool-msg-gmail-read",
-      "id_status": "permanent",
       "name": "gmail.read",
-      "description": "Read full email by ID.",
-      "inputs": [
-        {
-          "name": "id",
-          "type": "string",
-          "required": true,
-          "description": ""
-        }
-      ],
-      "output": {
-        "type": "object"
-      },
+      "description": "Read the full content of a specific email by message ID. Returns full body text, headers, and metadata.",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "gmail-mcp",
         "mcp_tool": "gmail.read"
       },
-      "policy": {
-        "allowed": "always"
-      },
-      "mock": {
-        "enabled": true,
-        "mode": "examples",
-        "examples": [
-          {
-            "id": "tool-gmail-read-auto",
-            "input": {
-              "id": "id-001"
-            },
-            "output": {
-              "success": true,
-              "data": {}
-            },
-            "description": "Auto-generated example for gmail.read"
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Gmail message ID"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
           }
-        ]
+        }
       },
       "security": {
-        "classification": "public"
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
       }
     },
     {
-      "id": "tool-msg-whatsapp-status",
-      "id_status": "permanent",
-      "name": "whatsapp.status",
-      "description": "Check WhatsApp connection.",
-      "inputs": [],
-      "output": {
-        "type": "object"
+      "name": "gmail.send",
+      "description": "Send an email via Gmail. Supports threadId for replies and from/fromName for sender override.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "gmail.send"
       },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "to",
+          "subject",
+          "body"
+        ],
+        "properties": {
+          "to": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "description": "Recipient(s)"
+          },
+          "cc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "description": "CC recipient(s)"
+          },
+          "bcc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "description": "BCC recipient(s)"
+          },
+          "replyTo": {
+            "type": "string",
+            "description": "Reply-To address"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string",
+            "description": "Plain-text body"
+          },
+          "threadId": {
+            "type": "string",
+            "description": "Optional Gmail threadId to attach the sent message to a thread"
+          },
+          "from": {
+            "type": "string",
+            "description": "Override sender email (must be a configured \"Send As\" alias)"
+          },
+          "fromName": {
+            "type": "string",
+            "description": "Override sender display name"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "gmail.reply",
+      "description": "Reply to an email thread. Automatically sets In-Reply-To and References headers for proper threading.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "gmail.reply"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "messageId",
+          "body"
+        ],
+        "properties": {
+          "messageId": {
+            "type": "string",
+            "description": "Original message ID to reply to"
+          },
+          "body": {
+            "type": "string",
+            "description": "Reply body text"
+          },
+          "to": {
+            "type": "string",
+            "description": "Override recipient (defaults to original sender)"
+          },
+          "cc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "description": "CC recipients"
+          },
+          "from": {
+            "type": "string",
+            "description": "Override sender email (must be a configured alias)"
+          },
+          "fromName": {
+            "type": "string",
+            "description": "Override sender display name"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "gmail.markRead",
+      "description": "Mark one or more emails as read by removing the UNREAD label.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "gmail.markRead"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ids"
+        ],
+        "properties": {
+          "ids": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "description": "Message ID(s) to mark as read"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "gmail.trash",
+      "description": "Move one or more emails to the Trash. Messages in Trash are automatically deleted after 30 days.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "gmail.trash"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ids": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "description": "Message ID(s) to move to trash"
+          },
+          "message_ids": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "description": "Alias for ids"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "gmail.archive",
+      "description": "Archive one or more emails by removing the INBOX label. Messages remain accessible via search.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "gmail.archive"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "message_ids"
+        ],
+        "properties": {
+          "message_ids": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "description": "Message ID(s) to archive"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "gmail.move",
+      "description": "Move one or more emails from one label/folder to another. Resolves label names with fuzzy matching — typos return suggestions instead of creating junk labels. If \"from\" is omitted, moves from INBOX. Set create=true only if you want to create a new label that does not exist.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "gmail.move"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "message_ids",
+          "to"
+        ],
+        "properties": {
+          "message_ids": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "description": "Message ID(s) to move"
+          },
+          "to": {
+            "type": "string",
+            "description": "Target label/folder name or ID (e.g. \"Projects\", \"STARRED\", or a custom label name). Fuzzy-matched against existing labels."
+          },
+          "from": {
+            "type": "string",
+            "description": "Source label/folder name or ID to remove. Defaults to \"INBOX\" if omitted. Also fuzzy-matched."
+          },
+          "create": {
+            "type": "boolean",
+            "description": "If true, create the target label when it does not exist. Default false — returns suggestions for similar labels instead."
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "gmail.labels",
+      "description": "List all labels/folders in the mailbox. Returns label IDs (needed for gmail.move) and names.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "gmail.labels"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "gmail.mark_read",
+      "description": "Mark one or more emails as read.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "gmail.mark_read"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "message_ids"
+        ],
+        "properties": {
+          "message_ids": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "description": "Message ID(s) to mark as read"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "gmail.search",
+      "description": "Search Gmail messages with a query string. Supports full Gmail search syntax.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "gmail.search"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Gmail search query (e.g., \"from:foo subject:bar newer_than:7d\")"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50,
+            "description": "Max messages to return (default 10)"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "gmail.get",
+      "description": "Get the full content of a specific email by message ID.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "gmail.get"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "message_id"
+        ],
+        "properties": {
+          "message_id": {
+            "type": "string",
+            "description": "Gmail message ID"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "gmail.unread",
+      "description": "Get unread messages from Gmail.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "gmail.unread"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50,
+            "description": "Max messages to return (default 10)"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "gmail.draft",
+      "description": "Create a draft email without sending it.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "gmail.draft"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "to",
+          "subject"
+        ],
+        "properties": {
+          "to": {
+            "type": "string",
+            "description": "Recipient email"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Email subject"
+          },
+          "body": {
+            "type": "string",
+            "description": "Plain-text body"
+          },
+          "cc": {
+            "type": "string",
+            "description": "CC recipients"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "gmail.thread",
+      "description": "Get all messages in a Gmail thread by thread ID.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "gmail.thread"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "thread_id"
+        ],
+        "properties": {
+          "thread_id": {
+            "type": "string",
+            "description": "Gmail thread ID"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "send_email",
+      "description": "Send an email (alias for gmail.send).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "send_email"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "to",
+          "subject"
+        ],
+        "properties": {
+          "to": {
+            "type": "string",
+            "description": "Recipient email address(es), comma-separated"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Email subject"
+          },
+          "text": {
+            "type": "string",
+            "description": "Plain text email body"
+          },
+          "cc": {
+            "type": "string",
+            "description": "CC recipients, comma-separated"
+          },
+          "bcc": {
+            "type": "string",
+            "description": "BCC recipients, comma-separated"
+          },
+          "threadId": {
+            "type": "string",
+            "description": "Gmail threadId for threading"
+          },
+          "from": {
+            "type": "string",
+            "description": "Override sender email"
+          },
+          "fromName": {
+            "type": "string",
+            "description": "Override sender display name"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "get_unseen_messages",
+      "description": "Get unread messages (alias for gmail.fetch with unreadOnly=true)",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "get_unseen_messages"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50,
+            "description": "Max messages to return (default 10)"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "mark_as_read",
+      "description": "Mark messages as read (alias for gmail.markRead)",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "mark_as_read"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ids"
+        ],
+        "properties": {
+          "ids": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "description": "Message ID(s) to mark as read"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "list_aliases",
+      "description": "List all \"Send As\" email aliases configured in Gmail settings.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "list_aliases"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "gmail.calendar.upcoming",
+      "description": "List upcoming events from the user's primary Google Calendar (next N hours). Returns normalized events with id, title, location, start_iso, end_iso, all_day, attendees, conference_uri (for video calls), and source=\"google_calendar\". Requires calendar.readonly scope — if the user connected Gmail before this scope existed, they need to reconnect via platform.auth.ensureConnected({service_id:\"gmail\"}).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "gmail.calendar.upcoming"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "hours": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 168,
+            "description": "Look-ahead window in hours (default 36, max 168)."
+          },
+          "max_results": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 250,
+            "description": "Max events to return (default 50, max 250)."
+          },
+          "calendar_id": {
+            "type": "string",
+            "description": "Calendar ID (default \"primary\")."
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "calendar.list_events",
+      "description": "List Google Calendar events in a time window, optionally filtered by a free-text query. Prefers google-calendar service tokens; falls back to gmail token (calendar.readonly) for read access. Returns normalized events. If neither service is connected, returns connected:false — the planner should call platform.auth.ensureConnected({service_id:\"google-calendar\"}).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "calendar.list_events"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Free-text search across event title/description/attendees."
+          },
+          "time_min": {
+            "type": "string",
+            "description": "ISO datetime; lower bound (default: now)."
+          },
+          "time_max": {
+            "type": "string",
+            "description": "ISO datetime; upper bound (default: open-ended)."
+          },
+          "max_results": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 250,
+            "description": "Max events to return (default 50)."
+          },
+          "calendar_id": {
+            "type": "string",
+            "description": "Calendar ID (default \"primary\")."
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "calendar.create_event",
+      "description": "Create a new Google Calendar event. Requires google-calendar service connection (full Calendar scope). For all-day events set all_day=true and pass start/end as date strings (YYYY-MM-DD). For timed events pass ISO datetimes (e.g. \"2026-05-04T14:00:00-04:00\") and optionally a time_zone.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "calendar.create_event"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "title",
+          "start",
+          "end"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Event title (required)."
+          },
+          "description": {
+            "type": "string",
+            "description": "Long-form notes (optional)."
+          },
+          "location": {
+            "type": "string",
+            "description": "Location string (optional)."
+          },
+          "start": {
+            "type": "string",
+            "description": "ISO datetime, or YYYY-MM-DD when all_day=true."
+          },
+          "end": {
+            "type": "string",
+            "description": "ISO datetime, or YYYY-MM-DD when all_day=true."
+          },
+          "all_day": {
+            "type": "boolean",
+            "description": "If true, treat start/end as date-only."
+          },
+          "time_zone": {
+            "type": "string",
+            "description": "IANA TZ (e.g. \"America/New_York\"). Optional when start/end carry an offset."
+          },
+          "attendees": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Attendee emails."
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            ],
+            "description": "Attendee emails or {email} objects."
+          },
+          "calendar_id": {
+            "type": "string",
+            "description": "Calendar ID (default \"primary\")."
+          },
+          "send_updates": {
+            "type": "string",
+            "enum": [
+              "all",
+              "externalOnly",
+              "none"
+            ],
+            "description": "Whether to email attendees (default: none)."
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "calendar.update_event",
+      "description": "Patch an existing Google Calendar event. Only fields you pass are updated; others are left untouched. Requires google-calendar service connection.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "calendar.update_event"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "event_id"
+        ],
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "description": "Calendar event ID to update."
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "start": {
+            "type": "string",
+            "description": "ISO datetime or YYYY-MM-DD when all_day=true."
+          },
+          "end": {
+            "type": "string",
+            "description": "ISO datetime or YYYY-MM-DD when all_day=true."
+          },
+          "all_day": {
+            "type": "boolean"
+          },
+          "time_zone": {
+            "type": "string"
+          },
+          "attendees": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "calendar_id": {
+            "type": "string",
+            "description": "Calendar ID (default \"primary\")."
+          },
+          "send_updates": {
+            "type": "string",
+            "enum": [
+              "all",
+              "externalOnly",
+              "none"
+            ]
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "calendar.delete_event",
+      "description": "Delete (cancel) a Google Calendar event. Requires google-calendar service connection. Use send_updates=\"all\" to email cancellations to attendees.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "calendar.delete_event"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "event_id"
+        ],
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "description": "Calendar event ID to delete."
+          },
+          "calendar_id": {
+            "type": "string",
+            "description": "Calendar ID (default \"primary\")."
+          },
+          "send_updates": {
+            "type": "string",
+            "enum": [
+              "all",
+              "externalOnly",
+              "none"
+            ]
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "gmail.cleanup",
+      "description": "Bulk cleanup: find ALL messages matching a Gmail search query and trash or archive them in one shot. Much faster than fetch+trash loops — processes up to 500 messages per call. Use for cleaning junk mail, newsletters, old notifications, etc. Returns total count + sample subjects for confirmation. Example queries: \"from:noreply@example.com\", \"subject:newsletter older_than:30d\", \"category:promotions\".",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "gmail.cleanup"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "query"
+        ],
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Gmail search query (same syntax as gmail.fetch filter). Required — cannot be empty to prevent accidental mass deletion."
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "trash",
+              "archive"
+            ],
+            "description": "What to do with matching messages. Default: trash."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2000,
+            "description": "Max messages to process (default 500, max 2000)."
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "ui.listPlugins",
+      "description": "List available UI plugins served by this connector.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "ui.listPlugins"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "ui.getPlugin",
+      "description": "Get the manifest for a specific UI plugin by ID.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "ui.getPlugin"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Plugin ID"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "ui.gmail_setup.connect",
+      "description": "Open the Gmail Setup screen to connect the user's Gmail account via Google OAuth. USE ONLY when the user wants to connect or reconnect Gmail. DO NOT use for WhatsApp, Telegram, or any non-Gmail service.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "ui.gmail_setup.connect"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "gmail._storeTokens",
+      "description": "[Internal] Store OAuth tokens for an actor after successful OAuth callback.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "gmail._storeTokens"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tenant",
+          "actor_id",
+          "access_token",
+          "refresh_token",
+          "expires_at"
+        ],
+        "properties": {
+          "tenant": {
+            "type": "string"
+          },
+          "actor_id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "access_token": {
+            "type": "string"
+          },
+          "refresh_token": {
+            "type": "string"
+          },
+          "expires_at": {
+            "type": "integer"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "gmail._consumeState",
+      "description": "[Internal] Consume an OAuth nonce and return the associated actor_id.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "gmail._consumeState"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tenant",
+          "nonce"
+        ],
+        "properties": {
+          "tenant": {
+            "type": "string"
+          },
+          "nonce": {
+            "type": "string"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "whatsapp.status",
+      "description": "Check WhatsApp connection status. Returns whether connected, pending pairing, or disconnected.",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "whatsapp-mcp",
         "mcp_tool": "whatsapp.status"
       },
-      "policy": {
-        "allowed": "always"
-      },
-      "mock": {
-        "enabled": true,
-        "mode": "examples",
-        "examples": [
-          {
-            "id": "tool-whatsapp-status-auto",
-            "input": {},
-            "output": {
-              "success": true,
-              "data": {}
-            },
-            "description": "Auto-generated example for whatsapp.status"
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
           }
-        ]
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
       },
       "security": {
-        "classification": "public"
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
       }
     },
     {
-      "id": "tool-msg-whatsapp-send",
-      "id_status": "permanent",
-      "name": "whatsapp.send",
-      "description": "Send WhatsApp message.",
-      "inputs": [
-        {
-          "name": "to",
-          "type": "string",
-          "required": true,
-          "description": ""
-        },
-        {
-          "name": "message",
-          "type": "string",
-          "required": true,
-          "description": ""
-        }
-      ],
-      "output": {
-        "type": "object"
+      "name": "whatsapp.setup",
+      "description": "Connect to WhatsApp. Provide the user's phone number (with country code) to get a pairing code — the user enters it in WhatsApp > Linked Devices > Link with phone number. If session already exists, reconnects automatically. Falls back to QR code if no phone number provided.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "whatsapp-mcp",
+        "mcp_tool": "whatsapp.setup"
       },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "phone_number": {
+            "type": "string",
+            "description": "User's phone number with country code, digits only (e.g., '14155551234'). Required for pairing code flow (mobile). Omit for QR code flow (web)."
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "whatsapp.send",
+      "description": "Send a WhatsApp message to a contact. Provide a phone number (with country code like +1...) or a contact name (matched against recent messages). ALWAYS confirm with the user before calling this tool.",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "whatsapp-mcp",
         "mcp_tool": "whatsapp.send"
       },
-      "policy": {
-        "allowed": "always"
-      },
-      "mock": {
-        "enabled": true,
-        "mode": "examples",
-        "examples": [
-          {
-            "id": "tool-whatsapp-send-auto",
-            "input": {
-              "to": "example",
-              "message": "example"
-            },
-            "output": {
-              "success": true,
-              "data": {}
-            },
-            "description": "Auto-generated example for whatsapp.send"
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "to": {
+            "type": "string",
+            "description": "Phone number (with country code, e.g., '+14155551234') or contact name"
+          },
+          "message": {
+            "type": "string",
+            "description": "Message text to send"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
           }
-        ]
+        },
+        "required": [
+          "to",
+          "message"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
       },
       "security": {
-        "classification": "public"
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
       }
     },
     {
-      "id": "tool-msg-whatsapp-unread",
-      "id_status": "permanent",
       "name": "whatsapp.unread",
-      "description": "Get unread WhatsApp.",
-      "inputs": [
-        {
-          "name": "limit",
-          "type": "number",
-          "required": false,
-          "description": ""
-        }
-      ],
-      "output": {
-        "type": "object"
-      },
+      "description": "Get unread WhatsApp chats with their unread counts. Includes both 1:1 and group chats by default. Reads authoritative unread counts from WhatsApp's own chat state — not just the local message buffer.",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "whatsapp-mcp",
         "mcp_tool": "whatsapp.unread"
       },
-      "policy": {
-        "allowed": "always"
-      },
-      "mock": {
-        "enabled": true,
-        "mode": "examples",
-        "examples": [
-          {
-            "id": "tool-whatsapp-unread-auto",
-            "input": {},
-            "output": {
-              "success": true,
-              "data": {}
-            },
-            "description": "Auto-generated example for whatsapp.unread"
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "number",
+            "description": "Max chats to return (default 30, max 100)"
+          },
+          "include_groups": {
+            "type": "boolean",
+            "description": "Include group chats (default true)"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
           }
-        ]
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
       },
       "security": {
-        "classification": "public"
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
       }
     },
     {
-      "id": "tool-msg-integrations-list",
-      "name": "integrations.list",
-      "description": "List all channel integrations with their connection status. Returns SMS, email, WhatsApp statuses in one call — call this first to know which channels are available.",
-      "inputs": [],
-      "output": {
-        "type": "object",
-        "description": "All integrations with connected status and setup tool names"
-      },
+      "name": "whatsapp.recent",
+      "description": "Get recent WhatsApp conversations, newest first. Reads from the chat store populated by WhatsApp's chat state sync, not just messages received this session.",
       "source": {
         "type": "mcp_bridge",
-        "connection_id": "mobile-device-mcp",
-        "mcp_tool": "integrations.list"
+        "connection_id": "whatsapp-mcp",
+        "mcp_tool": "whatsapp.recent"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "number",
+            "description": "Max conversations to return (default 10, max 50)"
+          },
+          "include_groups": {
+            "type": "boolean",
+            "description": "Include group chats (default true)"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "whatsapp.search",
+      "description": "Search WhatsApp messages by contact name, phone number, or message content.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "whatsapp-mcp",
+        "mcp_tool": "whatsapp.search"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search query — matches contact name, phone, or message text"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Max results (default 20, max 50)"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "ui.whatsapp_setup.connect",
+      "description": "Open the WhatsApp-specific QR pairing screen to connect the user's WhatsApp account. USE ONLY when the user's stated goal is about WhatsApp itself. DO NOT use this tool to reconnect Gmail, email, calendar, or any non-WhatsApp service — each service has its own setup flow (e.g. gmail.setup for Gmail). If the goal is Gmail/email management and the token has expired, call gmail.setup and finalize with the returned auth_url instead of opening this tool.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "whatsapp-mcp",
+        "mcp_tool": "ui.whatsapp_setup.connect"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "phone": {
+            "type": "string",
+            "description": "Phone number with country code (optional)"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.store",
+      "description": "Store a long-term HUMAN/AGENT CONTEXT memory — facts, preferences, taught rules, user profile fields. Content must be concise, durable, and recallable. Types: preference, fact, instruction, pattern, rule, user_model; the engine assigns the CoALA kind automatically (semantic / procedural). DO NOT use for: session cookies, OAuth tokens, API keys, or any credentials (use platform.dataStore). DO NOT use for: raw tool-output dumps, large JSON blobs, or cached API responses (use platform.dataStore). The engine runs quality guards, dedup, normalize, and conflict detection; rejections include a `guidance` field telling you the correct tool/path. Returns { memory, conflicts, processing }.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.store"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "rule",
+              "pattern",
+              "instruction",
+              "fact",
+              "preference",
+              "user_model"
+            ],
+            "description": "Memory type"
+          },
+          "content": {
+            "type": "string",
+            "description": "Memory content (natural language or JSON for structured types)"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "context": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "taught",
+              "auto",
+              "system",
+              "user"
+            ],
+            "description": "Provenance (default: taught)"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.recall",
+      "description": "Recall memories by keyword query. Searches content + raw_content + tags. When embeddings come online this transparently becomes semantic.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.recall"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "query": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "rule",
+              "pattern",
+              "instruction",
+              "fact",
+              "preference",
+              "user_model"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "episodic",
+              "semantic",
+              "procedural"
+            ]
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.list",
+      "description": "List stored memories with optional type/kind filter and pagination.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.list"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "rule",
+              "pattern",
+              "instruction",
+              "fact",
+              "preference",
+              "user_model"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "episodic",
+              "semantic",
+              "procedural"
+            ]
+          },
+          "limit": {
+            "type": "number"
+          },
+          "offset": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.update",
+      "description": "Update an existing memory by ID.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.update"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "content": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "context": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.delete",
+      "description": "Delete a memory by ID.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.delete"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.rules.match",
+      "description": "Match active taught rules against a situation. Returns ranked rules. Used by Core fast_path / detectIntent to decide whether to short-circuit.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.rules.match"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "situation": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "situation"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.rules.count",
+      "description": "Count active vs inactive taught rules for the current actor.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.rules.count"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "context.store",
+      "description": "Store an ephemeral context (situation or plan). Auto-expires via Mongo TTL index.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "context.store"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "situation",
+              "plan"
+            ]
+          },
+          "data": {
+            "type": "string",
+            "description": "JSON string"
+          },
+          "ttl_minutes": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "type",
+          "data"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "context.read",
+      "description": "Read active ephemeral context — current situations and plans.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "context.read"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "situation",
+              "plan"
+            ]
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "context.resolve",
+      "description": "Mark an ephemeral context as resolved or abandoned.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "context.resolve"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "resolved",
+              "abandoned"
+            ]
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "context.clear",
+      "description": "Clear all active ephemeral context for the actor (optionally filtered by type).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "context.clear"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "situation",
+              "plan"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
       },
       "security": {
         "classification": "internal",
@@ -1515,55 +3184,24 @@
     },
     {
       "name": "memory.userProfile",
-      "description": "Get the current user's profile, preferences, and identity context. Call this FIRST on every new conversation to personalize responses.",
-      "inputs": [],
-      "output": {
-        "type": "object",
-        "description": "User profile with preferences and context"
-      },
+      "description": "Get the complete user profile in one call. Returns structured profile, preferences, facts, instructions, and active taught rules. Call at the start of every interaction.",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "memory-mcp",
         "mcp_tool": "memory.userProfile"
       },
-      "policy": {
-        "allowed": "always"
-      },
-      "id": "tool_3f88610c",
-      "security": {
-        "classification": "internal",
-        "_auto_classified": true,
-        "_rationale": "no_pattern_matched_default_applied"
-      }
-    },
-    {
-      "name": "gmail.search",
-      "description": "Search emails by sender, subject, or content. Supports Gmail search syntax.",
-      "inputs": [
-        {
-          "name": "query",
-          "type": "string",
-          "required": true
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          }
         },
-        {
-          "name": "limit",
-          "type": "number",
-          "required": false
-        }
-      ],
-      "output": {
-        "type": "object",
-        "description": "Result"
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
       },
-      "policy": {
-        "allowed": "always"
-      },
-      "source": {
-        "type": "mcp_bridge",
-        "connection_id": "gmail-mcp",
-        "mcp_tool": "gmail.search"
-      },
-      "id": "tool_cdbe7986",
       "security": {
         "classification": "internal",
         "_auto_classified": true,
@@ -1571,154 +3209,78 @@
       }
     },
     {
-      "name": "gmail.get",
-      "description": "Get full email content by message ID",
-      "inputs": [
-        {
-          "name": "message_id",
-          "type": "string",
-          "required": true
-        }
-      ],
-      "output": {
-        "type": "object",
-        "description": "Result"
-      },
-      "policy": {
-        "allowed": "always"
-      },
+      "name": "memory.userProfile.set",
+      "description": "Set a structured profile field (name, timezone, location, etc). Creates or updates a user_model memory.",
       "source": {
         "type": "mcp_bridge",
-        "connection_id": "gmail-mcp",
-        "mcp_tool": "gmail.get"
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.userProfile.set"
       },
-      "id": "tool_a6fa832e",
-      "security": {
-        "classification": "internal",
-        "_auto_classified": true,
-        "_rationale": "no_pattern_matched_default_applied"
-      }
-    },
-    {
-      "name": "gmail.trash",
-      "description": "Move emails to trash",
-      "inputs": [
-        {
-          "name": "message_ids",
-          "type": "array",
-          "required": true
-        }
-      ],
-      "output": {
+      "_auto_imported": true,
+      "inputSchema": {
         "type": "object",
-        "description": "Result"
-      },
-      "policy": {
-        "allowed": "always"
-      },
-      "source": {
-        "type": "mcp_bridge",
-        "connection_id": "gmail-mcp",
-        "mcp_tool": "gmail.trash"
-      },
-      "id": "tool_d9f835ce",
-      "security": {
-        "classification": "internal",
-        "_auto_classified": true,
-        "_rationale": "no_pattern_matched_default_applied"
-      }
-    },
-    {
-      "name": "gmail.archive",
-      "description": "Archive emails (remove from inbox)",
-      "inputs": [
-        {
-          "name": "message_ids",
-          "type": "array",
-          "required": true
-        }
-      ],
-      "output": {
-        "type": "object",
-        "description": "Result"
-      },
-      "policy": {
-        "allowed": "always"
-      },
-      "source": {
-        "type": "mcp_bridge",
-        "connection_id": "gmail-mcp",
-        "mcp_tool": "gmail.archive"
-      },
-      "id": "tool_4aae18d5",
-      "security": {
-        "classification": "internal",
-        "_auto_classified": true,
-        "_rationale": "no_pattern_matched_default_applied"
-      }
-    },
-    {
-      "name": "gmail.mark_read",
-      "description": "Mark emails as read",
-      "inputs": [
-        {
-          "name": "message_ids",
-          "type": "array",
-          "required": true
-        }
-      ],
-      "output": {
-        "type": "object",
-        "description": "Result"
-      },
-      "policy": {
-        "allowed": "always"
-      },
-      "source": {
-        "type": "mcp_bridge",
-        "connection_id": "gmail-mcp",
-        "mcp_tool": "gmail.mark_read"
-      },
-      "id": "tool_0ed07471",
-      "security": {
-        "classification": "internal",
-        "_auto_classified": true,
-        "_rationale": "no_pattern_matched_default_applied"
-      }
-    },
-    {
-      "name": "gmail.draft",
-      "description": "Save email as draft",
-      "inputs": [
-        {
-          "name": "to",
-          "type": "string",
-          "required": true
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "field": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
         },
-        {
-          "name": "subject",
-          "type": "string",
-          "required": true
+        "required": [
+          "field",
+          "value"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.semantic.search",
+      "description": "Semantic search over memories. Returns matches with similarity scores. Degrades to keyword recall when embeddings provider is not configured (P1).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.semantic.search"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "query": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "episodic",
+              "semantic",
+              "procedural"
+            ]
+          },
+          "limit": {
+            "type": "number"
+          }
         },
-        {
-          "name": "body",
-          "type": "string",
-          "required": true
-        }
-      ],
-      "output": {
-        "type": "object",
-        "description": "Result"
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
       },
-      "policy": {
-        "allowed": "always"
-      },
-      "source": {
-        "type": "mcp_bridge",
-        "connection_id": "gmail-mcp",
-        "mcp_tool": "gmail.draft"
-      },
-      "id": "tool_d06fcfb0",
       "security": {
         "classification": "internal",
         "_auto_classified": true,
@@ -1726,28 +3288,34 @@
       }
     },
     {
-      "name": "gmail.unread",
-      "description": "Get unread emails",
-      "inputs": [
-        {
-          "name": "limit",
-          "type": "number",
-          "required": false
-        }
-      ],
-      "output": {
-        "type": "object",
-        "description": "Result"
-      },
-      "policy": {
-        "allowed": "always"
-      },
+      "name": "memory.explain",
+      "description": "Explain why a memory is remembered: returns the memory + its full meta trail.",
       "source": {
         "type": "mcp_bridge",
-        "connection_id": "gmail-mcp",
-        "mcp_tool": "gmail.unread"
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.explain"
       },
-      "id": "tool_2fd0bd79",
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
       "security": {
         "classification": "internal",
         "_auto_classified": true,
@@ -1755,28 +3323,25 @@
       }
     },
     {
-      "name": "gmail.thread",
-      "description": "Get all messages in an email thread",
-      "inputs": [
-        {
-          "name": "thread_id",
-          "type": "string",
-          "required": true
-        }
-      ],
-      "output": {
-        "type": "object",
-        "description": "Result"
-      },
-      "policy": {
-        "allowed": "always"
-      },
+      "name": "memory.summarize",
+      "description": "Structured snapshot of what's known about the current actor. P1 returns counts + structured profile. LLM narrative summary will be added in P6.",
       "source": {
         "type": "mcp_bridge",
-        "connection_id": "gmail-mcp",
-        "mcp_tool": "gmail.thread"
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.summarize"
       },
-      "id": "tool_9d4ec3ee",
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
       "security": {
         "classification": "internal",
         "_auto_classified": true,
@@ -1784,18 +3349,226 @@
       }
     },
     {
-      "name": "whatsapp-mcp:*",
-      "description": "All tools from whatsapp-mcp connector including UI setup.",
-      "inputs": [],
-      "output": {
-        "type": "object"
-      },
+      "name": "memory.compact",
+      "description": "Run a compaction sweep — decay stale auto-learned memories and surface duplicate clusters. Does not auto-merge in P1; returns candidates for review.",
       "source": {
         "type": "mcp_bridge",
-        "connection_id": "whatsapp-mcp",
-        "mcp_tool": "*"
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.compact"
       },
-      "id": "tool_11d2aec7",
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.confidence",
+      "description": "Read or set the confidence score on a memory.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.confidence"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Omit to read, provide to set"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.supersede",
+      "description": "Mark old memory as superseded by new memory. Old becomes inactive, link recorded.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.supersede"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "old_id": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "new_id": {
+            "$ref": "#/properties/old_id"
+          }
+        },
+        "required": [
+          "old_id",
+          "new_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.audit",
+      "description": "Read meta trail for a single memory or recent events for the actor.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.audit"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "id": {
+            "type": [
+              "string",
+              "number"
+            ],
+            "description": "Memory ID — if omitted, returns recent actor events"
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.embed",
+      "description": "Generate an embedding vector for arbitrary text. Returns null when no embedding provider is configured (P1 default).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.embed"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "memory.extract",
+      "description": "Run end-of-job auto-extraction over a transcript. Cheap regex pass always runs; smart LLM pass runs if smart=true and Core LLM is reachable. Writes extracted memories with source='auto' and lower confidence.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "memory-mcp",
+        "mcp_tool": "memory.extract"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "transcript": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "role": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "role",
+                "content"
+              ],
+              "additionalProperties": false
+            },
+            "description": "Conversation turns"
+          },
+          "smart": {
+            "type": "boolean",
+            "description": "Also run LLM pass (default false in P1)"
+          }
+        },
+        "required": [
+          "transcript"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
       "security": {
         "classification": "internal",
         "_auto_classified": true,
@@ -1814,268 +3587,10 @@
   "policy": {
     "guardrails": {
       "never": [],
-      "always": [
-        "MOBILE CHAT — keep responses SHORT. 1-2 sentences max.",
-        "Casual tone, like texting a friend. Use natural everyday phrasing.",
-        "No bullet lists, no headers, no markdown unless absolutely needed.",
-        "No preamble, no filler."
-      ]
+      "always": []
     },
     "approvals": [],
-    "workflows": [
-      {
-        "id": "search_contact_flow",
-        "name": "Search contacts.",
-        "description": "Auto-generated workflow for search_contact",
-        "trigger": "search_contact",
-        "steps": [
-          "device.contacts.search"
-        ],
-        "required": false,
-        "on_deviation": "warn",
-        "steps_resolved": [
-          true
-        ]
-      },
-      {
-        "id": "get_contact_flow",
-        "name": "Get contact details.",
-        "description": "Auto-generated workflow for get_contact",
-        "trigger": "get_contact",
-        "steps": [
-          "device.contacts.get"
-        ],
-        "required": false,
-        "on_deviation": "warn",
-        "steps_resolved": [
-          true
-        ]
-      },
-      {
-        "id": "send_message_flow",
-        "name": "Send SMS/iMessage.",
-        "description": "Auto-generated workflow for send_message",
-        "trigger": "send_message",
-        "steps": [
-          "device.message.send"
-        ],
-        "required": false,
-        "on_deviation": "warn",
-        "steps_resolved": [
-          true
-        ]
-      },
-      {
-        "id": "today_calendar_flow",
-        "name": "Get today's events for context.",
-        "description": "Auto-generated workflow for today_calendar",
-        "trigger": "today_calendar",
-        "steps": [
-          "device.calendar.today"
-        ],
-        "required": false,
-        "on_deviation": "warn",
-        "steps_resolved": [
-          true
-        ]
-      },
-      {
-        "id": "current_location_flow",
-        "name": "Get current location.",
-        "description": "Auto-generated workflow for current_location",
-        "trigger": "current_location",
-        "steps": [
-          "device.location.current"
-        ],
-        "required": false,
-        "on_deviation": "warn",
-        "steps_resolved": [
-          true
-        ]
-      },
-      {
-        "id": "current_weather_flow",
-        "name": "Get current weather.",
-        "description": "Auto-generated workflow for current_weather",
-        "trigger": "current_weather",
-        "steps": [
-          "device.weather.current"
-        ],
-        "required": false,
-        "on_deviation": "warn",
-        "steps_resolved": [
-          true
-        ]
-      },
-      {
-        "id": "recall_flow",
-        "name": "Check messaging preferences.",
-        "description": "Auto-generated workflow for recall",
-        "trigger": "recall",
-        "steps": [
-          "memory.recall"
-        ],
-        "required": false,
-        "on_deviation": "warn",
-        "steps_resolved": [
-          true
-        ]
-      },
-      {
-        "id": "read_flow",
-        "name": "Read active situations.",
-        "description": "Auto-generated workflow for read",
-        "trigger": "read",
-        "steps": [
-          "context.read"
-        ],
-        "required": false,
-        "on_deviation": "warn",
-        "steps_resolved": [
-          true
-        ]
-      },
-      {
-        "id": "check_flow",
-        "name": "Check if channel is connected.",
-        "description": "Auto-generated workflow for check",
-        "trigger": "check",
-        "steps": [
-          "integrations.check"
-        ],
-        "required": false,
-        "on_deviation": "warn",
-        "steps_resolved": [
-          true
-        ]
-      },
-      {
-        "id": "status_flow",
-        "name": "Check Gmail connection.",
-        "description": "Auto-generated workflow for status",
-        "trigger": "status",
-        "steps": [
-          "gmail.status"
-        ],
-        "required": false,
-        "on_deviation": "warn",
-        "steps_resolved": [
-          false
-        ]
-      },
-      {
-        "id": "setup_flow",
-        "name": "Get Gmail sign-in link.",
-        "description": "Auto-generated workflow for setup",
-        "trigger": "setup",
-        "steps": [
-          "gmail.setup"
-        ],
-        "required": false,
-        "on_deviation": "warn",
-        "steps_resolved": [
-          false
-        ]
-      },
-      {
-        "id": "send_flow",
-        "name": "Send email via Gmail.",
-        "description": "Auto-generated workflow for send",
-        "trigger": "send",
-        "steps": [
-          "gmail.send"
-        ],
-        "required": false,
-        "on_deviation": "warn",
-        "steps_resolved": [
-          true
-        ]
-      },
-      {
-        "id": "reply_flow",
-        "name": "Reply to email thread.",
-        "description": "Auto-generated workflow for reply",
-        "trigger": "reply",
-        "steps": [
-          "gmail.reply"
-        ],
-        "required": false,
-        "on_deviation": "warn",
-        "steps_resolved": [
-          true
-        ]
-      },
-      {
-        "id": "fetch_flow",
-        "name": "Fetch/search emails.",
-        "description": "Auto-generated workflow for fetch",
-        "trigger": "fetch",
-        "steps": [
-          "gmail.fetch"
-        ],
-        "required": false,
-        "on_deviation": "warn",
-        "steps_resolved": [
-          true
-        ]
-      },
-      {
-        "id": "read_flow",
-        "name": "Read full email by ID.",
-        "description": "Auto-generated workflow for read",
-        "trigger": "read",
-        "steps": [
-          "context.read"
-        ],
-        "required": false,
-        "on_deviation": "warn",
-        "steps_resolved": [
-          true
-        ]
-      },
-      {
-        "id": "status_flow",
-        "name": "Check WhatsApp connection.",
-        "description": "Auto-generated workflow for status",
-        "trigger": "status",
-        "steps": [
-          "gmail.status"
-        ],
-        "required": false,
-        "on_deviation": "warn",
-        "steps_resolved": [
-          false
-        ]
-      },
-      {
-        "id": "send_flow",
-        "name": "Send WhatsApp message.",
-        "description": "Auto-generated workflow for send",
-        "trigger": "send",
-        "steps": [
-          "gmail.send"
-        ],
-        "required": false,
-        "on_deviation": "warn",
-        "steps_resolved": [
-          true
-        ]
-      },
-      {
-        "id": "unread_flow",
-        "name": "Get unread WhatsApp.",
-        "description": "Auto-generated workflow for unread",
-        "trigger": "unread",
-        "steps": [
-          "whatsapp.unread"
-        ],
-        "required": false,
-        "on_deviation": "warn",
-        "steps_resolved": [
-          true
-        ]
-      }
-    ],
+    "workflows": [],
     "escalation": {
       "enabled": false,
       "conditions": [],
@@ -2084,122 +3599,77 @@
   },
   "channels": [],
   "conversation": [],
-  "id": "messaging-agent",
   "name": "Messaging Agent",
-  "ui_capable": false,
-  "grant_mappings": [],
-  "access_policy": {
-    "rules": [
-      {
-        "tools": [
-          "*"
-        ],
-        "requires_grants": [
-          "pa.verified_user"
-        ],
-        "effect": "allow"
-      }
-    ]
-  },
-  "response_filters": [],
-  "updated_at": "2026-05-14T10:50:00.186Z",
-  "created_at": "2026-03-22T08:05:29.947Z",
+  "solution_id": "ada",
   "bootstrap_tools": [
     "memory.userProfile",
     "ui.whatsapp_setup.connect"
   ],
-  "persona_append": "EMAIL MANAGEMENT: You also handle email inbox management. When user asks to search, delete, trash, archive, read, or clean up emails, use Gmail tools directly. Flow: 1) gmail.search to find emails 2) Show results 3) Confirm before destructive actions 4) Execute gmail.trash or gmail.archive or gmail.mark_read 5) Report. NEVER check WhatsApp status for email requests. If user mentions emails, use Gmail tools not WhatsApp.",
-  "_force_redeploy": true,
+  "id": "messaging-agent",
+  "created_at": "2026-05-14T12:27:25.321Z",
+  "updated_at": "2026-05-14T12:27:25.541Z",
   "validation": {
-    "valid": false,
+    "valid": true,
     "ready_to_export": false,
-    "errors": [
+    "errors": [],
+    "warnings": [
       {
-        "code": "INVALID_VERBOSITY",
-        "severity": "error",
-        "path": "role.communication_style.verbosity",
-        "message": "Invalid verbosity: brief. Must be one of: concise, balanced, detailed"
+        "code": "INTENT_NO_TOOLS",
+        "severity": "warning",
+        "path": "intents.supported[0]",
+        "message": "Intent \"daily_overview\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"daily_overview\", or ensure tool names relate to this intent"
       },
       {
-        "code": "UNKNOWN_BOOTSTRAP_TOOL",
-        "severity": "error",
-        "path": "bootstrap_tools[1]",
-        "message": "bootstrap_tools entry \"ui.whatsapp_setup.connect\" does not match any defined tool name — bootstrap tools MUST reference existing tools",
-        "suggestion": "Available tool names: device.contacts.search, device.contacts.get, device.message.send, device.calendar.today, device.location.current..."
+        "code": "INTENT_NO_TOOLS",
+        "severity": "warning",
+        "path": "intents.supported[1]",
+        "message": "Intent \"schedule_management\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"schedule_management\", or ensure tool names relate to this intent"
       },
       {
-        "code": "DUPLICATE_WORKFLOW_ID",
-        "severity": "error",
-        "path": "policy.workflows[14].id",
-        "message": "Duplicate workflow ID: \"read_flow\"",
-        "suggestion": "Each workflow must have a unique ID"
+        "code": "INTENT_NO_TOOLS",
+        "severity": "warning",
+        "path": "intents.supported[2]",
+        "message": "Intent \"communication_tasks\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"communication_tasks\", or ensure tool names relate to this intent"
       },
       {
-        "code": "DUPLICATE_WORKFLOW_ID",
-        "severity": "error",
-        "path": "policy.workflows[15].id",
-        "message": "Duplicate workflow ID: \"status_flow\"",
-        "suggestion": "Each workflow must have a unique ID"
+        "code": "INTENT_NO_TOOLS",
+        "severity": "warning",
+        "path": "intents.supported[3]",
+        "message": "Intent \"travel_and_location\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"travel_and_location\", or ensure tool names relate to this intent"
       },
       {
-        "code": "DUPLICATE_WORKFLOW_ID",
-        "severity": "error",
-        "path": "policy.workflows[16].id",
-        "message": "Duplicate workflow ID: \"send_flow\"",
-        "suggestion": "Each workflow must have a unique ID"
+        "code": "INTENT_NO_TOOLS",
+        "severity": "warning",
+        "path": "intents.supported[4]",
+        "message": "Intent \"web_research\" has no mapped workflow and no obviously related tools",
+        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"web_research\", or ensure tool names relate to this intent"
       }
     ],
-    "warnings": [],
     "unresolved": {
-      "tools": [
-        "gmail.status",
-        "gmail.setup"
-      ],
+      "tools": [],
       "workflows": [],
       "intents": []
     },
     "completeness": {
-      "problem": true,
-      "scenarios": true,
+      "problem": false,
+      "scenarios": false,
       "role": true,
       "intents": true,
       "tools": false,
-      "policy": true,
+      "policy": false,
       "engine": true,
-      "mocks_tested": true,
+      "mocks_tested": false,
       "identity": false,
       "security": true
     }
   },
-  "solution_id": "ada",
-  "lastExportedAt": "2026-05-14T10:49:59.943Z",
+  "lastExportedAt": "2026-05-14T12:27:25.406Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-14T10:50:00.184Z",
+  "deployedAt": "2026-05-14T12:27:25.539Z",
   "deployedTo": "http://adas-backend:4000",
-  "mcpUri": "stdio://localhost/messaging-agent",
-  "identity": {
-    "display_name": "Messaging Agent",
-    "email": {
-      "from_name": "Personal Assistant"
-    },
-    "slack": {
-      "bot_name": "messaging-agent"
-    }
-  },
-  "home_cards": [
-    {
-      "id": "summarize-inbox",
-      "icon": "📥",
-      "title": "Summarize my inbox",
-      "subtitle": "What's worth my attention",
-      "prompt": "Summarize my inbox — what needs my attention today?"
-    },
-    {
-      "id": "draft-reply",
-      "icon": "💬",
-      "title": "Draft a reply",
-      "subtitle": "I'll handle the words",
-      "prompt": "Help me draft a reply to my latest message."
-    }
-  ]
+  "mcpUri": "stdio://localhost/messaging-agent"
 }
