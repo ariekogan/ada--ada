@@ -6,20 +6,22 @@
 <title>MyCoach</title>
 <style>
   :root {
-    --bg: #0a0a0a;
-    --surface: #161616;
-    --surface-2: #1f1f1f;
-    --border: #2a2a2a;
-    --text: #f0f0f0;
-    --muted: #8a8a8a;
-    --accent: #7c9eff;
+    /* Light/cream theme to match the Ada consumer app. */
+    --bg: #faf6ef;
+    --surface: #ffffff;
+    --surface-2: #f3ede0;
+    --border: #e8e0d2;
+    --track: #e8e0d2;
+    --text: #1a1a1a;
+    --muted: #7a7166;
+    --accent: #e0712b;
     --success: #5fd576;
-    --warn: #ffb84d;
+    --warn: #d99a2b;
     --danger: #ff6b6b;
-    --phase-onboarding: #7c9eff;
+    --phase-onboarding: #e0712b;
     --phase-observing: #b48ce6;
     --phase-calibrating: #5fd576;
-    --phase-accompanying: #ffb84d;
+    --phase-accompanying: #e0712b;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   body {
@@ -34,12 +36,12 @@
     display: inline-flex; align-items: center; gap: 6px;
     padding: 4px 10px; border-radius: 999px; font-size: 11px;
     font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
-    background: rgba(124,158,255,0.15); color: var(--phase-onboarding);
-    border: 1px solid rgba(124,158,255,0.3);
+    background: rgba(224,113,43,0.12); color: var(--phase-onboarding);
+    border: 1px solid rgba(224,113,43,0.25);
   }
-  .phase-badge.observing { background: rgba(180,140,230,0.15); color: var(--phase-observing); border-color: rgba(180,140,230,0.3); }
-  .phase-badge.calibrating { background: rgba(95,213,118,0.15); color: var(--phase-calibrating); border-color: rgba(95,213,118,0.3); }
-  .phase-badge.accompanying { background: rgba(255,184,77,0.15); color: var(--phase-accompanying); border-color: rgba(255,184,77,0.3); }
+  .phase-badge.observing { background: rgba(180,140,230,0.12); color: var(--phase-observing); border-color: rgba(180,140,230,0.3); }
+  .phase-badge.calibrating { background: rgba(95,213,118,0.15); color: #2f9c46; border-color: rgba(95,213,118,0.3); }
+  .phase-badge.accompanying { background: rgba(224,113,43,0.12); color: var(--phase-accompanying); border-color: rgba(224,113,43,0.3); }
   .phase-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: pulse 2s ease-in-out infinite; }
   @keyframes pulse { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
   .meta { font-size: 12px; color: var(--muted); }
@@ -49,14 +51,17 @@
   .rings { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 10px; }
   .ring-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 10px; text-align: center; }
   .ring-svg { width: 64px; height: 64px; margin: 0 auto 6px; display: block; }
+  .ring-svg circle:first-of-type { stroke: var(--track); }
   .ring-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
   .ring-value { font-size: 18px; font-weight: 600; margin-top: 2px; }
+  .ring-value.empty { font-size: 12px; font-style: italic; color: var(--muted); font-weight: 500; }
   .ring-target { font-size: 10px; color: var(--muted); margin-top: 1px; }
+  .ring-hint { font-size: 9px; color: var(--muted); margin-top: 2px; line-height: 1.25; }
   .gap-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }
   .gap-row:last-child { border-bottom: none; }
   .gap-metric { font-weight: 500; text-transform: capitalize; }
   .gap-delta { color: var(--warn); font-weight: 500; font-size: 13px; }
-  .gap-empty { color: var(--success); text-align: center; padding: 16px; font-size: 13px; }
+  .gap-empty { color: #2f9c46; text-align: center; padding: 16px; font-size: 13px; }
   .checkin-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; }
   .checkin-date { color: var(--muted); font-size: 12px; }
   .checkin-rating { font-weight: 600; }
@@ -99,22 +104,23 @@
   <h2>Today</h2>
   <div class="rings">
     <div class="ring-card">
-      <svg class="ring-svg" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.9" fill="none" stroke="#2a2a2a" stroke-width="3"/><circle id="caloriesRing" cx="18" cy="18" r="15.9" fill="none" stroke="var(--accent)" stroke-width="3" stroke-dasharray="0,100" stroke-linecap="round" transform="rotate(-90 18 18)"/></svg>
+      <svg class="ring-svg" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.9" fill="none" stroke-width="3"/><circle id="caloriesRing" cx="18" cy="18" r="15.9" fill="none" stroke="var(--accent)" stroke-width="3" stroke-dasharray="0,100" stroke-linecap="round" transform="rotate(-90 18 18)"/></svg>
       <div class="ring-label">Calories</div>
       <div class="ring-value" id="caloriesValue">—</div>
       <div class="ring-target" id="caloriesTarget"></div>
     </div>
     <div class="ring-card">
-      <svg class="ring-svg" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.9" fill="none" stroke="#2a2a2a" stroke-width="3"/><circle id="proteinRing" cx="18" cy="18" r="15.9" fill="none" stroke="var(--success)" stroke-width="3" stroke-dasharray="0,100" stroke-linecap="round" transform="rotate(-90 18 18)"/></svg>
+      <svg class="ring-svg" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.9" fill="none" stroke-width="3"/><circle id="proteinRing" cx="18" cy="18" r="15.9" fill="none" stroke="var(--success)" stroke-width="3" stroke-dasharray="0,100" stroke-linecap="round" transform="rotate(-90 18 18)"/></svg>
       <div class="ring-label">Protein</div>
       <div class="ring-value" id="proteinValue">—</div>
       <div class="ring-target" id="proteinTarget"></div>
     </div>
     <div class="ring-card">
-      <svg class="ring-svg" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.9" fill="none" stroke="#2a2a2a" stroke-width="3"/><circle id="stepsRing" cx="18" cy="18" r="15.9" fill="none" stroke="var(--warn)" stroke-width="3" stroke-dasharray="0,100" stroke-linecap="round" transform="rotate(-90 18 18)"/></svg>
+      <svg class="ring-svg" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.9" fill="none" stroke-width="3"/><circle id="stepsRing" cx="18" cy="18" r="15.9" fill="none" stroke="var(--warn)" stroke-width="3" stroke-dasharray="0,100" stroke-linecap="round" transform="rotate(-90 18 18)"/></svg>
       <div class="ring-label">Steps</div>
       <div class="ring-value" id="stepsValue">—</div>
       <div class="ring-target" id="stepsTarget"></div>
+      <div class="ring-hint" id="stepsHint" style="display:none"></div>
     </div>
   </div>
 
@@ -183,13 +189,28 @@
       document.getElementById('proteinTarget').textContent = goals.protein ? `/ ${fmt(goals.protein)}g` : '';
       setRing('proteinRing', t.protein, goals.protein);
     }
-    if (snap?.activity) {
-      const a = snap.activity;
+
+    // Steps — honest fallback when no activity data is available.
+    const stepsValueEl = document.getElementById('stepsValue');
+    const stepsTargetEl = document.getElementById('stepsTarget');
+    const stepsHintEl = document.getElementById('stepsHint');
+    const hasSteps = snap?.activity && typeof snap.activity.steps === 'number';
+    if (hasSteps) {
       const stepGoal = 8000;
-      document.getElementById('stepsValue').textContent = fmt(a.steps);
-      document.getElementById('stepsTarget').textContent = `/ ${fmt(stepGoal)}`;
-      setRing('stepsRing', a.steps, stepGoal);
+      stepsValueEl.textContent = fmt(snap.activity.steps);
+      stepsValueEl.classList.remove('empty');
+      stepsTargetEl.textContent = `/ ${fmt(stepGoal)}`;
+      stepsHintEl.style.display = 'none';
+      setRing('stepsRing', snap.activity.steps, stepGoal);
+    } else {
+      stepsValueEl.textContent = 'Connect Health';
+      stepsValueEl.classList.add('empty');
+      stepsTargetEl.textContent = '';
+      stepsHintEl.textContent = 'Settings → Privacy → Health';
+      stepsHintEl.style.display = 'block';
+      setRing('stepsRing', 0, 1);
     }
+
     if (typeof snap?.adherence_score === 'number') {
       document.getElementById('adherenceCard').style.display = 'block';
       document.getElementById('adherenceValue').textContent = snap.adherence_score;
