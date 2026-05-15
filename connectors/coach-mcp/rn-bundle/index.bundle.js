@@ -1,3 +1,4 @@
+// src-hash:c5ac8ab641051f4ef0e0dcac28e64516
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
@@ -72,7 +73,7 @@ __export(index_exports, {
 module.exports = __toCommonJS(index_exports);
 
 // rn-src/coach-dashboard.tsx
-var import_react = __toESM(require("react"), 1);
+var import_react = __toESM(require("react"));
 var import_react_native = require("react-native");
 var import_plugin_sdk = require("@adas/plugin-sdk");
 var COACH = "coach-mcp";
@@ -209,7 +210,7 @@ function makeStyles(C) {
 }
 
 // rn-src/coach-onboarding.tsx
-var import_react2 = __toESM(require("react"), 1);
+var import_react2 = __toESM(require("react"));
 var import_react_native2 = require("react-native");
 var import_plugin_sdk2 = require("@adas/plugin-sdk");
 var HOST_CHAT_BAR_PX = 140;
