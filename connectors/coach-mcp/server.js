@@ -31,13 +31,13 @@ const PLUGINS = [
   {
     id: 'coach-dashboard',
     name: 'MyCoach',
-    version: '1.0.1',
+    version: '1.0.0',
     description: 'Phase, goal, today\'s snapshot (calories/protein/steps rings), gaps, recent check-ins, pending observations',
   },
   {
     id: 'coach-onboarding',
     name: 'Coach Onboarding',
-    version: '1.0.1',
+    version: '1.0.0',
     description: 'Guided 5-question wizard to onboard a new user into MyCoach',
   },
 ];
@@ -264,6 +264,8 @@ function toolSchemas() {
     { name: 'coach.experiment.respond', description: 'Record whether user accepted (picked=true) or declined an experiment.', inputSchema: { type: 'object', properties: { experiment_id: { type: 'string' }, picked: { type: 'boolean' }, ...actor }, required: ['experiment_id', 'picked'] } },
     { name: 'coach.experiment.close', description: 'Close out an experiment at end-of-week with outcome notes.', inputSchema: { type: 'object', properties: { experiment_id: { type: 'string' }, outcome: { type: 'string' }, ...actor }, required: ['experiment_id'] } },
     { name: 'coach.experiment.list', description: 'List recent experiments (optionally filter by week_key).', inputSchema: { type: 'object', properties: { week_key: { type: 'string' }, ...actor } } },
+    { name: 'coach.experiment.activeForWeek', description: 'Returns the most recent non-closed experiment for a given ISO week (defaults to current). Use by the weekly proposer to avoid double-proposing.', inputSchema: { type: 'object', properties: { week_key: { type: 'string' }, ...actor } } },
+    { name: 'coach.experiment.currentWeekKey', description: 'Returns the ISO week_key for now (e.g. 2026-W20). Pure helper — no actor state.', inputSchema: { type: 'object', properties: {} } },
 
     // ── Pattern miner ──
     { name: 'coach.miner.run', description: "Run the pattern miner against the actor's data. Heuristics: low morning mood, frequent tired/stress words, irregular meal logging, protein gap, step gap, nudge-dismissal pattern. Each candidate gets a confidence score and is upserted (deduped by pattern_key). Designed to run silently from a daily cron — emits observations to coach.observations table that the PM-reflection trigger can later surface. Pass in pre-fetched nutrition.getMeals (last 14d, flat array), nutrition daily summaries (last 7d), and device.health.history. Returns { candidates_evaluated, created, skipped_duplicate }.", inputSchema: { type: 'object', properties: { nutrition_meals: { type: 'array', description: 'Flat array of meal records from nutrition.getMeals (last 14 days)' }, nutrition_daily: { type: 'array', description: 'Array of daily summaries (last 7 days), each with totals + goals' }, activity_history: { type: 'array', description: 'Array of daily health metrics from device.health.history (last 7-14 days)' }, ...actor } } },
@@ -304,8 +306,10 @@ async function handle(req) {
         return ok(id, toText({ ok: true, state, message: state.days_since_join === 0 ? 'Welcome! Onboarding started.' : 'State exists already.' }));
       }
       if (name === 'coach.state.captureOnboardingAnswer') {
-        const cur = s.getState(actorId);
-        if (!cur) return ok(id, toText({ ok: false, error: 'No state — call coach.state.initOnboarding first.' }));
+        // Auto-init state if not present — make the API idempotent so the
+        // LLM doesn't have to remember to call initOnboarding first.
+        let cur = s.getState(actorId);
+        if (!cur) cur = s.initState(actorId);
         const answers = { ...cur.onboarding_answers, [args.key]: args.value };
         const state = s.updateState(actorId, { onboarding_answers: answers });
         return ok(id, toText({ ok: true, state, captured: { key: args.key, value: args.value }, answers_count: Object.keys(answers).length }));
@@ -333,12 +337,14 @@ async function handle(req) {
       if (name === 'coach.goals.current') return ok(id, toText({ ok: true, goal: s.currentGoal(actorId) }));
       if (name === 'coach.goals.list') return ok(id, toText({ ok: true, goals: s.listGoals(actorId) }));
       if (name === 'coach.goals.add') {
+        if (!s.getState(actorId)) s.initState(actorId);
         const goal = s.addGoal(actorId, args);
         return ok(id, toText({ ok: true, goal, message: `Goal v${goal.version} set.` }));
       }
 
       // ── Check-ins ──
       if (name === 'coach.checkin.log') {
+        if (!s.getState(actorId)) s.initState(actorId);
         const c = s.logCheckin(actorId, args);
         return ok(id, toText({ ok: true, checkin: c }));
       }
@@ -391,6 +397,14 @@ async function handle(req) {
       if (name === 'coach.experiment.respond') return ok(id, toText({ ok: true, experiment: s.respondToExperiment(actorId, args.experiment_id, args.picked) }));
       if (name === 'coach.experiment.close') return ok(id, toText({ ok: true, experiment: s.closeExperiment(actorId, args.experiment_id, args.outcome) }));
       if (name === 'coach.experiment.list') return ok(id, toText({ ok: true, experiments: s.listExperiments(actorId, { week_key: args.week_key }) }));
+      if (name === 'coach.experiment.activeForWeek') {
+        const wk = args.week_key || weekKey();
+        const exp = s.getActiveExperimentForWeek(actorId, wk);
+        return ok(id, toText({ ok: true, week_key: wk, experiment: exp, hasActive: !!exp }));
+      }
+      if (name === 'coach.experiment.currentWeekKey') {
+        return ok(id, toText({ ok: true, week_key: weekKey() }));
+      }
 
       // ── Pattern miner ──
       if (name === 'coach.miner.run') {

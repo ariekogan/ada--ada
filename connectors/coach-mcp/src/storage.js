@@ -373,3 +373,19 @@ export function listExperiments(actor_id, { week_key } = {}) {
   if (week_key) return db.prepare(`SELECT * FROM experiments WHERE week_key = ? ORDER BY created_at DESC`).all(week_key);
   return db.prepare(`SELECT * FROM experiments ORDER BY created_at DESC LIMIT 50`).all();
 }
+
+/**
+ * Returns the most recent NON-closed experiment for `week_key`, or null.
+ * Used by the weekly proposer to avoid double-proposing in the same week:
+ * if an experiment is already proposed/accepted/declined for this week, the
+ * proposer exits silently.
+ */
+export function getActiveExperimentForWeek(actor_id, week_key) {
+  const db = getDb(actor_id);
+  return db.prepare(`
+    SELECT * FROM experiments
+    WHERE week_key = ? AND status != 'closed'
+    ORDER BY created_at DESC
+    LIMIT 1
+  `).get(week_key) || null;
+}
