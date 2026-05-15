@@ -19,38 +19,40 @@ Situation-aware personal assistant with proactive intelligence.
 
 ## 2. Skills
 
-- **notification-triage** _(worker)_ — 
-- **my-docs** _(worker)_ — 
-- **messaging-agent** _(worker)_ — 
-- **travel-agent** _(worker)_ — 
 - **mycoach** _(worker)_ — 
+- **messaging-agent** _(worker)_ — 
 - **memory-keeper** _(worker)_ — 
-- **teach-this** _(worker)_ — 
+- **travel-agent** _(worker)_ — 
+- **my-docs** _(worker)_ — 
 - **life-manager** _(worker)_ — 
 - **home-control** _(worker)_ — 
 - **daily-intel** _(worker)_ — 
+- **notification-triage** _(worker)_ — 
+- **teach-this** _(worker)_ — 
 - **auto-orchestrator** _(worker)_ — 
 
 ---
 
 ## 3. Connectors
 
-**Platform connectors** (shared infrastructure, not in this repo):
+**Solution connectors** (live in this repo under `connectors/`):
   - `personal-assistant-ui-mcp`
+  - `home-assistant-mcp`
+  - `hue-mcp`
+  - `tuya-mcp`
+  - `google-home-mcp`
+  - `nutrition-mcp`
+  - `coach-mcp`
+
+**Platform connectors** (shared infrastructure, not in this repo):
   - `memory-mcp`
   - `whatsapp-mcp`
   - `handoff-controller-mcp`
   - `mobile-device-mcp`
   - `gmail-mcp`
-  - `home-assistant-mcp`
-  - `hue-mcp`
-  - `tuya-mcp`
-  - `google-home-mcp`
   - `browser-mcp`
   - `docs-index-mcp`
   - `cloud-docs`
-  - `nutrition-mcp`
-  - `coach-mcp`
   - `travel-mcp`
 
 
@@ -80,16 +82,16 @@ Situation-aware personal assistant with proactive intelligence.
 ```
 solution.json                    # full solution definition
 skills/
-  notification-triage/skill.json
-  my-docs/skill.json
-  messaging-agent/skill.json
-  travel-agent/skill.json
   mycoach/skill.json
+  messaging-agent/skill.json
   memory-keeper/skill.json
-  teach-this/skill.json
+  travel-agent/skill.json
+  my-docs/skill.json
   life-manager/skill.json
   home-control/skill.json
   daily-intel/skill.json
+  notification-triage/skill.json
+  teach-this/skill.json
   auto-orchestrator/skill.json
 connectors/                      # solution connectors (stdio MCPs)
   _(no solution connectors)_
