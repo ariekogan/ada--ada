@@ -254,13 +254,12 @@ var CoachOnboarding = function CoachOnboarding2({ bridge, native, theme }) {
     /* @__PURE__ */ import_react.default.createElement(import_react_native.TouchableOpacity, { onPress: skip, style: { alignSelf: "center", marginTop: 12 } }, /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: [S.muted, { fontSize: 13 }] }, "Skip this"))
   );
 };
-var coach_onboarding_default = {
-  id: "coach-onboarding",
+var coach_onboarding_default = import_plugin_sdk.PluginSDK.register("coach-onboarding", {
   type: "ui",
   version: "1.0.2",
   capabilities: { haptics: true },
   Component: CoachOnboarding
-};
+});
 function makeStyles(C) {
   return import_react_native.StyleSheet.create({
     scroll: { flex: 1, backgroundColor: C.bg },

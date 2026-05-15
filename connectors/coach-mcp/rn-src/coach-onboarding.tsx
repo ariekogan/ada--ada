@@ -5,7 +5,7 @@
  */
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, ActivityIndicator, StyleSheet, Platform, Keyboard } from 'react-native';
-import { useApi } from '@adas/plugin-sdk';
+import { PluginSDK, useApi } from '@adas/plugin-sdk';
 import type { PluginProps } from '@adas/plugin-sdk';
 
 // Host app's chat bar height (the "Ask Ada anything…" input) + safe area.
@@ -261,13 +261,12 @@ const CoachOnboarding = function CoachOnboarding({ bridge, native, theme }: Plug
     );
 };
 
-export default {
-  id: 'coach-onboarding',
+export default PluginSDK.register('coach-onboarding', {
   type: 'ui',
   version: '1.0.2',
   capabilities: { haptics: true },
   Component: CoachOnboarding,
-};
+});
 
 function makeStyles(C: any) {
   return StyleSheet.create({

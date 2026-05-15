@@ -1,4 +1,3 @@
-// src-hash:de6cd185156e50bfef8608ae57c40695
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
@@ -73,7 +72,7 @@ __export(index_exports, {
 module.exports = __toCommonJS(index_exports);
 
 // rn-src/coach-dashboard.tsx
-var import_react = __toESM(require("react"));
+var import_react = __toESM(require("react"), 1);
 var import_react_native = require("react-native");
 var import_plugin_sdk = require("@adas/plugin-sdk");
 var COACH = "coach-mcp";
@@ -176,13 +175,12 @@ var CoachDashboard = function CoachDashboard2({ bridge, native, theme }) {
   const stepGoal = 8e3;
   return /* @__PURE__ */ import_react.default.createElement(import_react_native.ScrollView, { style: S.scroll, contentContainerStyle: S.content }, /* @__PURE__ */ import_react.default.createElement(import_react_native.View, { style: S.header }, /* @__PURE__ */ import_react.default.createElement(import_react_native.View, null, /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.h1 }, "MyCoach"), /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.muted }, "Day ", (_w = state == null ? void 0 : state.days_since_join) != null ? _w : 0, " \xB7 trust ", trust, "/100")), /* @__PURE__ */ import_react.default.createElement(import_react_native.View, { style: [S.badge, { borderColor: phaseColor, backgroundColor: phaseColor + "22" }] }, /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: [S.badgeText, { color: phaseColor }] }, phase.toUpperCase()))), /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.section }, "GOAL"), /* @__PURE__ */ import_react.default.createElement(import_react_native.View, { style: S.card }, /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.goalText }, (goal == null ? void 0 : goal.text) || "No goal set yet."), goal && /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.muted }, "v", goal.version, goal.reason ? ` \xB7 ${goal.reason}` : "")), /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.section }, "TODAY"), /* @__PURE__ */ import_react.default.createElement(import_react_native.View, { style: S.card }, /* @__PURE__ */ import_react.default.createElement(import_react_native.View, { style: S.row }, /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.metricLabel }, "Calories"), /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.metricVal }, calNow.toFixed(0), " / ", calGoal)), /* @__PURE__ */ import_react.default.createElement(Ring, { pct: calNow / calGoal * 100, color: C.accent, trackColor: C.border }), /* @__PURE__ */ import_react.default.createElement(import_react_native.View, { style: [S.row, { marginTop: 14 }] }, /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.metricLabel }, "Protein"), /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.metricVal }, proNow.toFixed(0), "g / ", proGoal, "g")), /* @__PURE__ */ import_react.default.createElement(Ring, { pct: proNow / proGoal * 100, color: C.success, trackColor: C.border }), /* @__PURE__ */ import_react.default.createElement(import_react_native.View, { style: [S.row, { marginTop: 14 }] }, /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.metricLabel }, "Steps"), stepsKnown ? /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.metricVal }, steps.toLocaleString(), " / ", stepGoal.toLocaleString()) : /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: [S.metricVal, { color: C.textMuted, fontStyle: "italic" }] }, "Connect Health")), /* @__PURE__ */ import_react.default.createElement(Ring, { pct: stepsKnown ? steps / stepGoal * 100 : 0, color: C.warn, trackColor: C.border }), !stepsKnown && /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: [S.muted, { marginTop: 4, fontSize: 11 }] }, "No step data \u2014 make sure Health is connected in iPhone Settings \u2192 Privacy \u2192 Health.")), (snapshot == null ? void 0 : snapshot.adherence_score) != null && /* @__PURE__ */ import_react.default.createElement(import_react_native.View, { style: [S.card, S.center, { marginTop: 10 }] }, /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.adherence }, snapshot.adherence_score), /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.muted }, "Today's adherence")), /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.section }, "GAPS"), /* @__PURE__ */ import_react.default.createElement(import_react_native.View, { style: S.card }, ((snapshot == null ? void 0 : snapshot.gaps) || []).length === 0 ? /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: [S.muted, { textAlign: "center" }] }, "No gaps today \u{1F3AF}") : ((snapshot == null ? void 0 : snapshot.gaps) || []).map((g, i) => /* @__PURE__ */ import_react.default.createElement(import_react_native.View, { key: i, style: S.row }, /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.metricLabel }, g.metric.replace("_", " ")), /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.gapDelta }, g.delta.toFixed(0), " ", g.unit, " short")))), /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.section }, "RECENT CHECK-INS"), /* @__PURE__ */ import_react.default.createElement(import_react_native.View, { style: S.card }, checkins.length === 0 ? /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: [S.muted, { textAlign: "center" }] }, "No check-ins yet") : checkins.map((c, i) => /* @__PURE__ */ import_react.default.createElement(import_react_native.View, { key: i, style: S.row }, /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.muted }, c.date, " ", c.period.toUpperCase()), /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.metricVal }, c.rating != null ? `${c.rating}/10` : "\u2014", c.mood_word ? ` \xB7 ${c.mood_word}` : "")))), observation && /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.section }, "SOMETHING I NOTICED"), /* @__PURE__ */ import_react.default.createElement(import_react_native.View, { style: S.card }, /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.obsText }, observation.text), /* @__PURE__ */ import_react.default.createElement(import_react_native.View, { style: S.btnRow }, /* @__PURE__ */ import_react.default.createElement(import_react_native.TouchableOpacity, { style: [S.btn, S.btnPrimary], onPress: () => confirmObs(true) }, /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.btnPrimaryText }, "Yes, matches")), /* @__PURE__ */ import_react.default.createElement(import_react_native.TouchableOpacity, { style: S.btn, onPress: () => confirmObs(false) }, /* @__PURE__ */ import_react.default.createElement(import_react_native.Text, { style: S.btnText }, "Not really"))))));
 };
-var coach_dashboard_default = {
-  id: "coach-dashboard",
+var coach_dashboard_default = import_plugin_sdk.PluginSDK.register("coach-dashboard", {
   type: "ui",
   version: "1.0.1",
   capabilities: { haptics: true },
   Component: CoachDashboard
-};
+});
 function makeStyles(C) {
   return import_react_native.StyleSheet.create({
     scroll: { flex: 1, backgroundColor: C.bg },
@@ -211,7 +209,7 @@ function makeStyles(C) {
 }
 
 // rn-src/coach-onboarding.tsx
-var import_react2 = __toESM(require("react"));
+var import_react2 = __toESM(require("react"), 1);
 var import_react_native2 = require("react-native");
 var import_plugin_sdk2 = require("@adas/plugin-sdk");
 var HOST_CHAT_BAR_PX = 140;
@@ -396,13 +394,12 @@ var CoachOnboarding = function CoachOnboarding2({ bridge, native, theme }) {
     /* @__PURE__ */ import_react2.default.createElement(import_react_native2.TouchableOpacity, { onPress: skip, style: { alignSelf: "center", marginTop: 12 } }, /* @__PURE__ */ import_react2.default.createElement(import_react_native2.Text, { style: [S.muted, { fontSize: 13 }] }, "Skip this"))
   );
 };
-var coach_onboarding_default = {
-  id: "coach-onboarding",
+var coach_onboarding_default = import_plugin_sdk2.PluginSDK.register("coach-onboarding", {
   type: "ui",
   version: "1.0.2",
   capabilities: { haptics: true },
   Component: CoachOnboarding
-};
+});
 function makeStyles2(C) {
   return import_react_native2.StyleSheet.create({
     scroll: { flex: 1, backgroundColor: C.bg },

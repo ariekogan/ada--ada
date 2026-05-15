@@ -7,7 +7,7 @@
  */
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
-import { useApi } from '@adas/plugin-sdk';
+import { PluginSDK, useApi } from '@adas/plugin-sdk';
 import type { PluginProps } from '@adas/plugin-sdk';
 
 const COACH = 'coach-mcp';
@@ -230,13 +230,12 @@ const CoachDashboard = function CoachDashboard({ bridge, native, theme }: Plugin
     );
 };
 
-export default {
-  id: 'coach-dashboard',
+export default PluginSDK.register('coach-dashboard', {
   type: 'ui',
   version: '1.0.1',
   capabilities: { haptics: true },
   Component: CoachDashboard,
-};
+});
 
 function makeStyles(C: any) {
   return StyleSheet.create({
