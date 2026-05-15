@@ -84,7 +84,7 @@
       "id": "mycoach",
       "name": "MyCoach",
       "role": "worker",
-      "description": "Personal AI coach — nutrition, activity, habits. Onboards new users with curious questions, observes silently for a week, then earns the right to coach proactively. Handles all meal/drink/calorie/macro/hydration tracking alongside coaching.",
+      "description": "Personal AI coach \u2014 nutrition, activity, habits. Onboards new users with curious questions, observes silently for a week, then earns the right to coach proactively. Handles all meal/drink/calorie/macro/hydration tracking alongside coaching.",
       "connectors": [
         "coach-mcp",
         "nutrition-mcp",
@@ -97,7 +97,7 @@
       "id": "my-docs",
       "name": "My Docs",
       "role": "worker",
-      "description": "Document intelligence — ingest docs from Dropbox (and later Google Drive) into searchable corpora, answer factoid questions inline, and do deep multi-hop analysis on contracts, handbooks, specs.",
+      "description": "Document intelligence \u2014 ingest docs from Dropbox (and later Google Drive) into searchable corpora, answer factoid questions inline, and do deep multi-hop analysis on contracts, handbooks, specs.",
       "connectors": [
         "docs-index-mcp",
         "dropbox-mcp"
@@ -116,7 +116,7 @@
       "id": "travel-agent",
       "name": "Travel Agent",
       "role": "worker",
-      "description": "Unified travel search — flights (Google Flights), hotels (Booking.com), homes (Airbnb), plus user bookings.",
+      "description": "Unified travel search \u2014 flights (Google Flights), hotels (Booking.com), homes (Airbnb), plus user bookings.",
       "connectors": [
         "travel-mcp",
         "memory-mcp"
@@ -147,7 +147,7 @@
       "id": "auto-orch-to-daily-intel",
       "from": "auto-orchestrator",
       "to": "daily-intel",
-      "trigger": "User EXPLICITLY asks for a morning briefing, daily summary of their day, or schedule overview. Examples: 'good morning', 'how is my day', 'brief me'. DO NOT route here for food photos, meals, fitness, activity, coaching, or anything containing 'dinner/lunch/breakfast/ate/eating/food/coach/workout/steps' — those go to mycoach.",
+      "trigger": "User EXPLICITLY asks for a morning briefing, daily summary of their day, or schedule overview. Examples: 'good morning', 'how is my day', 'brief me'. DO NOT route here for food photos, meals, fitness, activity, coaching, or anything containing 'dinner/lunch/breakfast/ate/eating/food/coach/workout/steps' \u2014 those go to mycoach.",
       "grants_passed": [],
       "grants_dropped": [],
       "mechanism": "handoff-controller-mcp",
@@ -197,7 +197,7 @@
       "id": "auto-orch-to-my-docs",
       "from": "auto-orchestrator",
       "to": "my-docs",
-      "trigger": "User wants ANYTHING about their documents, cloud storage, or indexed corpora: connecting Dropbox or Google Drive, listing cloud folders/files, ingesting / indexing folders, corpus management, searching document content, analyzing contracts/handbooks/specs, multi-hop reasoning over docs, checking sync or indexing status. ANY question that mentions Dropbox, Google Drive, Drive, corpus, indexing, documents, contracts, handbooks, or document-files (not phone contacts) — hand off here.",
+      "trigger": "User wants ANYTHING about their documents, cloud storage, or indexed corpora: connecting Dropbox or Google Drive, listing cloud folders/files, ingesting / indexing folders, corpus management, searching document content, analyzing contracts/handbooks/specs, multi-hop reasoning over docs, checking sync or indexing status. ANY question that mentions Dropbox, Google Drive, Drive, corpus, indexing, documents, contracts, handbooks, or document-files (not phone contacts) \u2014 hand off here.",
       "grants_passed": [],
       "grants_dropped": [],
       "mechanism": "handoff-controller-mcp",
@@ -207,7 +207,7 @@
       "id": "auto-orch-to-mycoach",
       "from": "auto-orchestrator",
       "to": "mycoach",
-      "trigger": "HIGHEST PRIORITY for ANY coaching/nutrition/fitness/activity/habit request. MyCoach is the user's personal AI coach. Hand off here for: (1) Food/meal/drink/plate/dish PHOTOS — anything edible. (2) Logging meals: 'I had X', 'log my breakfast/lunch/dinner/snack', 'I just ate Y'. (3) Calorie/macro/water tracking, hydration, daily/weekly diet summaries, nutrition goals. (4) Meal-planning and diet-advice requests: 'what should I eat today', 'plan my meals', 'suggest a healthy lunch'. (5) ANY phrase referring to a 'coach/nutritionist/dietitian/nutrition specialist/nutrition advisor/personal coach/fitness coach/trainer' — these refer to the MYCOACH SKILL (an AI role), NOT to a human contact. NEVER search contacts for a 'coach' or 'nutritionist'; just hand off here. (6) Activity/fitness questions: steps, workouts, walking, exercise, 'should I work out'. (7) Wellbeing / habit questions: energy levels, sleep, mood, 'how am I doing'. (8) Anything containing: nutrition, diet, calories, macros, protein, carbs, fat, hydration, meal, breakfast, lunch, dinner, snack, eat, ate, eating, coach, coaching, workout, exercise, steps, fitness, walk, run, activity.",
+      "trigger": "HIGHEST PRIORITY for ANY coaching/nutrition/fitness/activity/habit request. MyCoach is the user's personal AI coach. Hand off here for: (1) Food/meal/drink/plate/dish PHOTOS \u2014 anything edible. (2) Logging meals: 'I had X', 'log my breakfast/lunch/dinner/snack', 'I just ate Y'. (3) Calorie/macro/water tracking, hydration, daily/weekly diet summaries, nutrition goals. (4) Meal-planning and diet-advice requests: 'what should I eat today', 'plan my meals', 'suggest a healthy lunch'. (5) ANY phrase referring to a 'coach/nutritionist/dietitian/nutrition specialist/nutrition advisor/personal coach/fitness coach/trainer' \u2014 these refer to the MYCOACH SKILL (an AI role), NOT to a human contact. NEVER search contacts for a 'coach' or 'nutritionist'; just hand off here. (6) Activity/fitness questions: steps, workouts, walking, exercise, 'should I work out'. (7) Wellbeing / habit questions: energy levels, sleep, mood, 'how am I doing'. (8) Anything containing: nutrition, diet, calories, macros, protein, carbs, fat, hydration, meal, breakfast, lunch, dinner, snack, eat, ate, eating, coach, coaching, workout, exercise, steps, fitness, walk, run, activity.",
       "grants_passed": [],
       "grants_dropped": [],
       "mechanism": "handoff-controller-mcp",
@@ -237,7 +237,7 @@
       "id": "auto-orch-to-travel-agent",
       "from": "auto-orchestrator",
       "to": "travel-agent",
-      "trigger": "Unified travel search — flights via Google Flights, hotels via Booking.com, homes via Airbnb, plus user's existing bookings. Powered by the travel-mcp platform connector.",
+      "trigger": "Unified travel search \u2014 flights via Google Flights, hotels via Booking.com, homes via Airbnb, plus user's existing bookings. Powered by the travel-mcp platform connector.",
       "grants_passed": [],
       "grants_dropped": [],
       "mechanism": "handoff-controller-mcp",
@@ -319,7 +319,7 @@
     },
     {
       "id": "coach-mcp",
-      "description": "MyCoach intelligence layer — state machine (onboarding→observing→calibrating→accompanying), versioned goals, daily check-ins, nudges with engagement tracking, observations, weekly experiments. Solution-level connector.",
+      "description": "MyCoach intelligence layer \u2014 state machine (onboarding\u2192observing\u2192calibrating\u2192accompanying), versioned goals, daily check-ins, nudges with engagement tracking, observations, weekly experiments. Solution-level connector.",
       "required": true,
       "used_by": [
         "mycoach"
@@ -345,7 +345,7 @@
       "id": "mcp:personal-assistant-ui-mcp:schedule-panel",
       "name": "Schedule",
       "version": "1.0.0",
-      "description": "Today's calendar, upcoming events, and weather at a glance",
+      "type": "ui",
       "render": {
         "mode": "adaptive",
         "iframeUrl": "/ui/schedule-panel/index.html",
@@ -353,14 +353,18 @@
           "component": "schedule-panel"
         }
       },
+      "surface": {
+        "type": "drawer",
+        "visibility": "user",
+        "icon": "\ud83d\udcc5",
+        "title": "Today's schedule",
+        "subtitle": "Calendar overview"
+      },
+      "capabilities": {},
       "channels": [
         "command"
       ],
-      "capabilities": {
-        "commands": []
-      },
-      "_source": "mcp_introspection",
-      "_connector_id": "personal-assistant-ui-mcp",
+      "commands": [],
       "uiActions": {
         "deeplink": "?focus=:focusId",
         "surfaces": [
@@ -370,18 +374,17 @@
           "view_entity": {
             "entity_kinds": [
               "event",
-              "appointment"
+              "meeting"
             ]
           }
-        },
-        "_autoGenerated": true
+        }
       }
     },
     {
       "id": "mcp:personal-assistant-ui-mcp:pa-dashboard",
       "name": "Personal Assistant",
       "version": "1.0.0",
-      "description": "At-a-glance dashboard — calendar, memories, contacts, and weather",
+      "type": "ui",
       "render": {
         "mode": "adaptive",
         "iframeUrl": "/ui/pa-dashboard/index.html",
@@ -389,20 +392,44 @@
           "component": "pa-dashboard"
         }
       },
+      "surface": {
+        "type": "drawer",
+        "visibility": "engine",
+        "icon": "\ud83e\udd16",
+        "title": "Personal Assistant"
+      },
+      "capabilities": {},
       "channels": [
         "command"
       ],
-      "capabilities": {
-        "commands": []
-      },
-      "_source": "mcp_introspection",
-      "_connector_id": "personal-assistant-ui-mcp"
+      "commands": []
     },
     {
       "id": "mcp:personal-assistant-ui-mcp:memories-panel",
       "name": "Memories",
-      "version": "1.0.0",
-      "description": "View, search, and manage stored memories and preferences",
+      "version": "1.0.1",
+      "type": "ui",
+      "render": {
+        "mode": "adaptive",
+        "iframeUrl": "/ui/memories-panel/index.html",
+        "reactNative": {
+          "component": "memories-panel"
+        }
+      },
+      "surface": {
+        "type": "drawer",
+        "visibility": "user",
+        "placement": "featured",
+        "icon": "\ud83e\udde0",
+        "title": "What I remember about you",
+        "subtitle": "Only you can see this",
+        "privacy": true
+      },
+      "capabilities": {},
+      "channels": [
+        "command"
+      ],
+      "commands": [],
       "uiActions": {
         "deeplink": "?focus=:focusId",
         "surfaces": [
@@ -421,28 +448,13 @@
             ]
           }
         }
-      },
-      "render": {
-        "mode": "adaptive",
-        "iframeUrl": "/ui/memories-panel/index.html",
-        "reactNative": {
-          "component": "memories-panel"
-        }
-      },
-      "channels": [
-        "command"
-      ],
-      "capabilities": {
-        "commands": []
-      },
-      "_source": "mcp_introspection",
-      "_connector_id": "personal-assistant-ui-mcp"
+      }
     },
     {
       "id": "mcp:personal-assistant-ui-mcp:teach-panel",
       "name": "Teach",
       "version": "1.0.0",
-      "description": "Create and manage rules, automations, and taught behaviors",
+      "type": "ui",
       "render": {
         "mode": "adaptive",
         "iframeUrl": "/ui/teach-panel/index.html",
@@ -450,20 +462,68 @@
           "component": "teach-panel"
         }
       },
+      "surface": {
+        "type": "drawer",
+        "visibility": "user",
+        "icon": "\u2728",
+        "title": "Teach Ada",
+        "subtitle": "Show her how you like things"
+      },
+      "capabilities": {},
       "channels": [
         "command"
       ],
-      "capabilities": {
-        "commands": []
-      },
-      "_source": "mcp_introspection",
-      "_connector_id": "personal-assistant-ui-mcp"
+      "commands": [],
+      "uiActions": {
+        "deeplink": "?focus=:focusId",
+        "surfaces": [
+          "chip"
+        ],
+        "intents": {
+          "view_entity": {
+            "entity_kinds": [
+              "rule",
+              "memory"
+            ]
+          },
+          "suggested_action": {
+            "tool_names": [
+              "sys.teach"
+            ]
+          },
+          "quick_toggle": {
+            "verbs": [
+              "edit",
+              "delete"
+            ]
+          }
+        }
+      }
     },
     {
       "id": "mcp:personal-assistant-ui-mcp:triggers-panel",
       "name": "Reminders",
-      "version": "1.0.1",
-      "description": "View and manage scheduled reminders and triggers",
+      "version": "1.0.2",
+      "type": "ui",
+      "render": {
+        "mode": "adaptive",
+        "iframeUrl": "/ui/triggers-panel/index.html",
+        "reactNative": {
+          "component": "triggers-panel"
+        }
+      },
+      "surface": {
+        "type": "drawer",
+        "visibility": "user",
+        "icon": "\u23f0",
+        "title": "Reminders",
+        "subtitle": "Tap to edit, swipe to dismiss"
+      },
+      "capabilities": {},
+      "channels": [
+        "command"
+      ],
+      "commands": [],
       "uiActions": {
         "deeplink": "?focus=:focusId",
         "surfaces": [
@@ -489,28 +549,13 @@
             ]
           }
         }
-      },
-      "render": {
-        "mode": "adaptive",
-        "iframeUrl": "/ui/triggers-panel/index.html",
-        "reactNative": {
-          "component": "triggers-panel"
-        }
-      },
-      "channels": [
-        "command"
-      ],
-      "capabilities": {
-        "commands": []
-      },
-      "_source": "mcp_introspection",
-      "_connector_id": "personal-assistant-ui-mcp"
+      }
     },
     {
       "id": "mcp:personal-assistant-ui-mcp:home-layout-panel",
       "name": "Smart Home",
       "version": "1.0.0",
-      "description": "Smart home dashboard — rooms, devices, quick controls, and integration status",
+      "type": "ui",
       "render": {
         "mode": "adaptive",
         "iframeUrl": "/ui/home-layout-panel/index.html",
@@ -518,15 +563,20 @@
           "component": "home-layout-panel"
         }
       },
+      "surface": {
+        "type": "drawer",
+        "visibility": "user",
+        "icon": "\ud83c\udfe0",
+        "title": "Smart home",
+        "subtitle": "Lights, temperature, scenes"
+      },
+      "capabilities": {
+        "haptics": true
+      },
       "channels": [
         "command"
       ],
-      "capabilities": {
-        "haptics": true,
-        "commands": []
-      },
-      "_source": "mcp_introspection",
-      "_connector_id": "personal-assistant-ui-mcp",
+      "commands": [],
       "uiActions": {
         "deeplink": "?focus=:focusId",
         "surfaces": [
@@ -536,18 +586,29 @@
           "view_entity": {
             "entity_kinds": [
               "device",
-              "scene"
+              "room"
+            ]
+          },
+          "suggested_action": {
+            "tool_names": [
+              "services.call"
+            ]
+          },
+          "quick_toggle": {
+            "verbs": [
+              "turn_on",
+              "turn_off",
+              "toggle"
             ]
           }
-        },
-        "_autoGenerated": true
+        }
       }
     },
     {
       "id": "mcp:personal-assistant-ui-mcp:connections-panel",
       "name": "Connections",
       "version": "1.0.0",
-      "description": "External systems connected to your account — manage and disconnect",
+      "type": "ui",
       "render": {
         "mode": "adaptive",
         "iframeUrl": "/ui/connections-panel/index.html",
@@ -555,166 +616,117 @@
           "component": "connections-panel"
         }
       },
-      "channels": [
-        "command"
-      ],
-      "capabilities": {
-        "commands": []
-      },
-      "_source": "mcp_introspection",
-      "_connector_id": "personal-assistant-ui-mcp"
-    },
-    {
-      "id": "mcp:whatsapp-mcp:whatsapp-setup",
-      "name": "WhatsApp Setup",
-      "version": "1.0.1",
-      "description": "Connect and pair your WhatsApp account via pairing code",
-      "render": {
-        "mode": "adaptive",
-        "iframeUrl": "/ui/whatsapp-setup/index.html",
-        "reactNative": {
-          "component": "whatsapp-setup",
-          "bundleUrl": "/api/ui-plugins/mcp%3Awhatsapp-mcp%3Awhatsapp-setup/bundle.js"
-        }
-      },
-      "channels": [
-        "command"
-      ],
-      "capabilities": {
-        "haptics": true,
-        "commands": [
-          {
-            "name": "connect",
-            "description": "Open the WhatsApp connection screen. Optionally pre-fill phone number.",
-            "input_schema": {
-              "type": "object",
-              "properties": {
-                "phone": {
-                  "type": "string",
-                  "description": "Phone number with country code (optional)"
-                }
-              }
-            }
-          }
-        ]
-      },
-      "_source": "mcp_introspection",
-      "_connector_id": "whatsapp-mcp"
-    },
-    {
-      "id": "mcp:browser-mcp:browser-view",
-      "name": "Browser View",
-      "version": "1.0.0",
-      "type": "ui",
-      "description": "Live browser automation viewer — screenshots, action log, URL bar",
-      "render": {
-        "mode": "adaptive",
-        "iframeUrl": "/ui/browser-view/index.html"
+      "surface": {
+        "type": "drawer",
+        "visibility": "user",
+        "placement": "menu",
+        "icon": "\ud83d\udd17",
+        "title": "Connections",
+        "subtitle": "External systems Ada can use"
       },
       "capabilities": {},
       "channels": [
         "command"
       ],
       "commands": [],
-      "_source": "mcp_introspection",
-      "_connector_id": "browser-mcp"
+      "uiActions": {
+        "deeplink": "?focus=:focusId",
+        "surfaces": [
+          "chip"
+        ],
+        "intents": {
+          "view_entity": {
+            "entity_kinds": [
+              "service",
+              "connection"
+            ]
+          },
+          "quick_toggle": {
+            "verbs": [
+              "connect",
+              "disconnect"
+            ]
+          }
+        }
+      }
     },
     {
-      "id": "mcp:browser-mcp:auth-webview",
-      "name": "Auth WebView",
-      "version": "1.7.0",
+      "id": "mcp:whatsapp-mcp:whatsapp-setup",
+      "name": "WhatsApp Setup",
+      "version": "1.0.0",
       "type": "ui",
-      "description": "Generic authentication WebView — user signs in on their device. Supports OAuth code extraction (in-app WebView), cookie capture, and external-browser OAuth (ASWebAuthenticationSession via expo-web-browser). No passwords touch the LLM.",
       "render": {
         "mode": "adaptive",
-        "iframeUrl": "/ui/login-webview/index.html",
+        "iframeUrl": "/ui/whatsapp-setup/index.html",
         "reactNative": {
-          "component": "AuthWebView",
-          "bundleUrl": "/api/ui-plugins/mcp%3Abrowser-mcp%3Aauth-webview/bundle.js"
+          "component": "whatsapp-setup"
         }
       },
-      "capabilities": {
-        "webview": true,
-        "cookies": true,
-        "haptics": true,
-        "commands": [
-          {
-            "name": "openAuth",
-            "description": "Open a URL for authentication. mode='cookie' captures cookies, mode='oauth' extracts authorization code from redirect (in-app WebView), mode='oauth_external' opens the URL in the system browser and polls platform.auth.status(service_id) until connected (for WebView-blocking providers like Google/Facebook).",
-            "input_schema": {
-              "type": "object",
-              "properties": {
-                "mode": {
-                  "type": "string",
-                  "enum": [
-                    "oauth",
-                    "cookie",
-                    "oauth_external"
-                  ]
-                },
-                "url": {
-                  "type": "string"
-                },
-                "label": {
-                  "type": "string"
-                },
-                "success_url_pattern": {
-                  "type": "string"
-                },
-                "cookie_domain": {
-                  "type": "string"
-                },
-                "session_token": {
-                  "type": "string"
-                },
-                "redirect_url_pattern": {
-                  "type": "string"
-                },
-                "callback_tool": {
-                  "type": "string"
-                },
-                "callback_connector": {
-                  "type": "string"
-                },
-                "submit_tool": {
-                  "type": "string"
-                },
-                "submit_connector": {
-                  "type": "string"
-                },
-                "service_id": {
-                  "type": "string"
-                },
-                "poll_tool": {
-                  "type": "string"
-                },
-                "poll_interval_ms": {
-                  "type": "number"
-                },
-                "timeout_ms": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "mode",
-                "url"
-              ]
-            }
-          }
-        ]
+      "surface": {
+        "type": "drawer",
+        "visibility": "engine",
+        "icon": "\ud83d\udcac",
+        "title": "Connect WhatsApp"
+      },
+      "capabilities": {},
+      "channels": [
+        "command"
+      ],
+      "commands": []
+    },
+    {
+      "id": "mcp:browser-mcp:browser-view",
+      "name": "Browse",
+      "version": "1.0.0",
+      "type": "ui",
+      "render": {
+        "mode": "adaptive",
+        "iframeUrl": "/ui/browser-view/index.html"
+      },
+      "surface": {
+        "type": "fullscreen",
+        "visibility": "engine",
+        "icon": "\ud83c\udf10",
+        "title": "Browsing for you"
       },
       "channels": [
         "command"
       ],
-      "commands": [],
-      "_source": "mcp_introspection",
-      "_connector_id": "browser-mcp"
+      "capabilities": {}
+    },
+    {
+      "id": "mcp:browser-mcp:auth-webview",
+      "name": "Auth WebView",
+      "version": "1.0.0",
+      "type": "ui",
+      "render": {
+        "mode": "adaptive",
+        "iframeUrl": "/ui/login-webview/index.html",
+        "reactNative": {
+          "component": "AuthWebView"
+        }
+      },
+      "surface": {
+        "type": "fullscreen",
+        "visibility": "engine",
+        "icon": "\ud83d\udd10",
+        "title": "Sign in"
+      },
+      "capabilities": {
+        "webview": true,
+        "cookies": true,
+        "haptics": true
+      },
+      "channels": [
+        "command"
+      ],
+      "commands": []
     },
     {
       "id": "mcp:nutrition-mcp:nutrition-dashboard",
       "name": "Nutrition",
       "version": "1.0.0",
-      "description": "Visual nutrition summary with progress rings and weekly charts",
+      "type": "ui",
       "render": {
         "mode": "adaptive",
         "iframeUrl": "/ui/nutrition-dashboard/index.html",
@@ -722,23 +734,18 @@
           "component": "nutrition-dashboard"
         }
       },
+      "surface": {
+        "type": "drawer",
+        "visibility": "user",
+        "icon": "\ud83e\udd57",
+        "title": "Today's plate",
+        "subtitle": "Meals, macros, hydration"
+      },
+      "capabilities": {},
       "channels": [
         "command"
       ],
-      "capabilities": {
-        "commands": [
-          {
-            "name": "open",
-            "description": "Open dashboard",
-            "input_schema": {
-              "type": "object",
-              "properties": {}
-            }
-          }
-        ]
-      },
-      "_source": "mcp_introspection",
-      "_connector_id": "nutrition-mcp",
+      "commands": [],
       "uiActions": {
         "deeplink": "?focus=:focusId",
         "surfaces": [
@@ -748,18 +755,31 @@
           "view_entity": {
             "entity_kinds": [
               "meal",
-              "food"
+              "log",
+              "nutrition_summary"
+            ]
+          },
+          "suggested_action": {
+            "tool_names": [
+              "nutrition.logMeal",
+              "nutrition.logDrink",
+              "nutrition.setGoals"
+            ]
+          },
+          "quick_toggle": {
+            "verbs": [
+              "edit",
+              "delete"
             ]
           }
-        },
-        "_autoGenerated": true
+        }
       }
     },
     {
       "id": "mcp:nutrition-mcp:nutrition-camera",
       "name": "Meal Camera",
       "version": "1.0.0",
-      "description": "Snap a photo of your meal for instant calorie analysis",
+      "type": "ui",
       "render": {
         "mode": "adaptive",
         "iframeUrl": "/ui/nutrition-camera/index.html",
@@ -767,55 +787,45 @@
           "component": "nutrition-camera"
         }
       },
+      "surface": {
+        "type": "fullscreen",
+        "visibility": "engine",
+        "icon": "\ud83d\udcf7",
+        "title": "Snap your meal"
+      },
+      "capabilities": {
+        "camera": true
+      },
       "channels": [
         "command"
       ],
-      "capabilities": {
-        "camera": true,
-        "commands": [
-          {
-            "name": "open",
-            "description": "Open camera",
-            "input_schema": {
-              "type": "object",
-              "properties": {}
-            }
-          }
-        ]
-      },
-      "_source": "mcp_introspection",
-      "_connector_id": "nutrition-mcp"
+      "commands": []
     },
     {
       "id": "mcp:coach-mcp:coach-dashboard",
       "name": "MyCoach",
       "version": "1.0.0",
-      "description": "Phase, goal, today's snapshot (calories/protein/steps rings), gaps, recent check-ins, pending observations",
+      "type": "ui",
       "render": {
         "mode": "adaptive",
         "iframeUrl": "/ui/coach-dashboard/index.html",
         "reactNative": {
-          "component": "coach-dashboard",
-          "bundleUrl": "/api/ui-plugins/mcp%3Acoach-mcp%3Acoach-dashboard/bundle.js"
+          "component": "coach-dashboard"
         }
       },
+      "surface": {
+        "type": "drawer",
+        "visibility": "user",
+        "placement": "featured",
+        "icon": "\ud83c\udfaf",
+        "title": "MyCoach",
+        "subtitle": "Phase, goal, today's score"
+      },
+      "capabilities": {},
       "channels": [
         "command"
       ],
-      "capabilities": {
-        "commands": [
-          {
-            "name": "open",
-            "description": "Open MyCoach",
-            "input_schema": {
-              "type": "object",
-              "properties": {}
-            }
-          }
-        ]
-      },
-      "_source": "mcp_introspection",
-      "_connector_id": "coach-mcp",
+      "commands": [],
       "uiActions": {
         "deeplink": "?focus=:focusId",
         "surfaces": [
@@ -824,43 +834,46 @@
         "intents": {
           "view_entity": {
             "entity_kinds": [
-              "coach"
+              "coach",
+              "goal",
+              "checkin",
+              "observation"
+            ]
+          },
+          "suggested_action": {
+            "tool_names": [
+              "coach.checkin.log",
+              "coach.goals.add",
+              "coach.snapshot.today"
             ]
           }
-        },
-        "_autoGenerated": true
+        }
       }
     },
     {
       "id": "mcp:coach-mcp:coach-onboarding",
       "name": "Coach Onboarding",
-      "version": "1.0.0",
-      "description": "Guided 5-question wizard to onboard a new user into MyCoach",
+      "version": "1.0.1",
+      "type": "ui",
       "render": {
         "mode": "adaptive",
         "iframeUrl": "/ui/coach-onboarding/index.html",
         "reactNative": {
-          "component": "coach-onboarding",
-          "bundleUrl": "/api/ui-plugins/mcp%3Acoach-mcp%3Acoach-onboarding/bundle.js"
+          "component": "coach-onboarding"
         }
       },
+      "surface": {
+        "type": "drawer",
+        "visibility": "user",
+        "icon": "\u2728",
+        "title": "Welcome \u2014 get set up",
+        "subtitle": "Quick 5-step onboarding"
+      },
+      "capabilities": {},
       "channels": [
         "command"
       ],
-      "capabilities": {
-        "commands": [
-          {
-            "name": "open",
-            "description": "Open Coach Onboarding",
-            "input_schema": {
-              "type": "object",
-              "properties": {}
-            }
-          }
-        ]
-      },
-      "_source": "mcp_introspection",
-      "_connector_id": "coach-mcp"
+      "commands": []
     }
   ]
 }
