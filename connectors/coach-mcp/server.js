@@ -31,13 +31,13 @@ const PLUGINS = [
   {
     id: 'coach-dashboard',
     name: 'MyCoach',
-    version: '1.0.0',
+    version: '1.0.1',
     description: 'Phase, goal, today\'s snapshot (calories/protein/steps rings), gaps, recent check-ins, pending observations',
   },
   {
     id: 'coach-onboarding',
     name: 'Coach Onboarding',
-    version: '1.0.0',
+    version: '1.0.1',
     description: 'Guided 5-question wizard to onboard a new user into MyCoach',
   },
 ];
