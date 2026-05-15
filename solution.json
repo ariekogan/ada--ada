@@ -796,7 +796,7 @@
     {
       "id": "mcp:coach-mcp:coach-dashboard",
       "name": "MyCoach",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "description": "Phase, goal, today's snapshot (calories/protein/steps rings), gaps, recent check-ins, pending observations",
       "render": {
         "mode": "adaptive",

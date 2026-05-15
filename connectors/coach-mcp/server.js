@@ -31,7 +31,7 @@ const PLUGINS = [
   {
     id: 'coach-dashboard',
     name: 'MyCoach',
-    version: '1.0.2',
+    version: '1.0.3',
     description: 'Phase, goal, today\'s snapshot (calories/protein/steps rings), gaps, recent check-ins, pending observations',
     // surface = how the mobile host should present this plugin. Without a
     // surface block the host falls back to the legacy "render inline behind
