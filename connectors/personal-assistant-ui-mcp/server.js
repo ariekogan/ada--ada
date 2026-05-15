@@ -46,7 +46,6 @@ const UI_PLUGINS = [
   { id: "teach-panel",       name: "Teach",              version: "1.0.0", description: "Create and manage rules, automations, and taught behaviors" },
   { id: "triggers-panel",    name: "Reminders",          version: "1.0.1", description: "View and manage scheduled reminders and triggers" },
   { id: "home-layout-panel", name: "Smart Home",         version: "1.0.0", description: "Smart home dashboard — rooms, devices, quick controls, and integration status" },
-  { id: "connections-panel", name: "Connections",        version: "1.0.0", description: "External systems connected to your account — manage and disconnect" },
 ];
 
 const PLUGIN_MANIFESTS = {
@@ -56,7 +55,6 @@ const PLUGIN_MANIFESTS = {
   "teach-panel":       { id: "teach-panel",       name: "Teach",              version: "1.0.0", description: "Create and manage rules, automations, and taught behaviors",                             render: { mode: "adaptive", iframeUrl: "/ui/teach-panel/index.html",       reactNative: { component: "teach-panel" } },       channels: ["command"], capabilities: { commands: [] } },
   "triggers-panel":    { id: "triggers-panel",    name: "Reminders",          version: "1.0.1", description: "View and manage scheduled reminders and triggers",                                       render: { mode: "adaptive", iframeUrl: "/ui/triggers-panel/index.html",    reactNative: { component: "triggers-panel" } },    channels: ["command"], capabilities: { commands: [] }, uiActions: { deeplink: "?focus=:focusId", surfaces: ["chip"], intents: { view_entity: { entity_kinds: ["reminder", "trigger"] }, suggested_action: { tool_names: ["sys.trigger"] }, quick_toggle: { verbs: ["pause", "resume", "delete"] } } } },
   "home-layout-panel": { id: "home-layout-panel", name: "Smart Home",         version: "1.0.0", description: "Smart home dashboard — rooms, devices, quick controls, and integration status",         render: { mode: "adaptive", iframeUrl: "/ui/home-layout-panel/index.html", reactNative: { component: "home-layout-panel" } }, channels: ["command"], capabilities: { haptics: true, commands: [] } },
-  "connections-panel": { id: "connections-panel", name: "Connections",        version: "1.0.0", description: "External systems connected to your account — manage and disconnect",                       render: { mode: "adaptive", iframeUrl: "/ui/connections-panel/index.html", reactNative: { component: "connections-panel" } }, channels: ["command"], capabilities: { commands: [] } },
 };
 
 const server = new McpServer({ name: "personal-assistant-ui-mcp", version: "1.1.0" });
