@@ -188,8 +188,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_4869ee2b"
+      }
     },
     {
       "name": "memory.recall",
@@ -243,8 +242,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_b48cebb2"
+      }
     },
     {
       "name": "memory.list",
@@ -295,8 +293,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_a8a0f398"
+      }
     },
     {
       "name": "memory.update",
@@ -343,8 +340,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_7ae67a53"
+      }
     },
     {
       "name": "memory.delete",
@@ -379,8 +375,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_380306b3"
+      }
     },
     {
       "name": "memory.rules.match",
@@ -415,8 +410,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_75df09a7"
+      }
     },
     {
       "name": "memory.rules.count",
@@ -442,8 +436,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_94016b13"
+      }
     },
     {
       "name": "context.store",
@@ -487,8 +480,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_ac52ef95"
+      }
     },
     {
       "name": "context.read",
@@ -524,8 +516,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_3fb19455"
+      }
     },
     {
       "name": "context.resolve",
@@ -567,8 +558,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_6f8ad510"
+      }
     },
     {
       "name": "context.clear",
@@ -601,8 +591,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_12967136"
+      }
     },
     {
       "name": "memory.userProfile",
@@ -628,8 +617,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_83740c73"
+      }
     },
     {
       "name": "memory.userProfile.set",
@@ -665,8 +653,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_4a0937ec"
+      }
     },
     {
       "name": "memory.semantic.search",
@@ -709,8 +696,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_087b5ad9"
+      }
     },
     {
       "name": "memory.explain",
@@ -745,8 +731,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_fd66ca88"
+      }
     },
     {
       "name": "memory.summarize",
@@ -772,8 +757,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_eb03dc26"
+      }
     },
     {
       "name": "memory.compact",
@@ -799,8 +783,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_3544250d"
+      }
     },
     {
       "name": "memory.confidence",
@@ -841,8 +824,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_1370941d"
+      }
     },
     {
       "name": "memory.supersede",
@@ -881,8 +863,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_9928a856"
+      }
     },
     {
       "name": "memory.audit",
@@ -918,8 +899,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_a10814f5"
+      }
     },
     {
       "name": "memory.embed",
@@ -951,8 +931,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_d230a958"
+      }
     },
     {
       "name": "memory.extract",
@@ -1005,8 +984,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_da01c508"
+      }
     }
   ],
   "meta_tools": [],
@@ -1033,7 +1011,7 @@
   "solution_id": "ada",
   "id": "memory-keeper",
   "created_at": "2026-05-14T12:26:04.468Z",
-  "updated_at": "2026-05-15T08:10:25.964Z",
+  "updated_at": "2026-05-15T08:12:46.653Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -1330,9 +1308,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-05-15T07:37:12.454Z",
+  "lastExportedAt": "2026-05-15T08:12:45.222Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-15T07:37:21.303Z",
+  "deployedAt": "2026-05-15T08:12:46.641Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/memory-keeper"
 }

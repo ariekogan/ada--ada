@@ -1142,6 +1142,54 @@
       }
     },
     {
+      "name": "coach.experiment.activeForWeek",
+      "description": "Returns the most recent non-closed experiment for a given ISO week (defaults to current). Use by the weekly proposer to avoid double-proposing.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.experiment.activeForWeek"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "week_key": {
+            "type": "string"
+          },
+          "_adas_actor": {
+            "type": "string"
+          },
+          "_adas_tenant": {
+            "type": "string"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "coach.experiment.currentWeekKey",
+      "description": "Returns the ISO week_key for now (e.g. 2026-W20). Pure helper — no actor state.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "coach-mcp",
+        "mcp_tool": "coach.experiment.currentWeekKey"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
       "name": "coach.miner.run",
       "description": "Run the pattern miner against the actor's data. Heuristics: low morning mood, frequent tired/stress words, irregular meal logging, protein gap, step gap, nudge-dismissal pattern. Each candidate gets a confidence score and is upserted (deduped by pattern_key). Designed to run silently from a daily cron — emits observations to coach.observations table that the PM-reflection trigger can later surface. Pass in pre-fetched nutrition.getMeals (last 14d, flat array), nutrition daily summaries (last 7d), and device.health.history. Returns { candidates_evaluated, created, skipped_duplicate }.",
       "source": {
@@ -3962,7 +4010,7 @@
   ],
   "id": "mycoach",
   "created_at": "2026-05-14T12:29:41.026Z",
-  "updated_at": "2026-05-15T08:10:37.654Z",
+  "updated_at": "2026-05-15T08:12:59.198Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -5309,9 +5357,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-05-15T07:36:39.781Z",
+  "lastExportedAt": "2026-05-15T08:12:45.359Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-15T07:36:43.429Z",
+  "deployedAt": "2026-05-15T08:12:59.193Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/mycoach",
   "handoff_when": "User wants to log or check meals, drinks, water, calories, macros, weight, hydration; OR asks about steps, activity, workouts, exercise, fitness, walks, runs, training; OR asks for coaching/nutrition/dietitian/trainer advice; OR responds to AM/PM check-ins; OR sets/updates health and habit goals; OR asks how they are doing today/this week (progress, summaries, observations); OR responds to a proposed weekly experiment. ALWAYS prefer mycoach for anything fitness/activity/nutrition/coaching even when the phrasing mentions today (e.g. check my steps today)."
