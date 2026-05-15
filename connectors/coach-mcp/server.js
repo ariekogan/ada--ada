@@ -31,14 +31,35 @@ const PLUGINS = [
   {
     id: 'coach-dashboard',
     name: 'MyCoach',
-    version: '1.0.0',
+    version: '1.0.2',
     description: 'Phase, goal, today\'s snapshot (calories/protein/steps rings), gaps, recent check-ins, pending observations',
+    // surface = how the mobile host should present this plugin. Without a
+    // surface block the host falls back to the legacy "render inline behind
+    // the chat input" path, which is what caused the wizard / dashboard to
+    // appear stuck under the "Ask Ada anything…" bar after the migration.
+    surface: {
+      type: 'drawer',
+      visibility: 'user',
+      icon: '🎯',
+      title: 'MyCoach',
+      subtitle: 'Today\'s snapshot, goals, observations',
+    },
   },
   {
     id: 'coach-onboarding',
     name: 'Coach Onboarding',
-    version: '1.0.0',
+    version: '1.0.3',
     description: 'Guided 5-question wizard to onboard a new user into MyCoach',
+    // fullscreen so the wizard's text fields aren't overlapped by the host
+    // chat-input bar (the original bug). fullscreen takes the whole screen
+    // and the host hides its chat composer while the surface is mounted.
+    surface: {
+      type: 'fullscreen',
+      visibility: 'user',
+      icon: '✨',
+      title: 'Welcome to MyCoach',
+      subtitle: 'Quick 5-question setup',
+    },
   },
 ];
 
