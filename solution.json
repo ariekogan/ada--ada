@@ -84,7 +84,7 @@
       "id": "mycoach",
       "name": "MyCoach",
       "role": "worker",
-      "description": "Personal AI coach — nutrition, activity, habits. Onboards new users with curious questions, observes silently for a week, then earns the right to coach proactively. Handles all meal/drink/calorie/macro/hydration tracking alongside coaching.",
+      "description": "Personal AI coach \u2014 nutrition, activity, habits. Onboards new users with curious questions, observes silently for a week, then earns the right to coach proactively. Handles all meal/drink/calorie/macro/hydration tracking alongside coaching.",
       "connectors": [
         "coach-mcp",
         "nutrition-mcp",
@@ -97,7 +97,7 @@
       "id": "my-docs",
       "name": "My Docs",
       "role": "worker",
-      "description": "Document intelligence — ingest docs from Dropbox (and later Google Drive) into searchable corpora, answer factoid questions inline, and do deep multi-hop analysis on contracts, handbooks, specs.",
+      "description": "Document intelligence \u2014 ingest docs from Dropbox (and later Google Drive) into searchable corpora, answer factoid questions inline, and do deep multi-hop analysis on contracts, handbooks, specs.",
       "connectors": [
         "docs-index-mcp",
         "dropbox-mcp"
@@ -116,7 +116,7 @@
       "id": "travel-agent",
       "name": "Travel Agent",
       "role": "worker",
-      "description": "Unified travel search — flights (Google Flights), hotels (Booking.com), homes (Airbnb), plus user bookings.",
+      "description": "Unified travel search \u2014 flights (Google Flights), hotels (Booking.com), homes (Airbnb), plus user bookings.",
       "connectors": [
         "travel-mcp",
         "memory-mcp"
@@ -147,7 +147,7 @@
       "id": "auto-orch-to-daily-intel",
       "from": "auto-orchestrator",
       "to": "daily-intel",
-      "trigger": "User EXPLICITLY asks for a morning briefing, daily summary of their day, or schedule overview. Examples: 'good morning', 'how is my day', 'brief me'. DO NOT route here for food photos, meals, fitness, activity, coaching, or anything containing 'dinner/lunch/breakfast/ate/eating/food/coach/workout/steps' — those go to mycoach.",
+      "trigger": "User EXPLICITLY asks for a morning briefing, daily summary of their day, or schedule overview. Examples: 'good morning', 'how is my day', 'brief me'. DO NOT route here for food photos, meals, fitness, activity, coaching, or anything containing 'dinner/lunch/breakfast/ate/eating/food/coach/workout/steps' \u2014 those go to mycoach.",
       "grants_passed": [],
       "grants_dropped": [],
       "mechanism": "handoff-controller-mcp",
@@ -197,7 +197,7 @@
       "id": "auto-orch-to-my-docs",
       "from": "auto-orchestrator",
       "to": "my-docs",
-      "trigger": "User wants ANYTHING about their documents, cloud storage, or indexed corpora: connecting Dropbox or Google Drive, listing cloud folders/files, ingesting / indexing folders, corpus management, searching document content, analyzing contracts/handbooks/specs, multi-hop reasoning over docs, checking sync or indexing status. ANY question that mentions Dropbox, Google Drive, Drive, corpus, indexing, documents, contracts, handbooks, or document-files (not phone contacts) — hand off here.",
+      "trigger": "User wants ANYTHING about their documents, cloud storage, or indexed corpora: connecting Dropbox or Google Drive, listing cloud folders/files, ingesting / indexing folders, corpus management, searching document content, analyzing contracts/handbooks/specs, multi-hop reasoning over docs, checking sync or indexing status. ANY question that mentions Dropbox, Google Drive, Drive, corpus, indexing, documents, contracts, handbooks, or document-files (not phone contacts) \u2014 hand off here.",
       "grants_passed": [],
       "grants_dropped": [],
       "mechanism": "handoff-controller-mcp",
@@ -207,7 +207,7 @@
       "id": "auto-orch-to-mycoach",
       "from": "auto-orchestrator",
       "to": "mycoach",
-      "trigger": "HIGHEST PRIORITY for ANY coaching/nutrition/fitness/activity/habit request. MyCoach is the user's personal AI coach. Hand off here for: (1) Food/meal/drink/plate/dish PHOTOS — anything edible. (2) Logging meals: 'I had X', 'log my breakfast/lunch/dinner/snack', 'I just ate Y'. (3) Calorie/macro/water tracking, hydration, daily/weekly diet summaries, nutrition goals. (4) Meal-planning and diet-advice requests: 'what should I eat today', 'plan my meals', 'suggest a healthy lunch'. (5) ANY phrase referring to a 'coach/nutritionist/dietitian/nutrition specialist/nutrition advisor/personal coach/fitness coach/trainer' — these refer to the MYCOACH SKILL (an AI role), NOT to a human contact. NEVER search contacts for a 'coach' or 'nutritionist'; just hand off here. (6) Activity/fitness questions: steps, workouts, walking, exercise, 'should I work out'. (7) Wellbeing / habit questions: energy levels, sleep, mood, 'how am I doing'. (8) Anything containing: nutrition, diet, calories, macros, protein, carbs, fat, hydration, meal, breakfast, lunch, dinner, snack, eat, ate, eating, coach, coaching, workout, exercise, steps, fitness, walk, run, activity.",
+      "trigger": "HIGHEST PRIORITY for ANY coaching/nutrition/fitness/activity/habit request. MyCoach is the user's personal AI coach. Hand off here for: (1) Food/meal/drink/plate/dish PHOTOS \u2014 anything edible. (2) Logging meals: 'I had X', 'log my breakfast/lunch/dinner/snack', 'I just ate Y'. (3) Calorie/macro/water tracking, hydration, daily/weekly diet summaries, nutrition goals. (4) Meal-planning and diet-advice requests: 'what should I eat today', 'plan my meals', 'suggest a healthy lunch'. (5) ANY phrase referring to a 'coach/nutritionist/dietitian/nutrition specialist/nutrition advisor/personal coach/fitness coach/trainer' \u2014 these refer to the MYCOACH SKILL (an AI role), NOT to a human contact. NEVER search contacts for a 'coach' or 'nutritionist'; just hand off here. (6) Activity/fitness questions: steps, workouts, walking, exercise, 'should I work out'. (7) Wellbeing / habit questions: energy levels, sleep, mood, 'how am I doing'. (8) Anything containing: nutrition, diet, calories, macros, protein, carbs, fat, hydration, meal, breakfast, lunch, dinner, snack, eat, ate, eating, coach, coaching, workout, exercise, steps, fitness, walk, run, activity.",
       "grants_passed": [],
       "grants_dropped": [],
       "mechanism": "handoff-controller-mcp",
@@ -237,7 +237,7 @@
       "id": "auto-orch-to-travel-agent",
       "from": "auto-orchestrator",
       "to": "travel-agent",
-      "trigger": "Unified travel search — flights via Google Flights, hotels via Booking.com, homes via Airbnb, plus user's existing bookings. Powered by the travel-mcp platform connector.",
+      "trigger": "Unified travel search \u2014 flights via Google Flights, hotels via Booking.com, homes via Airbnb, plus user's existing bookings. Powered by the travel-mcp platform connector.",
       "grants_passed": [],
       "grants_dropped": [],
       "mechanism": "handoff-controller-mcp",
@@ -333,7 +333,7 @@
     },
     {
       "id": "coach-mcp",
-      "description": "MyCoach intelligence layer — state machine (onboarding→observing→calibrating→accompanying), versioned goals, daily check-ins, nudges with engagement tracking, observations, weekly experiments. Solution-level connector.",
+      "description": "MyCoach intelligence layer \u2014 state machine (onboarding\u2192observing\u2192calibrating\u2192accompanying), versioned goals, daily check-ins, nudges with engagement tracking, observations, weekly experiments. Solution-level connector.",
       "required": true,
       "used_by": [
         "mycoach"
@@ -370,7 +370,6 @@
   "name": "ada",
   "style": "mobile",
   "identity_mode": "single-owner",
-  "routing_mode": "auto",
   "ui_plugins": [
     {
       "id": "mcp:personal-assistant-ui-mcp:schedule-panel",
@@ -412,7 +411,7 @@
       "id": "mcp:personal-assistant-ui-mcp:pa-dashboard",
       "name": "Personal Assistant",
       "version": "1.0.0",
-      "description": "At-a-glance dashboard — calendar, memories, contacts, and weather",
+      "description": "At-a-glance dashboard \u2014 calendar, memories, contacts, and weather",
       "render": {
         "mode": "adaptive",
         "iframeUrl": "/ui/pa-dashboard/index.html",
@@ -541,7 +540,7 @@
       "id": "mcp:personal-assistant-ui-mcp:home-layout-panel",
       "name": "Smart Home",
       "version": "1.0.0",
-      "description": "Smart home dashboard — rooms, devices, quick controls, and integration status",
+      "description": "Smart home dashboard \u2014 rooms, devices, quick controls, and integration status",
       "render": {
         "mode": "adaptive",
         "iframeUrl": "/ui/home-layout-panel/index.html",
@@ -578,7 +577,7 @@
       "id": "mcp:personal-assistant-ui-mcp:connections-panel",
       "name": "Connections",
       "version": "1.0.0",
-      "description": "External systems connected to your account — manage and disconnect",
+      "description": "External systems connected to your account \u2014 manage and disconnect",
       "render": {
         "mode": "adaptive",
         "iframeUrl": "/ui/connections-panel/index.html",
@@ -637,7 +636,7 @@
       "name": "Browser View",
       "version": "1.0.0",
       "type": "ui",
-      "description": "Live browser automation viewer — screenshots, action log, URL bar",
+      "description": "Live browser automation viewer \u2014 screenshots, action log, URL bar",
       "render": {
         "mode": "adaptive",
         "iframeUrl": "/ui/browser-view/index.html"
@@ -655,7 +654,7 @@
       "name": "Auth WebView",
       "version": "1.7.0",
       "type": "ui",
-      "description": "Generic authentication WebView — user signs in on their device. Supports OAuth code extraction (in-app WebView), cookie capture, and external-browser OAuth (ASWebAuthenticationSession via expo-web-browser). No passwords touch the LLM.",
+      "description": "Generic authentication WebView \u2014 user signs in on their device. Supports OAuth code extraction (in-app WebView), cookie capture, and external-browser OAuth (ASWebAuthenticationSession via expo-web-browser). No passwords touch the LLM.",
       "render": {
         "mode": "adaptive",
         "iframeUrl": "/ui/login-webview/index.html",
@@ -863,7 +862,7 @@
       "surface": {
         "type": "drawer",
         "visibility": "user",
-        "icon": "🎯",
+        "icon": "\ud83c\udfaf",
         "title": "MyCoach",
         "subtitle": "Today's snapshot, goals, observations"
       }
@@ -900,7 +899,7 @@
       "surface": {
         "type": "fullscreen",
         "visibility": "user",
-        "icon": "✨",
+        "icon": "\u2728",
         "title": "Welcome to MyCoach",
         "subtitle": "Quick 5-question setup"
       }
