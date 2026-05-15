@@ -128,7 +128,7 @@
       "key": "pa.verified_user",
       "description": "Proves the caller passed voice verification.",
       "issued_by": [
-        "pa-orchestrator"
+        "auto-orchestrator"
       ],
       "consumed_by": [
         "life-manager",
