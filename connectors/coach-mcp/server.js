@@ -50,11 +50,13 @@ const PLUGINS = [
     name: 'Coach Onboarding',
     version: '1.0.3',
     description: 'Guided 5-question wizard to onboard a new user into MyCoach',
-    // fullscreen so the wizard's text fields aren't overlapped by the host
-    // chat-input bar (the original bug). fullscreen takes the whole screen
-    // and the host hides its chat composer while the surface is mounted.
+    // drawer so the surface chrome shows the close X. The wizard's TextInput
+    // doesn't get hidden by the host chat composer because the RN component
+    // handles keyboard avoidance internally (HOST_CHAT_BAR_PX in the .tsx).
+    // (Previously this was 'fullscreen' to dodge the chat-input overlap, but
+    // fullscreen drops the close X chrome — bad trade.)
     surface: {
-      type: 'fullscreen',
+      type: 'drawer',
       visibility: 'user',
       icon: '✨',
       title: 'Welcome to MyCoach',

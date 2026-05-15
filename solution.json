@@ -895,7 +895,7 @@
       "_source": "mcp_introspection",
       "_connector_id": "coach-mcp",
       "surface": {
-        "type": "fullscreen",
+        "type": "drawer",
         "visibility": "user",
         "icon": "✨",
         "title": "Welcome to MyCoach",
