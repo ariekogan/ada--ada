@@ -6,22 +6,30 @@
 <title>Welcome — MyCoach</title>
 <style>
   :root {
-    --bg: #0a0a0a;
-    --surface: #161616;
-    --border: #2a2a2a;
-    --text: #f0f0f0;
-    --muted: #8a8a8a;
-    --accent: #7c9eff;
+    /* Light/cream theme to match Ada consumer app. */
+    --bg: #faf6ef;
+    --surface: #ffffff;
+    --surface-2: #f3ede0;
+    --border: #e8e0d2;
+    --text: #1a1a1a;
+    --muted: #7a7166;
+    --accent: #e0712b;
     --success: #5fd576;
+    /* Reserves space below the form so the host's chat-input bar
+       doesn't cover the textarea / Next button when the keyboard is up.
+       Restored after being lost during the mobile-pa → ada migration. */
+    --chat-input-clearance: 140px;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; }
   body {
     margin: 0; font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
     background: var(--bg); color: var(--text);
     min-height: 100vh; display: flex; flex-direction: column;
-    padding: 24px 20px; padding-bottom: 40px;
+    padding: 24px 20px;
+    padding-bottom: calc(var(--chat-input-clearance) + env(safe-area-inset-bottom, 0px));
   }
-  .progress-bar { height: 3px; background: #1a1a1a; border-radius: 999px; overflow: hidden; margin-bottom: 32px; }
+  .progress-bar { height: 3px; background: var(--surface-2); border-radius: 999px; overflow: hidden; margin-bottom: 32px; }
   .progress-fill { height: 100%; background: var(--accent); transition: width 0.4s ease; }
   .step-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 12px; }
   h1 { font-size: 24px; line-height: 1.3; margin: 0 0 12px; font-weight: 600; }
@@ -34,7 +42,7 @@
   textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   .time-row { display: flex; gap: 10px; }
   .time-row input { flex: 1; min-height: 0; }
-  .btn-row { display: flex; gap: 10px; margin-top: 24px; }
+  .btn-row { display: flex; gap: 10px; margin-top: 24px; scroll-margin-bottom: var(--chat-input-clearance); }
   button {
     flex: 1; padding: 14px; border-radius: 10px; border: 1px solid var(--border);
     background: var(--surface); color: var(--text); font-size: 15px; font-weight: 500;
@@ -51,6 +59,8 @@
   .summary-row:last-child { border-bottom: none; }
   .summary-key { color: var(--muted); min-width: 100px; }
   .summary-val { flex: 1; }
+  /* Give the focused field room above the keyboard + chat input. */
+  textarea, input[type="text"] { scroll-margin-bottom: var(--chat-input-clearance); }
 </style>
 </head>
 <body>
@@ -109,6 +119,15 @@
     document.getElementById('progressFill').style.width = ((step / QUESTIONS.length) * 100) + '%';
   }
 
+  // Bring the focused input + buttons into view above the keyboard / chat input.
+  function ensureVisible(el) {
+    if (!el) return;
+    // Run after the keyboard has begun animating in.
+    setTimeout(() => {
+      try { el.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (_) {}
+    }, 200);
+  }
+
   function renderQuestion() {
     setProgress();
     const q = QUESTIONS[step];
@@ -133,6 +152,9 @@
           <button class="primary" onclick="nextTime()">Next</button>
         </div>
       `;
+      const am = document.getElementById('amTime');
+      am.addEventListener('focus', () => ensureVisible(document.querySelector('.btn-row')));
+      document.getElementById('pmTime').addEventListener('focus', () => ensureVisible(document.querySelector('.btn-row')));
     } else {
       c.innerHTML = `
         <div class="step-label">${q.label}</div>
@@ -150,7 +172,10 @@
       t.addEventListener('input', () => {
         document.getElementById('nextBtn').disabled = t.value.trim().length === 0;
       });
+      t.addEventListener('focus', () => ensureVisible(document.querySelector('.btn-row')));
       document.getElementById('nextBtn').disabled = (answers[q.key] || '').trim().length === 0;
+      // First render: ensure the visible button row is reachable after keyboard pops up.
+      ensureVisible(document.querySelector('.btn-row'));
     }
   }
 
@@ -265,6 +290,17 @@
       if (msg.payload?.state?.onboarding_answers) Object.assign(answers, msg.payload.state.onboarding_answers);
     }
   });
+
+  // When the visual viewport shrinks (keyboard up), keep the focused field visible.
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', () => {
+      const focused = document.activeElement;
+      if (focused && (focused.tagName === 'TEXTAREA' || focused.tagName === 'INPUT')) {
+        ensureVisible(document.querySelector('.btn-row'));
+      }
+    });
+  }
+
   // On load: ensure state, then start
   mcpCall('coach.state.initOnboarding', {}, () => {
     window.parent.postMessage({ source: 'adas-plugin', message: { action: 'ready' } }, '*');
