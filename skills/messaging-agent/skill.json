@@ -195,8 +195,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_d3d5094b"
+      }
     },
     {
       "name": "device.calendar.upcoming",
@@ -222,8 +221,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_f9612e38"
+      }
     },
     {
       "name": "device.calendar.create",
@@ -281,8 +279,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_1e1747b1"
+      }
     },
     {
       "name": "device.calendar.reschedule",
@@ -323,8 +320,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_fb00a71f"
+      }
     },
     {
       "name": "device.calendar.cancel",
@@ -353,8 +349,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_240c0ebf"
+      }
     },
     {
       "name": "device.contacts.search",
@@ -383,8 +378,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_2d3e478b"
+      }
     },
     {
       "name": "device.contacts.get",
@@ -413,8 +407,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_63f2e342"
+      }
     },
     {
       "name": "device.contacts.birthdays",
@@ -440,8 +433,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_2759b5bd"
+      }
     },
     {
       "name": "device.contacts.lastContact",
@@ -470,8 +462,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_0e9cb72e"
+      }
     },
     {
       "name": "device.location.current",
@@ -491,8 +482,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_33d89d36"
+      }
     },
     {
       "name": "device.weather.current",
@@ -512,8 +502,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_6caaaf4d"
+      }
     },
     {
       "name": "device.weather.forecast",
@@ -539,8 +528,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_3dc42633"
+      }
     },
     {
       "name": "device.commute.estimate",
@@ -583,8 +571,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_2d0f75e8"
+      }
     },
     {
       "name": "device.battery",
@@ -604,8 +591,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_7e806ace"
+      }
     },
     {
       "name": "device.connectivity",
@@ -625,8 +611,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_dafb7d88"
+      }
     },
     {
       "name": "device.health.today",
@@ -646,8 +631,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_93c7bcff"
+      }
     },
     {
       "name": "device.health.history",
@@ -675,8 +659,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_7b694e07"
+      }
     },
     {
       "name": "device.message.send",
@@ -710,8 +693,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_243761e3"
+      }
     },
     {
       "name": "device.notifications.list",
@@ -737,8 +719,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_d0f95cb8"
+      }
     },
     {
       "name": "device.notifications.group",
@@ -772,8 +753,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_1a00357b"
+      }
     },
     {
       "name": "device.notifications.dismiss",
@@ -803,8 +783,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_c20af8e0"
+      }
     },
     {
       "name": "device.dnd.get",
@@ -824,8 +803,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_9c996ea9"
+      }
     },
     {
       "name": "device.dnd.set",
@@ -866,8 +844,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_ac4af14b"
+      }
     },
     {
       "name": "device.navigation.start",
@@ -905,8 +882,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_b18a289a"
+      }
     },
     {
       "name": "device.app.recent",
@@ -932,8 +908,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_c245eb92"
+      }
     },
     {
       "name": "integrations.list",
@@ -953,8 +928,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_a3b1b07f"
+      }
     },
     {
       "name": "integrations.check",
@@ -983,8 +957,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_756c9219"
+      }
     },
     {
       "name": "auth.listServices",
@@ -1004,8 +977,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_7b477789"
+      }
     },
     {
       "name": "gmail.status",
@@ -1032,8 +1004,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_f499e146"
+      }
     },
     {
       "name": "gcal.status",
@@ -1060,8 +1031,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_32ef6bb3"
+      }
     },
     {
       "name": "gmail.fetch",
@@ -1104,8 +1074,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_746f2d9a"
+      }
     },
     {
       "name": "gmail.read",
@@ -1141,8 +1110,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_9bddd5a1"
+      }
     },
     {
       "name": "gmail.send",
@@ -1241,8 +1209,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_8cd1636d"
+      }
     },
     {
       "name": "gmail.reply",
@@ -1309,8 +1276,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_9448be49"
+      }
     },
     {
       "name": "gmail.markRead",
@@ -1356,8 +1322,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_ddc746c3"
+      }
     },
     {
       "name": "gmail.trash",
@@ -1414,8 +1379,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_15eed3ea"
+      }
     },
     {
       "name": "gmail.archive",
@@ -1461,8 +1425,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_f59db69e"
+      }
     },
     {
       "name": "gmail.move",
@@ -1521,8 +1484,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_962ae020"
+      }
     },
     {
       "name": "gmail.labels",
@@ -1551,8 +1513,53 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "gmail.mark_read",
+      "description": "Mark one or more emails as read.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "gmail-mcp",
+        "mcp_tool": "gmail.mark_read"
       },
-      "id": "tool_769e50bb"
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "message_ids"
+        ],
+        "properties": {
+          "message_ids": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "description": "Message ID(s) to mark as read"
+          },
+          "_adas_actor": {
+            "type": "string",
+            "description": "Actor ID (injected by platform)"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Tenant ID (injected by platform)"
+          }
+        }
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
     },
     {
       "name": "gmail.search",
@@ -1591,8 +1598,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_f6604f19"
+      }
     },
     {
       "name": "gmail.get",
@@ -1628,8 +1634,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_98862112"
+      }
     },
     {
       "name": "gmail.unread",
@@ -1664,8 +1669,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_a4e4d770"
+      }
     },
     {
       "name": "gmail.draft",
@@ -1714,8 +1718,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_370d1f7c"
+      }
     },
     {
       "name": "gmail.thread",
@@ -1751,8 +1754,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_95ea22c4"
+      }
     },
     {
       "name": "send_email",
@@ -1817,8 +1819,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_098b3bbe"
+      }
     },
     {
       "name": "get_unseen_messages",
@@ -1853,8 +1854,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_1362c472"
+      }
     },
     {
       "name": "mark_as_read",
@@ -1900,8 +1900,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_c3935def"
+      }
     },
     {
       "name": "list_aliases",
@@ -1930,8 +1929,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_e1e72217"
+      }
     },
     {
       "name": "gmail.calendar.upcoming",
@@ -1976,8 +1974,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_26a67027"
+      }
     },
     {
       "name": "calendar.list_events",
@@ -2028,8 +2025,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_56370889"
+      }
     },
     {
       "name": "calendar.create_event",
@@ -2127,8 +2123,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_9295fede"
+      }
     },
     {
       "name": "calendar.update_event",
@@ -2220,8 +2215,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_f269c926"
+      }
     },
     {
       "name": "calendar.delete_event",
@@ -2269,8 +2263,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_89ca0577"
+      }
     },
     {
       "name": "gmail.cleanup",
@@ -2320,8 +2313,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_78a257e5"
+      }
     },
     {
       "name": "ui.listPlugins",
@@ -2341,8 +2333,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_b18114a7"
+      }
     },
     {
       "name": "ui.getPlugin",
@@ -2370,8 +2361,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_e4faab82"
+      }
     },
     {
       "name": "ui.gmail_setup.connect",
@@ -2391,8 +2381,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_06939deb"
+      }
     },
     {
       "name": "gmail._storeTokens",
@@ -2438,8 +2427,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_29660f05"
+      }
     },
     {
       "name": "gmail._consumeState",
@@ -2470,8 +2458,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_2761dfc3"
+      }
     },
     {
       "name": "whatsapp.status",
@@ -2501,8 +2488,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_c33bc62b"
+      }
     },
     {
       "name": "whatsapp.setup",
@@ -2536,8 +2522,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_31e85c4c"
+      }
     },
     {
       "name": "whatsapp.send",
@@ -2579,8 +2564,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_7ff3c3d4"
+      }
     },
     {
       "name": "whatsapp.unread",
@@ -2618,8 +2602,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_34656ed4"
+      }
     },
     {
       "name": "whatsapp.recent",
@@ -2657,8 +2640,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_10cc76eb"
+      }
     },
     {
       "name": "whatsapp.search",
@@ -2699,8 +2681,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_9f440003"
+      }
     },
     {
       "name": "ui.whatsapp_setup.connect",
@@ -2726,8 +2707,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_c5a85676"
+      }
     },
     {
       "name": "memory.store",
@@ -2797,8 +2777,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_7fe1e498"
+      }
     },
     {
       "name": "memory.recall",
@@ -2852,8 +2831,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_3a26bc12"
+      }
     },
     {
       "name": "memory.list",
@@ -2904,8 +2882,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_0c3ac74a"
+      }
     },
     {
       "name": "memory.update",
@@ -2952,8 +2929,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_b2d1a619"
+      }
     },
     {
       "name": "memory.delete",
@@ -2988,8 +2964,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_0d041530"
+      }
     },
     {
       "name": "memory.rules.match",
@@ -3024,8 +2999,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_ebaf8d99"
+      }
     },
     {
       "name": "memory.rules.count",
@@ -3051,8 +3025,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_bce9529a"
+      }
     },
     {
       "name": "context.store",
@@ -3096,8 +3069,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_86b16489"
+      }
     },
     {
       "name": "context.read",
@@ -3133,8 +3105,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_5a128533"
+      }
     },
     {
       "name": "context.resolve",
@@ -3176,8 +3147,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_6e462443"
+      }
     },
     {
       "name": "context.clear",
@@ -3210,8 +3180,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_7075a65d"
+      }
     },
     {
       "name": "memory.userProfile",
@@ -3237,8 +3206,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_054c0556"
+      }
     },
     {
       "name": "memory.userProfile.set",
@@ -3274,8 +3242,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_c26b5ad9"
+      }
     },
     {
       "name": "memory.semantic.search",
@@ -3318,8 +3285,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_9946f7c3"
+      }
     },
     {
       "name": "memory.explain",
@@ -3354,8 +3320,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_abe390eb"
+      }
     },
     {
       "name": "memory.summarize",
@@ -3381,8 +3346,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_f7aeb869"
+      }
     },
     {
       "name": "memory.compact",
@@ -3408,8 +3372,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_28c7283e"
+      }
     },
     {
       "name": "memory.confidence",
@@ -3450,8 +3413,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_2bde4a62"
+      }
     },
     {
       "name": "memory.supersede",
@@ -3490,8 +3452,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_a4564f46"
+      }
     },
     {
       "name": "memory.audit",
@@ -3527,8 +3488,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_d50ec961"
+      }
     },
     {
       "name": "memory.embed",
@@ -3560,8 +3520,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_0cca9673"
+      }
     },
     {
       "name": "memory.extract",
@@ -3614,8 +3573,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_f7294489"
+      }
     }
   ],
   "meta_tools": [],
@@ -3649,7 +3607,7 @@
   ],
   "id": "messaging-agent",
   "created_at": "2026-05-14T12:27:25.321Z",
-  "updated_at": "2026-05-15T08:10:29.836Z",
+  "updated_at": "2026-05-15T08:13:38.172Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -4752,9 +4710,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-05-15T07:38:01.751Z",
+  "lastExportedAt": "2026-05-15T08:13:37.871Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-15T07:38:02.373Z",
+  "deployedAt": "2026-05-15T08:13:38.170Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/messaging-agent"
 }
