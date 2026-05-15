@@ -20,14 +20,14 @@ Situation-aware personal assistant with proactive intelligence.
 ## 2. Skills
 
 - **my-docs** _(worker)_ — 
-- **notification-triage** _(worker)_ — 
 - **messaging-agent** _(worker)_ — 
-- **mycoach** _(worker)_ — 
 - **travel-agent** _(worker)_ — 
 - **memory-keeper** _(worker)_ — 
 - **teach-this** _(worker)_ — 
 - **life-manager** _(worker)_ — 
+- **notification-triage** _(worker)_ — 
 - **home-control** _(worker)_ — 
+- **mycoach** _(worker)_ — 
 - **daily-intel** _(worker)_ — 
 - **auto-orchestrator** _(worker)_ — 
 
@@ -83,14 +83,14 @@ Situation-aware personal assistant with proactive intelligence.
 solution.json                    # full solution definition
 skills/
   my-docs/skill.json
-  notification-triage/skill.json
   messaging-agent/skill.json
-  mycoach/skill.json
   travel-agent/skill.json
   memory-keeper/skill.json
   teach-this/skill.json
   life-manager/skill.json
+  notification-triage/skill.json
   home-control/skill.json
+  mycoach/skill.json
   daily-intel/skill.json
   auto-orchestrator/skill.json
 connectors/                      # solution connectors (stdio MCPs)
