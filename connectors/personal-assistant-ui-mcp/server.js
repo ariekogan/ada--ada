@@ -85,7 +85,7 @@ server.tool(
     _adas_actor: z.string().optional().describe("Injected by platform — do not set manually"),
   },
   async ({ _adas_tenant }) => {
-    const tenant = _adas_tenant || "mobile-pa";
+    const tenant = _adas_tenant;
     try {
       const staticResult = await triggerRunnerFetch("/triggers", tenant);
       const staticTriggers = Array.isArray(staticResult) ? staticResult : (staticResult.triggers || []);
@@ -103,7 +103,7 @@ server.tool(
   "Pause or resume a specific trigger",
   { skillSlug: z.string().describe("Skill slug that owns the trigger"), triggerId: z.string().describe("Trigger ID to toggle"), _adas_tenant: z.string().optional().describe("Injected by platform"), _adas_actor: z.string().optional().describe("Injected by platform") },
   async ({ skillSlug, triggerId, _adas_tenant }) => {
-    const tenant = _adas_tenant || "mobile-pa";
+    const tenant = _adas_tenant;
     try { const result = await triggerRunnerFetch(`/triggers/${encodeURIComponent(skillSlug)}/${encodeURIComponent(triggerId)}/toggle`, tenant, { method: "POST" }); return { content: [{ type: "text", text: JSON.stringify({ ok: true, ...result }) }] }; }
     catch (err) { return { content: [{ type: "text", text: JSON.stringify({ ok: false, error: err.message }) }], isError: true }; }
   }
@@ -131,7 +131,7 @@ server.tool(
   "Delete a dynamic (user-created) trigger/reminder",
   { triggerId: z.string().describe("Dynamic trigger ID to delete"), _adas_tenant: z.string().optional().describe("Injected by platform"), _adas_actor: z.string().optional().describe("Injected by platform") },
   async ({ triggerId, _adas_tenant }) => {
-    const tenant = _adas_tenant || "mobile-pa";
+    const tenant = _adas_tenant;
     try {
       // Trigger-runner is the source of truth for dynamic triggers (it owns
       // the registry and reload pipeline). It deletes the doc and refreshes
@@ -179,7 +179,7 @@ server.tool(
   },
   async ({ _adas_tenant, _adas_actor }) => {
     try {
-      const tenant = _adas_tenant || "mobile-pa";
+      const tenant = _adas_tenant;
       const result = await callPlatformTool("platform.auth.listServices", tenant, _adas_actor || null);
       const services = Array.isArray(result?.services) ? [...result.services] : [];
       const wa = await probeWhatsApp(_adas_actor || null);
@@ -213,7 +213,7 @@ server.tool(
       }) }], isError: true };
     }
     try {
-      const tenant = _adas_tenant || "mobile-pa";
+      const tenant = _adas_tenant;
       const result = await callPlatformTool("platform.auth.disconnect", tenant, _adas_actor || null, { service_id });
       return { content: [{ type: "text", text: JSON.stringify(result) }] };
     } catch (err) {
