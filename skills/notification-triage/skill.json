@@ -10,7 +10,7 @@
   "scenarios": [],
   "role": {
     "name": "Notification Analyst",
-    "persona": "You are a notification triage specialist. Your job is to cut through the noise and surface what actually matters.\n\nWHEN ASKED TO CHECK NOTIFICATIONS:\n1. Get all notifications (device.notifications.list)\n2. Check for unread emails (gmail.fetch) and WhatsApp messages (whatsapp.unread)\n3. Check DND status (device.dnd.get)\n4. Cross-reference senders with contacts (device.contacts.search)\n5. Check memory (memory.recall) for notification preferences\n\nBefore using email or WhatsApp tools, check integrations.check to verify the channel is connected.\n\nTRIAGE CLASSIFICATION:\n- URGENT: Messages from spouse/partner, boss, or parent. Calendar alerts for events within 30 min.\n- IMPORTANT: Work messages from colleagues. Family group messages.\n- ROUTINE: Delivery updates, system updates.\n- NOISE: Promotional content, low-priority alerts.\n\nPRESENTATION:\n- Lead with urgent items\n- Group important items\n- Summarize routine\n- Skip noise unless asked\n\nDND MANAGEMENT:\n- Confirm schedule and allowlist when turning on\n- Mention what was missed when turning off\n\nBe concise. Users checking notifications want quick answers, not essays.\n\n**CROSS-SKILL ROUTING**\nIf you receive a request outside your capabilities, do NOT attempt it or ask the user to rephrase. Instead:\n1. Call sys.handoffToSkill({to_skill: 'pa-orchestrator', summary: 'Received request outside my scope: [describe request]'}) to route back to the orchestrator for proper routing.\n2. The orchestrator will find the right skill to handle it.\nNever silently fail or make up answers for requests you can't fulfill.\n\nMOBILE COMMUNICATION STYLE (CRITICAL):\nThis is a mobile consumer app with small chat real estate. Keep responses SHORT and CASUAL.\n- Max 2-3 sentences for most replies\n- No bullet lists unless absolutely necessary (and then max 3 items)\n- No headings, no markdown sections\n- Conversational tone like texting a friend\n- Skip preamble — get to the point immediately\n- For yes/no questions, answer directly\n- For task confirmations: 'Done.' / 'Sent.' / 'Got it.'\n- For errors: explain in 1 sentence, suggest one fix\n- Never explain what you're about to do — just do it\n\nMOBILE CHAT: This is a small mobile chat screen. Keep responses 1-3 sentences max. Casual, conversational tone like texting a friend. No bullet lists, no headers, no markdown sections. Plain text only. If details needed, ask one short question at a time.",
+    "persona": "You are a notification triage specialist. Your job is to cut through the noise and surface what actually matters.\n\nWHEN ASKED TO CHECK NOTIFICATIONS:\n1. Get all notifications (device.notifications.list)\n2. Check for unread emails (gmail.fetch) and WhatsApp messages (whatsapp.unread)\n3. Check DND status (device.dnd.get)\n4. Cross-reference senders with contacts (device.contacts.search)\n5. Check memory (memory.recall) for notification preferences\n\nBefore using email or WhatsApp tools, check integrations.check to verify the channel is connected.\n\nTRIAGE CLASSIFICATION:\n- URGENT: Messages from spouse/partner, boss, or parent. Calendar alerts for events within 30 min.\n- IMPORTANT: Work messages from colleagues. Family group messages.\n- ROUTINE: Delivery updates, system updates.\n- NOISE: Promotional content, low-priority alerts.\n\nPRESENTATION:\n- Lead with urgent items\n- Group important items\n- Summarize routine\n- Skip noise unless asked\n\nDND MANAGEMENT:\n- Confirm schedule and allowlist when turning on\n- Mention what was missed when turning off\n\nBe concise. Users checking notifications want quick answers, not essays.\n\n**CROSS-SKILL ROUTING**\nIf you receive a request outside your capabilities, do NOT attempt it or ask the user to rephrase. Instead:\n1. Call sys.handoffToSkill({to_skill: 'auto-orchestrator', summary: 'Received request outside my scope: [describe request]'}) to route back to the orchestrator for proper routing.\n2. The orchestrator will find the right skill to handle it.\nNever silently fail or make up answers for requests you can't fulfill.\n\nMOBILE COMMUNICATION STYLE (CRITICAL):\nThis is a mobile consumer app with small chat real estate. Keep responses SHORT and CASUAL.\n- Max 2-3 sentences for most replies\n- No bullet lists unless absolutely necessary (and then max 3 items)\n- No headings, no markdown sections\n- Conversational tone like texting a friend\n- Skip preamble — get to the point immediately\n- For yes/no questions, answer directly\n- For task confirmations: 'Done.' / 'Sent.' / 'Got it.'\n- For errors: explain in 1 sentence, suggest one fix\n- Never explain what you're about to do — just do it\n\nMOBILE CHAT: This is a small mobile chat screen. Keep responses 1-3 sentences max. Casual, conversational tone like texting a friend. No bullet lists, no headers, no markdown sections. Plain text only. If details needed, ask one short question at a time.",
     "goals": [],
     "limitations": []
   },
@@ -190,7 +190,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_fe3eae5f"
     },
     {
       "name": "device.calendar.upcoming",
@@ -216,7 +217,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_2730271c"
     },
     {
       "name": "device.calendar.create",
@@ -274,7 +276,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_8e2934b0"
     },
     {
       "name": "device.calendar.reschedule",
@@ -315,7 +318,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_74de1efa"
     },
     {
       "name": "device.calendar.cancel",
@@ -344,7 +348,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_3feadc45"
     },
     {
       "name": "device.contacts.search",
@@ -373,7 +378,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_45f108c9"
     },
     {
       "name": "device.contacts.get",
@@ -402,7 +408,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_a238f06c"
     },
     {
       "name": "device.contacts.birthdays",
@@ -428,7 +435,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_8d895100"
     },
     {
       "name": "device.contacts.lastContact",
@@ -457,7 +465,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_bfa10426"
     },
     {
       "name": "device.location.current",
@@ -477,7 +486,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_700bd7f6"
     },
     {
       "name": "device.weather.current",
@@ -497,7 +507,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_521e2307"
     },
     {
       "name": "device.weather.forecast",
@@ -523,7 +534,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_bcb4617c"
     },
     {
       "name": "device.commute.estimate",
@@ -566,7 +578,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_af200e6d"
     },
     {
       "name": "device.battery",
@@ -586,7 +599,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_bc0eb9ca"
     },
     {
       "name": "device.connectivity",
@@ -606,7 +620,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_d024bd31"
     },
     {
       "name": "device.health.today",
@@ -626,7 +641,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_7c6bc8c7"
     },
     {
       "name": "device.health.history",
@@ -654,7 +670,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_fad0fddf"
     },
     {
       "name": "device.message.send",
@@ -688,7 +705,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_abbc8fca"
     },
     {
       "name": "device.notifications.list",
@@ -714,7 +732,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_6da33961"
     },
     {
       "name": "device.notifications.group",
@@ -748,7 +767,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_fc78cc20"
     },
     {
       "name": "device.notifications.dismiss",
@@ -778,7 +798,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_a278fff7"
     },
     {
       "name": "device.dnd.get",
@@ -798,7 +819,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_35a19e2f"
     },
     {
       "name": "device.dnd.set",
@@ -839,7 +861,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_43e2d94a"
     },
     {
       "name": "device.navigation.start",
@@ -877,7 +900,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_ac2a8057"
     },
     {
       "name": "device.app.recent",
@@ -903,7 +927,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_e39a2a35"
     },
     {
       "name": "integrations.list",
@@ -923,7 +948,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_f0963877"
     },
     {
       "name": "integrations.check",
@@ -952,7 +978,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_bf8018c3"
     },
     {
       "name": "auth.listServices",
@@ -972,7 +999,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_d554ec7a"
     },
     {
       "name": "gmail.status",
@@ -999,7 +1027,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_40b22ae4"
     },
     {
       "name": "gcal.status",
@@ -1026,7 +1055,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_1c0a806c"
     },
     {
       "name": "gmail.fetch",
@@ -1069,7 +1099,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_ddd7c5ff"
     },
     {
       "name": "gmail.read",
@@ -1105,7 +1136,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_c9d11d47"
     },
     {
       "name": "gmail.send",
@@ -1204,7 +1236,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_e843dd96"
     },
     {
       "name": "gmail.reply",
@@ -1271,7 +1304,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_28b5ccf6"
     },
     {
       "name": "gmail.markRead",
@@ -1317,7 +1351,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_03ef3559"
     },
     {
       "name": "gmail.trash",
@@ -1374,7 +1409,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_b9a906e7"
     },
     {
       "name": "gmail.archive",
@@ -1420,7 +1456,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_32990fd5"
     },
     {
       "name": "gmail.move",
@@ -1479,7 +1516,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_4fbaa9fc"
     },
     {
       "name": "gmail.labels",
@@ -1508,53 +1546,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
-    },
-    {
-      "name": "gmail.mark_read",
-      "description": "Mark one or more emails as read.",
-      "source": {
-        "type": "mcp_bridge",
-        "connection_id": "gmail-mcp",
-        "mcp_tool": "gmail.mark_read"
       },
-      "_auto_imported": true,
-      "inputSchema": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "message_ids"
-        ],
-        "properties": {
-          "message_ids": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            ],
-            "description": "Message ID(s) to mark as read"
-          },
-          "_adas_actor": {
-            "type": "string",
-            "description": "Actor ID (injected by platform)"
-          },
-          "_adas_tenant": {
-            "type": "string",
-            "description": "Tenant ID (injected by platform)"
-          }
-        }
-      },
-      "security": {
-        "classification": "internal",
-        "_auto_classified": true,
-        "_rationale": "no_pattern_matched_default_applied"
-      }
+      "id": "tool_7859948d"
     },
     {
       "name": "gmail.search",
@@ -1593,7 +1586,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_2e535d6c"
     },
     {
       "name": "gmail.get",
@@ -1629,7 +1623,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_645c427f"
     },
     {
       "name": "gmail.unread",
@@ -1664,7 +1659,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_9a5cdf2b"
     },
     {
       "name": "gmail.draft",
@@ -1713,7 +1709,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_cfcc7bba"
     },
     {
       "name": "gmail.thread",
@@ -1749,7 +1746,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_e36bff4e"
     },
     {
       "name": "send_email",
@@ -1814,7 +1812,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_2abbd905"
     },
     {
       "name": "get_unseen_messages",
@@ -1849,7 +1848,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_761a63f8"
     },
     {
       "name": "mark_as_read",
@@ -1895,7 +1895,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_bdf0c8f7"
     },
     {
       "name": "list_aliases",
@@ -1924,7 +1925,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_1e7ce7d9"
     },
     {
       "name": "gmail.calendar.upcoming",
@@ -1969,7 +1971,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_0119c0bf"
     },
     {
       "name": "calendar.list_events",
@@ -2020,7 +2023,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_0d93ede1"
     },
     {
       "name": "calendar.create_event",
@@ -2118,7 +2122,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_8251ae43"
     },
     {
       "name": "calendar.update_event",
@@ -2210,7 +2215,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_a0c0a7b7"
     },
     {
       "name": "calendar.delete_event",
@@ -2258,7 +2264,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_a9846604"
     },
     {
       "name": "gmail.cleanup",
@@ -2308,7 +2315,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_06ca6b90"
     },
     {
       "name": "ui.listPlugins",
@@ -2328,7 +2336,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_22005dd3"
     },
     {
       "name": "ui.getPlugin",
@@ -2356,7 +2365,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_a5e33bd4"
     },
     {
       "name": "ui.gmail_setup.connect",
@@ -2376,7 +2386,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_1a468da3"
     },
     {
       "name": "gmail._storeTokens",
@@ -2422,7 +2433,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_7f18d347"
     },
     {
       "name": "gmail._consumeState",
@@ -2453,7 +2465,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_dabadeb5"
     },
     {
       "name": "whatsapp.status",
@@ -2483,7 +2496,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_367cc3d9"
     },
     {
       "name": "whatsapp.setup",
@@ -2517,7 +2531,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_8fbaf57f"
     },
     {
       "name": "whatsapp.send",
@@ -2559,7 +2574,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_f18a2d29"
     },
     {
       "name": "whatsapp.unread",
@@ -2597,7 +2613,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_58b4dd43"
     },
     {
       "name": "whatsapp.recent",
@@ -2635,7 +2652,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_fe9a16e2"
     },
     {
       "name": "whatsapp.search",
@@ -2676,7 +2694,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_1ab73579"
     },
     {
       "name": "ui.whatsapp_setup.connect",
@@ -2702,7 +2721,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_6f4383af"
     },
     {
       "name": "memory.store",
@@ -2772,7 +2792,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_6a61a703"
     },
     {
       "name": "memory.recall",
@@ -2826,7 +2847,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_4fdceaf1"
     },
     {
       "name": "memory.list",
@@ -2877,7 +2899,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_7999ace1"
     },
     {
       "name": "memory.update",
@@ -2924,7 +2947,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_81c1c778"
     },
     {
       "name": "memory.delete",
@@ -2959,7 +2983,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_1c90ae42"
     },
     {
       "name": "memory.rules.match",
@@ -2994,7 +3019,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_4802b202"
     },
     {
       "name": "memory.rules.count",
@@ -3020,7 +3046,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_1462d530"
     },
     {
       "name": "context.store",
@@ -3064,7 +3091,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_32fd60cc"
     },
     {
       "name": "context.read",
@@ -3100,7 +3128,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_b1298f2c"
     },
     {
       "name": "context.resolve",
@@ -3142,7 +3171,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_f6e5839d"
     },
     {
       "name": "context.clear",
@@ -3175,7 +3205,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_855ee759"
     },
     {
       "name": "memory.userProfile",
@@ -3201,7 +3232,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_0aa6139d"
     },
     {
       "name": "memory.userProfile.set",
@@ -3237,7 +3269,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_2c7abe6f"
     },
     {
       "name": "memory.semantic.search",
@@ -3280,7 +3313,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_32801540"
     },
     {
       "name": "memory.explain",
@@ -3315,7 +3349,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_b6bcfdb4"
     },
     {
       "name": "memory.summarize",
@@ -3341,7 +3376,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_afacf1ba"
     },
     {
       "name": "memory.compact",
@@ -3367,7 +3403,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_3326e8ba"
     },
     {
       "name": "memory.confidence",
@@ -3408,7 +3445,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_510761c5"
     },
     {
       "name": "memory.supersede",
@@ -3447,7 +3485,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_11e0f2c2"
     },
     {
       "name": "memory.audit",
@@ -3483,7 +3522,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_d97aa29f"
     },
     {
       "name": "memory.embed",
@@ -3515,7 +3555,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_76e6c1bf"
     },
     {
       "name": "memory.extract",
@@ -3568,7 +3609,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_b98d2c28"
     }
   ],
   "meta_tools": [],
@@ -3598,7 +3640,7 @@
   "solution_id": "ada",
   "id": "notification-triage",
   "created_at": "2026-05-14T12:28:16.200Z",
-  "updated_at": "2026-05-15T07:38:44.780Z",
+  "updated_at": "2026-05-15T07:39:28.025Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
