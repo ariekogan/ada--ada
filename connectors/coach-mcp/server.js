@@ -460,7 +460,12 @@ async function handle(req) {
           render: {
             mode: 'adaptive',
             iframeUrl: `/ui/${p.id}/index.html`,
-            reactNative: { component: p.id, bundleUrl: `/api/ui-plugins/mcp%3Acoach-mcp%3A${p.id}/bundle.js` },
+            // No explicit bundleUrl — the host derives the default route from
+            // the plugin id, which is what Core actually serves. Hard-coding
+            // a URL here previously pointed at a path Core didn't route, so
+            // the bundle fetch 404'd and the host flipped `bundleMissing=true`
+            // and rendered the EmbeddedPluginWebView (iframe) as a fallback.
+            reactNative: { component: p.id },
           },
           channels: ['command'],
           capabilities: { commands: [{ name: 'open', description: `Open ${p.name}`, input_schema: { type: 'object', properties: {} } }] },

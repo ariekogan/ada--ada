@@ -826,8 +826,7 @@
         "mode": "adaptive",
         "iframeUrl": "/ui/coach-dashboard/index.html",
         "reactNative": {
-          "component": "coach-dashboard",
-          "bundleUrl": "/api/ui-plugins/mcp%3Acoach-mcp%3Acoach-dashboard/bundle.js"
+          "component": "coach-dashboard"
         }
       },
       "channels": [
@@ -878,8 +877,7 @@
         "mode": "adaptive",
         "iframeUrl": "/ui/coach-onboarding/index.html",
         "reactNative": {
-          "component": "coach-onboarding",
-          "bundleUrl": "/api/ui-plugins/mcp%3Acoach-mcp%3Acoach-onboarding/bundle.js"
+          "component": "coach-onboarding"
         }
       },
       "channels": [
