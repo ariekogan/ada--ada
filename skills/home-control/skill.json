@@ -2376,7 +2376,7 @@
   "solution_id": "ada",
   "id": "home-control",
   "created_at": "2026-05-14T12:29:01.789Z",
-  "updated_at": "2026-05-15T10:10:26.321Z",
+  "updated_at": "2026-05-15T10:10:50.071Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -3306,9 +3306,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-05-15T09:26:21.486Z",
+  "lastExportedAt": "2026-05-15T10:10:49.949Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-15T09:26:32.323Z",
+  "deployedAt": "2026-05-15T10:10:50.070Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/home-control"
 }
