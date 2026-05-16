@@ -148,6 +148,175 @@
   "toolbox_imports": [],
   "tools": [
     {
+      "name": "pcm.observation.get",
+      "description": "Read a PCM observation by id, including its evidence and current status. Use this when the user pushes back and you need to elaborate on what PCM saw (e.g. \"what do you mean?\" → fetch evidence → describe it grounded in real events).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "pcm-mcp",
+        "mcp_tool": "pcm.observation.get"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "observationId": {
+            "type": "string",
+            "description": "The PCM observation id, e.g. obs_abc123"
+          }
+        },
+        "required": [
+          "observationId"
+        ]
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "pcm.observation.confirm",
+      "description": "Record that the user confirmed this observation AS STATED. Call this at the close of the conversation when the user clearly agrees. Sets status=confirmed, confidence=1.0.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "pcm-mcp",
+        "mcp_tool": "pcm.observation.confirm"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "observationId": {
+            "type": "string",
+            "description": "The PCM observation id"
+          }
+        },
+        "required": [
+          "observationId"
+        ]
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "pcm.observation.refine",
+      "description": "Record that the user agreed with the gist of the observation but corrected the wording. Set newStatement to the user's adjusted version (one sentence, no quotes around it). Status becomes refined, confidence is bumped to at least 0.85.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "pcm-mcp",
+        "mcp_tool": "pcm.observation.refine"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "observationId": {
+            "type": "string",
+            "description": "The PCM observation id"
+          },
+          "newStatement": {
+            "type": "string",
+            "description": "The refined statement as the user actually phrased it. Example: 'gentle by default, but sharper when I am in focus mode'"
+          }
+        },
+        "required": [
+          "observationId",
+          "newStatement"
+        ]
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "pcm.observation.dismiss",
+      "description": "Record that the user rejected this observation. Use when the user clearly disagrees, says it's wrong, or doesn't want PCM tracking it. Status becomes rejected — PCM will not bring this observation up again.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "pcm-mcp",
+        "mcp_tool": "pcm.observation.dismiss"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "observationId": {
+            "type": "string",
+            "description": "The PCM observation id"
+          }
+        },
+        "required": [
+          "observationId"
+        ]
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "pcm.observation.defer",
+      "description": "Record that the user gave no actionable answer (\"idk\", \"maybe\", shrug). The observation reverts to ready_to_discuss so PCM can retry the conversation later. Distinct from dismiss — dismiss means \"never bring this up again\"; defer means \"the user didn't engage this time, try again another day.\"",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "pcm-mcp",
+        "mcp_tool": "pcm.observation.defer"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "observationId": {
+            "type": "string",
+            "description": "The PCM observation id"
+          }
+        },
+        "required": [
+          "observationId"
+        ]
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "cp.pcm_api",
+      "description": "Legacy control-panel facade. Dispatches PCM methods by name. Skills should prefer the first-class pcm.observation.* tools above; this is for Core/UI use only.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "pcm-mcp",
+        "mcp_tool": "cp.pcm_api"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "method": {
+            "type": "string"
+          },
+          "params": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
       "name": "memory.store",
       "description": "Store a long-term HUMAN/AGENT CONTEXT memory — facts, preferences, taught rules, user profile fields. Content must be concise, durable, and recallable. Types: preference, fact, instruction, pattern, rule, user_model; the engine assigns the CoALA kind automatically (semantic / procedural). DO NOT use for: session cookies, OAuth tokens, API keys, or any credentials (use platform.dataStore). DO NOT use for: raw tool-output dumps, large JSON blobs, or cached API responses (use platform.dataStore). The engine runs quality guards, dedup, normalize, and conflict detection; rejections include a `guidance` field telling you the correct tool/path. Returns { memory, conflicts, processing }.",
       "source": {
@@ -1058,7 +1227,7 @@
   },
   "grant_mappings": [],
   "handoff_when": "PCM has surfaced an observation for confirmation. This skill is SYSTEM-INITIATED — PCM calls deliverUserMessage with skillId=pcm-companion. It is never routed to from user phrasing alone. If the user asks unrelated questions, hand back out to the normal orchestrator.",
-  "updated_at": "2026-05-16T22:41:58.782Z",
+  "updated_at": "2026-05-16T22:42:30.770Z",
   "created_at": "2026-05-16T21:53:18.562Z",
   "validation": {
     "valid": false,
@@ -1371,9 +1540,9 @@
     }
   },
   "solution_id": "ada",
-  "lastExportedAt": "2026-05-16T22:39:06.134Z",
+  "lastExportedAt": "2026-05-16T22:42:30.613Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-16T22:39:06.730Z",
+  "deployedAt": "2026-05-16T22:42:30.768Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/pcm-companion",
   "_force_redeploy": true
