@@ -1375,5 +1375,6 @@
   "lastExportType": "mcp-simple",
   "deployedAt": "2026-05-16T22:36:44.447Z",
   "deployedTo": "http://adas-backend:4000",
-  "mcpUri": "stdio://localhost/pcm-companion"
+  "mcpUri": "stdio://localhost/pcm-companion",
+  "_force_redeploy": true
 }
