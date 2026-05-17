@@ -3598,7 +3598,7 @@
   "solution_id": "ada",
   "id": "notification-triage",
   "created_at": "2026-05-14T12:28:16.200Z",
-  "updated_at": "2026-05-17T15:38:12.145Z",
+  "updated_at": "2026-05-17T15:40:07.225Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -4701,9 +4701,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-05-17T15:29:07.518Z",
+  "lastExportedAt": "2026-05-17T15:40:05.395Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-17T15:29:07.751Z",
+  "deployedAt": "2026-05-17T15:40:07.224Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/notification-triage"
 }
