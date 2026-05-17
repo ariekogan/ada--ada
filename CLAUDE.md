@@ -22,13 +22,13 @@ Situation-aware personal assistant with proactive intelligence.
 - **travel-agent** _(worker)_ — 
 - **teach-this** _(worker)_ — 
 - **notification-triage** _(worker)_ — 
-- **mycoach** _(worker)_ — 
-- **life-manager** _(worker)_ — 
-- **home-control** _(worker)_ — 
 - **messaging-agent** _(worker)_ — 
 - **daily-intel** _(worker)_ — 
 - **my-docs** _(worker)_ — 
 - **memory-keeper** _(worker)_ — 
+- **mycoach** _(worker)_ — 
+- **life-manager** _(worker)_ — 
+- **home-control** _(worker)_ — 
 
 ---
 
@@ -84,13 +84,13 @@ skills/
   travel-agent/skill.json
   teach-this/skill.json
   notification-triage/skill.json
-  mycoach/skill.json
-  life-manager/skill.json
-  home-control/skill.json
   messaging-agent/skill.json
   daily-intel/skill.json
   my-docs/skill.json
   memory-keeper/skill.json
+  mycoach/skill.json
+  life-manager/skill.json
+  home-control/skill.json
 connectors/                      # solution connectors (stdio MCPs)
   _(no solution connectors)_
 .ateam/export.json               # auto-generated deploy bundle (don't hand-edit)
