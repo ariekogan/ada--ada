@@ -189,8 +189,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_1212b1b4"
+      }
     },
     {
       "name": "entity.state",
@@ -216,8 +215,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_96861ca0"
+      }
     },
     {
       "name": "services.call",
@@ -254,8 +252,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_c2cfbf30"
+      }
     },
     {
       "name": "config.get",
@@ -270,8 +267,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_bf916d10"
+      }
     },
     {
       "name": "config.save",
@@ -294,8 +290,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_be4aeccd"
+      }
     },
     {
       "name": "rooms.list",
@@ -310,8 +305,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_7e803e4c"
+      }
     },
     {
       "name": "rooms.sync",
@@ -326,8 +320,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_7641db11"
+      }
     },
     {
       "name": "discovery.supported",
@@ -342,8 +335,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_3d6e060e"
+      }
     },
     {
       "name": "discovery.status",
@@ -358,8 +350,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_b26fe013"
+      }
     },
     {
       "name": "homeconnect.auth",
@@ -374,8 +365,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_b6cd7f29"
+      }
     },
     {
       "name": "homeconnect.callback",
@@ -401,8 +391,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_3bb32e48"
+      }
     },
     {
       "name": "homeconnect.appliances",
@@ -417,8 +406,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_cbbb11c8"
+      }
     },
     {
       "name": "homeconnect.status",
@@ -444,8 +432,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_b768b8c8"
+      }
     },
     {
       "name": "homeconnect.programs",
@@ -471,8 +458,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_8a1dae09"
+      }
     },
     {
       "name": "homeconnect.start_program",
@@ -508,8 +494,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_450b890d"
+      }
     },
     {
       "name": "homeconnect.stop_program",
@@ -535,8 +520,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_941d01db"
+      }
     },
     {
       "name": "tv.discover",
@@ -551,8 +535,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_8c924f64"
+      }
     },
     {
       "name": "tv.apps",
@@ -567,8 +550,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_9720e683"
+      }
     },
     {
       "name": "tv.inputs",
@@ -583,8 +565,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_c81c9b4d"
+      }
     },
     {
       "name": "hue.auth",
@@ -610,8 +591,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_d0c293a2"
+      }
     },
     {
       "name": "hue.callback",
@@ -634,8 +614,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_b1658d02"
+      }
     },
     {
       "name": "hue.devices",
@@ -661,8 +640,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_c95c7cf0"
+      }
     },
     {
       "name": "hue.state",
@@ -691,8 +669,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_257f4bcb"
+      }
     },
     {
       "name": "hue.command",
@@ -728,8 +705,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_d752b3d9"
+      }
     },
     {
       "name": "hue.scenes",
@@ -752,8 +728,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_6f960e3b"
+      }
     },
     {
       "name": "hue.activate_scene",
@@ -782,8 +757,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_caafc4fa"
+      }
     },
     {
       "name": "hue.rooms",
@@ -806,8 +780,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_1384140b"
+      }
     },
     {
       "name": "hue.status",
@@ -830,8 +803,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_89fcd3c3"
+      }
     },
     {
       "name": "tuya.auth",
@@ -863,8 +835,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_3ac7c678"
+      }
     },
     {
       "name": "tuya.callback",
@@ -887,8 +858,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_d0348e91"
+      }
     },
     {
       "name": "tuya.devices",
@@ -914,8 +884,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_3b830a24"
+      }
     },
     {
       "name": "tuya.state",
@@ -944,8 +913,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_e7f6144f"
+      }
     },
     {
       "name": "tuya.command",
@@ -991,8 +959,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_7c9b0587"
+      }
     },
     {
       "name": "tuya.device_functions",
@@ -1021,8 +988,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_d9197511"
+      }
     },
     {
       "name": "tuya.categories",
@@ -1045,8 +1011,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_38f12833"
+      }
     },
     {
       "name": "tuya.status",
@@ -1069,8 +1034,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_afb7a864"
+      }
     },
     {
       "name": "google.auth",
@@ -1093,8 +1057,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_ab40e74a"
+      }
     },
     {
       "name": "google.callback",
@@ -1123,8 +1086,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_1525aec3"
+      }
     },
     {
       "name": "google.devices",
@@ -1150,8 +1112,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_d671a0f3"
+      }
     },
     {
       "name": "google.state",
@@ -1180,8 +1141,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_8186362b"
+      }
     },
     {
       "name": "google.command",
@@ -1217,8 +1177,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_ba539c92"
+      }
     },
     {
       "name": "google.structures",
@@ -1241,8 +1200,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_d3920e8d"
+      }
     },
     {
       "name": "google.status",
@@ -1265,8 +1223,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_0552988b"
+      }
     },
     {
       "name": "memory.store",
@@ -1336,8 +1293,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_ccd25733"
+      }
     },
     {
       "name": "memory.recall",
@@ -1391,8 +1347,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_f50b25a7"
+      }
     },
     {
       "name": "memory.list",
@@ -1443,8 +1398,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_8930d297"
+      }
     },
     {
       "name": "memory.update",
@@ -1491,8 +1445,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_05e70c18"
+      }
     },
     {
       "name": "memory.delete",
@@ -1527,8 +1480,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_2588e327"
+      }
     },
     {
       "name": "memory.rules.match",
@@ -1563,8 +1515,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_75f31e6e"
+      }
     },
     {
       "name": "memory.rules.count",
@@ -1590,8 +1541,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_ce35d728"
+      }
     },
     {
       "name": "context.store",
@@ -1635,8 +1585,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_3b4aa927"
+      }
     },
     {
       "name": "context.read",
@@ -1672,8 +1621,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_b346338f"
+      }
     },
     {
       "name": "context.resolve",
@@ -1715,8 +1663,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_6de69837"
+      }
     },
     {
       "name": "context.clear",
@@ -1749,8 +1696,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_11c32b17"
+      }
     },
     {
       "name": "memory.userProfile",
@@ -1776,8 +1722,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_54972067"
+      }
     },
     {
       "name": "memory.userProfile.set",
@@ -1813,8 +1758,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_81eb7891"
+      }
     },
     {
       "name": "memory.semantic.search",
@@ -1857,8 +1801,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_c5120168"
+      }
     },
     {
       "name": "memory.explain",
@@ -1893,8 +1836,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_180a6309"
+      }
     },
     {
       "name": "memory.summarize",
@@ -1920,8 +1862,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_b27e4ea9"
+      }
     },
     {
       "name": "memory.compact",
@@ -1947,8 +1888,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_567e22e7"
+      }
     },
     {
       "name": "memory.confidence",
@@ -1989,8 +1929,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_e4ba9216"
+      }
     },
     {
       "name": "memory.supersede",
@@ -2029,8 +1968,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_9480dbe1"
+      }
     },
     {
       "name": "memory.audit",
@@ -2066,8 +2004,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_d5e2cca1"
+      }
     },
     {
       "name": "memory.embed",
@@ -2099,8 +2036,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_15924e6d"
+      }
     },
     {
       "name": "memory.extract",
@@ -2153,8 +2089,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_91833610"
+      }
     },
     {
       "name": "ui.listPlugins",
@@ -2174,8 +2109,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_4c459153"
+      }
     },
     {
       "name": "ui.getPlugin",
@@ -2204,8 +2138,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_43351fcb"
+      }
     },
     {
       "name": "triggers.list",
@@ -2235,8 +2168,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_a31e95d9"
+      }
     },
     {
       "name": "triggers.toggle",
@@ -2278,8 +2210,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_5b10c9b3"
+      }
     },
     {
       "name": "meeting.commute.prep",
@@ -2309,8 +2240,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_72f215f9"
+      }
     },
     {
       "name": "triggers.deleteDynamic",
@@ -2347,8 +2277,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_22d23d3c"
+      }
     },
     {
       "name": "connections.list",
@@ -2378,8 +2307,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_54fa657e"
+      }
     },
     {
       "name": "connections.disconnect",
@@ -2416,8 +2344,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_5c21cf44"
+      }
     }
   ],
   "meta_tools": [],
@@ -2449,7 +2376,7 @@
   "solution_id": "ada",
   "id": "home-control",
   "created_at": "2026-05-14T12:29:01.789Z",
-  "updated_at": "2026-05-17T12:31:49.270Z",
+  "updated_at": "2026-05-17T12:33:12.204Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -3379,9 +3306,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-05-17T12:15:04.259Z",
+  "lastExportedAt": "2026-05-17T12:33:12.078Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-17T12:15:05.890Z",
+  "deployedAt": "2026-05-17T12:33:12.203Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/home-control"
 }
