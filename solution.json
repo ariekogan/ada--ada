@@ -368,12 +368,6 @@
       "id": "my-docs",
       "skill_id": "my-docs",
       "name": "My Docs"
-    },
-    "pcm-companion",
-    {
-      "id": "pcm-companion",
-      "skill_id": "pcm-companion",
-      "name": "PCM Companion"
     }
   ],
   "conversation": [],
