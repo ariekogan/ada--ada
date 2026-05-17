@@ -1566,7 +1566,7 @@
   "solution_id": "ada",
   "id": "travel-agent",
   "created_at": "2026-05-14T12:32:04.820Z",
-  "updated_at": "2026-05-17T18:25:11.802Z",
+  "updated_at": "2026-05-17T18:26:02.265Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -1968,9 +1968,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-05-17T18:22:34.160Z",
+  "lastExportedAt": "2026-05-17T18:26:02.154Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-17T18:22:34.342Z",
+  "deployedAt": "2026-05-17T18:26:02.263Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/travel-agent"
 }
