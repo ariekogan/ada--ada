@@ -1227,7 +1227,7 @@
   },
   "grant_mappings": [],
   "handoff_when": "PCM has surfaced an observation for confirmation. This skill is SYSTEM-INITIATED — PCM calls deliverUserMessage with skillId=pcm-companion. It is never routed to from user phrasing alone. If the user asks unrelated questions, hand back out to the normal orchestrator.",
-  "updated_at": "2026-05-17T10:44:03.683Z",
+  "updated_at": "2026-05-17T10:46:10.538Z",
   "created_at": "2026-05-16T21:53:18.562Z",
   "validation": {
     "valid": false,
