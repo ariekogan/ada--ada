@@ -121,15 +121,6 @@
         "travel-mcp",
         "memory-mcp"
       ]
-    },
-    {
-      "id": "pcm-companion",
-      "name": "PCM Companion",
-      "role": "worker",
-      "description": "System skill for confirming, refining, or dismissing PCM observations through a brief conversation. System-initiated only — not routed by user phrasing.",
-      "connectors": [
-        "memory-mcp"
-      ]
     }
   ],
   "grants": [
