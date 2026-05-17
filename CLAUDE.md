@@ -21,13 +21,13 @@ Situation-aware personal assistant with proactive intelligence.
 
 - **travel-agent** _(worker)_ — 
 - **teach-this** _(worker)_ — 
-- **home-control** _(worker)_ — 
-- **daily-intel** _(worker)_ — 
-- **mycoach** _(worker)_ — 
-- **life-manager** _(worker)_ — 
 - **messaging-agent** _(worker)_ — 
 - **my-docs** _(worker)_ — 
+- **home-control** _(worker)_ — 
+- **mycoach** _(worker)_ — 
+- **life-manager** _(worker)_ — 
 - **notification-triage** _(worker)_ — 
+- **daily-intel** _(worker)_ — 
 - **memory-keeper** _(worker)_ — 
 
 ---
@@ -83,13 +83,13 @@ solution.json                    # full solution definition
 skills/
   travel-agent/skill.json
   teach-this/skill.json
-  home-control/skill.json
-  daily-intel/skill.json
-  mycoach/skill.json
-  life-manager/skill.json
   messaging-agent/skill.json
   my-docs/skill.json
+  home-control/skill.json
+  mycoach/skill.json
+  life-manager/skill.json
   notification-triage/skill.json
+  daily-intel/skill.json
   memory-keeper/skill.json
 connectors/                      # solution connectors (stdio MCPs)
   _(no solution connectors)_
