@@ -194,4 +194,5 @@ process.stdin.on("data", async (chunk) => {
     } catch (err) { console.error(`[hue] Error:`, err.message); if (id != null) writeError(id, err.message); }
   }
 });
+// R4 marker: source-change detection second pass
 console.error("[hue-mcp v1.1.0] Philips Hue connector started — multi-user actor-scoped");
