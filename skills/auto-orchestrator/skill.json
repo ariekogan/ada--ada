@@ -1294,7 +1294,7 @@
       "_auto_generated": true
     }
   ],
-  "updated_at": "2026-05-17T11:49:44.256Z",
+  "updated_at": "2026-05-17T11:50:34.953Z",
   "created_at": "2026-05-14T07:06:53.051Z",
   "validation": {
     "valid": false,
@@ -1648,9 +1648,9 @@
     }
   },
   "solution_id": "ada",
-  "lastExportedAt": "2026-05-17T11:49:44.082Z",
+  "lastExportedAt": "2026-05-17T11:41:43.094Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-17T11:49:44.254Z",
+  "deployedAt": "2026-05-17T11:41:43.330Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/auto-orchestrator"
 }
