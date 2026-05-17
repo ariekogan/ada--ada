@@ -19,17 +19,17 @@ Situation-aware personal assistant with proactive intelligence.
 
 ## 2. Skills
 
-- **notification-triage** _(worker)_ — 
-- **mycoach** _(worker)_ — 
-- **my-docs** _(worker)_ — 
 - **messaging-agent** _(worker)_ — 
+- **notification-triage** _(worker)_ — 
 - **memory-keeper** _(worker)_ — 
-- **daily-intel** _(worker)_ — 
-- **home-control** _(worker)_ — 
-- **life-manager** _(worker)_ — 
-- **teach-this** _(worker)_ — 
-- **auto-orchestrator** _(worker)_ — 
+- **mycoach** _(worker)_ — 
 - **travel-agent** _(worker)_ — 
+- **life-manager** _(worker)_ — 
+- **my-docs** _(worker)_ — 
+- **teach-this** _(worker)_ — 
+- **home-control** _(worker)_ — 
+- **auto-orchestrator** _(worker)_ — 
+- **daily-intel** _(worker)_ — 
 
 ---
 
@@ -46,6 +46,7 @@ Situation-aware personal assistant with proactive intelligence.
 
 **Platform connectors** (shared infrastructure, not in this repo):
   - `memory-mcp`
+  - `pcm-mcp`
   - `whatsapp-mcp`
   - `handoff-controller-mcp`
   - `mobile-device-mcp`
@@ -81,17 +82,17 @@ Situation-aware personal assistant with proactive intelligence.
 ```
 solution.json                    # full solution definition
 skills/
-  notification-triage/skill.json
-  mycoach/skill.json
-  my-docs/skill.json
   messaging-agent/skill.json
+  notification-triage/skill.json
   memory-keeper/skill.json
-  daily-intel/skill.json
-  home-control/skill.json
-  life-manager/skill.json
-  teach-this/skill.json
-  auto-orchestrator/skill.json
+  mycoach/skill.json
   travel-agent/skill.json
+  life-manager/skill.json
+  my-docs/skill.json
+  teach-this/skill.json
+  home-control/skill.json
+  auto-orchestrator/skill.json
+  daily-intel/skill.json
 connectors/                      # solution connectors (stdio MCPs)
   _(no solution connectors)_
 .ateam/export.json               # auto-generated deploy bundle (don't hand-edit)
