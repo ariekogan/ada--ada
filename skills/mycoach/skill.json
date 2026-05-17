@@ -348,8 +348,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_91e4efae"
+      }
     },
     {
       "name": "coach.state.initOnboarding",
@@ -403,8 +402,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_6035f4a5"
+      }
     },
     {
       "name": "coach.state.captureOnboardingAnswer",
@@ -440,8 +438,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_347631fa"
+      }
     },
     {
       "name": "coach.state.advancePhase",
@@ -467,8 +464,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_7c730eba"
+      }
     },
     {
       "name": "coach.state.canAdvance",
@@ -494,8 +490,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_5f10b75e"
+      }
     },
     {
       "name": "coach.state.update",
@@ -530,8 +525,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_22f6c55f"
+      }
     },
     {
       "name": "coach.goals.current",
@@ -557,8 +551,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_329d2ed3"
+      }
     },
     {
       "name": "coach.goals.list",
@@ -584,8 +577,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_540b7cf1"
+      }
     },
     {
       "name": "coach.goals.add",
@@ -633,8 +625,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_b29344ab"
+      }
     },
     {
       "name": "coach.checkin.log",
@@ -682,8 +673,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_ba1edd44"
+      }
     },
     {
       "name": "coach.checkin.recent",
@@ -712,8 +702,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_3c744970"
+      }
     },
     {
       "name": "coach.checkin.todayStatus",
@@ -739,8 +728,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_f4f411b0"
+      }
     },
     {
       "name": "coach.snapshot.today",
@@ -774,8 +762,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_aa798c1e"
+      }
     },
     {
       "name": "coach.nudge.log",
@@ -814,8 +801,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_54a85143"
+      }
     },
     {
       "name": "coach.nudge.respond",
@@ -857,8 +843,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_921525e4"
+      }
     },
     {
       "name": "coach.nudge.engagement",
@@ -887,8 +872,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_874046ff"
+      }
     },
     {
       "name": "coach.observations.add",
@@ -926,8 +910,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_82dcb42f"
+      }
     },
     {
       "name": "coach.observations.pending",
@@ -953,8 +936,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_cc78c540"
+      }
     },
     {
       "name": "coach.observations.markSurfaced",
@@ -986,8 +968,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_44b447e9"
+      }
     },
     {
       "name": "coach.observations.confirm",
@@ -1023,8 +1004,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_802f29ba"
+      }
     },
     {
       "name": "coach.experiment.propose",
@@ -1059,8 +1039,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_958706b2"
+      }
     },
     {
       "name": "coach.experiment.respond",
@@ -1096,8 +1075,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_dd3bf979"
+      }
     },
     {
       "name": "coach.experiment.close",
@@ -1132,8 +1110,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_30e28cb0"
+      }
     },
     {
       "name": "coach.experiment.list",
@@ -1162,8 +1139,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_9856c13a"
+      }
     },
     {
       "name": "coach.experiment.activeForWeek",
@@ -1192,8 +1168,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_02169e19"
+      }
     },
     {
       "name": "coach.experiment.currentWeekKey",
@@ -1212,8 +1187,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_3913f2be"
+      }
     },
     {
       "name": "coach.miner.run",
@@ -1251,8 +1225,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_43d9a91f"
+      }
     },
     {
       "name": "ui.listPlugins",
@@ -1271,8 +1244,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_eb942d96"
+      }
     },
     {
       "name": "ui.getPlugin",
@@ -1298,8 +1270,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_f0124c89"
+      }
     },
     {
       "name": "ui.coach_dashboard.open",
@@ -1334,8 +1305,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_ecea0a8c"
+      }
     },
     {
       "name": "ui.coach_onboarding.open",
@@ -1354,8 +1324,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_5f515f45"
+      }
     },
     {
       "name": "ui.nutrition_dashboard.open",
@@ -1385,8 +1354,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_64a85eec"
+      }
     },
     {
       "name": "ui.nutrition_camera.open",
@@ -1406,8 +1374,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_fc44e954"
+      }
     },
     {
       "name": "nutrition.logMeal",
@@ -1464,8 +1431,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_fb49c76a"
+      }
     },
     {
       "name": "nutrition.updateMeal",
@@ -1519,8 +1485,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_26bc9ac2"
+      }
     },
     {
       "name": "nutrition.deleteMeal",
@@ -1554,8 +1519,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_3323d5c0"
+      }
     },
     {
       "name": "nutrition.getMeals",
@@ -1598,8 +1562,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_1dec0f6a"
+      }
     },
     {
       "name": "nutrition.lookupFood",
@@ -1636,8 +1599,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_4b38c35c"
+      }
     },
     {
       "name": "nutrition.lookupMultiple",
@@ -1674,8 +1636,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_f369c66f"
+      }
     },
     {
       "name": "nutrition.logDrink",
@@ -1724,8 +1685,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_dc2493e0"
+      }
     },
     {
       "name": "nutrition.getHydration",
@@ -1756,8 +1716,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_83028ee4"
+      }
     },
     {
       "name": "nutrition.getDailySummary",
@@ -1788,8 +1747,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_6395222d"
+      }
     },
     {
       "name": "nutrition.getWeeklySummary",
@@ -1817,8 +1775,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_17fa3f14"
+      }
     },
     {
       "name": "nutrition.setGoals",
@@ -1867,8 +1824,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_53948f96"
+      }
     },
     {
       "name": "nutrition.getGoals",
@@ -1896,8 +1852,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_2b2a0f18"
+      }
     },
     {
       "name": "nutrition.status",
@@ -1925,8 +1880,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_a6066575"
+      }
     },
     {
       "name": "admin.deleteActor",
@@ -1964,8 +1918,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_5a10ee60"
+      }
     },
     {
       "name": "device.calendar.today",
@@ -1985,8 +1938,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_54a75d02"
+      }
     },
     {
       "name": "device.calendar.upcoming",
@@ -2012,8 +1964,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_5e0e5c09"
+      }
     },
     {
       "name": "device.calendar.create",
@@ -2071,8 +2022,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_e4b547d6"
+      }
     },
     {
       "name": "device.calendar.reschedule",
@@ -2113,8 +2063,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_dd9d1f5b"
+      }
     },
     {
       "name": "device.calendar.cancel",
@@ -2143,8 +2092,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_02b780fa"
+      }
     },
     {
       "name": "device.contacts.search",
@@ -2173,8 +2121,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_eb2a9b91"
+      }
     },
     {
       "name": "device.contacts.get",
@@ -2203,8 +2150,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_7d6e8060"
+      }
     },
     {
       "name": "device.contacts.birthdays",
@@ -2230,8 +2176,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_4f2fd3f2"
+      }
     },
     {
       "name": "device.contacts.lastContact",
@@ -2260,8 +2205,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_3b286cd9"
+      }
     },
     {
       "name": "device.location.current",
@@ -2281,8 +2225,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_61a50258"
+      }
     },
     {
       "name": "device.weather.current",
@@ -2302,8 +2245,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_1c922040"
+      }
     },
     {
       "name": "device.weather.forecast",
@@ -2329,8 +2271,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_85a0b78c"
+      }
     },
     {
       "name": "device.commute.estimate",
@@ -2373,8 +2314,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_664c1562"
+      }
     },
     {
       "name": "device.battery",
@@ -2394,8 +2334,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_641be1c5"
+      }
     },
     {
       "name": "device.connectivity",
@@ -2415,8 +2354,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_57de7c86"
+      }
     },
     {
       "name": "device.health.today",
@@ -2436,8 +2374,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_4ae02767"
+      }
     },
     {
       "name": "device.health.history",
@@ -2465,8 +2402,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_61704c10"
+      }
     },
     {
       "name": "device.message.send",
@@ -2500,8 +2436,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_23583952"
+      }
     },
     {
       "name": "device.notifications.list",
@@ -2527,8 +2462,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_af5b2197"
+      }
     },
     {
       "name": "device.notifications.group",
@@ -2562,8 +2496,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_22506f4d"
+      }
     },
     {
       "name": "device.notifications.dismiss",
@@ -2593,8 +2526,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_cbcde49d"
+      }
     },
     {
       "name": "device.dnd.get",
@@ -2614,8 +2546,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_9f13fe2c"
+      }
     },
     {
       "name": "device.dnd.set",
@@ -2656,8 +2587,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_2a40ca84"
+      }
     },
     {
       "name": "device.navigation.start",
@@ -2695,8 +2625,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_14630ec3"
+      }
     },
     {
       "name": "device.app.recent",
@@ -2722,8 +2651,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_a05e8bef"
+      }
     },
     {
       "name": "integrations.list",
@@ -2743,8 +2671,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_7e777bc4"
+      }
     },
     {
       "name": "integrations.check",
@@ -2773,8 +2700,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_1cb195d9"
+      }
     },
     {
       "name": "memory.store",
@@ -2844,8 +2770,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_9840ac96"
+      }
     },
     {
       "name": "memory.recall",
@@ -2899,8 +2824,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_b9033683"
+      }
     },
     {
       "name": "memory.list",
@@ -2951,8 +2875,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_b45f4df5"
+      }
     },
     {
       "name": "memory.update",
@@ -2999,8 +2922,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_48722d6b"
+      }
     },
     {
       "name": "memory.delete",
@@ -3035,8 +2957,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_914c0ef6"
+      }
     },
     {
       "name": "memory.rules.match",
@@ -3071,8 +2992,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_e4a4353c"
+      }
     },
     {
       "name": "memory.rules.count",
@@ -3098,8 +3018,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_a4aa57f3"
+      }
     },
     {
       "name": "context.store",
@@ -3143,8 +3062,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_6e747e51"
+      }
     },
     {
       "name": "context.read",
@@ -3180,8 +3098,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_432e76c0"
+      }
     },
     {
       "name": "context.resolve",
@@ -3223,8 +3140,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_014eca6c"
+      }
     },
     {
       "name": "context.clear",
@@ -3257,8 +3173,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_001f83a5"
+      }
     },
     {
       "name": "memory.userProfile",
@@ -3284,8 +3199,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_c54f2d70"
+      }
     },
     {
       "name": "memory.userProfile.set",
@@ -3321,8 +3235,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_b8b06f65"
+      }
     },
     {
       "name": "memory.semantic.search",
@@ -3365,8 +3278,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_9f910a56"
+      }
     },
     {
       "name": "memory.explain",
@@ -3401,8 +3313,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_e1fc7179"
+      }
     },
     {
       "name": "memory.summarize",
@@ -3428,8 +3339,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_d9b7f89d"
+      }
     },
     {
       "name": "memory.compact",
@@ -3455,8 +3365,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_c0e76014"
+      }
     },
     {
       "name": "memory.confidence",
@@ -3497,8 +3406,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_4a24bd24"
+      }
     },
     {
       "name": "memory.supersede",
@@ -3537,8 +3445,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_b9c0eb64"
+      }
     },
     {
       "name": "memory.audit",
@@ -3574,8 +3481,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_2875aae0"
+      }
     },
     {
       "name": "memory.embed",
@@ -3607,8 +3513,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_d00f3c3c"
+      }
     },
     {
       "name": "memory.extract",
@@ -3661,8 +3566,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_85cf2c3e"
+      }
     },
     {
       "name": "triggers.list",
@@ -3692,8 +3596,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_6b6c04d4"
+      }
     },
     {
       "name": "triggers.toggle",
@@ -3735,8 +3638,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_99ed3c6b"
+      }
     },
     {
       "name": "meeting.commute.prep",
@@ -3766,8 +3668,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_f3ce9e9a"
+      }
     },
     {
       "name": "triggers.deleteDynamic",
@@ -3804,8 +3705,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_68043c70"
+      }
     },
     {
       "name": "connections.list",
@@ -3835,8 +3735,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_a7e140dc"
+      }
     },
     {
       "name": "connections.disconnect",
@@ -3873,8 +3772,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_d042bd9b"
+      }
     },
     {
       "name": "rooms.list",
@@ -3894,8 +3792,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_b9379c32"
+      }
     },
     {
       "name": "entity.state",
@@ -3924,8 +3821,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_ea072c24"
+      }
     },
     {
       "name": "services.call",
@@ -3964,8 +3860,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_cf312aba"
+      }
     },
     {
       "name": "hue.status",
@@ -3985,8 +3880,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_d687088c"
+      }
     },
     {
       "name": "tuya.status",
@@ -4006,8 +3900,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_48d0d984"
+      }
     },
     {
       "name": "google.status",
@@ -4027,8 +3920,7 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      },
-      "id": "tool_dd8495f9"
+      }
     }
   ],
   "meta_tools": [],
@@ -4118,7 +4010,7 @@
   ],
   "id": "mycoach",
   "created_at": "2026-05-14T12:29:41.026Z",
-  "updated_at": "2026-05-17T12:23:31.098Z",
+  "updated_at": "2026-05-17T12:23:21.041Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
