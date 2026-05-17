@@ -194,5 +194,4 @@ process.stdin.on("data", async (chunk) => {
     } catch (err) { console.error(`[hue] Error:`, err.message); if (id != null) writeError(id, err.message); }
   }
 });
-// T2 marker: deploy-pipeline E2E source-change detection test
 console.error("[hue-mcp v1.1.0] Philips Hue connector started — multi-user actor-scoped");
