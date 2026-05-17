@@ -4010,7 +4010,7 @@
   ],
   "id": "mycoach",
   "created_at": "2026-05-14T12:29:41.026Z",
-  "updated_at": "2026-05-17T10:41:43.061Z",
+  "updated_at": "2026-05-17T10:43:08.657Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -5374,9 +5374,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-05-17T10:41:42.887Z",
+  "lastExportedAt": "2026-05-17T10:43:08.199Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-17T10:41:43.059Z",
+  "deployedAt": "2026-05-17T10:43:08.617Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/mycoach",
   "handoff_when": "User wants to log or check meals, drinks, water, calories, macros, weight, hydration; OR asks about steps, activity, workouts, exercise, fitness, walks, runs, training; OR asks for coaching/nutrition/dietitian/trainer advice; OR responds to AM/PM check-ins; OR sets/updates health and habit goals; OR asks how they are doing today/this week (progress, summaries, observations); OR responds to a proposed weekly experiment. ALWAYS prefer mycoach for anything fitness/activity/nutrition/coaching even when the phrasing mentions today (e.g. check my steps today)."
