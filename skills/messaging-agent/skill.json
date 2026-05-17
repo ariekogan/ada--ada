@@ -3607,7 +3607,7 @@
   ],
   "id": "messaging-agent",
   "created_at": "2026-05-14T12:27:25.321Z",
-  "updated_at": "2026-05-17T11:38:32.702Z",
+  "updated_at": "2026-05-17T11:40:10.033Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -4710,9 +4710,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-05-17T11:33:35.805Z",
+  "lastExportedAt": "2026-05-17T11:40:09.898Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-17T11:33:41.515Z",
+  "deployedAt": "2026-05-17T11:40:10.032Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/messaging-agent"
 }
