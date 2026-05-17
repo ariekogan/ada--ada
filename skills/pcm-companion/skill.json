@@ -1227,7 +1227,7 @@
   },
   "grant_mappings": [],
   "handoff_when": "PCM has surfaced an observation for confirmation. This skill is SYSTEM-INITIATED — PCM calls deliverUserMessage with skillId=pcm-companion. It is never routed to from user phrasing alone. If the user asks unrelated questions, hand back out to the normal orchestrator.",
-  "updated_at": "2026-05-17T10:39:15.988Z",
+  "updated_at": "2026-05-17T10:40:41.980Z",
   "created_at": "2026-05-16T21:53:18.562Z",
   "validation": {
     "valid": false,
@@ -1496,31 +1496,81 @@
         "severity": "error",
         "path": "tools[21].output",
         "message": "Tool output is required"
-      }
-    ],
-    "warnings": [
-      {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[0]",
-        "message": "Intent \"confirm_observation\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"confirm_observation\", or ensure tool names relate to this intent"
       },
       {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[1]",
-        "message": "Intent \"refine_observation\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"refine_observation\", or ensure tool names relate to this intent"
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[22].inputs",
+        "message": "Tool inputs must be an array"
       },
       {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[2]",
-        "message": "Intent \"dismiss_observation\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"dismiss_observation\", or ensure tool names relate to this intent"
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[22].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[23].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[23].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[24].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[24].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[25].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[25].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[26].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[26].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[27].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[27].output",
+        "message": "Tool output is required"
       }
     ],
+    "warnings": [],
     "unresolved": {
       "tools": [],
       "workflows": [],
@@ -1540,9 +1590,9 @@
     }
   },
   "solution_id": "ada",
-  "lastExportedAt": "2026-05-16T22:42:30.613Z",
+  "lastExportedAt": "2026-05-17T10:40:41.430Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-16T22:42:30.768Z",
+  "deployedAt": "2026-05-17T10:40:41.950Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/pcm-companion",
   "_force_redeploy": true
