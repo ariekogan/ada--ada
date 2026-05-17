@@ -270,6 +270,11 @@
       "source": "platform"
     },
     {
+      "id": "pcm-mcp",
+      "required": false,
+      "source": "platform"
+    },
+    {
       "id": "whatsapp-mcp",
       "required": true,
       "source": "platform"
