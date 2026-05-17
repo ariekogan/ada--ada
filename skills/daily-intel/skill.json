@@ -3601,7 +3601,7 @@
   ],
   "id": "daily-intel",
   "created_at": "2026-05-14T12:26:45.526Z",
-  "updated_at": "2026-05-17T11:32:44.392Z",
+  "updated_at": "2026-05-17T11:33:42.167Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -4704,9 +4704,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-05-17T11:32:44.263Z",
+  "lastExportedAt": "2026-05-17T11:33:36.527Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-17T11:32:44.390Z",
+  "deployedAt": "2026-05-17T11:33:42.165Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/daily-intel"
 }
