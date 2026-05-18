@@ -7,9 +7,11 @@ import { meetingCommutePrep } from "./lib/meetingCommutePrep.js";
 const TRIGGER_RUNNER_URL = process.env.TRIGGER_RUNNER_URL || "http://trigger-runner:3100";
 const CORE_API_URL = process.env.ADAS_BACKEND_URL || "http://localhost:4000";
 
-async function triggerRunnerFetch(path, tenant, options = {}) {
+async function triggerRunnerFetch(path, tenant, actorId, options = {}) {
   const url = `${TRIGGER_RUNNER_URL}${path}`;
-  const res = await fetch(url, { ...options, headers: { "Content-Type": "application/json", "X-ADAS-TENANT": tenant, ...options.headers } });
+  const headers = { "Content-Type": "application/json", "X-ADAS-TENANT": tenant, ...(options.headers || {}) };
+  if (actorId) headers["X-ADAS-ACTOR"] = actorId;
+  const res = await fetch(url, { ...options, headers });
   if (!res.ok) throw new Error(`Trigger-runner ${path}: ${res.status} ${res.statusText}`);
   return res.json();
 }
