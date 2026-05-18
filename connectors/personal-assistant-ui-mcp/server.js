@@ -139,7 +139,7 @@ server.tool(
       // the registry and reload pipeline). It deletes the doc and refreshes
       // its own scheduler in one call. The earlier path went through Core's
       // /api/triggers/dynamic/:id, which never existed — silent 404.
-      const result = await triggerRunnerFetch(`/triggers/dynamic/${encodeURIComponent(triggerId)}`, tenant, { method: "DELETE" });
+      const result = await triggerRunnerFetch(`/triggers/dynamic/${encodeURIComponent(triggerId)}`, tenant, null, { method: "DELETE" });
       return { content: [{ type: "text", text: JSON.stringify({ ok: true, ...result }) }] };
     } catch (err) { return { content: [{ type: "text", text: JSON.stringify({ ok: false, error: err.message }) }], isError: true }; }
   }
