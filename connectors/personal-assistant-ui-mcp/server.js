@@ -86,7 +86,9 @@ server.tool(
     _adas_tenant: z.string().optional().describe("Injected by platform — do not set manually"),
     _adas_actor: z.string().optional().describe("Injected by platform — do not set manually"),
   },
-  async ({ _adas_tenant, _adas_actor }) => {
+  async (args) => {
+    const { _adas_tenant, _adas_actor } = args || {};
+    console.error(`[triggers.list] received args keys=[${Object.keys(args||{}).join(",")}] tenant=${_adas_tenant} actor=${_adas_actor}`);
     const tenant = _adas_tenant;
     try {
       const staticResult = await triggerRunnerFetch("/triggers", tenant, _adas_actor || null);
