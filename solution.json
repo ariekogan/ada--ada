@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "description": "Situation-aware personal assistant with proactive intelligence.",
-  "phase": "DEPLOYED",
+  "phase": "VALIDATION",
   "identity": {
     "actor_types": [],
     "admin_roles": [],
@@ -356,8 +356,8 @@
   "conversation": [],
   "id": "ada",
   "name": "ada",
-  "created_at": "2026-05-18T18:24:46.862Z",
-  "updated_at": "2026-05-18T18:26:30.030Z",
+  "created_at": "2026-05-18T18:37:27.424Z",
+  "updated_at": "2026-05-18T18:37:27.440Z",
   "style": "mobile",
   "identity_mode": "single-owner",
   "ui_plugins": [
