@@ -104,7 +104,9 @@ server.tool(
   "triggers.toggle",
   "Pause or resume a specific trigger",
   { skillSlug: z.string().describe("Skill slug that owns the trigger"), triggerId: z.string().describe("Trigger ID to toggle"), _adas_tenant: z.string().optional().describe("Injected by platform"), _adas_actor: z.string().optional().describe("Injected by platform") },
-  async ({ skillSlug, triggerId, _adas_tenant, _adas_actor }) => {
+  async (args) => {
+    const { skillSlug, triggerId, _adas_tenant, _adas_actor } = args || {};
+    console.error(`[triggers.toggle] received args keys=[${Object.keys(args||{}).join(",")}] tenant=${_adas_tenant} actor=${_adas_actor} skill=${skillSlug} trigger=${triggerId}`);
     const tenant = _adas_tenant;
     try { const result = await triggerRunnerFetch(`/triggers/${encodeURIComponent(skillSlug)}/${encodeURIComponent(triggerId)}/toggle`, tenant, _adas_actor || null, { method: "POST" }); return { content: [{ type: "text", text: JSON.stringify({ ok: true, ...result }) }] }; }
     catch (err) { return { content: [{ type: "text", text: JSON.stringify({ ok: false, error: err.message }) }], isError: true }; }
