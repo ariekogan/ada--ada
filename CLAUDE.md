@@ -69,8 +69,8 @@ Situation-aware personal assistant with proactive intelligence.
 - **WhatsApp Setup** (`mcp:whatsapp-mcp:whatsapp-setup`, adaptive)
 - **Browser View** (`mcp:browser-mcp:browser-view`, adaptive)
 - **Auth WebView** (`mcp:browser-mcp:auth-webview`, adaptive)
-- **Nutrition** (`mcp:nutrition-mcp:nutrition-dashboard`, adaptive)
-- **Meal Camera** (`mcp:nutrition-mcp:nutrition-camera`, adaptive)
+- **Nutrition** (`mcp:nutrition-mcp:nutrition-dashboard`, iframe)
+- **Meal Camera** (`mcp:nutrition-mcp:nutrition-camera`, iframe)
 - **MyCoach** (`mcp:coach-mcp:coach-dashboard`, adaptive)
 - **Coach Onboarding** (`mcp:coach-mcp:coach-onboarding`, adaptive)
 
