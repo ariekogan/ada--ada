@@ -737,11 +737,8 @@
       "version": "1.0.0",
       "description": "Snap a photo of your meal for instant calorie analysis",
       "render": {
-        "mode": "adaptive",
-        "iframeUrl": "/ui/nutrition-camera/index.html",
-        "reactNative": {
-          "component": "nutrition-camera"
-        }
+        "mode": "iframe",
+        "iframeUrl": "/ui/nutrition-camera/index.html"
       },
       "channels": [
         "command"
