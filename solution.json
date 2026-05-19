@@ -3,11 +3,9 @@
   "description": "Situation-aware personal assistant with proactive intelligence.",
   "phase": "DEPLOYED",
   "identity": {
-    "actor_types": [
-      "owner"
-    ],
+    "actor_types": [],
     "admin_roles": [],
-    "default_actor_type": "owner",
+    "default_actor_type": "",
     "default_roles": []
   },
   "skills": [
@@ -340,8 +338,8 @@
   "conversation": [],
   "id": "ada",
   "name": "ada",
-  "created_at": "2026-05-19T12:01:05.121Z",
-  "updated_at": "2026-05-19T12:02:30.234Z",
+  "created_at": "2026-05-19T15:26:10.520Z",
+  "updated_at": "2026-05-19T15:27:43.372Z",
   "style": "mobile",
   "identity_mode": "single-owner",
   "ui_plugins": [
@@ -590,10 +588,21 @@
       "type": "ui",
       "description": "Live browser automation viewer — screenshots, action log, URL bar",
       "render": {
-        "mode": "adaptive",
+        "mode": "iframe",
         "iframeUrl": "/ui/browser-view/index.html"
       },
-      "capabilities": {},
+      "capabilities": {
+        "commands": [
+          {
+            "name": "refresh",
+            "description": "Focus and refresh the browser view panel with latest screenshot",
+            "input_schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ]
+      },
       "channels": [
         "command"
       ],
@@ -850,5 +859,5 @@
       }
     }
   ],
-  "deployed_at": "2026-05-19T12:02:30.233Z"
+  "deployed_at": "2026-05-19T15:27:43.372Z"
 }
