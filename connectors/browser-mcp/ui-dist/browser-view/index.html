@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Browser View</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --border: #2a2d3a;
+    --text: #e4e4e7;
+    --text-muted: #71717a;
+    --accent: #3b82f6;
+    --success: #22c55e;
+    --error: #ef4444;
+    --warning: #f59e0b;
+  }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+  /* URL Bar */
+  .url-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 12px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  .url-bar .status { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .url-bar .status.connected { background: var(--success); }
+  .url-bar .status.disconnected { background: var(--text-muted); }
+  .url-bar .status.loading { background: var(--warning); animation: pulse 1s infinite; }
+  @keyframes pulse { 50% { opacity: 0.4; } }
+  .url-bar .url {
+    flex: 1; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 6px; padding: 6px 10px; color: var(--text); font-size: 12px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .url-bar .session-badge {
+    font-size: 11px; color: var(--text-muted); white-space: nowrap;
+  }
+
+  /* Screenshot fills remaining space */
+  .screenshot-panel {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    background: #000; overflow: hidden;
+  }
+  .screenshot-panel img {
+    max-width: 100%; max-height: 100%; object-fit: contain;
+  }
+  .screenshot-panel .placeholder {
+    color: var(--text-muted); text-align: center; padding: 40px;
+  }
+  .screenshot-panel .placeholder h3 { font-size: 16px; margin-bottom: 8px; color: var(--text); }
+
+  /* Toolbar */
+  .toolbar {
+    padding: 6px 12px;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    display: flex; gap: 8px; align-items: center;
+    font-size: 11px; color: var(--text-muted);
+  }
+  .toolbar button {
+    background: var(--bg); border: 1px solid var(--border); color: var(--text);
+    padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 11px;
+  }
+  .toolbar button:hover { border-color: var(--accent); color: var(--accent); }
+  .toolbar .auto-refresh { display: flex; align-items: center; gap: 4px; }
+  .toolbar .auto-refresh input { accent-color: var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- URL Bar -->
+<div class="url-bar">
+  <div class="status disconnected" id="status-dot"></div>
+  <div class="url" id="url-display">No session active</div>
+  <div class="session-badge" id="session-info">&mdash;</div>
+</div>
+
+<!-- Screenshot -->
+<div class="screenshot-panel" id="screenshot-panel">
+  <div class="placeholder" id="placeholder">
+    <h3>Browser View</h3>
+    <p>Waiting for browser actions...</p>
+    <p style="margin-top:12px;font-size:11px">
+      The AI agent will use <code>web.navigate</code>, <code>web.click</code>, etc.<br>
+      Screenshots will appear here in real-time.
+    </p>
+  </div>
+  <img id="screenshot-img" style="display:none" />
+</div>
+
+<!-- Toolbar -->
+<div class="toolbar">
+  <button id="btn-refresh" title="Refresh screenshot">Refresh</button>
+  <div class="auto-refresh">
+    <input type="checkbox" id="auto-refresh" checked>
+    <label for="auto-refresh">Auto-refresh (3s)</label>
+  </div>
+  <div style="flex:1"></div>
+  <span id="last-update">Never updated</span>
+</div>
+
+<script>
+  // ─── Config ───
+  const CONNECTOR_ID = 'browser-mcp';
+
+  // ─── State ───
+  let currentActorId = null;
+  let autoRefreshInterval = null;
+
+  const statusDot = document.getElementById("status-dot");
+  const urlDisplay = document.getElementById("url-display");
+  const sessionInfo = document.getElementById("session-info");
+  const screenshotImg = document.getElementById("screenshot-img");
+  const placeholder = document.getElementById("placeholder");
+  const lastUpdate = document.getElementById("last-update");
+
+  // ─── MCP Communication (postMessage via PluginHost — matches whatsapp-mcp pattern) ───
+
+  function mcpCall(tool, args = {}) {
+    return new Promise(function(resolve, reject) {
+      var requestId = 'mcp-' + Date.now() + '-' + Math.random().toString(36).slice(2);
+
+      function handler(e) {
+        var d = e.data || {};
+        if (d.source !== 'adas-host') return;
+        var msg = d.message || {};
+        if (msg.type !== 'mcp-result' || !msg.payload || msg.payload.requestId !== requestId) return;
+        window.removeEventListener('message', handler);
+        if (msg.payload.error) reject(new Error(msg.payload.error));
+        else resolve(msg.payload.result);
+      }
+      window.addEventListener('message', handler);
+
+      window.parent.postMessage({
+        source: 'adas-plugin',
+        message: {
+          action: 'mcp-call',
+          payload: {
+            requestId: requestId,
+            connectorId: CONNECTOR_ID,
+            tool: tool,
+            args: args
+          }
+        }
+      }, '*');
+
+      setTimeout(function() {
+        window.removeEventListener('message', handler);
+        resolve(null);
+      }, 8000);
+    });
+  }
+
+  function parseResult(r) {
+    if (!r) return null;
+    if (typeof r === 'string') {
+      try { return JSON.parse(r); } catch(e) { return null; }
+    }
+    if (r.content && r.content[0] && r.content[0].text) {
+      try { return JSON.parse(r.content[0].text); } catch(e) { return null; }
+    }
+    return r;
+  }
+
+  // ─── Rendering ───
+
+  function updateScreenshot(base64) {
+    if (!base64) return;
+    screenshotImg.src = 'data:image/jpeg;base64,' + base64;
+    screenshotImg.style.display = "block";
+    placeholder.style.display = "none";
+    lastUpdate.textContent = new Date().toLocaleTimeString();
+  }
+
+  function updateUrl(url) {
+    urlDisplay.textContent = url || "No page loaded";
+  }
+
+  function updateStatus(status) {
+    statusDot.className = "status " + status;
+  }
+
+  // ─── Polling via MCP tools ───
+
+  async function poll() {
+    try {
+      var sessionsRaw = await mcpCall('web.sessions.list');
+      var sessionsData = parseResult(sessionsRaw);
+
+      if (!sessionsData || !sessionsData.sessions || sessionsData.sessions.length === 0) {
+        updateStatus("disconnected");
+        sessionInfo.textContent = "No sessions";
+        return;
+      }
+
+      var sessions = sessionsData.sessions;
+      sessions.sort(function(a, b) {
+        return new Date(b.lastActivity) - new Date(a.lastActivity);
+      });
+      var active = sessions[0];
+      currentActorId = active.actorId;
+      sessionInfo.textContent = 'Actor: ' + active.actorId + ' (' + active.pages.length + ' page' + (active.pages.length !== 1 ? 's' : '') + ')';
+      updateStatus("connected");
+
+      var screenshotRaw = await mcpCall('web.screenshot', { _adas_actor: active.actorId });
+      var screenshotData = parseResult(screenshotRaw);
+
+      if (screenshotData && screenshotData.screenshot) {
+        updateScreenshot(screenshotData.screenshot);
+        if (screenshotData.url) updateUrl(screenshotData.url);
+      }
+
+    } catch (err) {
+      console.error('[browser-view] poll error:', err);
+      updateStatus("disconnected");
+    }
+  }
+
+  // ─── Event Handlers ───
+
+  document.getElementById("btn-refresh").addEventListener("click", async function() {
+    updateStatus("loading");
+    await poll();
+  });
+
+  document.getElementById("auto-refresh").addEventListener("change", function(e) {
+    if (e.target.checked) startAutoRefresh();
+    else stopAutoRefresh();
+  });
+
+  function startAutoRefresh() {
+    stopAutoRefresh();
+    autoRefreshInterval = setInterval(poll, 3000);
+  }
+
+  function stopAutoRefresh() {
+    if (autoRefreshInterval) {
+      clearInterval(autoRefreshInterval);
+      autoRefreshInterval = null;
+    }
+  }
+
+  // ─── Plugin Command Handler ───
+  window.addEventListener("message", function(e) {
+    var d = e.data || {};
+    if (d.source === 'adas-host' && d.message && d.message.type === 'plugin-command') {
+      var cmd = d.message.command;
+      if (cmd === 'refresh' || cmd === '__focus') {
+        poll();
+      }
+    }
+  });
+
+  // ─── Init ───
+  poll();
+  startAutoRefresh();
+</script>
+</body>
+</html>
