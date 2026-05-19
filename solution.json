@@ -695,11 +695,8 @@
       "version": "1.0.0",
       "description": "Visual nutrition summary with progress rings and weekly charts",
       "render": {
-        "mode": "adaptive",
-        "iframeUrl": "/ui/nutrition-dashboard/index.html",
-        "reactNative": {
-          "component": "nutrition-dashboard"
-        }
+        "mode": "iframe",
+        "iframeUrl": "/ui/nutrition-dashboard/index.html"
       },
       "channels": [
         "command"
