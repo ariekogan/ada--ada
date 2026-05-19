@@ -1454,7 +1454,7 @@
   "solution_id": "ada",
   "id": "my-docs",
   "created_at": "2026-05-14T12:30:30.432Z",
-  "updated_at": "2026-05-19T11:30:48.537Z",
+  "updated_at": "2026-05-19T11:31:41.010Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -1868,9 +1868,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-05-18T19:05:37.794Z",
+  "lastExportedAt": "2026-05-19T11:31:40.965Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-18T19:05:37.991Z",
+  "deployedAt": "2026-05-19T11:31:41.010Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/my-docs"
 }
