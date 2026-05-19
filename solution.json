@@ -123,25 +123,7 @@
       ]
     }
   ],
-  "grants": [
-    {
-      "key": "pa.verified_user",
-      "description": "Proves the caller passed voice verification.",
-      "issued_by": [
-        "auto-orchestrator"
-      ],
-      "consumed_by": [
-        "life-manager",
-        "memory-keeper",
-        "daily-intel",
-        "messaging-agent",
-        "notification-triage",
-        "home-control",
-        "mycoach"
-      ],
-      "issued_via": "handoff"
-    }
-  ],
+  "grants": [],
   "handoffs": [
     {
       "id": "auto-orch-to-daily-intel",
