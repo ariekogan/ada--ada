@@ -588,10 +588,21 @@
       "type": "ui",
       "description": "Live browser automation viewer — screenshots, action log, URL bar",
       "render": {
-        "mode": "adaptive",
+        "mode": "iframe",
         "iframeUrl": "/ui/browser-view/index.html"
       },
-      "capabilities": {},
+      "capabilities": {
+        "commands": [
+          {
+            "name": "refresh",
+            "description": "Focus and refresh the browser view panel with latest screenshot",
+            "input_schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ]
+      },
       "channels": [
         "command"
       ],
