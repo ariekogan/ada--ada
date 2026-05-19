@@ -3,9 +3,11 @@
   "description": "Situation-aware personal assistant with proactive intelligence.",
   "phase": "DEPLOYED",
   "identity": {
-    "actor_types": [],
+    "actor_types": [
+      "owner"
+    ],
     "admin_roles": [],
-    "default_actor_type": "",
+    "default_actor_type": "owner",
     "default_roles": []
   },
   "skills": [
