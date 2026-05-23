@@ -861,7 +861,7 @@
     },
     {
       "name": "docs.overview",
-      "description": "One-call dashboard of the user's documents — corpora (with file/chunk counts + last indexed), recent files across all corpora (most-recently-updated first), and totals. Use this instead of docs.corpus.list + docs.list_files loops for 'what do I have?' / 'what have you indexed?' queries.",
+      "description": "One-call dashboard of the user's INDEXED documents. Per corpus you get: file_count, chunk_count, source_type, source_config (the scope the corpus was created with — e.g. {path: '/Engineering'} or {} for source root), last_indexed_at, last_sync_attempt_at, sync_status (never_synced | pending | indexing | indexed), has_sync_cursor. Also returns totals and the recent files across all corpora. IMPORTANT — what this does NOT tell you: whether the source has files OUTSIDE the scope of each corpus, or whether the user has CONNECTED a doc source (Drive, Dropbox) that no corpus is tracking yet. For the connected-but-unindexed picture, also call cloud.connection_summary. Do not report 'you have N documents' as if N is total — phrase counts as 'N indexed under <scope>'.",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "docs-index-mcp",
@@ -1044,6 +1044,36 @@
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
         "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "cloud.connection_summary",
+      "description": "Per-cloud-source view of the caller's state: for each supported provider (dropbox, google_drive, ...) returns whether the actor has connected it (OAuth tokens present) AND how many corpora are tracking it. Use this BEFORE answering 'how many docs do I have?' or 'what's indexed?' — it surfaces the 'connected but no corpus' state that docs.overview cannot see (docs-index-mcp is source-agnostic). If any service has connected=true and corpus_count=0, the user has data we are NOT indexing yet and the honest answer is to OFFER to index it, not to report '0 documents'.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "cloud-docs",
+        "mcp_tool": "cloud.connection_summary"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "_adas_actor": {
+            "type": "string",
+            "description": "Internal: actor ID injected by Core"
+          },
+          "_adas_tenant": {
+            "type": "string",
+            "description": "Internal: tenant ID injected by Core"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
       },
       "security": {
         "classification": "internal",
@@ -1329,7 +1359,7 @@
     },
     {
       "name": "cloud.create_corpus",
-      "description": "Create a searchable corpus backed by a cloud source (Dropbox, Google Drive). Automatically wires background sync: future docs.search calls against this corpus will trigger a fresh pull from the cloud (cooldown 15 min). The corpus is per-actor by default. Use this instead of docs.corpus.create for cloud-sourced corpora.",
+      "description": "Create a searchable corpus backed by a cloud source (Dropbox, Google Drive). Wires background sync (docs.search fires a refresh, cooldown 15 min). Per-actor by default. Use this INSTEAD OF docs.corpus.create for cloud-sourced corpora. \n\nSCOPE — Before calling, CONFIRM with the user: which folder to crawl (path), and whether they understand what this connector includes/excludes. Today's behavior, by adapter:\n  • dropbox: walks the given path recursively. No selective file-type filter.\n  • google_drive: walks the given path recursively under My Drive ONLY. Shared drives and 'Shared with me' are NOT crawled today. No selective file-type filter.\nDo NOT default silently to root with no question — a corpus at the wrong scope produces a convincingly-wrong overview later ('4 docs, all indexed' when the user actually has thousands elsewhere). Ask first.\n\nThe chosen scope is persisted in source_config and surfaced by docs.overview, so the planner can later report 'N docs under <scope>' honestly.",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "cloud-docs",
@@ -1357,7 +1387,7 @@
           },
           "path": {
             "type": "string",
-            "description": "Root folder path in the cloud source (empty string for root)"
+            "description": "Root folder path within the cloud source to crawl recursively. Empty string = source root (Dropbox root or Google Drive's 'My Drive' root). Examples: '/Contracts', '/Engineering/2026'."
           },
           "chunk_size_tokens": {
             "type": "integer"
@@ -1454,7 +1484,7 @@
   "solution_id": "ada",
   "id": "my-docs",
   "created_at": "2026-05-14T12:30:30.432Z",
-  "updated_at": "2026-05-23T16:45:42.104Z",
+  "updated_at": "2026-05-23T16:45:46.344Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -1868,9 +1898,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-05-19T18:49:48.417Z",
+  "lastExportedAt": "2026-05-23T16:45:46.194Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-19T18:49:48.451Z",
+  "deployedAt": "2026-05-23T16:45:46.343Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/my-docs"
 }
