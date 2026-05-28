@@ -166,7 +166,8 @@
         "enabled": true,
         "identical_call_threshold": 2
       }
-    }
+    },
+    "default_max_idle_seconds": 120
   },
   "toolbox_imports": [],
   "tools": [
@@ -4646,7 +4647,7 @@
   ],
   "id": "life-manager",
   "created_at": "2026-05-14T12:25:10.296Z",
-  "updated_at": "2026-05-19T12:02:00.105Z",
+  "updated_at": "2026-05-19T15:28:35.692Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -6073,9 +6074,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-05-19T12:02:00.047Z",
+  "lastExportedAt": "2026-05-19T15:28:35.633Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-19T12:02:00.105Z",
+  "deployedAt": "2026-05-19T15:28:35.692Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/life-manager"
 }
