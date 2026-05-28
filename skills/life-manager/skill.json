@@ -166,7 +166,8 @@
         "enabled": true,
         "identical_call_threshold": 2
       }
-    }
+    },
+    "default_max_idle_seconds": 120
   },
   "toolbox_imports": [],
   "tools": [

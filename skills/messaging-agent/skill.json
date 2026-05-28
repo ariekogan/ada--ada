@@ -173,7 +173,8 @@
       "whatsapp.send"
     ],
     "model": "claude-sonnet",
-    "temperature": 0.4
+    "temperature": 0.4,
+    "default_max_idle_seconds": 120
   },
   "toolbox_imports": [],
   "tools": [
