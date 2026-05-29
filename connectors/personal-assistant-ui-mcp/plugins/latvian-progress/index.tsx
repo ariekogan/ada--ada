@@ -76,15 +76,28 @@ function parseContent(m: any): any {
   return m?.content && typeof m.content === 'object' ? m.content : {};
 }
 
+const TAG_ALIASES: Record<string, string[]> = {
+  vocab:   ['vocab', 'vocabulary', 'words', 'word', 'lesson'],
+  grammar: ['grammar', 'gramatika', 'rule'],
+  mistake: ['mistake', 'mistakes', 'error', 'correction'],
+  state:   ['state', 'level', 'streak', 'xp', 'preferences', 'pronunciation', 'conversation'],
+};
+
+function bucketFor(tags: string[]): string | null {
+  for (const [bucket, aliases] of Object.entries(TAG_ALIASES)) {
+    if (aliases.some((a) => tags.includes(a))) return bucket;
+  }
+  return null;
+}
+
 function buildStats(memories: any[]): Stats {
   const now = Date.now();
   const byTagBucket: Record<string, any[]> = { vocab: [], grammar: [], mistake: [], state: [] };
   for (const m of memories) {
     const tags: string[] = Array.isArray(m.tags) ? m.tags : (typeof m.tags === 'string' ? m.tags.split(',') : []);
     if (!tags.includes('latvian')) continue;
-    for (const t of ['vocab', 'grammar', 'mistake', 'state']) {
-      if (tags.includes(t)) byTagBucket[t].push(m);
-    }
+    const bucket = bucketFor(tags);
+    if (bucket) byTagBucket[bucket].push(m);
   }
 
   const stateByKind: Record<string, any> = {};
