@@ -133,8 +133,8 @@
       ]
     },
     {
-      "id": "skill-factory-tool-builder",
-      "name": "Skill Factory Tool Builder",
+      "id": "skill-factory-ui-builder",
+      "name": "Skill Factory Ui Builder",
       "role": "worker",
       "description": "",
       "connectors": []
@@ -373,7 +373,7 @@
       "skill_id": "latvian-tutor",
       "name": "Latvian Tutor"
     },
-    "skill-factory-tool-builder"
+    "skill-factory-ui-builder"
   ],
   "conversation": [],
   "id": "ada",
