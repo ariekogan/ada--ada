@@ -6,7 +6,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "build:rn": "for f in schedule-panel teach-panel memories-panel pa-dashboard triggers-panel home-layout-panel; do esbuild rn-src/$f.tsx --bundle --format=cjs --platform=neutral --outfile=rn-bundle/$f.bundle.js --external:react --external:react-native --external:@adas/plugin-sdk --target=es2016; done && esbuild rn-src/index.tsx --bundle --format=cjs --platform=neutral --outfile=rn-bundle/index.bundle.js --external:react --external:react-native --external:@adas/plugin-sdk --target=es2016",
+    "build:rn": "for f in schedule-panel teach-panel memories-panel pa-dashboard triggers-panel home-layout-panel latvian-progress; do esbuild rn-src/$f.tsx --bundle --format=cjs --platform=neutral --outfile=rn-bundle/$f.bundle.js --external:react --external:react-native --external:@adas/plugin-sdk --target=es2016; done && esbuild rn-src/index.tsx --bundle --format=cjs --platform=neutral --outfile=rn-bundle/index.bundle.js --external:react --external:react-native --external:@adas/plugin-sdk --target=es2016",
     "build": "npm run build:rn"
   },
   "dependencies": {

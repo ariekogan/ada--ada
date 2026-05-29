@@ -8,3 +8,4 @@ export { default as MemoriesPanel } from './memories-panel';
 export { default as PaDashboard } from './pa-dashboard';
 export { default as TriggersPanel } from './triggers-panel';
 export { default as HomeLayoutPanel } from './home-layout-panel';
+export { default as LatvianProgress } from './latvian-progress';

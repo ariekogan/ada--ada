@@ -1,4 +1,3 @@
-// src-hash:0e858c68c8a122160ece87c045b2a7dd
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
@@ -68,6 +67,7 @@ var __async = (__this, __arguments, generator) => {
 var index_exports = {};
 __export(index_exports, {
   HomeLayoutPanel: () => home_layout_panel_default,
+  LatvianProgress: () => latvian_progress_default,
   MemoriesPanel: () => memories_panel_default,
   PaDashboard: () => pa_dashboard_default,
   SchedulePanel: () => schedule_panel_default,
@@ -77,7 +77,7 @@ __export(index_exports, {
 module.exports = __toCommonJS(index_exports);
 
 // rn-src/schedule-panel.tsx
-var import_react = __toESM(require("react"));
+var import_react = __toESM(require("react"), 1);
 var import_react_native = require("react-native");
 var import_plugin_sdk = require("@adas/plugin-sdk");
 var DEVICE = "mobile-device-mcp";
@@ -180,7 +180,7 @@ var s = import_react_native.StyleSheet.create({
 });
 
 // rn-src/teach-panel.tsx
-var import_react2 = __toESM(require("react"));
+var import_react2 = __toESM(require("react"), 1);
 var import_react_native2 = require("react-native");
 var import_plugin_sdk2 = require("@adas/plugin-sdk");
 var CONNECTOR = "memory-mcp";
@@ -336,7 +336,7 @@ var s2 = import_react_native2.StyleSheet.create({
 });
 
 // rn-src/memories-panel.tsx
-var import_react3 = __toESM(require("react"));
+var import_react3 = __toESM(require("react"), 1);
 var import_react_native3 = require("react-native");
 var import_plugin_sdk3 = require("@adas/plugin-sdk");
 var CONNECTOR2 = "memory-mcp";
@@ -677,7 +677,7 @@ var s3 = import_react_native3.StyleSheet.create({
 });
 
 // rn-src/pa-dashboard.tsx
-var import_react4 = __toESM(require("react"));
+var import_react4 = __toESM(require("react"), 1);
 var import_react_native4 = require("react-native");
 var import_plugin_sdk4 = require("@adas/plugin-sdk");
 var DEVICE2 = "mobile-device-mcp";
@@ -802,7 +802,7 @@ var s4 = import_react_native4.StyleSheet.create({
 });
 
 // rn-src/triggers-panel.tsx
-var import_react5 = __toESM(require("react"));
+var import_react5 = __toESM(require("react"), 1);
 var import_react_native5 = require("react-native");
 var import_plugin_sdk5 = require("@adas/plugin-sdk");
 function fmtTime(h, m) {
@@ -1126,7 +1126,7 @@ var s5 = import_react_native5.StyleSheet.create({
 });
 
 // rn-src/home-layout-panel.tsx
-var import_react6 = __toESM(require("react"));
+var import_react6 = __toESM(require("react"), 1);
 var import_react_native6 = require("react-native");
 var import_plugin_sdk6 = require("@adas/plugin-sdk");
 var DOMAIN_ICONS = {
@@ -1202,11 +1202,11 @@ function HomeLayoutPanel({ bridge, native, theme }) {
       const entityIds = roomList.flatMap((r) => (r.devices || []).map((d) => d.entity_id));
       const stateResults = yield Promise.all(
         entityIds.map(
-          (eid) => api.call("entity.state", { entity_id: eid }).then((s7) => [eid, { state: s7.state || "unknown", attrs: s7.attributes || {} }]).catch(() => [eid, { state: "unknown", attrs: {} }])
+          (eid) => api.call("entity.state", { entity_id: eid }).then((s8) => [eid, { state: s8.state || "unknown", attrs: s8.attributes || {} }]).catch(() => [eid, { state: "unknown", attrs: {} }])
         )
       );
       const stateMap = {};
-      for (const [eid, s7] of stateResults) stateMap[eid] = s7;
+      for (const [eid, s8] of stateResults) stateMap[eid] = s8;
       setStates(stateMap);
       const prov = { HA: true };
       try {
@@ -1282,7 +1282,7 @@ function HomeLayoutPanel({ bridge, native, theme }) {
   const securityDevices = rooms.flatMap(
     (r) => (r.devices || []).filter((d) => isSecurity(d.entity_id)).map((d) => __spreadProps(__spreadValues({}, d), { room: r.name }))
   );
-  const onCount = Object.entries(states).filter(([eid, s7]) => isOn(eid, s7.state) && !eid.startsWith("sensor.")).length;
+  const onCount = Object.entries(states).filter(([eid, s8]) => isOn(eid, s8.state) && !eid.startsWith("sensor.")).length;
   if (loading) {
     return /* @__PURE__ */ import_react6.default.createElement(import_react_native6.View, { style: [s6.center, { backgroundColor: c.bg }] }, /* @__PURE__ */ import_react6.default.createElement(import_react_native6.ActivityIndicator, { size: "large", color: c.accent }), /* @__PURE__ */ import_react6.default.createElement(import_react_native6.Text, { style: [s6.loadingText, { color: c.textMuted }] }, "Loading home..."));
   }
@@ -1392,4 +1392,326 @@ var s6 = import_react_native6.StyleSheet.create({
   providerRow: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
   providerChip: { flexDirection: "row", alignItems: "center", gap: 6, borderRadius: 10, paddingHorizontal: 12, paddingVertical: 8, borderWidth: 1 },
   providerDot: { width: 6, height: 6, borderRadius: 3 }
+});
+
+// rn-src/latvian-progress.tsx
+var import_react7 = __toESM(require("react"), 1);
+var import_react_native7 = require("react-native");
+var import_plugin_sdk7 = require("@adas/plugin-sdk");
+var MEMORY2 = "memory-mcp";
+var CEFR = ["A0", "A1", "A2", "B1", "B2", "C1", "C2"];
+var LV_CASES = ["nominat\u012Bvs", "\u0123enit\u012Bvs", "dat\u012Bvs", "akuzat\u012Bvs", "instrument\u0101lis", "lokat\u012Bvs"];
+function cefrIndex(level) {
+  const i = CEFR.indexOf(level);
+  return i < 0 ? 0 : i;
+}
+var BADGE_CATALOG = [
+  { id: "first_word", emoji: "\u{1F331}", label: "\u05DE\u05D9\u05DC\u05D4 \u05E8\u05D0\u05E9\u05D5\u05E0\u05D4", cond: (s8) => s8.vocab.total >= 1 },
+  { id: "ten_words", emoji: "\u{1F4DA}", label: "10 \u05DE\u05D9\u05DC\u05D9\u05DD", cond: (s8) => s8.vocab.total >= 10 },
+  { id: "fifty_words", emoji: "\u{1F392}", label: "50 \u05DE\u05D9\u05DC\u05D9\u05DD", cond: (s8) => s8.vocab.total >= 50 },
+  { id: "hundred_words", emoji: "\u{1F3C5}", label: "100 \u05DE\u05D9\u05DC\u05D9\u05DD", cond: (s8) => s8.vocab.total >= 100 },
+  { id: "first_mastered", emoji: "\u2728", label: "\u05DE\u05D9\u05DC\u05D4 \u05D1\u05E9\u05DC\u05D9\u05D8\u05D4", cond: (s8) => s8.vocab.mastered >= 1 },
+  { id: "first_case", emoji: "\u{1F393}", label: "\u05D9\u05D7\u05E1\u05D4 \u05E8\u05D0\u05E9\u05D5\u05E0\u05D4", cond: (s8) => s8.grammar.casesTouched >= 1 },
+  { id: "all_cases", emoji: "\u{1F3DB}\uFE0F", label: "\u05DB\u05DC 6 \u05D4\u05D9\u05D7\u05E1\u05D5\u05EA", cond: (s8) => s8.grammar.casesTouched >= 6 },
+  { id: "streak_3", emoji: "\u{1F525}", label: "\u05E8\u05E6\u05E3 3 \u05D9\u05DE\u05D9\u05DD", cond: (s8) => s8.streak.current >= 3 },
+  { id: "streak_7", emoji: "\u{1F525}", label: "\u05E8\u05E6\u05E3 \u05E9\u05D1\u05D5\u05E2", cond: (s8) => s8.streak.current >= 7 },
+  { id: "streak_30", emoji: "\u{1F525}", label: "\u05E8\u05E6\u05E3 \u05D7\u05D5\u05D3\u05E9", cond: (s8) => s8.streak.current >= 30 },
+  { id: "level_a2", emoji: "\u{1F680}", label: "\u05D4\u05D2\u05E2\u05EA \u05DC-A2", cond: (s8) => cefrIndex(s8.level) >= 2 },
+  { id: "level_b1", emoji: "\u{1F6EB}", label: "\u05D4\u05D2\u05E2\u05EA \u05DC-B1", cond: (s8) => cefrIndex(s8.level) >= 3 }
+];
+var TAG_ALIASES = {
+  vocab: ["vocab", "vocabulary", "words", "word", "lesson"],
+  grammar: ["grammar", "gramatika", "rule"],
+  mistake: ["mistake", "mistakes", "error", "correction"],
+  state: ["state", "level", "streak", "xp", "preferences", "pronunciation", "conversation"]
+};
+function bucketFor(tags) {
+  for (const [bucket, aliases] of Object.entries(TAG_ALIASES)) {
+    if (aliases.some((a) => tags.includes(a))) return bucket;
+  }
+  return null;
+}
+function parseContent2(m) {
+  if ((m == null ? void 0 : m.content) && typeof m.content === "string") {
+    const t = m.content.trim();
+    if (t.startsWith("{") || t.startsWith("[")) {
+      try {
+        return JSON.parse(t);
+      } catch (e) {
+        return {};
+      }
+    }
+  }
+  return (m == null ? void 0 : m.content) && typeof m.content === "object" ? m.content : {};
+}
+function buildStats(memories) {
+  var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n;
+  const now = Date.now();
+  const buckets = { vocab: [], grammar: [], mistake: [], state: [] };
+  for (const m of memories) {
+    const tags = Array.isArray(m.tags) ? m.tags : typeof m.tags === "string" ? m.tags.split(",") : [];
+    if (!tags.includes("latvian")) continue;
+    const b = bucketFor(tags);
+    if (b) buckets[b].push(m);
+  }
+  const stateByKind = {};
+  for (const m of buckets.state) {
+    const p = parseContent2(m);
+    const tags = Array.isArray(m.tags) ? m.tags : [];
+    const kind = p.kind || m.kind || tags.find((t) => !["latvian", "state"].includes(t));
+    if (kind) stateByKind[kind] = p;
+  }
+  const level = ((_a = stateByKind.level) == null ? void 0 : _a.value) || ((_b = stateByKind.level) == null ? void 0 : _b.level) || "A0";
+  const levelProgress = Math.max(0, Math.min(1, Number((_c = stateByKind.level) == null ? void 0 : _c.progress) || 0));
+  const streak = {
+    current: Number((_d = stateByKind.streak) == null ? void 0 : _d.current) || 0,
+    longest: Number((_e = stateByKind.streak) == null ? void 0 : _e.longest) || 0
+  };
+  const xp = Number((_f = stateByKind.xp) == null ? void 0 : _f.value) || 0;
+  const dailyTarget = Number((_g = stateByKind.preferences) == null ? void 0 : _g.daily_goal) || 5;
+  const lessonsTodayKey = (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
+  const dailyDone = Number((_i = (_h = stateByKind.streak) == null ? void 0 : _h.lessons_today) == null ? void 0 : _i[lessonsTodayKey]) || Number((_j = stateByKind.streak) == null ? void 0 : _j.today_count) || 0;
+  let mastered = 0, learning = 0, fresh = 0, dueNow = 0;
+  for (const m of buckets.vocab) {
+    const p = parseContent2(m);
+    const ease = Number(p.ease) || 1.3;
+    const dueAt = Number(p.due_at) || 0;
+    const lastRev = Number(p.last_reviewed) || 0;
+    if (ease >= 2.5 && lastRev > 0) mastered++;
+    else if (lastRev > 0) learning++;
+    else fresh++;
+    if (dueAt && dueAt <= now) dueNow++;
+  }
+  let solid = 0, shaky = 0;
+  const casesSeen = /* @__PURE__ */ new Set();
+  for (const m of buckets.grammar) {
+    const p = parseContent2(m);
+    if (p.mastery === "solid") solid++;
+    else if (p.mastery === "shaky") shaky++;
+    const topic = (p.topic || "").toLowerCase();
+    for (const c of LV_CASES) if (topic.includes(c)) casesSeen.add(c);
+  }
+  const pronPracticed = Number((_k = stateByKind.pronunciation) == null ? void 0 : _k.practiced) || 0;
+  const pronTotal = Number((_l = stateByKind.pronunciation) == null ? void 0 : _l.total) || 33;
+  const convTurns = Number((_m = stateByKind.conversation) == null ? void 0 : _m.turns) || 0;
+  const convCorrected = Number((_n = stateByKind.conversation) == null ? void 0 : _n.corrected) || 0;
+  const mistakeMap = /* @__PURE__ */ new Map();
+  for (const m of buckets.mistake) {
+    const p = parseContent2(m);
+    const k = (p.kind || "other") + "|" + (p.detail || "");
+    const cur = mistakeMap.get(k) || { kind: p.kind || "other", detail: p.detail || "", count: 0 };
+    cur.count++;
+    mistakeMap.set(k, cur);
+  }
+  const mistakes = [...mistakeMap.values()].sort((a, b) => b.count - a.count).slice(0, 3);
+  return {
+    level,
+    levelProgress,
+    streak,
+    xp,
+    dailyGoal: { done: dailyDone, target: dailyTarget },
+    vocab: { total: buckets.vocab.length, mastered, learning, new: fresh, dueNow },
+    grammar: { topicsTotal: buckets.grammar.length, solid, shaky, casesTouched: casesSeen.size },
+    pronunciation: { practiced: pronPracticed, total: pronTotal },
+    conversation: { turns: convTurns, correctedTurns: convCorrected },
+    mistakes
+  };
+}
+function unwrap(raw) {
+  var _a, _b;
+  if (((_b = (_a = raw == null ? void 0 : raw.content) == null ? void 0 : _a[0]) == null ? void 0 : _b.type) === "text") {
+    try {
+      return JSON.parse(raw.content[0].text);
+    } catch (e) {
+      return raw;
+    }
+  }
+  return typeof raw === "string" ? (() => {
+    try {
+      return JSON.parse(raw);
+    } catch (e) {
+      return raw;
+    }
+  })() : raw;
+}
+function LatvianProgressComponent({ bridge, native, theme }) {
+  const api = (0, import_plugin_sdk7.useApi)(bridge);
+  const [stats, setStats] = (0, import_react7.useState)(null);
+  const [isLive, setIsLive] = (0, import_react7.useState)(false);
+  const [loadError, setLoadError] = (0, import_react7.useState)(null);
+  const loadData = (0, import_react7.useCallback)(() => __async(null, null, function* () {
+    try {
+      const raw = yield api.call("memory.list", { tags: ["latvian"], limit: 1e3 }, MEMORY2);
+      const parsed = unwrap(raw);
+      const memories = (parsed == null ? void 0 : parsed.memories) || (parsed == null ? void 0 : parsed.items) || [];
+      setStats(buildStats(memories));
+      setLoadError(null);
+      setIsLive(true);
+    } catch (err) {
+      setStats(buildStats([]));
+      setLoadError((err == null ? void 0 : err.message) || "Failed to load progress");
+      setIsLive(true);
+    }
+  }), [api]);
+  (0, import_react7.useEffect)(() => {
+    const t = setTimeout(loadData, 200);
+    return () => clearTimeout(t);
+  }, [loadData]);
+  const startReview = (0, import_react7.useCallback)(() => {
+    var _a, _b, _c;
+    (_b = (_a = native == null ? void 0 : native.haptics) == null ? void 0 : _a.selection) == null ? void 0 : _b.call(_a);
+    try {
+      (_c = bridge == null ? void 0 : bridge.send) == null ? void 0 : _c.call(bridge, { type: "message", text: "\u05D1\u05D5\u05D0 \u05E0\u05EA\u05D7\u05D9\u05DC \u05D7\u05D6\u05E8\u05D4 \u05D9\u05D5\u05DE\u05D9\u05EA \u05E9\u05DC \u05DE\u05D9\u05DC\u05D9\u05DD" });
+    } catch (e) {
+    }
+  }, [bridge, native]);
+  const earnedBadges = (0, import_react7.useMemo)(() => {
+    if (!stats) return /* @__PURE__ */ new Set();
+    const s8 = /* @__PURE__ */ new Set();
+    for (const b of BADGE_CATALOG) if (b.cond(stats)) s8.add(b.id);
+    return s8;
+  }, [stats]);
+  const colors = (theme == null ? void 0 : theme.colors) || {
+    bg: "#FAF6EE",
+    text: "#1a1410",
+    textMuted: "#9a8870",
+    surface: "#F2EADC",
+    border: "rgba(26,20,16,0.08)",
+    accent: "#FF7A28",
+    success: "#5A8A5C",
+    error: "#C15545"
+  };
+  const accent = colors.accent || "#FF7A28";
+  if (!isLive || !stats) {
+    return /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: [s7.fullCenter, { backgroundColor: colors.bg }] }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.ActivityIndicator, { size: "small", color: accent }), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.muted, { color: colors.textMuted }] }, "\u05D8\u05D5\u05E2\u05DF \u05D4\u05EA\u05E7\u05D3\u05DE\u05D5\u05EA\u2026"));
+  }
+  const levelIdx = cefrIndex(stats.level);
+  const nextLevel = CEFR[Math.min(levelIdx + 1, CEFR.length - 1)];
+  const dailyPct = stats.dailyGoal.target > 0 ? Math.min(1, stats.dailyGoal.done / stats.dailyGoal.target) : 0;
+  return /* @__PURE__ */ import_react7.default.createElement(import_react_native7.ScrollView, { style: [s7.container, { backgroundColor: colors.bg }], contentContainerStyle: s7.containerInner }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: [s7.heroBig, { backgroundColor: colors.surface, borderColor: colors.border }] }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.heroTitle, { color: colors.text }] }, "\u05DC\u05D8\u05D1\u05D9\u05EA \u{1F1F1}\u{1F1FB}"), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: s7.levelRow }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.levelBadge, { color: accent, borderColor: accent }] }, stats.level), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: [s7.levelBar, { backgroundColor: colors.border }] }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: [s7.levelBarFill, { width: `${Math.round(stats.levelProgress * 100)}%`, backgroundColor: accent }] })), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.levelNext, { color: colors.textMuted }] }, nextLevel)), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.levelHint, { color: colors.textMuted }] }, Math.round(stats.levelProgress * 100), "% \u05D1\u05D3\u05E8\u05DA \u05DC-", nextLevel)), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: s7.statsRow }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: [s7.statCard, { backgroundColor: colors.surface, borderColor: colors.border }] }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: s7.statEmoji }, "\u{1F525}"), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.statBig, { color: colors.text }] }, stats.streak.current), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.statLabel, { color: colors.textMuted }] }, "\u05E8\u05E6\u05E3 \u05D9\u05DE\u05D9\u05DD")), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: [s7.statCard, { backgroundColor: colors.surface, borderColor: colors.border }] }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: s7.statEmoji }, "\u2B50"), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.statBig, { color: colors.text }] }, stats.xp), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.statLabel, { color: colors.textMuted }] }, "\u05E0\u05E7' XP")), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: [s7.statCard, { backgroundColor: colors.surface, borderColor: colors.border }] }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: s7.statEmoji }, "\u{1F3AF}"), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.statBig, { color: colors.text }] }, stats.dailyGoal.done, "/", stats.dailyGoal.target), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: [s7.miniBar, { backgroundColor: colors.border }] }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: [s7.miniBarFill, { width: `${Math.round(dailyPct * 100)}%`, backgroundColor: dailyPct >= 1 ? colors.success || "#5A8A5C" : accent }] })), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.statLabel, { color: colors.textMuted }] }, "\u05D9\u05E2\u05D3 \u05D9\u05D5\u05DE\u05D9"))), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: s7.gridRow }, /* @__PURE__ */ import_react7.default.createElement(
+    CategoryCard,
+    {
+      colors,
+      accent,
+      emoji: "\u{1F4DA}",
+      title: "\u05D0\u05D5\u05E6\u05E8 \u05DE\u05D9\u05DC\u05D9\u05DD",
+      subtitle: `${stats.vocab.total} \u05DE\u05D9\u05DC\u05D9\u05DD`,
+      progress: stats.vocab.total === 0 ? 0 : stats.vocab.mastered / stats.vocab.total,
+      breakdown: [
+        { label: "\u05D1\u05E9\u05DC\u05D9\u05D8\u05D4", value: stats.vocab.mastered, color: colors.success || "#5A8A5C" },
+        { label: "\u05D1\u05DC\u05D9\u05DE\u05D5\u05D3", value: stats.vocab.learning, color: accent },
+        { label: "\u05D7\u05D3\u05E9\u05D5\u05EA", value: stats.vocab.new, color: colors.textMuted }
+      ]
+    }
+  ), /* @__PURE__ */ import_react7.default.createElement(
+    CategoryCard,
+    {
+      colors,
+      accent,
+      emoji: "\u{1F9F1}",
+      title: "\u05D3\u05E7\u05D3\u05D5\u05E7",
+      subtitle: `${stats.grammar.casesTouched}/6 \u05D9\u05D7\u05E1\u05D5\u05EA`,
+      progress: stats.grammar.casesTouched / 6,
+      breakdown: [
+        { label: "\u05D1\u05E9\u05DC\u05D9\u05D8\u05D4", value: stats.grammar.solid, color: colors.success || "#5A8A5C" },
+        { label: "\u05E8\u05E2\u05D5\u05E2", value: stats.grammar.shaky, color: colors.error || "#C15545" }
+      ]
+    }
+  )), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: s7.gridRow }, /* @__PURE__ */ import_react7.default.createElement(
+    CategoryCard,
+    {
+      colors,
+      accent,
+      emoji: "\u{1F5E3}\uFE0F",
+      title: "\u05D4\u05D2\u05D9\u05D9\u05D4",
+      subtitle: `${stats.pronunciation.practiced}/${stats.pronunciation.total} \u05E6\u05DC\u05D9\u05DC\u05D9\u05DD`,
+      progress: stats.pronunciation.total === 0 ? 0 : stats.pronunciation.practiced / stats.pronunciation.total,
+      breakdown: []
+    }
+  ), /* @__PURE__ */ import_react7.default.createElement(
+    CategoryCard,
+    {
+      colors,
+      accent,
+      emoji: "\u{1F4AC}",
+      title: "\u05E9\u05D9\u05D7\u05D4",
+      subtitle: `${stats.conversation.turns} \u05E1\u05D1\u05D1\u05D9\u05DD`,
+      progress: stats.conversation.turns === 0 ? 0 : stats.conversation.correctedTurns / Math.max(1, stats.conversation.turns),
+      breakdown: [
+        { label: "\u05EA\u05D5\u05E7\u05E0\u05D5", value: stats.conversation.correctedTurns, color: colors.error || "#C15545" }
+      ]
+    }
+  )), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: [s7.ctaCard, { backgroundColor: colors.surface, borderColor: colors.border }] }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: s7.ctaRow }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: { flex: 1 } }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.ctaTitle, { color: colors.text }] }, "\u{1F501} \u05DC\u05D7\u05D6\u05E8\u05D4 \u05E2\u05DB\u05E9\u05D9\u05D5: ", stats.vocab.dueNow, " \u05DE\u05D9\u05DC\u05D9\u05DD"), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.ctaHint, { color: colors.textMuted }] }, stats.vocab.dueNow === 0 ? "\u05D0\u05D9\u05DF \u05DB\u05E8\u05D2\u05E2 \u05DB\u05E8\u05D8\u05D9\u05E1\u05D9\u05DD \u05E9\u05DE\u05D7\u05DB\u05D9\u05DD \u2014 \u05E0\u05E6\u05DC \u05D0\u05EA \u05D4\u05D6\u05DE\u05DF \u05DC\u05DC\u05DE\u05D5\u05D3 \u05DE\u05D9\u05DC\u05D4 \u05D7\u05D3\u05E9\u05D4" : "\u05D7\u05D6\u05E8\u05D4 \u05E7\u05E6\u05E8\u05D4 \u05EA\u05E9\u05DE\u05D5\u05E8 \u05D0\u05EA \u05D4\u05D6\u05D9\u05DB\u05E8\u05D5\u05DF \u05D7\u05D9")), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Pressable, { onPress: startReview, style: [s7.ctaBtn, { backgroundColor: accent }] }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: s7.ctaBtnText }, "\u05D4\u05EA\u05D7\u05DC")))), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: s7.section }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.sectionTitle, { color: colors.text }] }, "\u{1F3C6} \u05D4\u05D9\u05E9\u05D2\u05D9\u05DD"), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: s7.badgesRow }, BADGE_CATALOG.map((b) => {
+    const earned = earnedBadges.has(b.id);
+    return /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { key: b.id, style: [s7.badge, { backgroundColor: colors.surface, borderColor: earned ? accent : colors.border, opacity: earned ? 1 : 0.45 }] }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: s7.badgeEmoji }, earned ? b.emoji : "\u{1F512}"), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.badgeLabel, { color: earned ? colors.text : colors.textMuted }], numberOfLines: 2 }, b.label));
+  }))), stats.mistakes.length > 0 && /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: s7.section }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.sectionTitle, { color: colors.text }] }, "\u{1F4A1} \u05DC\u05D7\u05D6\u05E7 \u05D4\u05E9\u05D1\u05D5\u05E2"), stats.mistakes.map((m, i) => /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { key: i, style: [s7.weakRow, { backgroundColor: colors.surface, borderColor: colors.border }] }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.weakKind, { color: colors.error || "#C15545" }] }, m.kind), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.weakDetail, { color: colors.text }], numberOfLines: 2 }, m.detail || "\u2014"), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.weakCount, { color: colors.textMuted }] }, "\xD7", m.count)))), loadError && /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.errorFoot, { color: colors.error || "#C15545" }] }, "\u05DC\u05D0 \u05D4\u05E6\u05DC\u05D7\u05EA\u05D9 \u05DC\u05D4\u05D2\u05D9\u05E2 \u05DC\u05D6\u05D9\u05DB\u05E8\u05D5\u05DF: ", loadError), stats.vocab.total === 0 && stats.grammar.topicsTotal === 0 && /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.muted, { color: colors.textMuted, marginTop: 16, textAlign: "center" }] }, "\u05E2\u05D5\u05D3 \u05D0\u05D9\u05DF \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD. \u05D1\u05D5\u05D0 \u05E0\u05EA\u05D7\u05D9\u05DC \u05E9\u05D9\u05E2\u05D5\u05E8 \u05E2\u05DD \u05D4\u05DE\u05D5\u05E8\u05D4 \u05DC\u05DC\u05D8\u05D1\u05D9\u05EA \u05DB\u05D3\u05D9 \u05DC\u05D1\u05E0\u05D5\u05EA \u05D0\u05EA \u05D4\u05DC\u05D5\u05D7."));
+}
+function CategoryCard({
+  colors,
+  accent,
+  emoji,
+  title,
+  subtitle,
+  progress,
+  breakdown
+}) {
+  const pct = Math.max(0, Math.min(1, progress || 0));
+  return /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: [s7.catCard, { backgroundColor: colors.surface, borderColor: colors.border }] }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: s7.catTop }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: s7.catEmoji }, emoji), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: { flex: 1 } }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.catTitle, { color: colors.text }] }, title), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.catSub, { color: colors.textMuted }] }, subtitle))), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: [s7.catBar, { backgroundColor: colors.border }] }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: [s7.catBarFill, { width: `${Math.round(pct * 100)}%`, backgroundColor: accent }] })), breakdown.filter((b) => b.value > 0).length > 0 && /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: s7.catBreakdown }, breakdown.filter((b) => b.value > 0).map((b, i) => /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { key: i, style: s7.catBreakItem }, /* @__PURE__ */ import_react7.default.createElement(import_react_native7.View, { style: [s7.catDot, { backgroundColor: b.color }] }), /* @__PURE__ */ import_react7.default.createElement(import_react_native7.Text, { style: [s7.catBreakText, { color: colors.textMuted }] }, b.label, " ", b.value)))));
+}
+var latvian_progress_default = {
+  id: "latvian-progress",
+  type: "ui",
+  version: "1.0.0",
+  capabilities: { haptics: true },
+  Component: LatvianProgressComponent
+};
+var s7 = import_react_native7.StyleSheet.create({
+  container: { flex: 1 },
+  containerInner: { padding: 14, paddingBottom: 32 },
+  fullCenter: { flex: 1, alignItems: "center", justifyContent: "center", gap: 8 },
+  muted: { fontSize: 13 },
+  heroBig: { borderRadius: 14, borderWidth: 1, padding: 16, marginBottom: 10 },
+  heroTitle: { fontSize: 22, fontWeight: "700", marginBottom: 10, textAlign: "right" },
+  levelRow: { flexDirection: "row-reverse", alignItems: "center", gap: 10 },
+  levelBadge: { fontSize: 14, fontWeight: "700", paddingHorizontal: 10, paddingVertical: 4, borderRadius: 999, borderWidth: 1, minWidth: 44, textAlign: "center" },
+  levelBar: { flex: 1, height: 10, borderRadius: 5, overflow: "hidden" },
+  levelBarFill: { height: "100%", borderRadius: 5 },
+  levelNext: { fontSize: 12, fontWeight: "600" },
+  levelHint: { fontSize: 11, marginTop: 8, textAlign: "right" },
+  statsRow: { flexDirection: "row-reverse", gap: 8, marginBottom: 12 },
+  statCard: { flex: 1, borderRadius: 12, borderWidth: 1, padding: 12, alignItems: "center" },
+  statEmoji: { fontSize: 22, marginBottom: 4 },
+  statBig: { fontSize: 20, fontWeight: "700" },
+  statLabel: { fontSize: 11, marginTop: 4 },
+  miniBar: { width: "100%", height: 4, borderRadius: 2, marginTop: 6, overflow: "hidden" },
+  miniBarFill: { height: "100%", borderRadius: 2 },
+  gridRow: { flexDirection: "row-reverse", gap: 8, marginBottom: 8 },
+  catCard: { flex: 1, borderRadius: 12, borderWidth: 1, padding: 12 },
+  catTop: { flexDirection: "row-reverse", alignItems: "center", gap: 8, marginBottom: 8 },
+  catEmoji: { fontSize: 22 },
+  catTitle: { fontSize: 14, fontWeight: "600", textAlign: "right" },
+  catSub: { fontSize: 11, marginTop: 1, textAlign: "right" },
+  catBar: { height: 6, borderRadius: 3, overflow: "hidden" },
+  catBarFill: { height: "100%", borderRadius: 3 },
+  catBreakdown: { flexDirection: "row-reverse", flexWrap: "wrap", gap: 8, marginTop: 8 },
+  catBreakItem: { flexDirection: "row-reverse", alignItems: "center", gap: 4 },
+  catDot: { width: 6, height: 6, borderRadius: 3 },
+  catBreakText: { fontSize: 10 },
+  ctaCard: { borderRadius: 12, borderWidth: 1, padding: 14, marginTop: 6, marginBottom: 12 },
+  ctaRow: { flexDirection: "row-reverse", alignItems: "center", gap: 12 },
+  ctaTitle: { fontSize: 14, fontWeight: "600", textAlign: "right" },
+  ctaHint: { fontSize: 11, marginTop: 4, textAlign: "right" },
+  ctaBtn: { paddingHorizontal: 16, paddingVertical: 10, borderRadius: 999 },
+  ctaBtnText: { fontSize: 13, fontWeight: "700", color: "#fff" },
+  section: { marginTop: 6, marginBottom: 4 },
+  sectionTitle: { fontSize: 14, fontWeight: "600", marginBottom: 8, textAlign: "right" },
+  badgesRow: { flexDirection: "row-reverse", flexWrap: "wrap", gap: 8 },
+  badge: { width: "23%", minWidth: 70, aspectRatio: 1, borderRadius: 12, borderWidth: 1, alignItems: "center", justifyContent: "center", padding: 6 },
+  badgeEmoji: { fontSize: 22, marginBottom: 4 },
+  badgeLabel: { fontSize: 10, textAlign: "center", lineHeight: 12 },
+  weakRow: { flexDirection: "row-reverse", alignItems: "center", gap: 10, borderRadius: 10, borderWidth: 1, padding: 10, marginBottom: 6 },
+  weakKind: { fontSize: 11, fontWeight: "700", minWidth: 60, textAlign: "right" },
+  weakDetail: { flex: 1, fontSize: 12, textAlign: "right" },
+  weakCount: { fontSize: 11, fontWeight: "600" },
+  errorFoot: { fontSize: 11, textAlign: "center", marginTop: 8 }
 });
