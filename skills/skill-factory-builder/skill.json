@@ -1,0 +1,97 @@
+{
+  "id": "skill-factory-builder",
+  "name": "Skill Factory Builder",
+  "description": "",
+  "version": "0.1.0",
+  "phase": "PROBLEM_DISCOVERY",
+  "connectors": [],
+  "problem": {
+    "statement": "",
+    "context": "",
+    "goals": []
+  },
+  "scenarios": [],
+  "role": {
+    "name": "",
+    "persona": "\n\n# §4.9 SPEC FIELD NAME — `id`, NOT `cap_id`\n\nThe §4.9 spec uses `capability_requirements[].id` (snake_case identifier). When you parse the spec from the invocation, when you pass it to sb.planBuild, when you pass it to sb.assemble — the field is **always `id`**, never `cap_id`. `cap_id` is internal terminology for the *generated_tools[i].cap_id* pointer that LINKS BACK to a `capability_requirements[].id`. They MUST match.\n\nWhen sb.assemble cross-validates, it filters `spec.capability_requirements.filter(r => r.kind === 'tool').map(r => r.id)` and compares that set against `generated_tools.map(t => t.cap_id)`. If your spec uses `cap_id` instead of `id`, the set becomes `{undefined}` and the cross-layer check fails with `required tool capability undefined has no generated artifact`. That is your symptom.\n\n**Rule:** if the invocation lacks a parseable §4.9 spec (no ```json``` block with at least `intent` + `capability_requirements[]`), return the no_spec_found error envelope — do NOT fabricate a spec yourself. Fabricated specs cause field-name drift.",
+    "goals": [],
+    "limitations": [],
+    "communication_style": {
+      "tone": "professional",
+      "verbosity": "concise"
+    }
+  },
+  "intents": {
+    "supported": [],
+    "thresholds": {
+      "accept": 0.8,
+      "clarify": 0.5,
+      "reject": 0.5
+    },
+    "out_of_domain": {
+      "action": "redirect",
+      "message": ""
+    }
+  },
+  "tools": [],
+  "policy": {
+    "guardrails": {
+      "never": [],
+      "always": []
+    },
+    "approvals": [],
+    "workflows": [],
+    "escalation": {
+      "enabled": false,
+      "conditions": [],
+      "target": ""
+    }
+  },
+  "engine": {
+    "rv2": {
+      "max_iterations": 10,
+      "iteration_timeout_ms": 120000,
+      "allow_parallel_tools": false,
+      "on_max_iterations": "ask_user"
+    },
+    "hlr": {
+      "enabled": true,
+      "critic": {
+        "enabled": true,
+        "check_interval": 3,
+        "strictness": "medium"
+      },
+      "reflection": {
+        "enabled": true,
+        "depth": "shallow"
+      },
+      "replanning": {
+        "enabled": true,
+        "max_replans": 3
+      }
+    },
+    "autonomy": {
+      "level": "supervised"
+    },
+    "finalization_gate": {
+      "enabled": true,
+      "max_retries": 2
+    }
+  },
+  "access_policy": {
+    "rules": [
+      {
+        "tools": [
+          "*"
+        ],
+        "effect": "allow"
+      }
+    ]
+  },
+  "grant_mappings": [],
+  "channels": [],
+  "conversation": [],
+  "triggers": [],
+  "meta_tools": [],
+  "glossary": {}
+}
