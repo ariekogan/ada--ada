@@ -126,20 +126,10 @@
       "id": "latvian-tutor",
       "name": "Latvian Tutor",
       "role": "worker",
-      "description": "Personal Latvian-language tutor. Teaches the user (Hebrew base) Latvian through conversation, vocab drills (SRS), grammar explanations, and a daily review nudge.",
+      "description": "",
       "connectors": [
-        {
-          "id": "memory-mcp",
-          "channels": [
-            "command"
-          ]
-        },
-        {
-          "id": "mobile-device-mcp",
-          "channels": [
-            "command"
-          ]
-        }
+        "memory-mcp",
+        "mobile-device-mcp"
       ]
     }
   ],
