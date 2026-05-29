@@ -1,0 +1,106 @@
+{
+  "id": "skill-factory-qa",
+  "name": "Skill Factory Qa",
+  "description": "",
+  "version": "0.1.0",
+  "phase": "PROBLEM_DISCOVERY",
+  "connectors": [],
+  "problem": {
+    "statement": "",
+    "context": "",
+    "goals": []
+  },
+  "scenarios": [],
+  "role": {
+    "name": "",
+    "persona": "",
+    "goals": [],
+    "limitations": [],
+    "communication_style": {
+      "tone": "professional",
+      "verbosity": "concise"
+    }
+  },
+  "intents": {
+    "fast_path": {
+      "enabled": true,
+      "rules": [
+        {
+          "pattern": ".",
+          "intent": "general",
+          "mission_kind": "describe",
+          "confidence": 1,
+          "execution_contract": {
+            "requires_external_effect": false,
+            "acceptable_without_external_effect": true,
+            "external_effect_summary": null,
+            "required_tools": [
+              "qa.report"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "tools": [],
+  "policy": {
+    "guardrails": {
+      "never": [],
+      "always": []
+    },
+    "approvals": [],
+    "workflows": [],
+    "escalation": {
+      "enabled": false,
+      "conditions": [],
+      "target": ""
+    }
+  },
+  "engine": {
+    "rv2": {
+      "max_iterations": 10,
+      "iteration_timeout_ms": 120000,
+      "allow_parallel_tools": false,
+      "on_max_iterations": "ask_user"
+    },
+    "hlr": {
+      "enabled": true,
+      "critic": {
+        "enabled": true,
+        "check_interval": 3,
+        "strictness": "medium"
+      },
+      "reflection": {
+        "enabled": true,
+        "depth": "shallow"
+      },
+      "replanning": {
+        "enabled": true,
+        "max_replans": 3
+      }
+    },
+    "autonomy": {
+      "level": "supervised"
+    },
+    "finalization_gate": {
+      "enabled": true,
+      "max_retries": 2
+    }
+  },
+  "access_policy": {
+    "rules": [
+      {
+        "tools": [
+          "*"
+        ],
+        "effect": "allow"
+      }
+    ]
+  },
+  "grant_mappings": [],
+  "channels": [],
+  "conversation": [],
+  "triggers": [],
+  "meta_tools": [],
+  "glossary": {}
+}
