@@ -1,3 +1,4 @@
+// src-hash:06575f2332589c362f9e375189ffec56
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
@@ -77,7 +78,7 @@ __export(index_exports, {
 module.exports = __toCommonJS(index_exports);
 
 // rn-src/schedule-panel.tsx
-var import_react = __toESM(require("react"), 1);
+var import_react = __toESM(require("react"));
 var import_react_native = require("react-native");
 var import_plugin_sdk = require("@adas/plugin-sdk");
 var DEVICE = "mobile-device-mcp";
@@ -180,7 +181,7 @@ var s = import_react_native.StyleSheet.create({
 });
 
 // rn-src/teach-panel.tsx
-var import_react2 = __toESM(require("react"), 1);
+var import_react2 = __toESM(require("react"));
 var import_react_native2 = require("react-native");
 var import_plugin_sdk2 = require("@adas/plugin-sdk");
 var CONNECTOR = "memory-mcp";
@@ -336,7 +337,7 @@ var s2 = import_react_native2.StyleSheet.create({
 });
 
 // rn-src/memories-panel.tsx
-var import_react3 = __toESM(require("react"), 1);
+var import_react3 = __toESM(require("react"));
 var import_react_native3 = require("react-native");
 var import_plugin_sdk3 = require("@adas/plugin-sdk");
 var CONNECTOR2 = "memory-mcp";
@@ -677,7 +678,7 @@ var s3 = import_react_native3.StyleSheet.create({
 });
 
 // rn-src/pa-dashboard.tsx
-var import_react4 = __toESM(require("react"), 1);
+var import_react4 = __toESM(require("react"));
 var import_react_native4 = require("react-native");
 var import_plugin_sdk4 = require("@adas/plugin-sdk");
 var DEVICE2 = "mobile-device-mcp";
@@ -802,7 +803,7 @@ var s4 = import_react_native4.StyleSheet.create({
 });
 
 // rn-src/triggers-panel.tsx
-var import_react5 = __toESM(require("react"), 1);
+var import_react5 = __toESM(require("react"));
 var import_react_native5 = require("react-native");
 var import_plugin_sdk5 = require("@adas/plugin-sdk");
 function fmtTime(h, m) {
@@ -1126,7 +1127,7 @@ var s5 = import_react_native5.StyleSheet.create({
 });
 
 // rn-src/home-layout-panel.tsx
-var import_react6 = __toESM(require("react"), 1);
+var import_react6 = __toESM(require("react"));
 var import_react_native6 = require("react-native");
 var import_plugin_sdk6 = require("@adas/plugin-sdk");
 var DOMAIN_ICONS = {
@@ -1395,7 +1396,7 @@ var s6 = import_react_native6.StyleSheet.create({
 });
 
 // rn-src/latvian-progress.tsx
-var import_react7 = __toESM(require("react"), 1);
+var import_react7 = __toESM(require("react"));
 var import_react_native7 = require("react-native");
 var import_plugin_sdk7 = require("@adas/plugin-sdk");
 var MEMORY2 = "memory-mcp";
