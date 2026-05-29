@@ -131,6 +131,13 @@
         "memory-mcp",
         "mobile-device-mcp"
       ]
+    },
+    {
+      "id": "skill-factory-tool-builder",
+      "name": "Skill Factory Tool Builder",
+      "role": "worker",
+      "description": "",
+      "connectors": []
     }
   ],
   "grants": [],
@@ -365,7 +372,8 @@
       "id": "latvian-tutor",
       "skill_id": "latvian-tutor",
       "name": "Latvian Tutor"
-    }
+    },
+    "skill-factory-tool-builder"
   ],
   "conversation": [],
   "id": "ada",
