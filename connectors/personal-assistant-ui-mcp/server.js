@@ -48,6 +48,7 @@ const UI_PLUGINS = [
   { id: "teach-panel",       name: "Teach",              version: "1.0.0", description: "Create and manage rules, automations, and taught behaviors" },
   { id: "triggers-panel",    name: "Reminders",          version: "1.0.1", description: "View and manage scheduled reminders and triggers" },
   { id: "home-layout-panel", name: "Smart Home",         version: "1.0.0", description: "Smart home dashboard — rooms, devices, quick controls, and integration status" },
+  { id: "latvian-progress",  name: "Latvian Progress",   version: "1.0.0", description: "Language-learning dashboard for Latvian — CEFR level, streak, vocab/grammar/pronunciation/conversation categories, badges, and weak-spot review" },
 ];
 
 const PLUGIN_MANIFESTS = {
