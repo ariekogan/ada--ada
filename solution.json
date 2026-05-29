@@ -121,6 +121,26 @@
         "travel-mcp",
         "memory-mcp"
       ]
+    },
+    {
+      "id": "latvian-tutor",
+      "name": "Latvian Tutor",
+      "role": "worker",
+      "description": "Personal Latvian-language tutor. Teaches the user (Hebrew base) Latvian through conversation, vocab drills (SRS), grammar explanations, and a daily review nudge.",
+      "connectors": [
+        {
+          "id": "memory-mcp",
+          "channels": [
+            "command"
+          ]
+        },
+        {
+          "id": "mobile-device-mcp",
+          "channels": [
+            "command"
+          ]
+        }
+      ]
     }
   ],
   "grants": [],
@@ -334,12 +354,29 @@
     }
   ],
   "security_contracts": [],
-  "linked_skills": [],
+  "linked_skills": [
+    {
+      "id": "my-docs",
+      "skill_id": "my-docs",
+      "name": "My Docs"
+    },
+    {
+      "id": "life-manager",
+      "skill_id": "life-manager",
+      "name": "Life Manager"
+    },
+    {
+      "id": "messaging-agent",
+      "skill_id": "messaging-agent",
+      "name": "Messaging Agent"
+    },
+    "latvian-tutor"
+  ],
   "conversation": [],
   "id": "ada",
   "name": "ada",
   "created_at": "2026-05-19T15:26:10.520Z",
-  "updated_at": "2026-05-19T15:27:43.372Z",
+  "updated_at": "2026-05-28T09:40:14.648Z",
   "style": "mobile",
   "identity_mode": "single-owner",
   "ui_plugins": [
