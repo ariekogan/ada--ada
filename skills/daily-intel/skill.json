@@ -1030,7 +1030,7 @@
     },
     {
       "name": "gmail.fetch",
-      "description": "Fetch recent Gmail messages with optional search filter, unread-only toggle, and limit. Supports full Gmail search syntax.",
+      "description": "LIST endpoint — returns recent Gmail messages as METADATA ONLY (id + short snippet). Supports Gmail search filter, unread-only toggle, and limit. IMPORTANT: subject, sender, date, and body are NOT returned by this tool. To get those fields, chain to gmail.read(id) per message: `const list = await mcpCall(\"gmail.fetch\", {limit:10}); const full = await Promise.all(list.messages.map(m => mcpCall(\"gmail.read\", {id:m.id})));`",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "gmail-mcp",
@@ -1073,7 +1073,7 @@
     },
     {
       "name": "gmail.read",
-      "description": "Read the full content of a specific email by message ID. Returns full body text, headers, and metadata.",
+      "description": "DETAIL endpoint — returns the FULL content of one email by message id: subject, from, to, date, body (plain + html), headers, labels, threadId. Pair this with gmail.fetch / gmail.unread which return id-only lists: `const r = await mcpCall(\"gmail.read\", {id: messageId});` then read r.subject, r.from, r.date, r.body. For multiple messages use Promise.all over gmail.read calls — there is no batch read.",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "gmail-mcp",
@@ -1597,7 +1597,7 @@
     },
     {
       "name": "gmail.get",
-      "description": "Get the full content of a specific email by message ID.",
+      "description": "DETAIL endpoint (legacy alias for gmail.read — same behavior, takes message_id instead of id). Returns full email content. Prefer gmail.read in new code. Pairs with gmail.fetch / gmail.unread (list → detail chain).",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "gmail-mcp",
@@ -1633,7 +1633,7 @@
     },
     {
       "name": "gmail.unread",
-      "description": "Get unread messages from Gmail.",
+      "description": "LIST endpoint — returns unread Gmail messages as METADATA ONLY (id + snippet). Same chain semantics as gmail.fetch: to get subject/sender/date/body you MUST call gmail.read(id) per message. Example: `const list = await mcpCall(\"gmail.unread\", {limit:10}); const full = await Promise.all(list.messages.map(m => mcpCall(\"gmail.read\", {id:m.id})));`",
       "source": {
         "type": "mcp_bridge",
         "connection_id": "gmail-mcp",
@@ -3601,7 +3601,7 @@
   ],
   "id": "daily-intel",
   "created_at": "2026-05-14T12:26:45.526Z",
-  "updated_at": "2026-05-19T12:01:53.073Z",
+  "updated_at": "2026-05-29T07:49:05.892Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -4704,9 +4704,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-05-19T12:01:53.025Z",
+  "lastExportedAt": "2026-05-29T07:49:05.738Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-19T12:01:53.073Z",
+  "deployedAt": "2026-05-29T07:49:05.891Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/daily-intel"
 }

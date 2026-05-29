@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>התקדמות בלטבית</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0a0e14;
+      --surface: #111820;
+      --surface2: #1a2332;
+      --border: #1e2a3a;
+      --text: #e8ecf1;
+      --muted: #8b95a5;
+      --accent: #7c3aed;
+      --success: #22c55e;
+      --warn: #f59e0b;
+      --error: #ef4444;
+    }
+    body {
+      font-family: 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg); color: var(--text);
+      padding: 14px; min-height: 100vh; overflow-y: auto;
+      direction: rtl;
+    }
+    .hero { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 10px; }
+    .hero-title { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+    .level-row { display: flex; align-items: center; gap: 10px; }
+    .level-badge { font-size: 14px; font-weight: 700; padding: 4px 10px; border: 1px solid var(--accent); color: var(--accent); border-radius: 999px; min-width: 44px; text-align: center; }
+    .level-bar { flex: 1; height: 10px; background: var(--border); border-radius: 5px; overflow: hidden; }
+    .level-bar-fill { height: 100%; background: var(--accent); border-radius: 5px; transition: width 0.3s; }
+    .level-next { font-size: 12px; font-weight: 600; color: var(--muted); }
+    .level-hint { font-size: 11px; color: var(--muted); margin-top: 8px; }
+
+    .stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px; text-align: center; }
+    .stat-emoji { font-size: 22px; }
+    .stat-big { font-size: 20px; font-weight: 700; }
+    .stat-label { font-size: 11px; color: var(--muted); margin-top: 4px; }
+    .mini-bar { height: 4px; background: var(--border); border-radius: 2px; margin-top: 6px; overflow: hidden; }
+    .mini-bar-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.3s; }
+    .mini-bar-fill.done { background: var(--success); }
+
+    .grid-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+    .cat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
+    .cat-top { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .cat-emoji { font-size: 22px; }
+    .cat-title { font-size: 14px; font-weight: 600; }
+    .cat-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+    .cat-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .cat-bar-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.3s; }
+    .cat-breakdown { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .cat-break { display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--muted); }
+    .cat-dot { width: 6px; height: 6px; border-radius: 3px; }
+
+    .cta-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin: 6px 0 12px; }
+    .cta-row { display: flex; align-items: center; gap: 12px; }
+    .cta-text { flex: 1; }
+    .cta-title { font-size: 14px; font-weight: 600; }
+    .cta-hint { font-size: 11px; color: var(--muted); margin-top: 4px; }
+    .cta-btn { padding: 10px 16px; background: var(--accent); color: #fff; border: none; border-radius: 999px; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .cta-btn:hover { filter: brightness(1.1); }
+
+    .section { margin-top: 6px; margin-bottom: 4px; }
+    .section-title { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+
+    .badges-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .badge { aspect-ratio: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 6px; opacity: 0.45; }
+    .badge.earned { opacity: 1; border-color: var(--accent); }
+    .badge-emoji { font-size: 22px; margin-bottom: 4px; }
+    .badge-label { font-size: 10px; text-align: center; line-height: 1.2; color: var(--muted); }
+    .badge.earned .badge-label { color: var(--text); }
+
+    .weak-row { display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 10px; margin-bottom: 6px; }
+    .weak-kind { font-size: 11px; font-weight: 700; color: var(--error); min-width: 60px; }
+    .weak-detail { flex: 1; font-size: 12px; }
+    .weak-count { font-size: 11px; font-weight: 600; color: var(--muted); }
+
+    .loading { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 70vh; gap: 8px; color: var(--muted); font-size: 13px; }
+    .spinner { width: 24px; height: 24px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .error-foot { font-size: 11px; text-align: center; margin-top: 8px; color: var(--error); }
+    .empty-foot { font-size: 12px; text-align: center; color: var(--muted); margin-top: 16px; line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="loading"><div class="spinner"></div><div>טוען התקדמות…</div></div>
+  </div>
+
+  <script>
+    let counter = 0;
+    const pendingCalls = new Map();
+    function unwrap(raw) {
+      if (raw?.content?.[0]?.type === 'text') { try { raw = JSON.parse(raw.content[0].text); } catch {} }
+      if (typeof raw === 'string') { try { raw = JSON.parse(raw); } catch {} }
+      return raw;
+    }
+    function mcpCall(tool, args, connectorId) {
+      return new Promise((resolve, reject) => {
+        const id = ++counter;
+        pendingCalls.set(id, { resolve, reject });
+        window.parent.postMessage({ source: 'adas-plugin', id, type: 'mcp.call', tool, args: args || {}, connectorId: connectorId || 'memory-mcp' }, '*');
+        setTimeout(() => {
+          if (pendingCalls.has(id)) { pendingCalls.delete(id); reject(new Error('timeout')); }
+        }, 8000);
+      });
+    }
+    function sendChatMessage(text) {
+      window.parent.postMessage({ source: 'adas-plugin', type: 'chat.send', text }, '*');
+    }
+    window.addEventListener('message', (e) => {
+      const d = e.data || {};
+      if (d.source !== 'adas-host' || d.type !== 'mcp.result') return;
+      const p = pendingCalls.get(d.id);
+      if (!p) return;
+      pendingCalls.delete(d.id);
+      if (d.error) p.reject(new Error(d.error));
+      else p.resolve(d.result);
+    });
+
+    const CEFR = ['A0', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+    const LV_CASES = ['nominatīvs', 'ģenitīvs', 'datīvs', 'akuzatīvs', 'instrumentālis', 'lokatīvs'];
+    const BADGES = [
+      { id: 'first_word',     emoji: '🌱', label: 'מילה ראשונה',         cond: s => s.vocab.total >= 1 },
+      { id: 'ten_words',      emoji: '📚', label: '10 מילים',             cond: s => s.vocab.total >= 10 },
+      { id: 'fifty_words',    emoji: '🎒', label: '50 מילים',             cond: s => s.vocab.total >= 50 },
+      { id: 'hundred_words',  emoji: '🏅', label: '100 מילים',            cond: s => s.vocab.total >= 100 },
+      { id: 'first_mastered', emoji: '✨', label: 'מילה ראשונה בשליטה',   cond: s => s.vocab.mastered >= 1 },
+      { id: 'first_case',     emoji: '🎓', label: 'יחסה ראשונה',          cond: s => s.grammar.casesTouched >= 1 },
+      { id: 'all_cases',      emoji: '🏛️', label: 'כל 6 היחסות',          cond: s => s.grammar.casesTouched >= 6 },
+      { id: 'streak_3',       emoji: '🔥', label: 'רצף 3 ימים',           cond: s => s.streak.current >= 3 },
+      { id: 'streak_7',       emoji: '🔥', label: 'רצף שבוע',             cond: s => s.streak.current >= 7 },
+      { id: 'streak_30',      emoji: '🔥', label: 'רצף חודש',             cond: s => s.streak.current >= 30 },
+      { id: 'level_a2',       emoji: '🚀', label: 'הגעת ל-A2',            cond: s => CEFR.indexOf(s.level) >= 2 },
+      { id: 'level_b1',       emoji: '🛫', label: 'הגעת ל-B1',            cond: s => CEFR.indexOf(s.level) >= 3 },
+    ];
+
+    function parseContent(m) {
+      if (m?.content && typeof m.content === 'string') {
+        const t = m.content.trim();
+        if (t.startsWith('{') || t.startsWith('[')) { try { return JSON.parse(t); } catch { return {}; } }
+      }
+      return m?.content && typeof m.content === 'object' ? m.content : {};
+    }
+    const TAG_ALIASES = {
+      vocab:   ['vocab', 'vocabulary', 'words', 'word', 'lesson'],
+      grammar: ['grammar', 'gramatika', 'rule'],
+      mistake: ['mistake', 'mistakes', 'error', 'correction'],
+      state:   ['state', 'level', 'streak', 'xp', 'preferences', 'pronunciation', 'conversation'],
+    };
+    function bucketFor(tags) {
+      for (const [bucket, aliases] of Object.entries(TAG_ALIASES)) {
+        if (aliases.some(a => tags.includes(a))) return bucket;
+      }
+      return null;
+    }
+    function buildStats(memories) {
+      const now = Date.now();
+      const buckets = { vocab: [], grammar: [], mistake: [], state: [] };
+      for (const m of memories) {
+        const tags = Array.isArray(m.tags) ? m.tags : (typeof m.tags === 'string' ? m.tags.split(',') : []);
+        if (!tags.includes('latvian')) continue;
+        const b = bucketFor(tags);
+        if (b) buckets[b].push(m);
+      }
+      const stateByKind = {};
+      for (const m of buckets.state) {
+        const p = parseContent(m);
+        const tags = Array.isArray(m.tags) ? m.tags : [];
+        const kind = p.kind || m.kind || tags.find(t => !['latvian', 'state'].includes(t));
+        if (kind) stateByKind[kind] = p;
+      }
+      const level = stateByKind.level?.value || stateByKind.level?.level || 'A0';
+      const levelProgress = Math.max(0, Math.min(1, Number(stateByKind.level?.progress) || 0));
+      const streak = { current: Number(stateByKind.streak?.current) || 0, longest: Number(stateByKind.streak?.longest) || 0 };
+      const xp = Number(stateByKind.xp?.value) || 0;
+      const dailyTarget = Number(stateByKind.preferences?.daily_goal) || 5;
+      const lessonsTodayKey = new Date().toISOString().slice(0, 10);
+      const dailyDone = Number(stateByKind.streak?.lessons_today?.[lessonsTodayKey]) || Number(stateByKind.streak?.today_count) || 0;
+
+      let mastered = 0, learning = 0, fresh = 0, dueNow = 0;
+      for (const m of buckets.vocab) {
+        const p = parseContent(m);
+        const ease = Number(p.ease) || 1.3;
+        const dueAt = Number(p.due_at) || 0;
+        const lastRev = Number(p.last_reviewed) || 0;
+        if (ease >= 2.5 && lastRev > 0) mastered++;
+        else if (lastRev > 0) learning++;
+        else fresh++;
+        if (dueAt && dueAt <= now) dueNow++;
+      }
+      let solid = 0, shaky = 0;
+      const casesSeen = new Set();
+      for (const m of buckets.grammar) {
+        const p = parseContent(m);
+        if (p.mastery === 'solid') solid++;
+        else if (p.mastery === 'shaky') shaky++;
+        const topic = (p.topic || '').toLowerCase();
+        for (const c of LV_CASES) if (topic.includes(c)) casesSeen.add(c);
+      }
+      const pronPracticed = Number(stateByKind.pronunciation?.practiced) || 0;
+      const pronTotal = Number(stateByKind.pronunciation?.total) || 33;
+      const convTurns = Number(stateByKind.conversation?.turns) || 0;
+      const convCorrected = Number(stateByKind.conversation?.corrected) || 0;
+      const mistakeMap = new Map();
+      for (const m of buckets.mistake) {
+        const p = parseContent(m);
+        const k = (p.kind || 'other') + '|' + (p.detail || '');
+        const cur = mistakeMap.get(k) || { kind: p.kind || 'other', detail: p.detail || '', count: 0 };
+        cur.count++;
+        mistakeMap.set(k, cur);
+      }
+      const mistakes = [...mistakeMap.values()].sort((a, b) => b.count - a.count).slice(0, 3);
+      return {
+        level, levelProgress, streak, xp,
+        dailyGoal: { done: dailyDone, target: dailyTarget },
+        vocab: { total: buckets.vocab.length, mastered, learning, new: fresh, dueNow },
+        grammar: { topicsTotal: buckets.grammar.length, solid, shaky, casesTouched: casesSeen.size },
+        pronunciation: { practiced: pronPracticed, total: pronTotal },
+        conversation: { turns: convTurns, correctedTurns: convCorrected },
+        mistakes,
+      };
+    }
+
+    function esc(s) { return String(s ?? '').replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c])); }
+    function pct(n) { return Math.round(Math.max(0, Math.min(1, Number(n) || 0)) * 100); }
+
+    function renderCategory(emoji, title, subtitle, progress, breakdown) {
+      const nonZero = breakdown.filter(b => b.value > 0);
+      return `
+        <div class="cat-card">
+          <div class="cat-top">
+            <div class="cat-emoji">${emoji}</div>
+            <div style="flex:1">
+              <div class="cat-title">${esc(title)}</div>
+              <div class="cat-sub">${esc(subtitle)}</div>
+            </div>
+          </div>
+          <div class="cat-bar"><div class="cat-bar-fill" style="width:${pct(progress)}%"></div></div>
+          ${nonZero.length ? `<div class="cat-breakdown">${
+            nonZero.map(b => `<div class="cat-break"><div class="cat-dot" style="background:${b.color}"></div>${esc(b.label)} ${b.value}</div>`).join('')
+          }</div>` : ''}
+        </div>`;
+    }
+
+    function render(stats, errorMsg) {
+      const levelIdx = CEFR.indexOf(stats.level);
+      const nextLevel = CEFR[Math.min(levelIdx + 1, CEFR.length - 1)];
+      const dailyPctDone = stats.dailyGoal.target > 0 ? stats.dailyGoal.done / stats.dailyGoal.target : 0;
+      const earned = new Set(BADGES.filter(b => b.cond(stats)).map(b => b.id));
+
+      const html = `
+        <div class="hero">
+          <div class="hero-title">לטבית 🇱🇻</div>
+          <div class="level-row">
+            <div class="level-badge">${esc(stats.level)}</div>
+            <div class="level-bar"><div class="level-bar-fill" style="width:${pct(stats.levelProgress)}%"></div></div>
+            <div class="level-next">${esc(nextLevel)}</div>
+          </div>
+          <div class="level-hint">${pct(stats.levelProgress)}% בדרך ל-${esc(nextLevel)}</div>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card"><div class="stat-emoji">🔥</div><div class="stat-big">${stats.streak.current}</div><div class="stat-label">רצף ימים</div></div>
+          <div class="stat-card"><div class="stat-emoji">⭐</div><div class="stat-big">${stats.xp}</div><div class="stat-label">נק' XP</div></div>
+          <div class="stat-card">
+            <div class="stat-emoji">🎯</div>
+            <div class="stat-big">${stats.dailyGoal.done}/${stats.dailyGoal.target}</div>
+            <div class="mini-bar"><div class="mini-bar-fill ${dailyPctDone>=1?'done':''}" style="width:${pct(dailyPctDone)}%"></div></div>
+            <div class="stat-label">יעד יומי</div>
+          </div>
+        </div>
+
+        <div class="grid-row">
+          ${renderCategory('📚', 'אוצר מילים', `${stats.vocab.total} מילים`,
+            stats.vocab.total === 0 ? 0 : stats.vocab.mastered / stats.vocab.total,
+            [
+              { label: 'בשליטה', value: stats.vocab.mastered, color: 'var(--success)' },
+              { label: 'בלימוד', value: stats.vocab.learning, color: 'var(--accent)' },
+              { label: 'חדשות',  value: stats.vocab.new,      color: 'var(--muted)' },
+            ])}
+          ${renderCategory('🧱', 'דקדוק', `${stats.grammar.casesTouched}/6 יחסות`,
+            stats.grammar.casesTouched / 6,
+            [
+              { label: 'בשליטה', value: stats.grammar.solid, color: 'var(--success)' },
+              { label: 'רעוע',   value: stats.grammar.shaky, color: 'var(--error)' },
+            ])}
+        </div>
+        <div class="grid-row">
+          ${renderCategory('🗣️', 'הגייה', `${stats.pronunciation.practiced}/${stats.pronunciation.total} צלילים`,
+            stats.pronunciation.total === 0 ? 0 : stats.pronunciation.practiced / stats.pronunciation.total, [])}
+          ${renderCategory('💬', 'שיחה', `${stats.conversation.turns} סבבים`,
+            stats.conversation.turns === 0 ? 0 : stats.conversation.correctedTurns / Math.max(1, stats.conversation.turns),
+            [
+              { label: 'תוקנו', value: stats.conversation.correctedTurns, color: 'var(--error)' },
+            ])}
+        </div>
+
+        <div class="cta-card">
+          <div class="cta-row">
+            <div class="cta-text">
+              <div class="cta-title">🔁 לחזרה עכשיו: ${stats.vocab.dueNow} מילים</div>
+              <div class="cta-hint">${stats.vocab.dueNow === 0 ? 'אין כרגע כרטיסים שמחכים — נצל את הזמן ללמוד מילה חדשה' : 'חזרה קצרה תשמור את הזיכרון חי'}</div>
+            </div>
+            <button class="cta-btn" id="start-review">התחל</button>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">🏆 הישגים</div>
+          <div class="badges-row">
+            ${BADGES.map(b => `
+              <div class="badge ${earned.has(b.id) ? 'earned' : ''}">
+                <div class="badge-emoji">${earned.has(b.id) ? b.emoji : '🔒'}</div>
+                <div class="badge-label">${esc(b.label)}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        ${stats.mistakes.length ? `
+          <div class="section">
+            <div class="section-title">💡 לחזק השבוע</div>
+            ${stats.mistakes.map(m => `
+              <div class="weak-row">
+                <div class="weak-kind">${esc(m.kind)}</div>
+                <div class="weak-detail">${esc(m.detail || '—')}</div>
+                <div class="weak-count">×${m.count}</div>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
+
+        ${errorMsg ? `<div class="error-foot">לא הצלחתי להגיע לזיכרון: ${esc(errorMsg)}</div>` : ''}
+        ${stats.vocab.total === 0 && stats.grammar.topicsTotal === 0 ?
+          `<div class="empty-foot">עוד אין נתונים. בוא נתחיל שיעור עם המורה ללטבית כדי לבנות את הלוח.</div>` : ''}
+      `;
+      document.getElementById('app').innerHTML = html;
+      const btn = document.getElementById('start-review');
+      if (btn) btn.addEventListener('click', () => sendChatMessage('בוא נתחיל חזרה יומית של מילים'));
+    }
+
+    async function load() {
+      try {
+        const raw = await mcpCall('memory.list', { tags: ['latvian'], limit: 1000 }, 'memory-mcp');
+        const parsed = unwrap(raw);
+        const memories = parsed?.memories || parsed?.items || [];
+        render(buildStats(memories), null);
+      } catch (err) {
+        render(buildStats([]), err?.message || 'שגיאה לא ידועה');
+      }
+    }
+    setTimeout(load, 200);
+  </script>
+</body>
+</html>

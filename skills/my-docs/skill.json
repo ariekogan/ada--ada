@@ -1484,7 +1484,7 @@
   "solution_id": "ada",
   "id": "my-docs",
   "created_at": "2026-05-14T12:30:30.432Z",
-  "updated_at": "2026-05-23T16:45:46.344Z",
+  "updated_at": "2026-05-29T07:51:10.050Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -1848,6 +1848,18 @@
         "severity": "error",
         "path": "tools[29].output",
         "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[30].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[30].output",
+        "message": "Tool output is required"
       }
     ],
     "warnings": [
@@ -1898,9 +1910,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-05-23T16:45:46.194Z",
+  "lastExportedAt": "2026-05-29T07:51:09.841Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-23T16:45:46.343Z",
+  "deployedAt": "2026-05-29T07:51:10.046Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/my-docs"
 }
