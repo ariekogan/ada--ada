@@ -51,10 +51,10 @@ server.tool("nutrition.logMeal", "Log a meal with food items and nutrition data"
   return { content: [{ type: "text", text: JSON.stringify({ ok: true, meal, message: `Logged ${meal.meal_type}: ${meal.total_calories} cal, ${meal.total_protein}g protein` }) }] };
 });
 server.tool("nutrition.updateMeal", "Update a logged meal (items, type, notes, photos)", { meal_id: z.string(), items: z.array(z.any()).optional(), meal_type: z.string().optional(), notes: z.string().optional(), photos: z.array(z.string()).optional().describe("Replace the full photo list"), add_photo: z.string().optional().describe("Append a single photo hash"), ...A }, async (args) => {
-  return { content: [{ type: "text", text: JSON.stringify(storage.updateMeal(getActorId(args), args.meal_id, args)) }] };
+  return { content: [{ type: "text", text: JSON.stringify(await storage.updateMeal(getActorId(args), args.meal_id, args)) }] };
 });
 server.tool("nutrition.deleteMeal", "Delete a meal by ID", { meal_id: z.string(), ...A }, async (args) => {
-  return { content: [{ type: "text", text: JSON.stringify(storage.deleteMeal(getActorId(args), args.meal_id)) }] };
+  return { content: [{ type: "text", text: JSON.stringify(await storage.deleteMeal(getActorId(args), args.meal_id)) }] };
 });
 server.tool("nutrition.getMeals", "List meals for a date or range", { date: z.string().optional(), from: z.string().optional(), to: z.string().optional(), meal_type: z.string().optional(), limit: z.number().optional(), ...A }, async (args) => {
   const meals = await storage.getMeals(getActorId(args), args);
@@ -81,15 +81,15 @@ server.tool("nutrition.logDrink", "Log a drink", { type: z.string().optional(), 
   return { content: [{ type: "text", text: JSON.stringify({ ok: true, drink: d, message: `Logged ${d.type}: ${d.volume_ml}ml` }) }] };
 });
 server.tool("nutrition.getHydration", "Today's hydration summary", { date: z.string().optional(), ...A }, async (args) => {
-  return { content: [{ type: "text", text: JSON.stringify(storage.getHydration(getActorId(args), args.date)) }] };
+  return { content: [{ type: "text", text: JSON.stringify(await storage.getHydration(getActorId(args), args.date)) }] };
 });
 
 // ── Summary tools ──
 server.tool("nutrition.getDailySummary", "Full daily breakdown vs goals", { date: z.string().optional(), ...A }, async (args) => {
-  return { content: [{ type: "text", text: JSON.stringify(storage.getDailySummary(getActorId(args), args.date)) }] };
+  return { content: [{ type: "text", text: JSON.stringify(await storage.getDailySummary(getActorId(args), args.date)) }] };
 });
 server.tool("nutrition.getWeeklySummary", "7-day overview", { ...A }, async (args) => {
-  return { content: [{ type: "text", text: JSON.stringify(storage.getWeeklySummary(getActorId(args))) }] };
+  return { content: [{ type: "text", text: JSON.stringify(await storage.getWeeklySummary(getActorId(args))) }] };
 });
 
 // ── Goals ──
