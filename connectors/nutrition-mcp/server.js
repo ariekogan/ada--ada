@@ -34,8 +34,8 @@ server.tool("ui.nutrition_dashboard.open", "Open the Nutrition Dashboard with pr
   let daily = args?.daily;
   let weekly = args?.weekly;
   try {
-    if (!daily) daily = storage.getDailySummary(actorId);
-    if (!weekly) weekly = storage.getWeeklySummary(actorId);
+    if (!daily) daily = await storage.getDailySummary(actorId);
+    if (!weekly) weekly = await storage.getWeeklySummary(actorId);
   } catch (e) {
     console.error("[nutrition-mcp] dashboard.open auto-fetch failed:", e?.message);
   }
@@ -47,7 +47,7 @@ server.tool("ui.nutrition_camera.open", "Open the meal camera to snap and analyz
 
 // ── Meal tools ──
 server.tool("nutrition.logMeal", "Log a meal with food items and nutrition data", { meal_type: z.string().optional(), date: z.string().optional(), time: z.string().optional(), items: z.array(z.any()).describe("Food items"), photo_hash: z.string().optional(), photos: z.array(z.string()).optional().describe("Multiple photo artifact hashes"), notes: z.string().optional(), ...A }, async (args) => {
-  const meal = storage.logMeal(getActorId(args), args);
+  const meal = await storage.logMeal(getActorId(args), args);
   return { content: [{ type: "text", text: JSON.stringify({ ok: true, meal, message: `Logged ${meal.meal_type}: ${meal.total_calories} cal, ${meal.total_protein}g protein` }) }] };
 });
 server.tool("nutrition.updateMeal", "Update a logged meal (items, type, notes, photos)", { meal_id: z.string(), items: z.array(z.any()).optional(), meal_type: z.string().optional(), notes: z.string().optional(), photos: z.array(z.string()).optional().describe("Replace the full photo list"), add_photo: z.string().optional().describe("Append a single photo hash"), ...A }, async (args) => {
@@ -57,7 +57,7 @@ server.tool("nutrition.deleteMeal", "Delete a meal by ID", { meal_id: z.string()
   return { content: [{ type: "text", text: JSON.stringify(storage.deleteMeal(getActorId(args), args.meal_id)) }] };
 });
 server.tool("nutrition.getMeals", "List meals for a date or range", { date: z.string().optional(), from: z.string().optional(), to: z.string().optional(), meal_type: z.string().optional(), limit: z.number().optional(), ...A }, async (args) => {
-  const meals = storage.getMeals(getActorId(args), args);
+  const meals = await storage.getMeals(getActorId(args), args);
   return { content: [{ type: "text", text: JSON.stringify({ ok: true, count: meals.length, meals }) }] };
 });
 
@@ -77,7 +77,7 @@ server.tool("nutrition.logDrink", "Log a drink", { type: z.string().optional(), 
     if (args.type === "coffee") args.caffeine_mg = Math.round((args.volume_ml || 250) * 0.4);
     else if (args.type === "tea") args.caffeine_mg = Math.round((args.volume_ml || 250) * 0.2);
   }
-  const d = storage.logDrink(getActorId(args), args);
+  const d = await storage.logDrink(getActorId(args), args);
   return { content: [{ type: "text", text: JSON.stringify({ ok: true, drink: d, message: `Logged ${d.type}: ${d.volume_ml}ml` }) }] };
 });
 server.tool("nutrition.getHydration", "Today's hydration summary", { date: z.string().optional(), ...A }, async (args) => {
@@ -94,19 +94,19 @@ server.tool("nutrition.getWeeklySummary", "7-day overview", { ...A }, async (arg
 
 // ── Goals ──
 server.tool("nutrition.setGoals", "Set daily targets", { daily_calories: z.number().optional(), daily_protein: z.number().optional(), daily_carbs: z.number().optional(), daily_fat: z.number().optional(), daily_water_ml: z.number().optional(), dietary_restrictions: z.array(z.string()).optional(), ...A }, async (args) => {
-  const g = storage.setGoals(getActorId(args), args);
+  const g = await storage.setGoals(getActorId(args), args);
   return { content: [{ type: "text", text: JSON.stringify({ ok: true, goals: g, message: "Goals updated." }) }] };
 });
 server.tool("nutrition.getGoals", "Get current goals", { ...A }, async (args) => {
-  const g = storage.getGoals(getActorId(args));
+  const g = await storage.getGoals(getActorId(args));
   return { content: [{ type: "text", text: JSON.stringify({ ok: true, goals: g || { message: "No goals set." } }) }] };
 });
 
 // ── Status ──
 server.tool("nutrition.status", "Quick status: calories/water progress", { ...A }, async (args) => {
   const actorId = getActorId(args);
-  const s = storage.getDailySummary(actorId);
-  const g = storage.getGoals(actorId);
+  const s = await storage.getDailySummary(actorId);
+  const g = await storage.getGoals(actorId);
   return { content: [{ type: "text", text: JSON.stringify({ ok: true, today: s.date, calories: { eaten: s.totals.calories, goal: s.goals.calories, remaining: s.remaining.calories }, protein: { eaten: s.totals.protein, goal: s.goals.protein, remaining: s.remaining.protein }, water: { ml: s.hydration.water_ml, goal: s.hydration.water_goal, pct: s.hydration.water_pct }, meals_logged: s.meal_count, has_goals: !!g }) }] };
 });
 
@@ -141,7 +141,7 @@ server.tool(
       return { content: [{ type: "text", text: JSON.stringify({ ok: false, error: "actorId required" }) }], isError: true };
     }
     try {
-      const counts = storage.deleteAllForActor(args.actorId);
+      const counts = await storage.deleteAllForActor(args.actorId);
       return { content: [{ type: "text", text: JSON.stringify({ ok: true, connector: "nutrition-mcp", actorId: args.actorId, deletedCounts: counts }) }] };
     } catch (e) {
       return { content: [{ type: "text", text: JSON.stringify({ ok: false, error: String(e?.message || e) }) }], isError: true };
