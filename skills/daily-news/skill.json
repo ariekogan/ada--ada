@@ -1902,7 +1902,7 @@
   "bootstrap_tools": [
     "news.fetch"
   ],
-  "updated_at": "2026-06-29T17:19:59.673Z",
+  "updated_at": "2026-06-29T17:21:19.735Z",
   "created_at": "2026-06-29T08:33:25.647Z",
   "validation": {
     "valid": false,
@@ -2525,6 +2525,42 @@
         "severity": "error",
         "path": "tools[50].output",
         "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[51].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[51].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[52].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[52].output",
+        "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[53].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[53].output",
+        "message": "Tool output is required"
       }
     ],
     "warnings": [],
@@ -2547,9 +2583,9 @@
     }
   },
   "solution_id": "ada",
-  "lastExportedAt": "2026-06-29T17:14:28.746Z",
+  "lastExportedAt": "2026-06-29T17:21:18.222Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-06-29T17:14:30.253Z",
+  "deployedAt": "2026-06-29T17:21:19.730Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/daily-news"
 }
