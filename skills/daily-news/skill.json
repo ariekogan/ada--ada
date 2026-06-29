@@ -120,6 +120,82 @@
       }
     },
     {
+      "name": "ui.listPlugins",
+      "description": "List available UI plugins served by daily-news-mcp.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "daily-news-mcp",
+        "mcp_tool": "ui.listPlugins"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "ui.getPlugin",
+      "description": "Get UI plugin manifest by id.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "daily-news-mcp",
+        "mcp_tool": "ui.getPlugin"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
+      "name": "ui.news_dashboard.open",
+      "description": "Open the Daily News widget. Pass the freshly fetched digest as args so the widget renders immediately on mobile: { date, categories }.",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "daily-news-mcp",
+        "mcp_tool": "ui.news_dashboard.open"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string"
+          },
+          "categories": {
+            "type": "array"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
       "name": "memory.store",
       "description": "Store a long-term HUMAN/AGENT CONTEXT memory — facts, preferences, taught rules, user profile fields. Content must be concise, durable, and recallable. Types: preference, fact, instruction, pattern, rule, user_model; the engine assigns the CoALA kind automatically (semantic / procedural). DO NOT use for: session cookies, OAuth tokens, API keys, or any credentials (use platform.dataStore). DO NOT use for: raw tool-output dumps, large JSON blobs, or cached API responses (use platform.dataStore). The engine runs quality guards, dedup, normalize, and conflict detection; rejections include a `guidance` field telling you the correct tool/path. Returns { memory, conflicts, processing }.",
       "source": {
@@ -1826,7 +1902,7 @@
   "bootstrap_tools": [
     "news.fetch"
   ],
-  "updated_at": "2026-06-29T17:13:15.855Z",
+  "updated_at": "2026-06-29T17:14:30.254Z",
   "created_at": "2026-06-29T08:33:25.647Z",
   "validation": {
     "valid": false,
@@ -2471,9 +2547,9 @@
     }
   },
   "solution_id": "ada",
-  "lastExportedAt": "2026-06-29T16:15:26.504Z",
+  "lastExportedAt": "2026-06-29T17:14:28.746Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-06-29T16:15:27.888Z",
+  "deployedAt": "2026-06-29T17:14:30.253Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/daily-news"
 }

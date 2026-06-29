@@ -169,7 +169,7 @@
     ]
   },
   "grant_mappings": [],
-  "updated_at": "2026-06-29T17:13:54.774Z",
+  "updated_at": "2026-06-29T17:14:28.366Z",
   "created_at": "2026-05-29T21:54:50.577Z",
   "validation": {
     "valid": false,
@@ -224,9 +224,9 @@
     }
   },
   "solution_id": "ada",
-  "lastExportedAt": "2026-06-29T16:15:24.705Z",
+  "lastExportedAt": "2026-06-29T17:14:27.537Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-06-29T16:15:25.628Z",
+  "deployedAt": "2026-06-29T17:14:28.231Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/skill-factory-builder"
 }
