@@ -657,6 +657,26 @@
       }
     },
     {
+      "name": "device.mood.today",
+      "description": "Get today's compact behavioral-signal summary from the phone (steps, sleep, distance, app engagement, resting HR, active energy, exercise minutes — iOS-blocked fields are null). This is the raw daily SUMMARY for mood/behavioral-state analysis, NOT a mood verdict. Response includes window, timezone, collected_at, and _freshness (is_stale=true if over 10 minutes old).",
+      "source": {
+        "type": "mcp_bridge",
+        "connection_id": "mobile-device-mcp",
+        "mcp_tool": "device.mood.today"
+      },
+      "_auto_imported": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "security": {
+        "classification": "internal",
+        "_auto_classified": true,
+        "_rationale": "no_pattern_matched_default_applied"
+      }
+    },
+    {
       "name": "device.message.send",
       "description": "Send an SMS/iMessage to a contact. Queues the message for the phone to send. Always confirm with user before sending.",
       "source": {
@@ -3598,7 +3618,7 @@
   "solution_id": "ada",
   "id": "notification-triage",
   "created_at": "2026-05-14T12:28:16.200Z",
-  "updated_at": "2026-06-29T08:42:41.839Z",
+  "updated_at": "2026-06-29T08:43:29.750Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -4701,9 +4721,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-05-29T07:49:33.746Z",
+  "lastExportedAt": "2026-06-29T08:43:28.548Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-05-29T07:49:33.911Z",
+  "deployedAt": "2026-06-29T08:43:29.746Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/notification-triage"
 }

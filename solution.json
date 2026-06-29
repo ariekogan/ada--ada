@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "description": "Situation-aware personal assistant with proactive intelligence.",
-  "phase": "VALIDATION",
+  "phase": "DEPLOYED",
   "identity": {
     "actor_types": [],
     "admin_roles": [],
@@ -341,21 +341,37 @@
       "id": "travel-mcp",
       "name": "Travel",
       "source": "platform"
-    },
-    {
-      "id": "daily-news-mcp",
-      "description": "",
-      "required": true,
-      "used_by": []
     }
   ],
   "security_contracts": [],
-  "linked_skills": [],
+  "linked_skills": [
+    {
+      "id": "my-docs",
+      "skill_id": "my-docs",
+      "name": "My Docs"
+    },
+    {
+      "id": "life-manager",
+      "skill_id": "life-manager",
+      "name": "Life Manager"
+    },
+    {
+      "id": "messaging-agent",
+      "skill_id": "messaging-agent",
+      "name": "Messaging Agent"
+    },
+    "latvian-tutor",
+    {
+      "id": "latvian-tutor",
+      "skill_id": "latvian-tutor",
+      "name": "Latvian Tutor"
+    }
+  ],
   "conversation": [],
   "id": "ada",
   "name": "ada",
-  "created_at": "2026-06-29T08:41:55.271Z",
-  "updated_at": "2026-06-29T08:41:55.280Z",
+  "created_at": "2026-05-19T15:26:10.520Z",
+  "updated_at": "2026-06-29T08:43:15.037Z",
   "style": "mobile",
   "identity_mode": "single-owner",
   "ui_plugins": [
@@ -562,6 +578,41 @@
       }
     },
     {
+      "id": "mcp:personal-assistant-ui-mcp:latvian-progress",
+      "name": "Latvian Progress",
+      "version": "1.0.0",
+      "description": "Language-learning dashboard for Latvian — CEFR level, streak, vocab/grammar/pronunciation/conversation categories, badges, and weak-spot review",
+      "uiActions": {
+        "surfaces": [
+          "chip"
+        ],
+        "intents": {
+          "view_entity": {
+            "entity_kinds": [
+              "language_progress",
+              "latvian"
+            ]
+          }
+        }
+      },
+      "render": {
+        "mode": "adaptive",
+        "iframeUrl": "/ui/latvian-progress/index.html",
+        "reactNative": {
+          "component": "latvian-progress"
+        }
+      },
+      "channels": [
+        "command"
+      ],
+      "capabilities": {
+        "haptics": true,
+        "commands": []
+      },
+      "_source": "mcp_introspection",
+      "_connector_id": "personal-assistant-ui-mcp"
+    },
+    {
       "id": "mcp:whatsapp-mcp:whatsapp-setup",
       "name": "WhatsApp Setup",
       "version": "1.0.1",
@@ -722,8 +773,11 @@
       "version": "1.0.0",
       "description": "Visual nutrition summary with progress rings and weekly charts",
       "render": {
-        "mode": "iframe",
-        "iframeUrl": "/ui/nutrition-dashboard/index.html"
+        "mode": "adaptive",
+        "iframeUrl": "/ui/nutrition-dashboard/index.html",
+        "reactNative": {
+          "component": "nutrition-dashboard"
+        }
       },
       "channels": [
         "command"
@@ -764,8 +818,11 @@
       "version": "1.0.0",
       "description": "Snap a photo of your meal for instant calorie analysis",
       "render": {
-        "mode": "iframe",
-        "iframeUrl": "/ui/nutrition-camera/index.html"
+        "mode": "adaptive",
+        "iframeUrl": "/ui/nutrition-camera/index.html",
+        "reactNative": {
+          "component": "nutrition-camera"
+        }
       },
       "channels": [
         "command"
