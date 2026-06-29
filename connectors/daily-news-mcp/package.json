@@ -1,10 +1,17 @@
 {
   "name": "daily-news-mcp",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "main": "server.js",
+  "scripts": {
+    "build:rn": "esbuild rn-src/news-dashboard.tsx --bundle --format=cjs --platform=neutral --outfile=rn-bundle/news-dashboard.bundle.js --external:react --external:react-native --external:@adas/plugin-sdk --target=es2016 && esbuild rn-src/index.tsx --bundle --format=cjs --platform=neutral --outfile=rn-bundle/index.bundle.js --external:react --external:react-native --external:@adas/plugin-sdk --target=es2016",
+    "build": "npm run build:rn"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
     "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "esbuild": "^0.27.4"
   }
 }
