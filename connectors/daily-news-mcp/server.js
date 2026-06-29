@@ -145,5 +145,74 @@ server.tool(
   }
 );
 
+// ── UI plugin (news-dashboard widget) ──────────────────────────────
+// Solution-level widget. Core introspects ui.listPlugins / ui.getPlugin on
+// deploy and adds it to the solution's ui_plugins[]. The skill opens it via
+// the ui.news_dashboard.open virtual tool (minted from capabilities.commands).
+const PLUGINS = [
+  {
+    id: "news-dashboard",
+    name: "Daily News",
+    version: "1.0.0",
+    description: "Today's tech & AI news, grouped by category with tappable headlines.",
+    surface: {
+      type: "drawer",
+      visibility: "user",
+      icon: "📰",
+      title: "Daily News",
+      subtitle: "Top tech & AI stories by category",
+    },
+  },
+];
+
+function uiText(data) {
+  return { content: [{ type: "text", text: JSON.stringify(data) }] };
+}
+
+server.tool(
+  "ui.listPlugins",
+  "List available UI plugins served by daily-news-mcp.",
+  {},
+  async () => uiText({ plugins: PLUGINS })
+);
+
+server.tool(
+  "ui.getPlugin",
+  "Get UI plugin manifest by id.",
+  { id: z.string() },
+  async ({ id }) => {
+    const p = PLUGINS.find((pl) => pl.id === id);
+    if (!p) return uiText({ error: "Plugin not found" });
+    return uiText({
+      ...p,
+      render: {
+        mode: "adaptive",
+        iframeUrl: `/ui/${p.id}/index.html`,
+        // No explicit bundleUrl — the host derives the RN route from the id.
+        reactNative: { component: p.id },
+      },
+      channels: ["command"],
+      capabilities: {
+        commands: [{ name: "open", description: `Open ${p.name}`, input_schema: { type: "object", properties: {} } }],
+      },
+    });
+  }
+);
+
+server.tool(
+  "ui.news_dashboard.open",
+  "Open the Daily News widget. Pass the freshly fetched digest as args so the widget renders immediately on mobile: { date, categories }.",
+  {
+    date: z.string().optional(),
+    categories: z.array(z.any()).optional(),
+  },
+  async (args) => uiText({
+    _ui_command: true,
+    plugin_id: "mcp:daily-news-mcp:news-dashboard",
+    command: "open",
+    args: args || {},
+  })
+);
+
 const transport = new StdioServerTransport();
 await server.connect(transport);
