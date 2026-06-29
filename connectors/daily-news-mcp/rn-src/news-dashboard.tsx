@@ -15,12 +15,13 @@ const NewsDashboard = function NewsDashboard({ bridge, native, theme }: PluginPr
   const api = useApi(bridge);
   const t: any = theme || {};
   const C = {
-    bg:        t.colors?.bg        || '#0f1117',
-    surface:   t.colors?.surface   || '#171a21',
-    border:    t.colors?.border    || '#252a35',
-    text:      t.colors?.text      || '#e8eaf0',
-    textMuted: t.colors?.textMuted || '#8b93a7',
-    accent:    t.colors?.accent    || '#4f8ef7',
+    bg:        t.colors?.bg        || '#f4efe7',
+    surface:   t.colors?.surface   || '#ffffff',
+    border:    t.colors?.border    || '#ece4d7',
+    text:      t.colors?.text      || '#2b2f38',
+    textMuted: t.colors?.textMuted || '#9a8f7d',
+    accent:    t.colors?.accent    || '#d9722e',
+    pillBg:    '#fbeede',
   };
   const S = React.useMemo(() => makeStyles(C), [C.bg, C.surface, C.border, C.text, C.textMuted, C.accent]);
 
@@ -81,16 +82,23 @@ const NewsDashboard = function NewsDashboard({ bridge, native, theme }: PluginPr
         <ScrollView style={S.scroll} contentContainerStyle={S.scrollContent} showsVerticalScrollIndicator={false}>
           {cats.map((cat) => (
             <View key={cat.key} style={S.category}>
-              <Text style={S.catHeader}>{(cat.emoji ? cat.emoji + '  ' : '') + (cat.name || cat.key)}</Text>
-              {(cat.items || []).map((s: any, i: number) => (
-                <TouchableOpacity key={i} style={S.story} activeOpacity={0.6} onPress={() => openStory(s.url)}>
-                  <Text style={S.storyTitle}>{s.title}</Text>
-                  <Text style={S.meta}>
-                    {s.points ? <Text style={S.pts}>▲ {s.points}</Text> : null}
-                    {s.points ? '  ·  ' : ''}{s.source || ''}
-                  </Text>
-                </TouchableOpacity>
-              ))}
+              <Text style={S.catHeader}>{(cat.emoji ? cat.emoji + ' ' : '') + (cat.name || cat.key)}</Text>
+              <View style={S.card}>
+                {(cat.items || []).map((s: any, i: number, arr: any[]) => (
+                  <TouchableOpacity
+                    key={i}
+                    style={[S.story, i === arr.length - 1 ? S.storyLast : null]}
+                    activeOpacity={0.6}
+                    onPress={() => openStory(s.url)}
+                  >
+                    <Text style={S.storyTitle}>{s.title}</Text>
+                    <View style={S.metaRow}>
+                      {s.points ? <Text style={S.pts}>🔥 {s.points}</Text> : null}
+                      <Text style={S.src} numberOfLines={1}>{s.source || ''}</Text>
+                    </View>
+                  </TouchableOpacity>
+                ))}
+              </View>
             </View>
           ))}
           <TouchableOpacity style={S.refresh} onPress={load}><Text style={S.refreshText}>↻ Refresh</Text></TouchableOpacity>
@@ -103,23 +111,26 @@ const NewsDashboard = function NewsDashboard({ bridge, native, theme }: PluginPr
 function makeStyles(C: any) {
   return StyleSheet.create({
     root: { flex: 1, backgroundColor: C.bg },
-    header: { paddingHorizontal: 16, paddingTop: 16, paddingBottom: 10, borderBottomWidth: 1, borderBottomColor: C.border },
-    title: { color: C.text, fontSize: 20, fontWeight: '700' },
-    subtitle: { color: C.textMuted, fontSize: 13, marginTop: 2 },
+    header: { paddingHorizontal: 18, paddingTop: 18, paddingBottom: 12 },
+    title: { color: C.text, fontSize: 22, fontWeight: '800', letterSpacing: -0.2 },
+    subtitle: { color: C.textMuted, fontSize: 13, marginTop: 3 },
     scroll: { flex: 1 },
-    scrollContent: { padding: 14, paddingBottom: 28 },
+    scrollContent: { paddingHorizontal: 14, paddingBottom: 28 },
     center: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 32, gap: 10 },
     muted: { color: C.textMuted, fontSize: 14, textAlign: 'center' },
     category: { marginBottom: 18 },
-    catHeader: { color: C.textMuted, fontSize: 12, fontWeight: '700', letterSpacing: 0.6, textTransform: 'uppercase', marginBottom: 8 },
-    story: { paddingVertical: 7, borderBottomWidth: 1, borderBottomColor: C.surface },
-    storyTitle: { color: C.accent, fontSize: 14, fontWeight: '500', lineHeight: 19 },
-    meta: { color: C.textMuted, fontSize: 11, marginTop: 3 },
-    pts: { color: C.accent, fontWeight: '600' },
-    retry: { marginTop: 6, paddingHorizontal: 18, paddingVertical: 9, borderRadius: 8, backgroundColor: C.accent },
-    retryText: { color: '#fff', fontWeight: '600' },
-    refresh: { alignSelf: 'center', marginTop: 6, paddingHorizontal: 18, paddingVertical: 9, borderRadius: 8, borderWidth: 1, borderColor: C.border },
-    refreshText: { color: C.textMuted, fontWeight: '600', fontSize: 13 },
+    catHeader: { color: C.accent, fontSize: 12, fontWeight: '800', letterSpacing: 0.5, textTransform: 'uppercase', marginBottom: 9, marginLeft: 4 },
+    card: { backgroundColor: C.surface, borderWidth: 1, borderColor: C.border, borderRadius: 14, overflow: 'hidden' },
+    story: { paddingVertical: 12, paddingHorizontal: 14, borderBottomWidth: 1, borderBottomColor: C.border },
+    storyLast: { borderBottomWidth: 0 },
+    storyTitle: { color: C.text, fontSize: 14.5, fontWeight: '600', lineHeight: 20 },
+    metaRow: { flexDirection: 'row', alignItems: 'center', gap: 7, marginTop: 5 },
+    pts: { color: C.accent, fontWeight: '700', fontSize: 11.5, backgroundColor: C.pillBg, borderRadius: 999, paddingHorizontal: 8, paddingVertical: 1, overflow: 'hidden' },
+    src: { color: C.textMuted, fontSize: 11.5, flexShrink: 1 },
+    retry: { marginTop: 6, paddingHorizontal: 18, paddingVertical: 9, borderRadius: 999, backgroundColor: C.accent },
+    retryText: { color: '#fff', fontWeight: '700' },
+    refresh: { alignSelf: 'center', marginTop: 14, paddingHorizontal: 20, paddingVertical: 10, borderRadius: 999, borderWidth: 1, borderColor: C.border, backgroundColor: C.surface },
+    refreshText: { color: C.textMuted, fontWeight: '700', fontSize: 13 },
   });
 }
 
