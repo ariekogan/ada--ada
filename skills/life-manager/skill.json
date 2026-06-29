@@ -4666,7 +4666,7 @@
   ],
   "id": "life-manager",
   "created_at": "2026-05-14T12:25:10.296Z",
-  "updated_at": "2026-06-29T16:14:22.986Z",
+  "updated_at": "2026-06-29T16:15:27.781Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -6052,6 +6052,18 @@
         "message": "Tool output is required"
       },
       {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[115].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[115].output",
+        "message": "Tool output is required"
+      },
+      {
         "code": "MISSING_TRIGGER_EVERY",
         "severity": "error",
         "path": "triggers[0].every",
@@ -6093,9 +6105,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-06-29T08:43:28.536Z",
+  "lastExportedAt": "2026-06-29T16:15:25.864Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-06-29T08:43:29.726Z",
+  "deployedAt": "2026-06-29T16:15:27.777Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/life-manager"
 }

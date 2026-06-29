@@ -1877,7 +1877,7 @@
     ]
   },
   "grant_mappings": [],
-  "updated_at": "2026-06-29T16:14:18.435Z",
+  "updated_at": "2026-06-29T16:15:27.305Z",
   "created_at": "2026-05-29T07:19:42.440Z",
   "validation": {
     "valid": false,
@@ -2476,6 +2476,18 @@
         "severity": "error",
         "path": "tools[48].output",
         "message": "Tool output is required"
+      },
+      {
+        "code": "INVALID_TOOL_INPUTS",
+        "severity": "error",
+        "path": "tools[49].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[49].output",
+        "message": "Tool output is required"
       }
     ],
     "warnings": [
@@ -2527,9 +2539,9 @@
     }
   },
   "solution_id": "ada",
-  "lastExportedAt": "2026-06-29T08:43:28.439Z",
+  "lastExportedAt": "2026-06-29T16:15:25.279Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-06-29T08:43:29.386Z",
+  "deployedAt": "2026-06-29T16:15:27.302Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/latvian-tutor"
 }
