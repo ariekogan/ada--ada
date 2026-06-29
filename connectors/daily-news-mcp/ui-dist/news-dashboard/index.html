@@ -36,8 +36,27 @@
   <div class="body" id="body"><p class="empty">Loading today's news…</p></div>
 </div>
 <script>
-  // Default/fallback data — replaced by host-pushed data or a live mcp-call.
-  let data = { date: '', categories: [] };
+  // Sample first-paint — shows representative structure in static previews.
+  // Replaced by host-pushed data (init) or the live news.fetch result on device.
+  let data = {
+    date: '',
+    sample: true,
+    categories: [
+      { key: 'ai', name: 'AI & Machine Learning', emoji: '🤖', items: [
+        { title: 'Open-source model tops the latest reasoning benchmarks', url: 'https://news.ycombinator.com', source: 'example.com', points: 842 },
+        { title: 'New speculative-decoding trick speeds up LLM inference', url: 'https://news.ycombinator.com', source: 'example.com', points: 511 },
+      ]},
+      { key: 'security', name: 'Security & Privacy', emoji: '🔐', items: [
+        { title: 'Widespread auth bypass disclosed; patch available', url: 'https://news.ycombinator.com', source: 'example.com', points: 333 },
+      ]},
+      { key: 'startups', name: 'Startups & Business', emoji: '🚀', items: [
+        { title: 'Hardware startup acquires satellite operator', url: 'https://news.ycombinator.com', source: 'example.com', points: 174 },
+      ]},
+      { key: 'dev', name: 'Software & Dev', emoji: '💻', items: [
+        { title: 'A deep dive into what happens when you run a GPU kernel', url: 'https://news.ycombinator.com', source: 'example.com', points: 118 },
+      ]},
+    ],
+  };
 
   function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
