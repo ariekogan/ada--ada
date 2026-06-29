@@ -1826,7 +1826,7 @@
   "bootstrap_tools": [
     "news.fetch"
   ],
-  "updated_at": "2026-06-29T08:43:29.804Z",
+  "updated_at": "2026-06-29T16:10:24.298Z",
   "created_at": "2026-06-29T08:33:25.647Z",
   "validation": {
     "valid": false,
@@ -2439,11 +2439,16 @@
         "message": "Tool output is required"
       },
       {
-        "code": "UNKNOWN_BOOTSTRAP_TOOL",
+        "code": "INVALID_TOOL_INPUTS",
         "severity": "error",
-        "path": "bootstrap_tools[0]",
-        "message": "bootstrap_tools entry \"news.fetch\" does not match any defined tool name — bootstrap tools MUST reference existing tools",
-        "suggestion": "Available tool names: memory.store, memory.recall, memory.list, memory.update, memory.delete..."
+        "path": "tools[50].inputs",
+        "message": "Tool inputs must be an array"
+      },
+      {
+        "code": "MISSING_TOOL_OUTPUT",
+        "severity": "error",
+        "path": "tools[50].output",
+        "message": "Tool output is required"
       }
     ],
     "warnings": [],
@@ -2466,9 +2471,9 @@
     }
   },
   "solution_id": "ada",
-  "lastExportedAt": "2026-06-29T08:43:28.717Z",
+  "lastExportedAt": "2026-06-29T16:10:23.253Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-06-29T08:43:29.802Z",
+  "deployedAt": "2026-06-29T16:10:24.266Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/daily-news"
 }
