@@ -1,3 +1,4 @@
+// src-hash:17b67a4972c942b6f6cb69c961251d84
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -54,7 +55,7 @@ __export(index_exports, {
 module.exports = __toCommonJS(index_exports);
 
 // rn-src/news-dashboard.tsx
-var import_react = __toESM(require("react"), 1);
+var import_react = __toESM(require("react"));
 var import_react_native = require("react-native");
 var import_plugin_sdk = require("@adas/plugin-sdk");
 var SELF = "daily-news-mcp";
