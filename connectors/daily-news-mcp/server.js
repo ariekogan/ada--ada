@@ -126,6 +126,10 @@ server.tool(
         cats = cats.filter((c) => want.has(c.key));
       }
       const date = new Date().toISOString().slice(0, 10);
+      // Also expose each category as a TOP-LEVEL key (ai/security/startups/science/dev/tech)
+      // so live widgets can bind directly to result.<categoryKey> without walking categories[].
+      const byKey = {};
+      for (const c of cats) byKey[c.key] = c.items;
       return { content: [{ type: "text", text: JSON.stringify({
         ok: true,
         date,
@@ -133,6 +137,7 @@ server.tool(
         source: "Hacker News",
         total: cats.reduce((n, c) => n + c.items.length, 0),
         categories: cats,
+        ...byKey,
       }) }] };
     } catch (e) {
       return { content: [{ type: "text", text: JSON.stringify({ ok: false, error: String(e.message || e) }) }], isError: true };
