@@ -6,25 +6,28 @@
 <title>Daily News</title>
 <style>
   :root{
-    --bg:#0f1117; --surface:#171a21; --border:#252a35;
-    --text:#e8eaf0; --text-muted:#8b93a7; --accent:#4f8ef7;
+    --bg:#f4efe7; --surface:#ffffff; --border:#ece4d7;
+    --text:#2b2f38; --text-muted:#9a8f7d; --accent:#d9722e; --link:#c2541f;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;line-height:1.5}
-  #app{max-width:680px;margin:0 auto;min-height:100vh}
-  .header{padding:16px 16px 10px;border-bottom:1px solid var(--border)}
-  .title{font-size:20px;font-weight:700}
-  .subtitle{font-size:13px;color:var(--text-muted);margin-top:2px}
-  .body{padding:14px 14px 28px}
+  html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  #app{max-width:680px;margin:0 auto;min-height:100vh;padding:0 14px 28px}
+  .header{padding:18px 4px 12px}
+  .title{font-size:22px;font-weight:800;letter-spacing:-0.01em;display:flex;align-items:center;gap:8px}
+  .subtitle{font-size:13px;color:var(--text-muted);margin-top:3px}
   .empty{color:var(--text-muted);text-align:center;padding:48px 16px}
   .category{margin-bottom:18px}
-  .cat-header{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px}
-  .story{display:block;padding:7px 0;border-bottom:1px solid var(--surface);text-decoration:none}
+  .cat-header{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin:0 4px 9px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(43,47,56,.04)}
+  .story{display:block;padding:12px 14px;text-decoration:none;border-bottom:1px solid var(--border)}
   .story:last-child{border-bottom:none}
-  .story-title{color:var(--accent);font-size:14px;font-weight:500;line-height:1.35}
-  .meta{font-size:11px;color:var(--text-muted);margin-top:3px}
-  .pts{color:var(--accent);font-weight:600}
-  .btn{display:block;margin:6px auto 0;padding:9px 18px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text-muted);font-weight:600;font-size:13px;cursor:pointer}
+  .story:active{background:#faf6ef}
+  .story-title{color:var(--text);font-size:14.5px;font-weight:600;line-height:1.35}
+  .meta{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--text-muted);margin-top:5px}
+  .pts{display:inline-flex;align-items:center;gap:3px;color:var(--accent);font-weight:700;background:#fbeede;border-radius:999px;padding:1px 8px}
+  .src{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .btn{display:block;margin:14px auto 0;padding:10px 20px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--text-muted);font-weight:700;font-size:13px;cursor:pointer}
+  .btn:active{background:#faf6ef}
 </style>
 </head>
 <body>
@@ -33,7 +36,7 @@
     <div class="title">📰 Daily News</div>
     <div class="subtitle" id="date"></div>
   </div>
-  <div class="body" id="body"><p class="empty">Loading today's news…</p></div>
+  <div id="body"><p class="empty">Loading today's news…</p></div>
 </div>
 <script>
   // Sample first-paint — shows representative structure in static previews.
@@ -59,7 +62,6 @@
   };
 
   function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
   function prettyDate(d){
     try { var dt = d ? new Date(d + 'T00:00:00') : new Date();
       return dt.toLocaleDateString(undefined, { weekday:'long', month:'short', day:'numeric' }); }
@@ -75,14 +77,14 @@
     cats.forEach(function(cat){
       var items = cat.items || [];
       if(!items.length) return;
-      html += '<div class="category"><div class="cat-header">' + esc((cat.emoji ? cat.emoji + '  ' : '') + (cat.name || cat.key)) + '</div>';
+      html += '<div class="category"><div class="cat-header">' + esc((cat.emoji ? cat.emoji + ' ' : '') + (cat.name || cat.key)) + '</div><div class="card">';
       items.forEach(function(s){
-        var pts = s.points ? '<span class="pts">▲ ' + esc(s.points) + '</span>  ·  ' : '';
+        var pts = s.points ? '<span class="pts">🔥 ' + esc(s.points) + '</span>' : '';
         html += '<a class="story" href="' + encodeURI(s.url || '#') + '" target="_blank" rel="noopener noreferrer">'
              +  '<div class="story-title">' + esc(s.title) + '</div>'
-             +  '<div class="meta">' + pts + esc(s.source || '') + '</div></a>';
+             +  '<div class="meta">' + pts + '<span class="src">' + esc(s.source || '') + '</span></div></a>';
       });
-      html += '</div>';
+      html += '</div></div>';
     });
     html += '<button class="btn" id="refreshBtn">↻ Refresh</button>';
     body.innerHTML = html;
@@ -117,7 +119,6 @@
     }
   });
 
-  // Handshake, then try a live fetch (web). On mobile the host pushes data via init.
   window.parent.postMessage({ source:'adas-plugin', message:{ action:'ready' } }, '*');
   render();
   fetchNews();
