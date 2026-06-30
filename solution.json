@@ -1,88 +1,78 @@
 {
   "version": "1.0.0",
   "description": "Situation-aware personal assistant with proactive intelligence.",
-  "phase": "DEPLOYED",
+  "phase": "VALIDATION",
   "identity": {
     "actor_types": [],
     "admin_roles": [],
     "default_actor_type": "",
     "default_roles": []
   },
-  "skills": [],
+  "skills": [
+    {
+      "id": "coin-flip"
+    }
+  ],
   "grants": [],
   "handoffs": [],
   "routing": {},
   "platform_connectors": [
     {
-      "id": "coach-mcp",
-      "description": "",
-      "required": true,
-      "used_by": []
+      "id": "handoff-controller-mcp",
+      "required": true
     },
     {
-      "id": "daily-news-mcp",
-      "description": "",
-      "required": true,
-      "used_by": []
+      "id": "memory-mcp",
+      "required": false
     },
     {
-      "id": "google-home-mcp",
-      "description": "",
-      "required": true,
-      "used_by": []
+      "id": "docs-index-mcp",
+      "required": false
     },
     {
-      "id": "home-assistant-mcp",
-      "description": "",
-      "required": true,
-      "used_by": []
+      "id": "browser-mcp",
+      "required": false
     },
     {
-      "id": "hue-mcp",
-      "description": "",
-      "required": true,
-      "used_by": []
+      "id": "gmail-mcp",
+      "required": false
+    },
+    {
+      "id": "whatsapp-mcp",
+      "required": false
+    },
+    {
+      "id": "telegram-mcp",
+      "required": false
+    },
+    {
+      "id": "mobile-device-mcp",
+      "required": false
+    },
+    {
+      "id": "travel-mcp",
+      "required": false
     },
     {
       "id": "nutrition-mcp",
-      "description": "",
-      "required": true,
-      "used_by": []
+      "required": false
     },
     {
-      "id": "personal-assistant-ui-mcp",
-      "description": "",
-      "required": true,
-      "used_by": []
-    },
-    {
-      "id": "tuya-mcp",
-      "description": "",
-      "required": true,
-      "used_by": []
+      "id": "cloud-docs",
+      "required": false
     }
   ],
   "security_contracts": [],
   "linked_skills": [
-    "life-manager",
-    "memory-keeper",
-    "daily-intel",
-    "messaging-agent",
     "notification-triage",
-    "home-control",
-    "mycoach",
-    "my-docs",
-    "teach-this",
-    "travel-agent",
-    "latvian-tutor",
-    "coin-flip"
+    "skill-factory-builder",
+    "teach-this"
   ],
   "conversation": [],
   "id": "ada",
   "name": "ada",
-  "created_at": "2026-06-30T19:50:38.480Z",
-  "updated_at": "2026-06-30T19:51:16.975Z",
+  "created_at": "2026-06-30T20:02:01.458Z",
+  "updated_at": "2026-06-30T20:03:09.531Z",
   "style": "mobile",
-  "routing_mode": "manual",
-  "deployed_at": "2026-06-30T19:51:16.975Z"
+  "routing_mode": "manual"
 }
