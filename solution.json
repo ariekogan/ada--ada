@@ -63,12 +63,14 @@
     }
   ],
   "security_contracts": [],
-  "linked_skills": [],
+  "linked_skills": [
+    "coin-flip"
+  ],
   "conversation": [],
   "id": "ada",
   "name": "ada",
   "created_at": "2026-06-30T19:50:38.480Z",
-  "updated_at": "2026-06-30T19:50:38.489Z",
+  "updated_at": "2026-06-30T19:50:43.563Z",
   "style": "mobile",
   "routing_mode": "manual"
 }
