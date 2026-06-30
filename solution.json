@@ -5,6 +5,9 @@
   "version": "1.0.0",
   "style": "mobile",
   "routing_mode": "manual",
+  "platform_connectors": [
+    {"id": "handoff-controller-mcp", "required": true}
+  ],
   "linked_skills": [
     "life-manager",
     "memory-keeper",
