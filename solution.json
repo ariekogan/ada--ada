@@ -101,19 +101,12 @@
     }
   ],
   "security_contracts": [],
-  "linked_skills": [
-    "auto-orchestrator",
-    "daily-intel",
-    "daily-news",
-    "home-control",
-    "latvian-tutor",
-    "life-manager"
-  ],
+  "linked_skills": [],
   "conversation": [],
   "id": "ada",
   "name": "ada",
-  "created_at": "2026-06-30T19:59:44.573Z",
-  "updated_at": "2026-06-30T20:00:43.608Z",
+  "created_at": "2026-06-30T20:00:50.450Z",
+  "updated_at": "2026-06-30T20:00:50.460Z",
   "style": "mobile",
   "routing_mode": "manual"
 }
