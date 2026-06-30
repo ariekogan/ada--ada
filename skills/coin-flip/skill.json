@@ -1,12 +1,20 @@
 {
-  "id": "coin-flip",
-  "name": "Coin Flip",
   "description": "Returns a random Heads or Tails when asked to flip a coin.",
   "version": "1.0.0",
-  "phase": "TOOL_DEFINITION",
-  "ui_capable": false,
-  "connectors": [],
-  "tools": [],
+  "phase": "DEPLOYED",
+  "problem": {
+    "statement": "",
+    "context": "",
+    "goals": []
+  },
+  "scenarios": [],
+  "role": {
+    "name": "Coin Flip",
+    "persona": "You are a coin-flip assistant. When the user asks you to flip a coin, toss a coin, or asks for heads or tails, you respond with either 'Heads' or 'Tails' chosen at random. Keep your response short and playful — just announce the result. You have no other capabilities beyond flipping a coin.",
+    "goals": [],
+    "limitations": []
+  },
+  "glossary": {},
   "intents": {
     "supported": [],
     "thresholds": {
@@ -20,25 +28,7 @@
       "suggest_domains": []
     }
   },
-  "policy": {
-    "guardrails": {
-      "never": [],
-      "always": []
-    },
-    "workflows": [],
-    "approvals": [],
-    "escalation": {
-      "enabled": false,
-      "conditions": []
-    }
-  },
-  "scenarios": [],
-  "role": {
-    "persona": "You are a coin-flip assistant. When the user asks you to flip a coin, toss a coin, or asks for heads or tails, you respond with either 'Heads' or 'Tails' chosen at random. Keep your response short and playful — just announce the result. You have no other capabilities beyond flipping a coin."
-  },
   "engine": {
-    "model": "claude-sonnet-4-20250514",
-    "temperature": 0.3,
     "rv2": {
       "max_iterations": 10,
       "iteration_timeout_ms": 30000,
@@ -48,17 +38,70 @@
       "enabled": true,
       "critic": {
         "enabled": false,
+        "check_interval": 3,
         "strictness": "medium"
       },
       "reflection": {
         "enabled": false,
         "depth": "shallow"
+      },
+      "replanning": {
+        "enabled": true,
+        "max_replans": 5
       }
     },
     "autonomy": {
       "level": "autonomous"
+    },
+    "finalization_gate": {
+      "enabled": true,
+      "max_retries": 2
+    },
+    "internal_error": {
+      "enabled": true,
+      "tool_not_found": {
+        "enter_resolution_after": 1,
+        "retryable": false
+      },
+      "resolution": {
+        "max_iterations": 1,
+        "allowed_capabilities": [
+          "read",
+          "search",
+          "document_output"
+        ]
+      },
+      "loop_detection": {
+        "enabled": true,
+        "identical_call_threshold": 2
+      }
+    },
+    "model": "claude-sonnet-4-20250514",
+    "temperature": 0.3
+  },
+  "toolbox_imports": [],
+  "tools": [],
+  "meta_tools": [],
+  "triggers": [],
+  "connectors": [],
+  "policy": {
+    "guardrails": {
+      "never": [],
+      "always": []
+    },
+    "approvals": [],
+    "workflows": [],
+    "escalation": {
+      "enabled": false,
+      "conditions": [],
+      "target": ""
     }
   },
+  "channels": [],
+  "conversation": [],
+  "id": "coin-flip",
+  "name": "Coin Flip",
+  "ui_capable": false,
   "grant_mappings": [],
   "access_policy": {
     "rules": [
@@ -71,8 +114,35 @@
     ]
   },
   "response_filters": [],
-  "triggers": [],
   "solution_id": "ada",
   "created_at": "2026-06-30T19:50:43.551Z",
-  "updated_at": "2026-06-30T19:50:47.916Z"
+  "updated_at": "2026-06-30T19:51:13.185Z",
+  "validation": {
+    "valid": true,
+    "ready_to_export": false,
+    "errors": [],
+    "warnings": [],
+    "unresolved": {
+      "tools": [],
+      "workflows": [],
+      "intents": []
+    },
+    "completeness": {
+      "problem": false,
+      "scenarios": false,
+      "role": true,
+      "intents": false,
+      "tools": false,
+      "policy": false,
+      "engine": true,
+      "mocks_tested": false,
+      "identity": false,
+      "security": true
+    }
+  },
+  "lastExportedAt": "2026-06-30T19:51:13.044Z",
+  "lastExportType": "mcp-simple",
+  "deployedAt": "2026-06-30T19:51:13.183Z",
+  "deployedTo": "http://adas-backend:4000",
+  "mcpUri": "stdio://localhost/coin-flip"
 }
