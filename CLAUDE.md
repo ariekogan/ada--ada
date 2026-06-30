@@ -19,60 +19,28 @@ Situation-aware personal assistant with proactive intelligence.
 
 ## 2. Skills
 
-- **travel-agent** _(worker)_ — 
-- **teach-this** _(worker)_ — 
-- **notification-triage** _(worker)_ — 
-- **mycoach** _(worker)_ — 
-- **my-docs** _(worker)_ — 
-- **messaging-agent** _(worker)_ — 
-- **memory-keeper** _(worker)_ — 
-- **life-manager** _(worker)_ — 
-- **home-control** _(worker)_ — 
-- **daily-intel** _(worker)_ — 
+- **coin-flip** _(worker)_ — 
 
 ---
 
 ## 3. Connectors
 
-**Solution connectors** (live in this repo under `connectors/`):
-  - `personal-assistant-ui-mcp`
+**Platform connectors** (shared infrastructure, not in this repo):
+  - `coach-mcp`
+  - `daily-news-mcp`
+  - `google-home-mcp`
   - `home-assistant-mcp`
   - `hue-mcp`
-  - `tuya-mcp`
-  - `google-home-mcp`
   - `nutrition-mcp`
-  - `coach-mcp`
-
-**Platform connectors** (shared infrastructure, not in this repo):
-  - `memory-mcp`
-  - `pcm-mcp`
-  - `whatsapp-mcp`
-  - `handoff-controller-mcp`
-  - `mobile-device-mcp`
-  - `gmail-mcp`
-  - `browser-mcp`
-  - `docs-index-mcp`
-  - `cloud-docs`
-  - `travel-mcp`
+  - `personal-assistant-ui-mcp`
+  - `tuya-mcp`
 
 
 ---
 
 ## 4. UI plugins
 
-- **Schedule** (`mcp:personal-assistant-ui-mcp:schedule-panel`, adaptive)
-- **Personal Assistant** (`mcp:personal-assistant-ui-mcp:pa-dashboard`, adaptive)
-- **Memories** (`mcp:personal-assistant-ui-mcp:memories-panel`, adaptive)
-- **Teach** (`mcp:personal-assistant-ui-mcp:teach-panel`, adaptive)
-- **Reminders** (`mcp:personal-assistant-ui-mcp:triggers-panel`, adaptive)
-- **Smart Home** (`mcp:personal-assistant-ui-mcp:home-layout-panel`, adaptive)
-- **WhatsApp Setup** (`mcp:whatsapp-mcp:whatsapp-setup`, adaptive)
-- **Browser View** (`mcp:browser-mcp:browser-view`, adaptive)
-- **Auth WebView** (`mcp:browser-mcp:auth-webview`, adaptive)
-- **Nutrition** (`mcp:nutrition-mcp:nutrition-dashboard`, iframe)
-- **Meal Camera** (`mcp:nutrition-mcp:nutrition-camera`, iframe)
-- **MyCoach** (`mcp:coach-mcp:coach-dashboard`, adaptive)
-- **Coach Onboarding** (`mcp:coach-mcp:coach-onboarding`, adaptive)
+_(none)_
 
 ---
 
@@ -81,16 +49,7 @@ Situation-aware personal assistant with proactive intelligence.
 ```
 solution.json                    # full solution definition
 skills/
-  travel-agent/skill.json
-  teach-this/skill.json
-  notification-triage/skill.json
-  mycoach/skill.json
-  my-docs/skill.json
-  messaging-agent/skill.json
-  memory-keeper/skill.json
-  life-manager/skill.json
-  home-control/skill.json
-  daily-intel/skill.json
+  coin-flip/skill.json
 connectors/                      # solution connectors (stdio MCPs)
   _(no solution connectors)_
 .ateam/export.json               # auto-generated deploy bundle (don't hand-edit)
