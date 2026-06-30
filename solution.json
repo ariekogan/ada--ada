@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "description": "Situation-aware personal assistant with proactive intelligence.",
-  "phase": "VALIDATION",
+  "phase": "DEPLOYED",
   "identity": {
     "actor_types": [],
     "admin_roles": [],
@@ -70,7 +70,8 @@
   "id": "ada",
   "name": "ada",
   "created_at": "2026-06-30T19:50:38.480Z",
-  "updated_at": "2026-06-30T19:50:43.563Z",
+  "updated_at": "2026-06-30T19:51:16.975Z",
   "style": "mobile",
-  "routing_mode": "manual"
+  "routing_mode": "manual",
+  "deployed_at": "2026-06-30T19:51:16.975Z"
 }
