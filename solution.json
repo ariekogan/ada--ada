@@ -61,13 +61,14 @@
   "security_contracts": [],
   "linked_skills": [
     "memory-keeper",
-    "messaging-agent"
+    "messaging-agent",
+    "my-docs"
   ],
   "conversation": [],
   "id": "ada",
   "name": "ada",
   "created_at": "2026-06-30T20:00:50.450Z",
-  "updated_at": "2026-06-30T20:01:12.946Z",
+  "updated_at": "2026-06-30T20:01:32.846Z",
   "style": "mobile",
   "routing_mode": "manual"
 }
