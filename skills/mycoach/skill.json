@@ -4016,21 +4016,10 @@
   },
   "channels": [],
   "conversation": [],
-  "name": "MyCoach",
-  "solution_id": "ada",
-  "bootstrap_tools": [
-    "coach.state.captureOnboardingAnswer",
-    "coach.goals.add",
-    "coach.state.advancePhase",
-    "coach.experiment.activeForWeek",
-    "coach.experiment.propose",
-    "coach.observations.pending",
-    "coach.observations.markSurfaced",
-    "coach.nudge.log"
-  ],
   "id": "mycoach",
-  "created_at": "2026-06-30T20:01:50.011Z",
-  "updated_at": "2026-06-30T20:01:59.489Z",
+  "name": "MyCoach",
+  "created_at": "2026-05-14T12:29:41.026Z",
+  "updated_at": "2026-06-30T20:02:52.576Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -5406,6 +5395,17 @@
       "security": true
     }
   },
+  "solution_id": "ada",
+  "bootstrap_tools": [
+    "coach.state.captureOnboardingAnswer",
+    "coach.goals.add",
+    "coach.state.advancePhase",
+    "coach.experiment.activeForWeek",
+    "coach.experiment.propose",
+    "coach.observations.pending",
+    "coach.observations.markSurfaced",
+    "coach.nudge.log"
+  ],
   "lastExportedAt": "2026-06-29T17:21:17.760Z",
   "lastExportType": "mcp-simple",
   "deployedAt": "2026-06-29T17:21:19.714Z",
