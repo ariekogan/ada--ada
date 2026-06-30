@@ -6,7 +6,17 @@
   "style": "mobile",
   "routing_mode": "manual",
   "platform_connectors": [
-    {"id": "handoff-controller-mcp", "required": true}
+    {"id": "handoff-controller-mcp", "required": true},
+    {"id": "memory-mcp", "required": false},
+    {"id": "docs-index-mcp", "required": false},
+    {"id": "browser-mcp", "required": false},
+    {"id": "gmail-mcp", "required": false},
+    {"id": "whatsapp-mcp", "required": false},
+    {"id": "telegram-mcp", "required": false},
+    {"id": "mobile-device-mcp", "required": false},
+    {"id": "travel-mcp", "required": false},
+    {"id": "nutrition-mcp", "required": false},
+    {"id": "cloud-docs", "required": false}
   ],
   "linked_skills": [
     "life-manager",
