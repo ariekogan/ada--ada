@@ -1,77 +1,22 @@
 {
-  "version": "1.0.0",
-  "description": "Situation-aware personal assistant with proactive intelligence.",
-  "phase": "DEPLOYED",
-  "identity": {
-    "actor_types": [],
-    "admin_roles": [],
-    "default_actor_type": "",
-    "default_roles": []
-  },
-  "skills": [],
-  "grants": [],
-  "handoffs": [],
-  "routing": {},
-  "platform_connectors": [
-    {
-      "id": "coach-mcp",
-      "description": "",
-      "required": true,
-      "used_by": []
-    },
-    {
-      "id": "daily-news-mcp",
-      "description": "",
-      "required": true,
-      "used_by": []
-    },
-    {
-      "id": "google-home-mcp",
-      "description": "",
-      "required": true,
-      "used_by": []
-    },
-    {
-      "id": "home-assistant-mcp",
-      "description": "",
-      "required": true,
-      "used_by": []
-    },
-    {
-      "id": "hue-mcp",
-      "description": "",
-      "required": true,
-      "used_by": []
-    },
-    {
-      "id": "nutrition-mcp",
-      "description": "",
-      "required": true,
-      "used_by": []
-    },
-    {
-      "id": "personal-assistant-ui-mcp",
-      "description": "",
-      "required": true,
-      "used_by": []
-    },
-    {
-      "id": "tuya-mcp",
-      "description": "",
-      "required": true,
-      "used_by": []
-    }
-  ],
-  "security_contracts": [],
-  "linked_skills": [
-    "coin-flip"
-  ],
-  "conversation": [],
   "id": "ada",
   "name": "ada",
-  "created_at": "2026-06-30T19:50:38.480Z",
-  "updated_at": "2026-06-30T19:51:16.975Z",
+  "description": "Situation-aware personal assistant with proactive intelligence.",
+  "version": "1.0.0",
   "style": "mobile",
   "routing_mode": "manual",
-  "deployed_at": "2026-06-30T19:51:16.975Z"
+  "linked_skills": [
+    "life-manager",
+    "memory-keeper",
+    "daily-intel",
+    "messaging-agent",
+    "notification-triage",
+    "home-control",
+    "mycoach",
+    "my-docs",
+    "teach-this",
+    "travel-agent",
+    "latvian-tutor",
+    "coin-flip"
+  ]
 }
