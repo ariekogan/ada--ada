@@ -104,13 +104,14 @@
   "linked_skills": [
     "auto-orchestrator",
     "daily-intel",
-    "daily-news"
+    "daily-news",
+    "home-control"
   ],
   "conversation": [],
   "id": "ada",
   "name": "ada",
   "created_at": "2026-06-30T19:59:44.573Z",
-  "updated_at": "2026-06-30T20:00:12.641Z",
+  "updated_at": "2026-06-30T20:00:20.404Z",
   "style": "mobile",
   "routing_mode": "manual"
 }
