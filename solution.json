@@ -61,13 +61,14 @@
   "security_contracts": [],
   "linked_skills": [
     "notification-triage",
-    "skill-factory-builder"
+    "skill-factory-builder",
+    "teach-this"
   ],
   "conversation": [],
   "id": "ada",
   "name": "ada",
   "created_at": "2026-06-30T20:02:01.458Z",
-  "updated_at": "2026-06-30T20:02:44.835Z",
+  "updated_at": "2026-06-30T20:03:09.531Z",
   "style": "mobile",
   "routing_mode": "manual"
 }
