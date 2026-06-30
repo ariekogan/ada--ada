@@ -4658,15 +4658,10 @@
   },
   "channels": [],
   "conversation": [],
-  "name": "Life Manager",
-  "solution_id": "ada",
-  "bootstrap_tools": [
-    "memory.recall",
-    "device.calendar.today"
-  ],
   "id": "life-manager",
-  "created_at": "2026-06-30T20:00:43.565Z",
-  "updated_at": "2026-06-30T20:00:48.021Z",
+  "name": "Life Manager",
+  "created_at": "2026-05-14T12:25:10.296Z",
+  "updated_at": "2026-06-30T20:01:53.946Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -6105,6 +6100,11 @@
       "security": true
     }
   },
+  "solution_id": "ada",
+  "bootstrap_tools": [
+    "memory.recall",
+    "device.calendar.today"
+  ],
   "lastExportedAt": "2026-06-29T17:21:17.761Z",
   "lastExportType": "mcp-simple",
   "deployedAt": "2026-06-29T17:21:19.691Z",
