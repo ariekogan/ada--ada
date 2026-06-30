@@ -116,7 +116,7 @@
   "response_filters": [],
   "solution_id": "ada",
   "created_at": "2026-06-30T19:50:43.551Z",
-  "updated_at": "2026-06-30T20:02:33.679Z",
+  "updated_at": "2026-06-30T20:03:25.558Z",
   "validation": {
     "valid": true,
     "ready_to_export": false,
@@ -140,9 +140,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-06-30T19:51:13.044Z",
+  "lastExportedAt": "2026-06-30T20:03:23.451Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-06-30T19:51:13.183Z",
+  "deployedAt": "2026-06-30T20:03:25.555Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/coin-flip"
 }
