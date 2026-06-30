@@ -103,13 +103,14 @@
   "security_contracts": [],
   "linked_skills": [
     "auto-orchestrator",
-    "daily-intel"
+    "daily-intel",
+    "daily-news"
   ],
   "conversation": [],
   "id": "ada",
   "name": "ada",
   "created_at": "2026-06-30T19:59:44.573Z",
-  "updated_at": "2026-06-30T20:00:00.700Z",
+  "updated_at": "2026-06-30T20:00:12.641Z",
   "style": "mobile",
   "routing_mode": "manual"
 }
