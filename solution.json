@@ -10,7 +10,11 @@
   },
   "skills": [
     {
-      "id": "coin-flip"
+      "id": "ping-solution",
+      "name": "Ping Solution",
+      "role": "worker",
+      "description": "",
+      "connectors": []
     }
   ],
   "grants": [],
@@ -66,13 +70,232 @@
   "linked_skills": [
     "notification-triage",
     "skill-factory-builder",
-    "teach-this"
+    "teach-this",
+    "ping-solution"
   ],
   "conversation": [],
   "id": "ada",
   "name": "ada",
   "created_at": "2026-06-30T20:02:01.458Z",
-  "updated_at": "2026-06-30T20:03:09.531Z",
+  "updated_at": "2026-06-30T22:15:22.851Z",
   "style": "mobile",
-  "routing_mode": "manual"
+  "routing_mode": "manual",
+  "ui_plugins": [
+    {
+      "id": "mcp:browser-mcp:browser-view",
+      "name": "Browser View",
+      "version": "1.0.0",
+      "type": "ui",
+      "description": "Live browser automation viewer — screenshots, action log, URL bar",
+      "render": {
+        "mode": "iframe",
+        "iframeUrl": "/ui/browser-view/index.html"
+      },
+      "capabilities": {
+        "commands": [
+          {
+            "name": "refresh",
+            "description": "Focus and refresh the browser view panel with latest screenshot",
+            "input_schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ]
+      },
+      "channels": [
+        "command"
+      ],
+      "commands": [],
+      "_source": "mcp_introspection",
+      "_connector_id": "browser-mcp"
+    },
+    {
+      "id": "mcp:browser-mcp:auth-webview",
+      "name": "Auth WebView",
+      "version": "1.7.0",
+      "type": "ui",
+      "description": "Generic authentication WebView — user signs in on their device. Supports OAuth code extraction (in-app WebView), cookie capture, and external-browser OAuth (ASWebAuthenticationSession via expo-web-browser). No passwords touch the LLM.",
+      "render": {
+        "mode": "adaptive",
+        "iframeUrl": "/ui/login-webview/index.html",
+        "reactNative": {
+          "component": "AuthWebView"
+        }
+      },
+      "capabilities": {
+        "webview": true,
+        "cookies": true,
+        "haptics": true,
+        "commands": [
+          {
+            "name": "openAuth",
+            "description": "Open a URL for authentication. mode='cookie' captures cookies, mode='oauth' extracts authorization code from redirect (in-app WebView), mode='oauth_external' opens the URL in the system browser and polls platform.auth.status(service_id) until connected (for WebView-blocking providers like Google/Facebook).",
+            "input_schema": {
+              "type": "object",
+              "properties": {
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "oauth",
+                    "cookie",
+                    "oauth_external"
+                  ]
+                },
+                "url": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "success_url_pattern": {
+                  "type": "string"
+                },
+                "cookie_domain": {
+                  "type": "string"
+                },
+                "session_token": {
+                  "type": "string"
+                },
+                "redirect_url_pattern": {
+                  "type": "string"
+                },
+                "callback_tool": {
+                  "type": "string"
+                },
+                "callback_connector": {
+                  "type": "string"
+                },
+                "submit_tool": {
+                  "type": "string"
+                },
+                "submit_connector": {
+                  "type": "string"
+                },
+                "service_id": {
+                  "type": "string"
+                },
+                "poll_tool": {
+                  "type": "string"
+                },
+                "poll_interval_ms": {
+                  "type": "number"
+                },
+                "timeout_ms": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "mode",
+                "url"
+              ]
+            }
+          }
+        ]
+      },
+      "channels": [
+        "command"
+      ],
+      "commands": [],
+      "_source": "mcp_introspection",
+      "_connector_id": "browser-mcp"
+    },
+    {
+      "id": "mcp:whatsapp-mcp:whatsapp-setup",
+      "name": "WhatsApp Setup",
+      "version": "1.0.1",
+      "description": "Connect and pair your WhatsApp account via pairing code",
+      "render": {
+        "mode": "adaptive",
+        "iframeUrl": "/ui/whatsapp-setup/index.html",
+        "reactNative": {
+          "component": "whatsapp-setup"
+        }
+      },
+      "channels": [
+        "command"
+      ],
+      "capabilities": {
+        "haptics": true,
+        "commands": [
+          {
+            "name": "connect",
+            "description": "Open the WhatsApp connection screen. Optionally pre-fill phone number.",
+            "input_schema": {
+              "type": "object",
+              "properties": {
+                "phone": {
+                  "type": "string",
+                  "description": "Phone number with country code (optional)"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "_source": "mcp_introspection",
+      "_connector_id": "whatsapp-mcp"
+    },
+    {
+      "id": "mcp:nutrition-mcp:nutrition-dashboard",
+      "name": "Nutrition",
+      "version": "1.0.0",
+      "description": "Visual nutrition summary with progress rings and weekly charts",
+      "render": {
+        "mode": "adaptive",
+        "iframeUrl": "/ui/nutrition-dashboard/index.html",
+        "reactNative": {
+          "component": "nutrition-dashboard"
+        }
+      },
+      "channels": [
+        "command"
+      ],
+      "capabilities": {
+        "commands": [
+          {
+            "name": "open",
+            "description": "Open dashboard",
+            "input_schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ]
+      },
+      "_source": "mcp_introspection",
+      "_connector_id": "nutrition-mcp"
+    },
+    {
+      "id": "mcp:nutrition-mcp:nutrition-camera",
+      "name": "Meal Camera",
+      "version": "1.0.0",
+      "description": "Snap a photo of your meal for instant calorie analysis",
+      "render": {
+        "mode": "adaptive",
+        "iframeUrl": "/ui/nutrition-camera/index.html",
+        "reactNative": {
+          "component": "nutrition-camera"
+        }
+      },
+      "channels": [
+        "command"
+      ],
+      "capabilities": {
+        "camera": true,
+        "commands": [
+          {
+            "name": "open",
+            "description": "Open camera",
+            "input_schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ]
+      },
+      "_source": "mcp_introspection",
+      "_connector_id": "nutrition-mcp"
+    }
+  ]
 }
