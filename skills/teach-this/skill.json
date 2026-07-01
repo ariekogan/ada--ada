@@ -1064,7 +1064,7 @@
   "solution_id": "ada",
   "id": "teach-this",
   "created_at": "2026-05-14T12:31:05.958Z",
-  "updated_at": "2026-07-01T21:40:39.971Z",
+  "updated_at": "2026-07-01T21:41:16.127Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -1389,9 +1389,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-07-01T21:40:37.995Z",
+  "lastExportedAt": "2026-07-01T21:41:14.503Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-07-01T21:40:39.969Z",
+  "deployedAt": "2026-07-01T21:41:16.116Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/teach-this"
 }
