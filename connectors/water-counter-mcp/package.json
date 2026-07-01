@@ -1,0 +1,9 @@
+{
+  "name": "water-counter-mcp",
+  "version": "1.0.0",
+  "description": "Water intake counter MCP connector with daily tracking and UI widget",
+  "main": "server.js",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  }
+}
