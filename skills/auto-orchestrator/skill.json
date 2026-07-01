@@ -2,6 +2,7 @@
   "description": "Auto-generated orchestrator. Routes user requests to worker skills based on their descriptions and handoff_when triggers.",
   "version": "1.0.0",
   "phase": "DEPLOYED",
+  "dontProduceChips": false,
   "problem": {
     "statement": "",
     "context": "",
@@ -1294,7 +1295,7 @@
       "_auto_generated": true
     }
   ],
-  "updated_at": "2026-07-01T14:12:43.645Z",
+  "updated_at": "2026-07-01T21:37:12.737Z",
   "created_at": "2026-05-14T07:06:53.051Z",
   "validation": {
     "valid": false,
