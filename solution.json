@@ -131,6 +131,13 @@
         "memory-mcp",
         "mobile-device-mcp"
       ]
+    },
+    {
+      "id": "test-delete-me",
+      "name": "Test Delete Me",
+      "role": "worker",
+      "description": "",
+      "connectors": []
     }
   ],
   "grants": [],
@@ -370,7 +377,8 @@
       "id": "daily-news",
       "skill_id": "daily-news",
       "name": "Daily News"
-    }
+    },
+    "test-delete-me"
   ],
   "conversation": [],
   "id": "ada",
