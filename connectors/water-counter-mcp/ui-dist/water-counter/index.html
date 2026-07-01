@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Water Counter</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(160deg, #e3f2fd 0%, #b3e5fc 60%, #81d4fa 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      padding: 28px 24px 24px;
+      width: 100%;
+      max-width: 320px;
+      box-shadow: 0 12px 40px rgba(3, 105, 161, 0.18), 0 2px 8px rgba(3,105,161,0.10);
+      text-align: center;
+    }
+
+    .header-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #60a5fa;
+      margin-bottom: 6px;
+    }
+
+    .count-wrap {
+      position: relative;
+      display: inline-block;
+      margin: 4px 0 2px;
+    }
+
+    .count-number {
+      font-size: 80px;
+      font-weight: 900;
+      color: #0369a1;
+      line-height: 1;
+      display: block;
+      transition: transform 0.15s cubic-bezier(0.34,1.56,0.64,1);
+      will-change: transform;
+    }
+
+    .count-number.bump {
+      transform: scale(1.18);
+    }
+
+    .goal-text {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 18px;
+      letter-spacing: 0.02em;
+    }
+
+    .goal-text strong { color: #38bdf8; }
+
+    /* Glass icons row */
+    .glasses-row {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .glass {
+      font-size: 20px;
+      opacity: 0.22;
+      transition: opacity 0.25s ease, transform 0.2s ease;
+      display: inline-block;
+    }
+
+    .glass.filled {
+      opacity: 1;
+      transform: scale(1.08);
+    }
+
+    /* Progress bar */
+    .progress-track {
+      background: #e0f2fe;
+      border-radius: 99px;
+      height: 8px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #38bdf8, #0284c7);
+      border-radius: 99px;
+      transition: width 0.45s cubic-bezier(0.4,0,0.2,1);
+      min-width: 0;
+    }
+
+    /* Big + button */
+    .add-btn {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #38bdf8 0%, #0284c7 100%);
+      border: none;
+      color: #fff;
+      font-size: 40px;
+      font-weight: 200;
+      cursor: pointer;
+      box-shadow: 0 6px 22px rgba(3, 105, 161, 0.38);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 10px;
+      line-height: 1;
+      transition: transform 0.1s ease, box-shadow 0.1s ease, opacity 0.1s ease;
+      touch-action: manipulation;
+      user-select: none;
+    }
+
+    .add-btn:active, .add-btn.pressing {
+      transform: scale(0.90);
+      box-shadow: 0 2px 8px rgba(3, 105, 161, 0.25);
+    }
+
+    .add-btn:disabled {
+      opacity: 0.55;
+      cursor: default;
+    }
+
+    .tap-hint {
+      font-size: 11px;
+      color: #cbd5e1;
+      margin-bottom: 18px;
+      letter-spacing: 0.04em;
+    }
+
+    /* Goal banner */
+    .goal-reached {
+      display: none;
+      background: linear-gradient(90deg, #d1fae5, #a7f3d0);
+      border-radius: 12px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #065f46;
+      margin-bottom: 14px;
+    }
+
+    .goal-reached.show { display: block; }
+
+    /* Reset button */
+    .reset-btn {
+      background: none;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 7px 18px;
+      font-size: 12px;
+      color: #94a3b8;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      touch-action: manipulation;
+    }
+
+    .reset-btn:hover { background: #f8fafc; border-color: #cbd5e1; }
+    .reset-btn:active { background: #f1f5f9; }
+
+    /* Live indicator */
+    .status {
+      margin-top: 14px;
+      font-size: 10px;
+      color: #cbd5e1;
+      min-height: 14px;
+      letter-spacing: 0.04em;
+    }
+
+    .live-dot {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #34d399;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="header-label">Today's Water</div>
+
+  <div class="count-wrap">
+    <span class="count-number" id="countEl">0</span>
+  </div>
+
+  <div class="goal-text">of <strong id="goalEl">8</strong> glasses</div>
+
+  <div class="glasses-row" id="glassRow"></div>
+
+  <div class="progress-track">
+    <div class="progress-bar" id="progressBar" style="width:0%"></div>
+  </div>
+
+  <div class="goal-reached" id="goalBanner">🎉 Daily goal reached!</div>
+
+  <button class="add-btn" id="addBtn" onclick="logGlass()" aria-label="Log a glass of water">+</button>
+  <div class="tap-hint">tap to log a glass</div>
+
+  <button class="reset-btn" onclick="resetToday()">Reset today</button>
+
+  <div class="status" id="statusEl"></div>
+</div>
+
+<script>
+  // ── CONFIGURATION ────────────────────────────────────────────────────
+  var CONNECTOR = 'water-counter-mcp';
+  var GOAL = 8;
+
+  // ── STATE ─────────────────────────────────────────────────────────────
+  var count = 0;
+  var hostReady = false;
+  var callCounter = 0;
+  var pending = {};
+
+  // ── RENDER IMMEDIATELY with defaults (mobile-safe) ───────────────────
+  renderUI(count);
+
+  // ── POSTMESSAGE BRIDGE ────────────────────────────────────────────────
+  window.addEventListener('message', function(ev) {
+    var d = ev.data || {};
+    if (d.source !== 'adas-host') return;
+    var msg = d.message;
+    if (!msg) return;
+
+    if (msg.type === 'init') {
+      hostReady = true;
+      loadLive();
+    }
+
+    if (msg.type === 'mcp-result') {
+      var reqId = msg.payload && msg.payload.requestId;
+      var cb = pending[reqId];
+      if (cb) {
+        delete pending[reqId];
+        cb.resolve(unwrap(msg.payload.result));
+      }
+    }
+  });
+
+  function unwrap(raw) {
+    if (raw && raw.content && raw.content[0] && raw.content[0].type === 'text') {
+      try { raw = JSON.parse(raw.content[0].text); } catch(e) {}
+    }
+    if (raw && raw.content && raw.content[0] && raw.content[0].type === 'text') {
+      try { raw = JSON.parse(raw.content[0].text); } catch(e) {}
+    }
+    return raw;
+  }
+
+  function mcpCall(tool, args) {
+    callCounter++;
+    var requestId = 'req_' + callCounter + '_' + callCounter * 1009;
+    return new Promise(function(resolve, reject) {
+      var timeout = setTimeout(function() {
+        delete pending[requestId];
+        reject(new Error('timeout'));
+      }, 12000);
+      pending[requestId] = {
+        resolve: function(r) { clearTimeout(timeout); resolve(r); },
+        reject:  function(e) { clearTimeout(timeout); reject(e); }
+      };
+      window.parent.postMessage({
+        source: 'adas-plugin',
+        message: {
+          action: 'mcp-call',
+          payload: {
+            requestId: requestId,
+            toolName: 'cp.fe_api',
+            args: { method: 'mcpProxy', params: { connectorId: CONNECTOR, tool: tool, args: args } }
+          }
+        }
+      }, '*');
+    });
+  }
+
+  // ── LIVE DATA ─────────────────────────────────────────────────────────
+  function loadLive() {
+    mcpCall('water.get_today', {}).then(function(data) {
+      if (data && typeof data.count === 'number') {
+        count = data.count;
+        if (data.goal) GOAL = data.goal;
+        renderUI(count);
+        setStatus('live');
+      }
+    }).catch(function() { /* silent on mobile */ });
+  }
+
+  // ── LOG A GLASS ───────────────────────────────────────────────────────
+  function logGlass() {
+    var btn = document.getElementById('addBtn');
+    btn.disabled = true;
+    btn.classList.add('pressing');
+
+    // Optimistic update
+    count++;
+    renderUI(count, true);
+
+    mcpCall('water.log', { count: 1 }).then(function(data) {
+      if (data && typeof data.count === 'number') {
+        count = data.count;
+        renderUI(count);
+      }
+      setStatus('live');
+    }).catch(function() {
+      // keep optimistic count
+    }).finally(function() {
+      btn.disabled = false;
+      btn.classList.remove('pressing');
+    });
+  }
+
+  // ── RESET ─────────────────────────────────────────────────────────────
+  function resetToday() {
+    mcpCall('water.reset_today', {}).then(function() {
+      count = 0;
+      renderUI(count);
+      setStatus('live');
+    }).catch(function() {
+      count = 0;
+      renderUI(count);
+    });
+  }
+
+  // ── RENDER ────────────────────────────────────────────────────────────
+  function renderUI(n, bump) {
+    var countEl = document.getElementById('countEl');
+    countEl.textContent = n;
+    document.getElementById('goalEl').textContent = GOAL;
+
+    if (bump) {
+      countEl.classList.add('bump');
+      setTimeout(function() { countEl.classList.remove('bump'); }, 220);
+    }
+
+    // Progress bar
+    var pct = Math.min(100, Math.round((n / GOAL) * 100));
+    document.getElementById('progressBar').style.width = pct + '%';
+
+    // Goal banner
+    var banner = document.getElementById('goalBanner');
+    if (n >= GOAL) banner.classList.add('show');
+    else           banner.classList.remove('show');
+
+    // Glass row
+    var row = document.getElementById('glassRow');
+    row.innerHTML = '';
+    for (var i = 0; i < GOAL; i++) {
+      var span = document.createElement('span');
+      span.className = 'glass' + (i < n ? ' filled' : '');
+      span.textContent = '💧';
+      row.appendChild(span);
+    }
+  }
+
+  function setStatus(state) {
+    var el = document.getElementById('statusEl');
+    if (state === 'live') {
+      el.innerHTML = '<span class="live-dot"></span>live data';
+    }
+  }
+</script>
+</body>
+</html>
