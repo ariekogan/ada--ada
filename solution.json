@@ -64,13 +64,18 @@
   ],
   "security_contracts": [],
   "linked_skills": [
-    "dice-roller"
+    "dice-roller",
+    {
+      "id": "dice-roller",
+      "skill_id": "dice-roller",
+      "name": "Dice Roller"
+    }
   ],
   "conversation": [],
   "id": "ada",
   "name": "ada",
   "created_at": "2026-07-01T13:26:27.626Z",
-  "updated_at": "2026-07-01T13:26:46.619Z",
+  "updated_at": "2026-07-01T13:27:42.333Z",
   "style": "mobile",
   "routing_mode": "manual",
   "deployed_at": "2026-07-01T13:26:46.618Z"
