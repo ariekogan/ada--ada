@@ -1565,8 +1565,8 @@
   "name": "Travel Agent",
   "solution_id": "ada",
   "id": "travel-agent",
-  "created_at": "2026-07-01T14:09:52.700Z",
-  "updated_at": "2026-07-01T14:09:52.716Z",
+  "created_at": "2026-05-14T12:32:04.820Z",
+  "updated_at": "2026-07-01T14:11:06.207Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
