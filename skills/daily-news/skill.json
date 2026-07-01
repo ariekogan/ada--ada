@@ -1903,7 +1903,7 @@
   "bootstrap_tools": [
     "news.fetch"
   ],
-  "updated_at": "2026-07-01T21:40:21.084Z",
+  "updated_at": "2026-07-01T21:40:40.545Z",
   "created_at": "2026-06-29T08:33:25.647Z",
   "validation": {
     "valid": false,
@@ -2584,9 +2584,9 @@
     }
   },
   "solution_id": "ada",
-  "lastExportedAt": "2026-07-01T14:12:41.813Z",
+  "lastExportedAt": "2026-07-01T21:40:39.730Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-07-01T14:12:44.042Z",
+  "deployedAt": "2026-07-01T21:40:40.541Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/daily-news"
 }
