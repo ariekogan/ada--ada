@@ -1878,7 +1878,7 @@
     ]
   },
   "grant_mappings": [],
-  "updated_at": "2026-07-01T19:15:29.472Z",
+  "updated_at": "2026-07-01T19:15:55.496Z",
   "created_at": "2026-05-29T07:19:42.440Z",
   "validation": {
     "valid": false,
@@ -2540,9 +2540,9 @@
     }
   },
   "solution_id": "ada",
-  "lastExportedAt": "2026-07-01T19:15:29.332Z",
+  "lastExportedAt": "2026-07-01T19:15:55.152Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-07-01T19:15:29.471Z",
+  "deployedAt": "2026-07-01T19:15:55.493Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/latvian-tutor"
 }
