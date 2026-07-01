@@ -6,7 +6,7 @@
   "phase": "PROBLEM_DISCOVERY",
   "connectors": [],
   "problem": {
-    "statement": "Reply pong when the user says ping. Throwaway test skill.",
+    "statement": "Reply pong to ping. Throwaway test skill.",
     "context": "",
     "goals": []
   },
