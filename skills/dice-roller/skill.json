@@ -116,7 +116,7 @@
   "response_filters": [],
   "solution_id": "ada",
   "created_at": "2026-07-01T13:26:31.655Z",
-  "updated_at": "2026-07-01T13:27:46.258Z",
+  "updated_at": "2026-07-01T13:27:52.068Z",
   "validation": {
     "valid": true,
     "ready_to_export": false,
@@ -140,9 +140,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-07-01T13:26:42.326Z",
+  "lastExportedAt": "2026-07-01T13:27:51.946Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-07-01T13:26:42.467Z",
+  "deployedAt": "2026-07-01T13:27:52.066Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/dice-roller"
 }
