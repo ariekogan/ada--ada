@@ -8,7 +8,15 @@
     "default_actor_type": "",
     "default_roles": []
   },
-  "skills": [],
+  "skills": [
+    {
+      "id": "ping-solution",
+      "name": "Ping Solution",
+      "role": "worker",
+      "description": "",
+      "connectors": []
+    }
+  ],
   "grants": [],
   "handoffs": [],
   "routing": {},
@@ -68,7 +76,7 @@
   "id": "ada",
   "name": "ada",
   "created_at": "2026-06-30T20:02:01.458Z",
-  "updated_at": "2026-07-01T12:25:44.761Z",
+  "updated_at": "2026-07-01T12:51:18.857Z",
   "style": "mobile",
   "routing_mode": "manual",
   "ui_plugins": [
