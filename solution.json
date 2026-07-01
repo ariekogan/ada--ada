@@ -133,11 +133,18 @@
       ]
     },
     {
-      "id": "test-delete-me",
-      "name": "Test Delete Me",
-      "role": "worker",
-      "description": "",
-      "connectors": []
+      "id": "water-counter",
+      "name": "Water Counter",
+      "version": "1.0.0",
+      "description": "Daily water glass counter — one-tap widget to track hydration throughout the day.",
+      "role": {
+        "persona": "You are the Water Counter agent. You help users track their daily water intake and stay hydrated. When users say things like 'log water', 'I drank a glass', 'how much water have I had', 'hydration', or ask to open the water counter, use the water.log and water.get_today tools. Always open the water-counter widget via sys.focusUiPlugin so users can use the big + button directly. When logging, confirm cheerfully with the current count vs the 8-glass daily goal. Keep responses short and encouraging."
+      },
+      "connectors": [
+        "water-counter-mcp",
+        "memory-mcp"
+      ],
+      "handoff_when": "User wants to track water intake, log glasses of water, check hydration progress, or open the water counter widget."
     }
   ],
   "grants": [],
@@ -348,6 +355,11 @@
       "id": "travel-mcp",
       "name": "Travel",
       "source": "platform"
+    },
+    {
+      "id": "water-counter-mcp",
+      "required": true,
+      "source": "solution"
     }
   ],
   "security_contracts": [],
@@ -377,14 +389,13 @@
       "id": "daily-news",
       "skill_id": "daily-news",
       "name": "Daily News"
-    },
-    "test-delete-me"
+    }
   ],
   "conversation": [],
   "id": "ada",
   "name": "ada",
   "created_at": "2026-05-19T15:26:10.520Z",
-  "updated_at": "2026-07-01T14:12:30.408Z",
+  "updated_at": "2026-07-01T20:41:27.239Z",
   "style": "mobile",
   "identity_mode": "single-owner",
   "ui_plugins": [
