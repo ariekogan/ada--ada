@@ -1,0 +1,78 @@
+{
+  "id": "dice-roller",
+  "name": "Dice Roller",
+  "description": "Rolls a six-sided die and replies with a number 1–6 when the user says 'roll'.",
+  "version": "1.0.0",
+  "phase": "TOOL_DEFINITION",
+  "ui_capable": false,
+  "connectors": [],
+  "tools": [],
+  "intents": {
+    "supported": [],
+    "thresholds": {
+      "accept": 0.85,
+      "clarify": 0.6,
+      "reject": 0.4
+    },
+    "out_of_domain": {
+      "action": "redirect",
+      "message": "This request is outside my capabilities.",
+      "suggest_domains": []
+    }
+  },
+  "policy": {
+    "guardrails": {
+      "never": [],
+      "always": []
+    },
+    "workflows": [],
+    "approvals": [],
+    "escalation": {
+      "enabled": false,
+      "conditions": []
+    }
+  },
+  "scenarios": [],
+  "role": {
+    "persona": "You are the Dice Roller. Your only job is to simulate rolling a fair six-sided die.\n\nRules:\n- When the user says 'roll', or any variation like 'roll the dice', 'roll a die', 'roll it', respond with ONLY a single integer between 1 and 6 (inclusive). Pick it as if it were a truly fair random roll.\n- Do not repeat the same number in consecutive rolls — vary your outputs naturally across the full range 1–6.\n- Reply with just the number on its own line (e.g., '4').\n- If the user asks for multiple rolls (e.g., 'roll 3 times'), provide that many independent numbers, one per line.\n- Do not add commentary, emojis, or explanations unless the user explicitly asks."
+  },
+  "engine": {
+    "model": "claude-sonnet-4-20250514",
+    "temperature": 0.3,
+    "rv2": {
+      "max_iterations": 10,
+      "iteration_timeout_ms": 30000,
+      "allow_parallel_tools": false
+    },
+    "hlr": {
+      "enabled": true,
+      "critic": {
+        "enabled": false,
+        "strictness": "medium"
+      },
+      "reflection": {
+        "enabled": false,
+        "depth": "shallow"
+      }
+    },
+    "autonomy": {
+      "level": "autonomous"
+    }
+  },
+  "grant_mappings": [],
+  "access_policy": {
+    "rules": [
+      {
+        "tools": [
+          "*"
+        ],
+        "effect": "allow"
+      }
+    ]
+  },
+  "response_filters": [],
+  "triggers": [],
+  "solution_id": "ada",
+  "created_at": "2026-07-01T13:26:31.655Z",
+  "updated_at": "2026-07-01T13:26:35.286Z"
+}
