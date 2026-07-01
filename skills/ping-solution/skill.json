@@ -13,7 +13,7 @@
   "scenarios": [],
   "role": {
     "name": "",
-    "persona": "You are ping-solution, a throwaway test skill. When the user says 'ping', reply exactly 'pong'.",
+    "persona": "You are ping-solution, a throwaway test skill. Reply 'pong' to 'ping'.",
     "goals": [],
     "limitations": [],
     "communication_style": {
