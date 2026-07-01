@@ -19,17 +19,17 @@ Situation-aware personal assistant with proactive intelligence.
 
 ## 2. Skills
 
-- **life-manager** _(worker)_ — 
-- **travel-agent** _(worker)_ — 
+- **notification-triage** _(worker)_ — 
 - **mycoach** _(worker)_ — 
 - **messaging-agent** _(worker)_ — 
 - **daily-intel** _(worker)_ — 
-- **home-control** _(worker)_ — 
-- **notification-triage** _(worker)_ — 
-- **latvian-tutor** _(worker)_ — 
 - **my-docs** _(worker)_ — 
-- **teach-this** _(worker)_ — 
+- **latvian-tutor** _(worker)_ — 
+- **travel-agent** _(worker)_ — 
 - **memory-keeper** _(worker)_ — 
+- **teach-this** _(worker)_ — 
+- **life-manager** _(worker)_ — 
+- **home-control** _(worker)_ — 
 
 ---
 
@@ -84,17 +84,17 @@ Situation-aware personal assistant with proactive intelligence.
 ```
 solution.json                    # full solution definition
 skills/
-  life-manager/skill.json
-  travel-agent/skill.json
+  notification-triage/skill.json
   mycoach/skill.json
   messaging-agent/skill.json
   daily-intel/skill.json
-  home-control/skill.json
-  notification-triage/skill.json
-  latvian-tutor/skill.json
   my-docs/skill.json
-  teach-this/skill.json
+  latvian-tutor/skill.json
+  travel-agent/skill.json
   memory-keeper/skill.json
+  teach-this/skill.json
+  life-manager/skill.json
+  home-control/skill.json
 connectors/                      # solution connectors (stdio MCPs)
   _(no solution connectors)_
 .ateam/export.json               # auto-generated deploy bundle (don't hand-edit)
