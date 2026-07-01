@@ -19,38 +19,28 @@ Situation-aware personal assistant with proactive intelligence.
 
 ## 2. Skills
 
-- **coin-flip** _(worker)_ — 
-- **teach-this** _(worker)_ — 
-- **notification-triage** _(worker)_ — 
-- **skill-factory-builder** _(worker)_ — 
+- **dice-roller** _(worker)_ — 
 
 ---
 
 ## 3. Connectors
 
 **Platform connectors** (shared infrastructure, not in this repo):
-  - `handoff-controller-mcp`
-  - `memory-mcp`
-  - `docs-index-mcp`
-  - `browser-mcp`
-  - `gmail-mcp`
-  - `whatsapp-mcp`
-  - `telegram-mcp`
-  - `mobile-device-mcp`
-  - `travel-mcp`
+  - `coach-mcp`
+  - `daily-news-mcp`
+  - `google-home-mcp`
+  - `home-assistant-mcp`
+  - `hue-mcp`
   - `nutrition-mcp`
-  - `cloud-docs`
+  - `personal-assistant-ui-mcp`
+  - `tuya-mcp`
 
 
 ---
 
 ## 4. UI plugins
 
-- **Browser View** (`mcp:browser-mcp:browser-view`, iframe)
-- **Auth WebView** (`mcp:browser-mcp:auth-webview`, adaptive)
-- **WhatsApp Setup** (`mcp:whatsapp-mcp:whatsapp-setup`, adaptive)
-- **Nutrition** (`mcp:nutrition-mcp:nutrition-dashboard`, adaptive)
-- **Meal Camera** (`mcp:nutrition-mcp:nutrition-camera`, adaptive)
+_(none)_
 
 ---
 
@@ -59,10 +49,7 @@ Situation-aware personal assistant with proactive intelligence.
 ```
 solution.json                    # full solution definition
 skills/
-  coin-flip/skill.json
-  teach-this/skill.json
-  notification-triage/skill.json
-  skill-factory-builder/skill.json
+  dice-roller/skill.json
 connectors/                      # solution connectors (stdio MCPs)
   _(no solution connectors)_
 .ateam/export.json               # auto-generated deploy bundle (don't hand-edit)
