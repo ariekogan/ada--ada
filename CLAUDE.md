@@ -19,28 +19,63 @@ Situation-aware personal assistant with proactive intelligence.
 
 ## 2. Skills
 
-- **dice-roller** _(worker)_ — 
+- **life-manager** _(worker)_ — 
+- **travel-agent** _(worker)_ — 
+- **mycoach** _(worker)_ — 
+- **messaging-agent** _(worker)_ — 
+- **daily-intel** _(worker)_ — 
+- **home-control** _(worker)_ — 
+- **notification-triage** _(worker)_ — 
+- **latvian-tutor** _(worker)_ — 
+- **my-docs** _(worker)_ — 
+- **teach-this** _(worker)_ — 
+- **memory-keeper** _(worker)_ — 
 
 ---
 
 ## 3. Connectors
 
-**Platform connectors** (shared infrastructure, not in this repo):
-  - `coach-mcp`
-  - `daily-news-mcp`
-  - `google-home-mcp`
+**Solution connectors** (live in this repo under `connectors/`):
+  - `personal-assistant-ui-mcp`
   - `home-assistant-mcp`
   - `hue-mcp`
-  - `nutrition-mcp`
-  - `personal-assistant-ui-mcp`
   - `tuya-mcp`
+  - `google-home-mcp`
+  - `nutrition-mcp`
+  - `coach-mcp`
+
+**Platform connectors** (shared infrastructure, not in this repo):
+  - `memory-mcp`
+  - `pcm-mcp`
+  - `whatsapp-mcp`
+  - `handoff-controller-mcp`
+  - `mobile-device-mcp`
+  - `gmail-mcp`
+  - `browser-mcp`
+  - `docs-index-mcp`
+  - `cloud-docs`
+  - `travel-mcp`
 
 
 ---
 
 ## 4. UI plugins
 
-_(none)_
+- **Schedule** (`mcp:personal-assistant-ui-mcp:schedule-panel`, adaptive)
+- **Personal Assistant** (`mcp:personal-assistant-ui-mcp:pa-dashboard`, adaptive)
+- **Memories** (`mcp:personal-assistant-ui-mcp:memories-panel`, adaptive)
+- **Teach** (`mcp:personal-assistant-ui-mcp:teach-panel`, adaptive)
+- **Reminders** (`mcp:personal-assistant-ui-mcp:triggers-panel`, adaptive)
+- **Smart Home** (`mcp:personal-assistant-ui-mcp:home-layout-panel`, adaptive)
+- **Latvian Progress** (`mcp:personal-assistant-ui-mcp:latvian-progress`, adaptive)
+- **WhatsApp Setup** (`mcp:whatsapp-mcp:whatsapp-setup`, adaptive)
+- **Browser View** (`mcp:browser-mcp:browser-view`, iframe)
+- **Auth WebView** (`mcp:browser-mcp:auth-webview`, adaptive)
+- **Nutrition** (`mcp:nutrition-mcp:nutrition-dashboard`, adaptive)
+- **Meal Camera** (`mcp:nutrition-mcp:nutrition-camera`, adaptive)
+- **MyCoach** (`mcp:coach-mcp:coach-dashboard`, adaptive)
+- **Coach Onboarding** (`mcp:coach-mcp:coach-onboarding`, adaptive)
+- **Daily News** (`mcp:daily-news-mcp:news-dashboard`, adaptive)
 
 ---
 
@@ -49,7 +84,17 @@ _(none)_
 ```
 solution.json                    # full solution definition
 skills/
-  dice-roller/skill.json
+  life-manager/skill.json
+  travel-agent/skill.json
+  mycoach/skill.json
+  messaging-agent/skill.json
+  daily-intel/skill.json
+  home-control/skill.json
+  notification-triage/skill.json
+  latvian-tutor/skill.json
+  my-docs/skill.json
+  teach-this/skill.json
+  memory-keeper/skill.json
 connectors/                      # solution connectors (stdio MCPs)
   _(no solution connectors)_
 .ateam/export.json               # auto-generated deploy bundle (don't hand-edit)
