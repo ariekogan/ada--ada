@@ -14,13 +14,17 @@ function getToday() {
   return new Date().toISOString().slice(0, 10);
 }
 
-// The caller identity Core injects onto every tool call. actorStore needs both
-// forwarded so it can route to THIS user's private store. Missing actor → throw
-// (never pool into a shared bucket).
+// actorStore keys each store by (tenant, actor, skill). We forward:
+//   _adas_actor — the real user Core injects onto every tool call (missing → throw).
+//   _adas_skill — a STABLE namespace of OUR choosing, so the store is per-actor
+//                 per-connector regardless of which skill invoked us. (Core does
+//                 not inject _adas_skill into stdio args, and we don't want the
+//                 store to fragment across calling skills anyway.)
+const STORE_NS = 'water-counter';
 function scopeArgs(args) {
   const actor = args?._adas_actor;
   if (!actor) throw new Error('water-counter: no actor context — _adas_actor missing. Refusing to pool user data.');
-  return { _adas_actor: actor, _adas_skill: args?._adas_skill };
+  return { _adas_actor: actor, _adas_skill: STORE_NS };
 }
 
 // One round-trip helper to actorStore via the platform gateway (Bearer PAT).
