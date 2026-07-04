@@ -42,6 +42,7 @@ Situation-aware personal assistant with proactive intelligence.
   - `google-home-mcp`
   - `nutrition-mcp`
   - `coach-mcp`
+  - `travel-mcp`
 
 **Platform connectors** (shared infrastructure, not in this repo):
   - `memory-mcp`
@@ -53,7 +54,8 @@ Situation-aware personal assistant with proactive intelligence.
   - `browser-mcp`
   - `docs-index-mcp`
   - `cloud-docs`
-  - `travel-mcp`
+  - `daily-news-mcp`
+  - `water-counter-mcp`
 
 
 ---
@@ -66,13 +68,15 @@ Situation-aware personal assistant with proactive intelligence.
 - **Teach** (`mcp:personal-assistant-ui-mcp:teach-panel`, adaptive)
 - **Reminders** (`mcp:personal-assistant-ui-mcp:triggers-panel`, adaptive)
 - **Smart Home** (`mcp:personal-assistant-ui-mcp:home-layout-panel`, adaptive)
+- **Latvian Progress** (`mcp:personal-assistant-ui-mcp:latvian-progress`, adaptive)
 - **WhatsApp Setup** (`mcp:whatsapp-mcp:whatsapp-setup`, adaptive)
-- **Browser View** (`mcp:browser-mcp:browser-view`, adaptive)
+- **Browser View** (`mcp:browser-mcp:browser-view`, iframe)
 - **Auth WebView** (`mcp:browser-mcp:auth-webview`, adaptive)
-- **Nutrition** (`mcp:nutrition-mcp:nutrition-dashboard`, iframe)
-- **Meal Camera** (`mcp:nutrition-mcp:nutrition-camera`, iframe)
+- **Nutrition** (`mcp:nutrition-mcp:nutrition-dashboard`, adaptive)
+- **Meal Camera** (`mcp:nutrition-mcp:nutrition-camera`, adaptive)
 - **MyCoach** (`mcp:coach-mcp:coach-dashboard`, adaptive)
 - **Coach Onboarding** (`mcp:coach-mcp:coach-onboarding`, adaptive)
+- **Daily News** (`mcp:daily-news-mcp:news-dashboard`, adaptive)
 
 ---
 
