@@ -1,43 +1,62 @@
-const { Server } = require('@modelcontextprotocol/sdk/server/index.js');
-const { StdioServerTransport } = require('@modelcontextprotocol/sdk/server/stdio.js');
-const { CallToolRequestSchema, ListToolsRequestSchema } = require('@modelcontextprotocol/sdk/types.js');
-const fs = require('fs');
-const path = require('path');
+import { Server } from '@modelcontextprotocol/sdk/server/index.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprotocol/sdk/types.js';
+import { platform } from '@ateam-ai/sdk';
 
-const DATA_DIR = process.env.DATA_DIR || '/tmp/water-counter-data';
-const DATA_FILE = path.join(DATA_DIR, 'water-data.json');
+// Persistence — the RIGHT way: the platform actorStore.
+// Every (tenant, actor, skill) gets its OWN private SQLite db. We run raw SQL;
+// Core injects the actor, so the SQL physically cannot reach another user's
+// data. No actor_id column, no WHERE filter to forget, no '|| default' bucket.
+// Water intake is inherently per-user, so we use the default (per-actor) scope.
 const DAILY_GOAL = 8;
 
 function getToday() {
   return new Date().toISOString().slice(0, 10);
 }
 
-function loadData() {
-  try {
-    if (fs.existsSync(DATA_FILE)) {
-      return JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-    }
-  } catch (e) {
-    console.error('[water-counter] load error:', e.message);
-  }
-  return {};
+// actorStore keys each store by (tenant, actor, skill). We forward:
+//   _adas_actor — the real user Core injects onto every tool call (missing → throw).
+//   _adas_skill — a STABLE namespace of OUR choosing, so the store is per-actor
+//                 per-connector regardless of which skill invoked us. (Core does
+//                 not inject _adas_skill into stdio args, and we don't want the
+//                 store to fragment across calling skills anyway.)
+const STORE_NS = 'water-counter';
+function scopeArgs(args) {
+  const actor = args?._adas_actor;
+  if (!actor) throw new Error('water-counter: no actor context — _adas_actor missing. Refusing to pool user data.');
+  return { _adas_actor: actor, _adas_skill: STORE_NS };
 }
 
-function saveData(data) {
-  try {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-    fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), 'utf8');
-  } catch (e) {
-    console.error('[water-counter] save error:', e.message);
-  }
+// One round-trip helper to actorStore via the platform gateway (Bearer PAT).
+async function storeExec(scope, sql, params = []) {
+  const res = await platform.mcpCall('actorStore.exec', { ...scope, sql, params });
+  return parseStore(res);
+}
+async function storeQuery(scope, sql, params = []) {
+  const res = await platform.mcpCall('actorStore.query', { ...scope, sql, params });
+  return parseStore(res);
+}
+// actorStore returns { content:[{type:'text', text:'{"ok":...}'}] }.
+function parseStore(res) {
+  const text = res?.content?.[0]?.text ?? res?.structuredContent;
+  const parsed = typeof text === 'string' ? JSON.parse(text) : (text || res);
+  if (parsed && parsed.ok === false) throw new Error(`actorStore: ${parsed.error || 'unknown error'}`);
+  return parsed;
 }
 
-function getActor(req) {
-  return (
-    req.params?._meta?.headers?.['x-adas-actor'] ||
-    req.params?._meta?.['x-adas-actor'] ||
-    'default'
-  );
+// Create the table once per (actor,skill) db. Cheap IF NOT EXISTS; we track
+// which actors we've initialized in-process to skip the round-trip after that.
+const _inited = new Set();
+async function ensureTable(scope) {
+  if (_inited.has(scope._adas_actor)) return;
+  await storeExec(scope, 'CREATE TABLE IF NOT EXISTS water(date TEXT PRIMARY KEY, count INTEGER NOT NULL DEFAULT 0)');
+  _inited.add(scope._adas_actor);
+}
+
+async function getCount(scope, date) {
+  const r = await storeQuery(scope, 'SELECT count FROM water WHERE date = ?', [date]);
+  const rows = r?.rows || [];
+  return rows.length ? Number(rows[0].count) : 0;
 }
 
 const PLUGIN_MANIFEST = {
@@ -119,18 +138,41 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
 
 server.setRequestHandler(CallToolRequestSchema, async (req) => {
   const { name, arguments: args = {} } = req.params;
-  const actor = getActor(req);
-  const today = getToday();
-  const data = loadData();
 
-  if (!data[actor]) data[actor] = {};
+  // UI manifest tools are static + actor-independent — answer them before
+  // touching the store (they must work even outside a user context).
+  if (name === 'ui.listPlugins') {
+    return {
+      content: [{
+        type: 'text',
+        text: JSON.stringify({
+          plugins: [{
+            id: PLUGIN_MANIFEST.id,
+            name: PLUGIN_MANIFEST.name,
+            version: PLUGIN_MANIFEST.version,
+            description: PLUGIN_MANIFEST.description
+          }]
+        })
+      }]
+    };
+  }
+  if (name === 'ui.getPlugin') {
+    return { content: [{ type: 'text', text: JSON.stringify(PLUGIN_MANIFEST) }] };
+  }
+
+  const scope = scopeArgs(args);
+  const today = getToday();
+  await ensureTable(scope);
 
   switch (name) {
     case 'water.log': {
       const glasses = Math.max(1, Math.round(Number(args.count) || 1));
-      data[actor][today] = (data[actor][today] || 0) + glasses;
-      saveData(data);
-      const total = data[actor][today];
+      await storeExec(
+        scope,
+        'INSERT INTO water(date, count) VALUES(?, ?) ON CONFLICT(date) DO UPDATE SET count = count + ?',
+        [today, glasses, glasses]
+      );
+      const total = await getCount(scope, today);
       const pct = Math.round((total / DAILY_GOAL) * 100);
       const msg =
         total >= DAILY_GOAL
@@ -145,7 +187,7 @@ server.setRequestHandler(CallToolRequestSchema, async (req) => {
     }
 
     case 'water.get_today': {
-      const count = data[actor][today] || 0;
+      const count = await getCount(scope, today);
       return {
         content: [{
           type: 'text',
@@ -155,8 +197,11 @@ server.setRequestHandler(CallToolRequestSchema, async (req) => {
     }
 
     case 'water.reset_today': {
-      data[actor][today] = 0;
-      saveData(data);
+      await storeExec(
+        scope,
+        'INSERT INTO water(date, count) VALUES(?, 0) ON CONFLICT(date) DO UPDATE SET count = 0',
+        [today]
+      );
       return {
         content: [{
           type: 'text',
@@ -165,26 +210,6 @@ server.setRequestHandler(CallToolRequestSchema, async (req) => {
       };
     }
 
-    case 'ui.listPlugins':
-      return {
-        content: [{
-          type: 'text',
-          text: JSON.stringify({
-            plugins: [{
-              id: PLUGIN_MANIFEST.id,
-              name: PLUGIN_MANIFEST.name,
-              version: PLUGIN_MANIFEST.version,
-              description: PLUGIN_MANIFEST.description
-            }]
-          })
-        }]
-      };
-
-    case 'ui.getPlugin':
-      return {
-        content: [{ type: 'text', text: JSON.stringify(PLUGIN_MANIFEST) }]
-      };
-
     default:
       throw new Error(`Unknown tool: ${name}`);
   }
@@ -192,5 +217,5 @@ server.setRequestHandler(CallToolRequestSchema, async (req) => {
 
 const transport = new StdioServerTransport();
 server.connect(transport).then(() => {
-  console.error('[water-counter-mcp] running on stdio');
+  console.error('[water-counter-mcp] running on stdio (actorStore persistence)');
 });
