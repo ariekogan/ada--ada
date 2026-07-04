@@ -329,6 +329,10 @@ async function handle(req) {
         return ok(id, toText({ ok: true, state, message: state.days_since_join === 0 ? 'Welcome! Onboarding started.' : 'State exists already.' }));
       }
       if (name === 'coach.state.captureOnboardingAnswer') {
+        const VALID_ONBOARDING_KEYS = ['goal', 'typical_day', 'history_what_worked', 'history_what_failed', 'check_in_when', 'off_limits'];
+        if (!VALID_ONBOARDING_KEYS.includes(args.key)) {
+          return ok(id, toText({ ok: false, error: `Unknown onboarding key: "${args.key}". Valid keys are: ${VALID_ONBOARDING_KEYS.join(', ')}.` }));
+        }
         // Auto-init state if not present — make the API idempotent so the
         // LLM doesn't have to remember to call initOnboarding first.
         let cur = s.getState(actorId);
