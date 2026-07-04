@@ -2,7 +2,6 @@
   "description": "Personal AI coach — nutrition, activity, habits. Onboards → observes → calibrates → accompanies. Logs meals, tracks progress, learns the user, then proactively guides.",
   "version": "1.0.0",
   "phase": "DEPLOYED",
-  "dontProduceChips": false,
   "problem": {
     "statement": "",
     "context": "",
@@ -4017,6 +4016,7 @@
   },
   "channels": [],
   "conversation": [],
+  "dontProduceChips": false,
   "name": "MyCoach",
   "solution_id": "ada",
   "bootstrap_tools": [
@@ -4031,7 +4031,7 @@
   ],
   "id": "mycoach",
   "created_at": "2026-05-14T12:29:41.026Z",
-  "updated_at": "2026-07-03T11:16:10.882Z",
+  "updated_at": "2026-07-04T22:23:25.606Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
