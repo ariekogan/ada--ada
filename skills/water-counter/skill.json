@@ -75,7 +75,7 @@
   "id": "water-counter",
   "name": "Water Counter",
   "handoff_when": "User wants to track water intake, log glasses of water, check hydration progress, or open the water counter widget.",
-  "updated_at": "2026-07-04T22:23:39.767Z",
+  "updated_at": "2026-07-04T22:40:15.870Z",
   "created_at": "2026-07-04T21:30:57.629Z",
   "validation": {
     "valid": false,
