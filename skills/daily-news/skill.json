@@ -2,7 +2,6 @@
   "description": "Aggregates the day's top technology, AI, startup, security and science news into a clean, visual, categorized brief — on demand and every morning.",
   "version": "0.1.0",
   "phase": "DEPLOYED",
-  "dontProduceChips": false,
   "problem": {
     "statement": "Users want a single, scannable daily brief of what matters in tech and AI, delivered proactively each morning.",
     "context": "",
@@ -1887,6 +1886,7 @@
   },
   "channels": [],
   "conversation": [],
+  "dontProduceChips": false,
   "id": "daily-news",
   "name": "Daily News",
   "access_policy": {
@@ -1903,7 +1903,7 @@
   "bootstrap_tools": [
     "news.fetch"
   ],
-  "updated_at": "2026-07-01T21:46:47.218Z",
+  "updated_at": "2026-07-04T22:23:06.900Z",
   "created_at": "2026-06-29T08:33:25.647Z",
   "validation": {
     "valid": false,
