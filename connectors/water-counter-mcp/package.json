@@ -1,9 +1,11 @@
 {
   "name": "water-counter-mcp",
-  "version": "1.0.0",
-  "description": "Water intake counter MCP connector with daily tracking and UI widget",
+  "version": "1.1.0",
+  "description": "Water intake counter MCP connector with daily tracking and UI widget. Per-actor persistence via platform actorStore.",
+  "type": "module",
   "main": "server.js",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.0"
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@ateam-ai/sdk": "^1.1.0"
   }
 }
