@@ -2,7 +2,6 @@
   "description": "",
   "version": "1.1.0",
   "phase": "DEPLOYED",
-  "dontProduceChips": false,
   "problem": {
     "statement": "",
     "context": "",
@@ -1060,11 +1059,12 @@
   },
   "channels": [],
   "conversation": [],
+  "dontProduceChips": false,
   "name": "TeachThis",
   "solution_id": "ada",
   "id": "teach-this",
   "created_at": "2026-05-14T12:31:05.958Z",
-  "updated_at": "2026-07-03T11:16:38.630Z",
+  "updated_at": "2026-07-04T22:23:33.894Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
