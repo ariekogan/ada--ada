@@ -2,7 +2,6 @@
   "description": "",
   "version": "1.1.0",
   "phase": "DEPLOYED",
-  "dontProduceChips": false,
   "problem": {
     "statement": "",
     "context": "",
@@ -3615,11 +3614,12 @@
   },
   "channels": [],
   "conversation": [],
+  "dontProduceChips": false,
   "name": "Notification Triage",
   "solution_id": "ada",
   "id": "notification-triage",
   "created_at": "2026-05-14T12:28:16.200Z",
-  "updated_at": "2026-07-03T11:16:05.651Z",
+  "updated_at": "2026-07-04T22:23:28.349Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
