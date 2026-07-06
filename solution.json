@@ -277,26 +277,6 @@
       "source": "platform"
     },
     {
-      "id": "home-assistant-mcp",
-      "required": false,
-      "source": "solution"
-    },
-    {
-      "id": "hue-mcp",
-      "required": false,
-      "source": "solution"
-    },
-    {
-      "id": "tuya-mcp",
-      "required": false,
-      "source": "solution"
-    },
-    {
-      "id": "google-home-mcp",
-      "required": false,
-      "source": "solution"
-    },
-    {
       "id": "browser-mcp",
       "required": false,
       "source": "platform"
@@ -333,51 +313,27 @@
       "source": "solution",
       "description": "Unified travel search — flights (Google Flights), hotels (Booking.com), homes (Airbnb), cars (Kayak), and user bookings. Stdio solution connector; delegates scraping to platform browser-mcp. Self-registers booking + airbnb webview_cookie auth services.",
       "required": true
+    },
+    {
+      "id": "daily-news-mcp",
+      "description": "",
+      "required": true,
+      "used_by": []
+    },
+    {
+      "id": "water-counter-mcp",
+      "description": "",
+      "required": true,
+      "used_by": []
     }
   ],
   "security_contracts": [],
-  "linked_skills": [
-    {
-      "id": "my-docs",
-      "skill_id": "my-docs",
-      "name": "My Docs"
-    },
-    {
-      "id": "life-manager",
-      "skill_id": "life-manager",
-      "name": "Life Manager"
-    },
-    {
-      "id": "messaging-agent",
-      "skill_id": "messaging-agent",
-      "name": "Messaging Agent"
-    },
-    {
-      "id": "latvian-tutor",
-      "skill_id": "latvian-tutor",
-      "name": "Latvian Tutor"
-    },
-    {
-      "id": "daily-news",
-      "skill_id": "daily-news",
-      "name": "Daily News"
-    },
-    {
-      "id": "travel-agent",
-      "skill_id": "travel-agent",
-      "name": "Travel Agent"
-    },
-    {
-      "id": "water-counter",
-      "skill_id": "water-counter",
-      "name": "Water Counter"
-    }
-  ],
+  "linked_skills": [],
   "conversation": [],
   "id": "ada",
   "name": "ada",
-  "created_at": "2026-05-19T15:26:10.520Z",
-  "updated_at": "2026-07-04T21:30:51.624Z",
+  "created_at": "2026-07-04T22:39:34.097Z",
+  "updated_at": "2026-07-04T22:41:24.335Z",
   "style": "mobile",
   "identity_mode": "single-owner",
   "ui_plugins": [
@@ -989,5 +945,5 @@
       }
     }
   ],
-  "deployed_at": "2026-05-19T15:27:43.372Z"
+  "deployed_at": "2026-07-04T22:41:24.334Z"
 }
