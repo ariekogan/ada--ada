@@ -2,7 +2,6 @@
   "description": "Smart home control with multi-provider support.",
   "version": "1.1.0",
   "phase": "DEPLOYED",
-  "dontProduceChips": false,
   "problem": {
     "statement": "",
     "context": "",
@@ -2351,10 +2350,6 @@
   "meta_tools": [],
   "triggers": [],
   "connectors": [
-    "home-assistant-mcp",
-    "hue-mcp",
-    "tuya-mcp",
-    "google-home-mcp",
     "memory-mcp",
     "personal-assistant-ui-mcp"
   ],
@@ -2373,11 +2368,12 @@
   },
   "channels": [],
   "conversation": [],
+  "dontProduceChips": false,
   "name": "Home Control",
   "solution_id": "ada",
   "id": "home-control",
   "created_at": "2026-05-14T12:29:01.789Z",
-  "updated_at": "2026-07-01T21:47:27.231Z",
+  "updated_at": "2026-07-06T10:14:27.564Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -3307,9 +3303,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-07-01T21:41:14.582Z",
+  "lastExportedAt": "2026-07-06T10:14:27.477Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-07-01T21:41:16.538Z",
+  "deployedAt": "2026-07-06T10:14:27.564Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/home-control"
 }
