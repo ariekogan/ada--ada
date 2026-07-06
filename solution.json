@@ -277,26 +277,6 @@
       "source": "platform"
     },
     {
-      "id": "home-assistant-mcp",
-      "required": false,
-      "source": "solution"
-    },
-    {
-      "id": "hue-mcp",
-      "required": false,
-      "source": "solution"
-    },
-    {
-      "id": "tuya-mcp",
-      "required": false,
-      "source": "solution"
-    },
-    {
-      "id": "google-home-mcp",
-      "required": false,
-      "source": "solution"
-    },
-    {
       "id": "browser-mcp",
       "required": false,
       "source": "platform"
@@ -348,12 +328,18 @@
     }
   ],
   "security_contracts": [],
-  "linked_skills": [],
+  "linked_skills": [
+    {
+      "id": "home-control",
+      "skill_id": "home-control",
+      "name": "Home Control"
+    }
+  ],
   "conversation": [],
   "id": "ada",
   "name": "ada",
   "created_at": "2026-07-04T22:39:34.097Z",
-  "updated_at": "2026-07-04T22:41:24.335Z",
+  "updated_at": "2026-07-06T10:14:56.358Z",
   "style": "mobile",
   "identity_mode": "single-owner",
   "ui_plugins": [
