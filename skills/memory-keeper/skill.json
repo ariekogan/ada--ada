@@ -1012,7 +1012,7 @@
   "solution_id": "ada",
   "id": "memory-keeper",
   "created_at": "2026-05-14T12:26:04.468Z",
-  "updated_at": "2026-07-06T10:15:15.178Z",
+  "updated_at": "2026-07-06T10:16:25.082Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -1309,9 +1309,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-07-06T10:15:15.065Z",
+  "lastExportedAt": "2026-07-06T10:16:25.017Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-07-06T10:15:15.176Z",
+  "deployedAt": "2026-07-06T10:16:25.080Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/memory-keeper"
 }
