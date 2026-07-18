@@ -2,6 +2,7 @@
   "description": "Personal AI coach — nutrition, activity, habits. Onboards → observes → calibrates → accompanies. Logs meals, tracks progress, learns the user, then proactively guides.",
   "version": "1.0.0",
   "phase": "DEPLOYED",
+  "dontProduceChips": false,
   "problem": {
     "statement": "",
     "context": "",
@@ -4016,7 +4017,6 @@
   },
   "channels": [],
   "conversation": [],
-  "dontProduceChips": false,
   "name": "MyCoach",
   "solution_id": "ada",
   "bootstrap_tools": [
@@ -4031,7 +4031,7 @@
   ],
   "id": "mycoach",
   "created_at": "2026-05-14T12:29:41.026Z",
-  "updated_at": "2026-07-06T10:16:48.622Z",
+  "updated_at": "2026-07-18T10:31:54.992Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -5407,9 +5407,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-07-06T10:16:48.505Z",
+  "lastExportedAt": "2026-07-18T10:31:54.722Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-07-06T10:16:48.621Z",
+  "deployedAt": "2026-07-18T10:31:54.990Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/mycoach",
   "handoff_when": "User wants to log or check meals, drinks, water, calories, macros, weight, hydration; OR asks about steps, activity, workouts, exercise, fitness, walks, runs, training; OR asks for coaching/nutrition/dietitian/trainer advice; OR responds to AM/PM check-ins; OR sets/updates health and habit goals; OR asks how they are doing today/this week (progress, summaries, observations); OR responds to a proposed weekly experiment. ALWAYS prefer mycoach for anything fitness/activity/nutrition/coaching even when the phrasing mentions today (e.g. check my steps today)."
