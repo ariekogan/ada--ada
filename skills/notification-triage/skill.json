@@ -2,6 +2,7 @@
   "description": "",
   "version": "1.1.0",
   "phase": "DEPLOYED",
+  "dontProduceChips": false,
   "problem": {
     "statement": "",
     "context": "",
@@ -3614,12 +3615,11 @@
   },
   "channels": [],
   "conversation": [],
-  "dontProduceChips": false,
   "name": "Notification Triage",
   "solution_id": "ada",
   "id": "notification-triage",
   "created_at": "2026-05-14T12:28:16.200Z",
-  "updated_at": "2026-07-06T10:16:37.368Z",
+  "updated_at": "2026-07-18T10:31:27.831Z",
   "validation": {
     "valid": false,
     "ready_to_export": false,
@@ -4734,9 +4734,9 @@
       "security": true
     }
   },
-  "lastExportedAt": "2026-07-06T10:16:37.275Z",
+  "lastExportedAt": "2026-07-18T10:31:27.512Z",
   "lastExportType": "mcp-simple",
-  "deployedAt": "2026-07-06T10:16:37.367Z",
+  "deployedAt": "2026-07-18T10:31:27.820Z",
   "deployedTo": "http://adas-backend:4000",
   "mcpUri": "stdio://localhost/notification-triage"
 }
