@@ -1,0 +1,10 @@
+{
+  "id": "coach-mcp",
+  "description": "MyCoach intelligence layer — state machine (onboarding→observing→calibrating→accompanying), versioned goals, daily check-ins, nudges with engagement tracking, observations, weekly experiments. Solution-level connector.",
+  "required": true,
+  "used_by": [
+    "mycoach"
+  ],
+  "source": "solution",
+  "_platform": true
+}

@@ -1,0 +1,6 @@
+{
+  "id": "browser-mcp",
+  "required": false,
+  "source": "platform",
+  "_platform": true
+}

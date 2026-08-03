@@ -1,0 +1,6 @@
+{
+  "id": "pcm-mcp",
+  "required": false,
+  "source": "platform",
+  "_platform": true
+}

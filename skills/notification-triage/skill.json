@@ -191,7 +191,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_8fd8bbb4"
     },
     {
       "name": "device.calendar.upcoming",
@@ -217,7 +218,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_e99ba4ef"
     },
     {
       "name": "device.calendar.create",
@@ -275,7 +277,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_830e63fc"
     },
     {
       "name": "device.calendar.reschedule",
@@ -316,7 +319,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_6d94da8b"
     },
     {
       "name": "device.calendar.cancel",
@@ -345,7 +349,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_7663388a"
     },
     {
       "name": "device.contacts.search",
@@ -374,7 +379,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_9a83e539"
     },
     {
       "name": "device.contacts.get",
@@ -403,7 +409,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_fae47c27"
     },
     {
       "name": "device.contacts.birthdays",
@@ -429,7 +436,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_1f2389a3"
     },
     {
       "name": "device.contacts.lastContact",
@@ -458,7 +466,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_d1f2fc06"
     },
     {
       "name": "device.location.current",
@@ -478,7 +487,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_0678b9d2"
     },
     {
       "name": "device.weather.current",
@@ -498,7 +508,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_5be32f67"
     },
     {
       "name": "device.weather.forecast",
@@ -524,7 +535,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_8862c381"
     },
     {
       "name": "device.commute.estimate",
@@ -567,7 +579,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_533ed56f"
     },
     {
       "name": "device.battery",
@@ -587,7 +600,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_176f32cb"
     },
     {
       "name": "device.connectivity",
@@ -607,7 +621,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_26f2ea92"
     },
     {
       "name": "device.health.today",
@@ -627,7 +642,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_64bbbda5"
     },
     {
       "name": "device.health.history",
@@ -655,7 +671,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_1d632448"
     },
     {
       "name": "device.mood.today",
@@ -675,7 +692,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_95605e10"
     },
     {
       "name": "device.message.send",
@@ -709,7 +727,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_f864d592"
     },
     {
       "name": "device.notifications.list",
@@ -735,7 +754,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_bc6f15a9"
     },
     {
       "name": "device.notifications.group",
@@ -769,7 +789,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_b281771a"
     },
     {
       "name": "device.notifications.dismiss",
@@ -799,7 +820,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_8baac25c"
     },
     {
       "name": "device.dnd.get",
@@ -819,7 +841,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_859d1601"
     },
     {
       "name": "device.dnd.set",
@@ -860,7 +883,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_011f01d9"
     },
     {
       "name": "device.navigation.start",
@@ -898,7 +922,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_b82a7ac0"
     },
     {
       "name": "device.app.recent",
@@ -924,7 +949,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_3fb1c8c1"
     },
     {
       "name": "integrations.list",
@@ -944,7 +970,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_c50f1113"
     },
     {
       "name": "integrations.check",
@@ -973,7 +1000,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_8702e9f2"
     },
     {
       "name": "auth.listServices",
@@ -993,7 +1021,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_d4dbfc6b"
     },
     {
       "name": "gmail.status",
@@ -1020,7 +1049,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_5bf06926"
     },
     {
       "name": "gcal.status",
@@ -1047,7 +1077,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_16d26d45"
     },
     {
       "name": "gmail.fetch",
@@ -1090,7 +1121,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_e61390ba"
     },
     {
       "name": "gmail.read",
@@ -1126,7 +1158,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_76b5853a"
     },
     {
       "name": "gmail.send",
@@ -1225,7 +1258,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_bf3dd718"
     },
     {
       "name": "gmail.reply",
@@ -1292,7 +1326,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_d867917e"
     },
     {
       "name": "gmail.markRead",
@@ -1338,7 +1373,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_dc00eb75"
     },
     {
       "name": "gmail.trash",
@@ -1395,7 +1431,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_6ac56909"
     },
     {
       "name": "gmail.archive",
@@ -1441,7 +1478,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_3e5fd6d2"
     },
     {
       "name": "gmail.move",
@@ -1500,7 +1538,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_0705889f"
     },
     {
       "name": "gmail.labels",
@@ -1529,53 +1568,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
-    },
-    {
-      "name": "gmail.mark_read",
-      "description": "Mark one or more emails as read.",
-      "source": {
-        "type": "mcp_bridge",
-        "connection_id": "gmail-mcp",
-        "mcp_tool": "gmail.mark_read"
       },
-      "_auto_imported": true,
-      "inputSchema": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "message_ids"
-        ],
-        "properties": {
-          "message_ids": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            ],
-            "description": "Message ID(s) to mark as read"
-          },
-          "_adas_actor": {
-            "type": "string",
-            "description": "Actor ID (injected by platform)"
-          },
-          "_adas_tenant": {
-            "type": "string",
-            "description": "Tenant ID (injected by platform)"
-          }
-        }
-      },
-      "security": {
-        "classification": "internal",
-        "_auto_classified": true,
-        "_rationale": "no_pattern_matched_default_applied"
-      }
+      "id": "tool_4ee5b62a"
     },
     {
       "name": "gmail.search",
@@ -1614,7 +1608,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_9de5d1fd"
     },
     {
       "name": "gmail.get",
@@ -1650,7 +1645,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_0efeee3b"
     },
     {
       "name": "gmail.unread",
@@ -1685,7 +1681,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_96756cea"
     },
     {
       "name": "gmail.draft",
@@ -1734,7 +1731,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_dfb12ed3"
     },
     {
       "name": "gmail.thread",
@@ -1770,7 +1768,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_5ad4370a"
     },
     {
       "name": "send_email",
@@ -1835,7 +1834,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_e01c3b88"
     },
     {
       "name": "get_unseen_messages",
@@ -1870,7 +1870,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_d1c1da12"
     },
     {
       "name": "mark_as_read",
@@ -1916,7 +1917,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_28751c54"
     },
     {
       "name": "list_aliases",
@@ -1945,7 +1947,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_6ce7eddf"
     },
     {
       "name": "gmail.calendar.upcoming",
@@ -1990,7 +1993,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_eb3bad00"
     },
     {
       "name": "calendar.list_events",
@@ -2041,7 +2045,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_7d5d9aa5"
     },
     {
       "name": "calendar.create_event",
@@ -2139,7 +2144,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_f8c613a2"
     },
     {
       "name": "calendar.update_event",
@@ -2231,7 +2237,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_2c019482"
     },
     {
       "name": "calendar.delete_event",
@@ -2279,7 +2286,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_5f6e82da"
     },
     {
       "name": "gmail.cleanup",
@@ -2329,7 +2337,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_adff88e4"
     },
     {
       "name": "ui.listPlugins",
@@ -2349,7 +2358,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_56439fa9"
     },
     {
       "name": "ui.getPlugin",
@@ -2377,7 +2387,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_ec37ee84"
     },
     {
       "name": "ui.gmail_setup.connect",
@@ -2397,7 +2408,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_560218c1"
     },
     {
       "name": "gmail._storeTokens",
@@ -2443,7 +2455,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_6caa4445"
     },
     {
       "name": "gmail._consumeState",
@@ -2474,7 +2487,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_f7785e72"
     },
     {
       "name": "whatsapp.status",
@@ -2504,7 +2518,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_2b0a407a"
     },
     {
       "name": "whatsapp.setup",
@@ -2538,7 +2553,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_5a67227f"
     },
     {
       "name": "whatsapp.send",
@@ -2580,7 +2596,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_f300aa9c"
     },
     {
       "name": "whatsapp.unread",
@@ -2618,7 +2635,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_4003f1fb"
     },
     {
       "name": "whatsapp.recent",
@@ -2656,7 +2674,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_97063c88"
     },
     {
       "name": "whatsapp.search",
@@ -2697,7 +2716,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_80f6158f"
     },
     {
       "name": "ui.whatsapp_setup.connect",
@@ -2723,7 +2743,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_2bc5c954"
     },
     {
       "name": "memory.store",
@@ -2793,7 +2814,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_723654dd"
     },
     {
       "name": "memory.recall",
@@ -2847,7 +2869,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_f6f58f2b"
     },
     {
       "name": "memory.list",
@@ -2898,7 +2921,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_31efec0a"
     },
     {
       "name": "memory.update",
@@ -2945,7 +2969,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_09d7e70d"
     },
     {
       "name": "memory.delete",
@@ -2980,7 +3005,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_1066e467"
     },
     {
       "name": "memory.rules.match",
@@ -3015,7 +3041,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_26d44dcc"
     },
     {
       "name": "memory.rules.count",
@@ -3041,7 +3068,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_8753f580"
     },
     {
       "name": "context.store",
@@ -3085,7 +3113,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_93f97540"
     },
     {
       "name": "context.read",
@@ -3121,7 +3150,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_edcbffec"
     },
     {
       "name": "context.resolve",
@@ -3163,7 +3193,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_c811c207"
     },
     {
       "name": "context.clear",
@@ -3196,7 +3227,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_6305181a"
     },
     {
       "name": "memory.userProfile",
@@ -3222,7 +3254,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_300d901d"
     },
     {
       "name": "memory.userProfile.set",
@@ -3258,7 +3291,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_6f757a43"
     },
     {
       "name": "memory.semantic.search",
@@ -3301,7 +3335,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_f900f6fd"
     },
     {
       "name": "memory.explain",
@@ -3336,7 +3371,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_e5d2d935"
     },
     {
       "name": "memory.summarize",
@@ -3362,7 +3398,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_821a63ae"
     },
     {
       "name": "memory.compact",
@@ -3388,7 +3425,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_7572611a"
     },
     {
       "name": "memory.confidence",
@@ -3429,7 +3467,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_5b4902d2"
     },
     {
       "name": "memory.supersede",
@@ -3468,7 +3507,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_a9aeaa2b"
     },
     {
       "name": "memory.audit",
@@ -3504,7 +3544,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_914bc02d"
     },
     {
       "name": "memory.embed",
@@ -3536,7 +3577,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_6b9a9240"
     },
     {
       "name": "memory.extract",
@@ -3589,7 +3631,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_851db6d9"
     }
   ],
   "meta_tools": [],
@@ -3614,1129 +3657,8 @@
     }
   },
   "channels": [],
-  "conversation": [],
   "name": "Notification Triage",
-  "solution_id": "ada",
   "id": "notification-triage",
   "created_at": "2026-05-14T12:28:16.200Z",
-  "updated_at": "2026-07-29T10:49:00.283Z",
-  "validation": {
-    "valid": false,
-    "ready_to_export": false,
-    "errors": [
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[0].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[0].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[1].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[1].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[2].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[2].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[3].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[3].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[4].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[4].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[5].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[5].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[6].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[6].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[7].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[7].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[8].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[8].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[9].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[9].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[10].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[10].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[11].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[11].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[12].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[12].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[13].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[13].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[14].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[14].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[15].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[15].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[16].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[16].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[17].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[17].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[18].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[18].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[19].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[19].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[20].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[20].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[21].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[21].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[22].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[22].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[23].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[23].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[24].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[24].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[25].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[25].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[26].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[26].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[27].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[27].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[28].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[28].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[29].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[29].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[30].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[30].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[31].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[31].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[32].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[32].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[33].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[33].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[34].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[34].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[35].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[35].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[36].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[36].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[37].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[37].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[38].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[38].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[39].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[39].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[40].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[40].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[41].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[41].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[42].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[42].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[43].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[43].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[44].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[44].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[45].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[45].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[46].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[46].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[47].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[47].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[48].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[48].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[49].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[49].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[50].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[50].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[51].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[51].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[52].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[52].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[53].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[53].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[54].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[54].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[55].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[55].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[56].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[56].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[57].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[57].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[58].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[58].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[59].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[59].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[60].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[60].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[61].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[61].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[62].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[62].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[63].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[63].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[64].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[64].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[65].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[65].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[66].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[66].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[67].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[67].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[68].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[68].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[69].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[69].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[70].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[70].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[71].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[71].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[72].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[72].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[73].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[73].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[74].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[74].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[75].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[75].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[76].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[76].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[77].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[77].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[78].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[78].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[79].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[79].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[80].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[80].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[81].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[81].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[82].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[82].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[83].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[83].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[84].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[84].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[85].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[85].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[86].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[86].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[87].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[87].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[88].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[88].output",
-        "message": "Tool output is required"
-      }
-    ],
-    "warnings": [
-      {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[0]",
-        "message": "Intent \"daily_overview\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"daily_overview\", or ensure tool names relate to this intent"
-      },
-      {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[2]",
-        "message": "Intent \"communication_tasks\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"communication_tasks\", or ensure tool names relate to this intent"
-      },
-      {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[4]",
-        "message": "Intent \"web_research\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"web_research\", or ensure tool names relate to this intent"
-      }
-    ],
-    "unresolved": {
-      "tools": [],
-      "workflows": [],
-      "intents": []
-    },
-    "completeness": {
-      "problem": false,
-      "scenarios": false,
-      "role": true,
-      "intents": true,
-      "tools": false,
-      "policy": false,
-      "engine": true,
-      "mocks_tested": true,
-      "identity": false,
-      "security": true
-    }
-  },
-  "lastExportedAt": "2026-07-29T10:49:00.156Z",
-  "lastExportType": "mcp-simple",
-  "deployedAt": "2026-07-29T10:49:00.281Z",
-  "deployedTo": "http://adas-backend:4000",
-  "mcpUri": "stdio://localhost/notification-triage"
+  "updated_at": "2026-07-29T10:49:00.283Z"
 }

@@ -1,0 +1,6 @@
+{
+  "id": "cloud-docs",
+  "required": false,
+  "source": "platform",
+  "_platform": true
+}

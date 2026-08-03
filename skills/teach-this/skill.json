@@ -241,7 +241,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_054225b9"
     },
     {
       "name": "memory.recall",
@@ -295,7 +296,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_bf724a11"
     },
     {
       "name": "memory.list",
@@ -346,7 +348,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_e328d2b9"
     },
     {
       "name": "memory.update",
@@ -393,7 +396,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_8d7ec549"
     },
     {
       "name": "memory.delete",
@@ -428,7 +432,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_1f0ec85b"
     },
     {
       "name": "memory.rules.match",
@@ -463,7 +468,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_80bac83e"
     },
     {
       "name": "memory.rules.count",
@@ -489,7 +495,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_3eb68278"
     },
     {
       "name": "context.store",
@@ -533,7 +540,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_7d8b678b"
     },
     {
       "name": "context.read",
@@ -569,7 +577,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_935ef537"
     },
     {
       "name": "context.resolve",
@@ -611,7 +620,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_50ab796a"
     },
     {
       "name": "context.clear",
@@ -644,7 +654,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_95a6a90c"
     },
     {
       "name": "memory.userProfile",
@@ -670,7 +681,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_e7801c4e"
     },
     {
       "name": "memory.userProfile.set",
@@ -706,7 +718,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_6b69f6f2"
     },
     {
       "name": "memory.semantic.search",
@@ -749,7 +762,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_bf67d51a"
     },
     {
       "name": "memory.explain",
@@ -784,7 +798,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_88cac05e"
     },
     {
       "name": "memory.summarize",
@@ -810,7 +825,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_87fc40e6"
     },
     {
       "name": "memory.compact",
@@ -836,7 +852,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_d0f60869"
     },
     {
       "name": "memory.confidence",
@@ -877,7 +894,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_fe837755"
     },
     {
       "name": "memory.supersede",
@@ -916,7 +934,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_78b77309"
     },
     {
       "name": "memory.audit",
@@ -952,7 +971,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_a62b34a0"
     },
     {
       "name": "memory.embed",
@@ -984,7 +1004,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_93ce6325"
     },
     {
       "name": "memory.extract",
@@ -1037,7 +1058,8 @@
         "classification": "internal",
         "_auto_classified": true,
         "_rationale": "no_pattern_matched_default_applied"
-      }
+      },
+      "id": "tool_d7533f54"
     }
   ],
   "meta_tools": [],
@@ -1059,340 +1081,9 @@
     }
   },
   "channels": [],
-  "conversation": [],
   "name": "TeachThis",
-  "solution_id": "ada",
   "id": "teach-this",
   "created_at": "2026-05-14T12:31:05.958Z",
   "updated_at": "2026-07-29T10:49:30.051Z",
-  "validation": {
-    "valid": false,
-    "ready_to_export": false,
-    "errors": [
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[0].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[0].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[1].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[1].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[2].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[2].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[3].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[3].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[4].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[4].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[5].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[5].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[6].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[6].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[7].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[7].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[8].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[8].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[9].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[9].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[10].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[10].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[11].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[11].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[12].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[12].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[13].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[13].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[14].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[14].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[15].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[15].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[16].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[16].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[17].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[17].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[18].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[18].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[19].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[19].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[20].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[20].output",
-        "message": "Tool output is required"
-      },
-      {
-        "code": "INVALID_TOOL_INPUTS",
-        "severity": "error",
-        "path": "tools[21].inputs",
-        "message": "Tool inputs must be an array"
-      },
-      {
-        "code": "MISSING_TOOL_OUTPUT",
-        "severity": "error",
-        "path": "tools[21].output",
-        "message": "Tool output is required"
-      }
-    ],
-    "warnings": [
-      {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[0]",
-        "message": "Intent \"daily_overview\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"daily_overview\", or ensure tool names relate to this intent"
-      },
-      {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[1]",
-        "message": "Intent \"schedule_management\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"schedule_management\", or ensure tool names relate to this intent"
-      },
-      {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[2]",
-        "message": "Intent \"communication_tasks\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"communication_tasks\", or ensure tool names relate to this intent"
-      },
-      {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[3]",
-        "message": "Intent \"travel_and_location\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"travel_and_location\", or ensure tool names relate to this intent"
-      },
-      {
-        "code": "INTENT_NO_TOOLS",
-        "severity": "warning",
-        "path": "intents.supported[4]",
-        "message": "Intent \"web_research\" has no mapped workflow and no obviously related tools",
-        "suggestion": "Add maps_to_workflow, create a workflow with trigger \"web_research\", or ensure tool names relate to this intent"
-      }
-    ],
-    "unresolved": {
-      "tools": [],
-      "workflows": [],
-      "intents": []
-    },
-    "completeness": {
-      "problem": false,
-      "scenarios": false,
-      "role": true,
-      "intents": true,
-      "tools": false,
-      "policy": false,
-      "engine": true,
-      "mocks_tested": true,
-      "identity": false,
-      "security": true
-    }
-  },
-  "lastExportedAt": "2026-07-29T10:49:29.903Z",
-  "lastExportType": "mcp-simple",
-  "deployedAt": "2026-07-29T10:49:30.049Z",
-  "deployedTo": "http://adas-backend:4000",
-  "mcpUri": "stdio://localhost/teach-this",
   "cascading_issues": []
 }

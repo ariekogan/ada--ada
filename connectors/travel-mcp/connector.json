@@ -1,0 +1,8 @@
+{
+  "id": "travel-mcp",
+  "name": "Travel",
+  "source": "solution",
+  "description": "Unified travel search — flights (Google Flights), hotels (Booking.com), homes (Airbnb), cars (Kayak), and user bookings. Stdio solution connector; delegates scraping to platform browser-mcp. Self-registers booking + airbnb webview_cookie auth services.",
+  "required": true,
+  "_platform": true
+}

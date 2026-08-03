@@ -1,0 +1,6 @@
+{
+  "id": "memory-mcp",
+  "required": true,
+  "source": "platform",
+  "_platform": true
+}
